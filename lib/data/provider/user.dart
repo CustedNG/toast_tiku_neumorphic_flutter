@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:toast_tiku/core/provider_base.dart';
 import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/user_store.dart';
+import 'package:toast_tiku/data/store/user.dart';
 import 'package:toast_tiku/locator.dart';
 
 class UserProvider extends BusyProvider {

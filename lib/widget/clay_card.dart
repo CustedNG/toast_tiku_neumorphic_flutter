@@ -5,15 +5,11 @@ class ClayCard extends StatelessWidget {
   final Widget child;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
-  final NeumorphicStyle? style;  
-  
-  const ClayCard({
-    Key? key,
-    required this.child,
-    this.padding,
-    this.margin,
-    this.style
-  }) : super(key: key);
+  final NeumorphicStyle? style;
+
+  const ClayCard(
+      {Key? key, required this.child, this.padding, this.margin, this.style})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

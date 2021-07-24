@@ -15,10 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Toast题库',
       themeMode: ThemeMode.system,
       darkTheme: NeumorphicThemeData(
-        baseColor: Color.fromRGBO(17, 17, 17, 1),
-        shadowLightColor: Colors.deepPurple,
-        intensity: 0.37
-      ),
+          baseColor: Color.fromRGBO(17, 17, 17, 1),
+          shadowLightColor: Colors.deepPurple,
+          intensity: 0.37),
       home: HomePage(),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:toast_tiku/data/setting_store.dart';
-import 'package:toast_tiku/data/user_provider.dart';
-import 'package:toast_tiku/data/user_store.dart';
+import 'package:toast_tiku/data/store/history.dart';
+import 'package:toast_tiku/data/store/setting.dart';
+import 'package:toast_tiku/data/provider/user.dart';
+import 'package:toast_tiku/data/store/tiku.dart';
+import 'package:toast_tiku/data/store/user.dart';
 import 'package:toast_tiku/service/app_service.dart';
 
 GetIt locator = GetIt.instance;
@@ -22,6 +24,18 @@ Future<void> setupLocatorForStores() async {
   locator.registerSingletonAsync<UserStore>(() async {
     final store = UserStore();
     await store.init(boxName: 'user');
+    return store;
+  });
+
+  locator.registerSingletonAsync<TikuStore>(() async {
+    final store = TikuStore();
+    await store.init(boxName: 'tiku');
+    return store;
+  });
+
+  locator.registerSingletonAsync<HistoryStore>(() async {
+    final store = HistoryStore();
+    await store.init(boxName: 'history');
     return store;
   });
 }

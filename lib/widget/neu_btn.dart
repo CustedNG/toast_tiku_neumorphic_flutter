@@ -10,11 +10,11 @@ class NeuIconBtn extends StatelessWidget {
   final NeumorphicBoxShape? boxShape;
 
   const NeuIconBtn(
-      {Key? key, 
-      required this.icon, 
-      this.onTap, 
-      this.margin, 
-      this.padding, 
+      {Key? key,
+      required this.icon,
+      this.onTap,
+      this.margin,
+      this.padding,
       this.boxShape})
       : super(key: key);
 
@@ -29,8 +29,9 @@ class NeuIconBtn extends StatelessWidget {
       ),
       onPressed: onTap,
       style: NeumorphicStyle(
-          boxShape: boxShape ?? NeumorphicBoxShape.roundRect(
-              const BorderRadius.all(Radius.circular(7)))),
+          boxShape: boxShape ??
+              NeumorphicBoxShape.roundRect(
+                  const BorderRadius.all(Radius.circular(7)))),
     );
   }
 }

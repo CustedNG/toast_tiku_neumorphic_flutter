@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/app.dart';
-import 'package:toast_tiku/data/user_provider.dart';
+import 'package:toast_tiku/data/provider/user.dart';
 import 'package:toast_tiku/locator.dart';
 
 Future<void> initApp() async {

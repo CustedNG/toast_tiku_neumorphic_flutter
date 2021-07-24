@@ -7,11 +7,11 @@ class NeuText extends StatelessWidget {
   final String text;
 
   const NeuText({Key? key, this.align, required this.text}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return NeumorphicText(
-      text, 
+      text,
       textAlign: align ?? TextAlign.center,
       style: const NeumorphicStyle(color: mainColor),
     );

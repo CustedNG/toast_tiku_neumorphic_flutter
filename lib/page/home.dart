@@ -35,30 +35,28 @@ class _HomePageState extends State<HomePage> {
     final pad = media.size.width * 0.05;
     return Neumorphic(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(pad, pad + media.padding.top, pad, pad),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                NeuIconBtn(
-                  icon: Icons.people,
-                  onTap: () => showSnackBar(context, Text('1231')),
-                ),
-                const NeuText(
-                  text: 'Hi 👋🏻\nLollipopKit', 
-                  align: TextAlign.start,
-                ),
-              ],
-            ),
-            _buildTopBtn(media),
-          ],
-        )
-      ),
+          padding: EdgeInsets.fromLTRB(pad, pad + media.padding.top, pad, pad),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  NeuIconBtn(
+                    icon: Icons.people,
+                    onTap: () => showSnackBar(context, Text('1231')),
+                  ),
+                  const NeuText(
+                    text: 'Hi 👋🏻\nLollipopKit',
+                    align: TextAlign.start,
+                  ),
+                ],
+              ),
+              _buildTopBtn(media),
+            ],
+          )),
       style: const NeumorphicStyle(
-        lightSource: LightSource.top,
-        shadowLightColorEmboss: Colors.cyanAccent
-      ),
+          lightSource: LightSource.top,
+          shadowLightColorEmboss: Colors.cyanAccent),
     );
   }
 
@@ -76,9 +74,7 @@ class _HomePageState extends State<HomePage> {
               boxShape: const NeumorphicBoxShape.circle(),
               onTap: () => showSnackBar(context, Text('12')),
             ),
-            const NeuText(
-              text: '还没有已背过的科目，点击开始背题'
-            )
+            const NeuText(text: '还没有收藏的科目，点击添加')
           ],
         ),
       ),
