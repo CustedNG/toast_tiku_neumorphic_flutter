@@ -20,6 +20,8 @@ dependencies:
   hive_flutter: ^1.0.0
   flutter_neumorphic: ^3.1.0
   dio: ^4.0.0
+  simple_logger: ^1.8.1
+  after_layout: ^1.1.0
 
 
 dev_dependencies:

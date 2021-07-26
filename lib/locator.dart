@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/provider/user.dart';
@@ -14,6 +15,7 @@ void setupLocatorForServices() {
 
 void setupLocatorForProviders() {
   locator.registerSingleton(UserProvider());
+  locator.registerSingleton(TikuProvider());
 }
 
 Future<void> setupLocatorForStores() async {

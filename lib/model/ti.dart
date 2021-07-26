@@ -15,7 +15,7 @@ class Ti {
 
   List<String?>? options;
   String? question;
-  int? answer;
+  List<dynamic>? answer;
   int? type;
 
   Ti({
@@ -34,7 +34,12 @@ class Ti {
       options = arr0;
     }
     question = json["question"]?.toString();
-    answer = json["answer"]?.toInt();
+    if (json["answer"] is int) {
+      answer = [json["answer"]];
+    } else {
+      answer = json["answer"];
+    }
+
     type = json["type"]?.toInt();
   }
   Map<String, dynamic> toJson() {

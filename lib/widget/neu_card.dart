@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-class ClayCard extends StatelessWidget {
+class NeuCard extends StatelessWidget {
   final Widget child;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final NeumorphicStyle? style;
 
-  const ClayCard(
+  const NeuCard(
       {Key? key, required this.child, this.padding, this.margin, this.style})
       : super(key: key);
 
