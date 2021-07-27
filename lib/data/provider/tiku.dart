@@ -33,14 +33,16 @@ class TikuProvider extends BusyProvider {
   Future<void> refreshUnit() async {
     setBusyState(true);
     if (_tikuIndexes == null) {
-      Logger('TikuProvider').info('tiku index is null, skip getting detailed data');
+      Logger('TikuProvider')
+          .info('tiku index is null, skip getting detailed data');
       return;
     }
-    final store = locator<TikuStore>();
+    final store = await locator.getAsync<TikuStore>();
     for (var index in _tikuIndexes!) {
       for (var content in index.content!) {
         final unitData =
             await AppService().getUnitTi(index.id!, content!.data!);
+        SimpleLogger().info(content);
         store.put(index.id!, content.data!, json.encode(unitData));
       }
     }

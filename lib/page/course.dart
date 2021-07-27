@@ -61,7 +61,7 @@ class _CoursePageState extends State<CoursePage> {
 
   Widget _buildSelectCard() {
     return SizedBox(
-        height: _media.size.height * 0.848,
+        height: _media.size.height * 0.84,
         width: _media.size.width,
         child: ListView.builder(
             itemCount: widget.data.length,
@@ -87,7 +87,7 @@ class _CoursePageState extends State<CoursePage> {
               percent: 1 / total,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 NeuText(text: '选择：${data.radio!}'),
                 NeuText(text: '填空：${data.fill!}'),
@@ -98,7 +98,7 @@ class _CoursePageState extends State<CoursePage> {
         ),
       ),
       onTap: () => AppRoute(UnitQuizPage(
-        courseId: widget.data.chinese!, 
+        courseId: widget.data.id!, 
         unitFile: data.data!
       )).go(context),
     );

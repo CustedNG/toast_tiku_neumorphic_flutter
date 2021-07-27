@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
@@ -33,7 +31,7 @@ class _UnitQuizPageState extends State<UnitQuizPage> {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _store = locator<TikuStore>();
-    _tis = getTiList(_store.fetch(widget.courseId, widget.unitFile));
+    _tis = _store.fetch(widget.courseId, widget.unitFile);
   }
 
   @override
@@ -70,9 +68,6 @@ class _UnitQuizPageState extends State<UnitQuizPage> {
   }
 
   Widget _buildSelectCard() {
-    if (_tis == null) {
-      return centerLoading;
-    }
     return Text(_tis!.length.toString());
   }
 }
