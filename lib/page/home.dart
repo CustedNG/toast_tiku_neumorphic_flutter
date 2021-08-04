@@ -22,9 +22,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
-    return Container(
-      color: NeumorphicTheme.baseColor(context),
-      child: Column(
+    return Scaffold(
+      backgroundColor: NeumorphicTheme.baseColor(context),
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _buildHead(media),

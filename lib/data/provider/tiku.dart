@@ -42,7 +42,6 @@ class TikuProvider extends BusyProvider {
       for (var content in index.content!) {
         final unitData =
             await AppService().getUnitTi(index.id!, content!.data!);
-        SimpleLogger().info(content);
         store.put(index.id!, content.data!, json.encode(unitData));
       }
     }
