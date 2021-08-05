@@ -20,13 +20,41 @@ class NeuIconBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicButton(
+    return NeuBtn(
       margin: margin ?? const EdgeInsets.all(9),
       padding: padding ?? const EdgeInsets.all(9),
       child: NeumorphicIcon(
         icon,
         style: const NeumorphicStyle(color: mainColor),
       ),
+      onTap: onTap,
+      boxShape: boxShape,
+    );
+  }
+}
+
+class NeuBtn extends StatelessWidget {
+  final Widget child;
+  final Function()? onTap;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final NeumorphicBoxShape? boxShape;
+
+  const NeuBtn(
+      {Key? key,
+      required this.child,
+      this.onTap,
+      this.margin,
+      this.padding,
+      this.boxShape})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicButton(
+      margin: margin ?? const EdgeInsets.all(9),
+      padding: padding ?? const EdgeInsets.all(9),
+      child: child,
       onPressed: onTap,
       style: NeumorphicStyle(
           boxShape: boxShape ??

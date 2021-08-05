@@ -99,7 +99,8 @@ class _CoursePageState extends State<CoursePage> {
       ),
       onTap: () => AppRoute(UnitQuizPage(
         courseId: widget.data.id!, 
-        unitFile: data.data!
+        unitFile: data.data!,
+        unitName: data.title!,
       )).go(context),
     );
   }
