@@ -8,7 +8,6 @@ import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
 class UnitQuizPage extends StatefulWidget {
@@ -67,41 +66,53 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: SnappingSheet(
         controller: _sheetController,
-        child: GestureDetector(
-          onHorizontalDragEnd: (detail) =>
-              onSlide(detail.velocity.pixelsPerSecond.dx > 100),
-          child: Column(
-            children: [
-              _buildHead(),
-              _buildTiList(),
-              SizedBox(
-                height: _bottomHeight,
-              )
-            ],
-          ),
-        ),
-        grabbing: Neumorphic(
-          style: NeumorphicStyle(
-              lightSource: LightSource.bottom,
-              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
-                  topLeft: Radius.circular(17),
-                  topRight: Radius.circular(17)))),
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: _media.padding.bottom),
-              child: Neumorphic(
-                curve: Curves.easeInQuad,
-                child: SizedBox(height: 11, width: 57),
-                style: NeumorphicStyle(color: mainColor, depth: 37),
-              ),
-            ),
-          )
-        ),
-        onSheetMoved: (positionData) => setState(() {}),
+        child: _buildMain(),
+        grabbing: _buildGrab(),
         grabbingHeight: _bottomHeight,
-        sheetBelow: SnappingSheetContent(
-          child: Text('1'),
-        ),
+        sheetBelow: _buildSheet(),
+      ),
+    );
+  }
+
+  Widget _buildMain() {
+    return GestureDetector(
+      onHorizontalDragEnd: (detail) =>
+          onSlide(detail.velocity.pixelsPerSecond.dx > 100),
+      child: Column(
+        children: [
+          _buildHead(),
+          _buildTiList(),
+          SizedBox(
+            height: _bottomHeight,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGrab() {
+    return Neumorphic(
+        style: NeumorphicStyle(
+            lightSource: LightSource.bottom,
+            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
+                topLeft: Radius.circular(17), topRight: Radius.circular(17)))),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: _media.padding.bottom),
+            child: Neumorphic(
+              curve: Curves.easeInQuad,
+              child: SizedBox(height: 11, width: 57),
+              style: NeumorphicStyle(color: mainColor, depth: 37),
+            ),
+          ),
+        ));
+  }
+
+  SnappingSheetContent _buildSheet() {
+    return SnappingSheetContent(
+      child: Container(
+        child: Text('1'),
+        color: NeumorphicTheme.baseColor(context),
       ),
     );
   }
@@ -228,8 +239,16 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       ),
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
-          depth: _checkStateCurrent.contains(value) ? -10 : null),
+          color: judgeColor(value),
+          depth: _checkStateCurrent.contains(value) ? -20 : null),
     );
+  }
+
+  Color? judgeColor(int value) {
+    if (_checkStateCurrent.contains(value)) {
+      if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
+      return Colors.greenAccent;
+    }
   }
 
   void onPressed(int value) {
