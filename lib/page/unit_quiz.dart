@@ -32,7 +32,6 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   late final List<Ti>? _tis;
   late int _index;
   late final List<List<int>> _checkState;
-  late List<int> _checkStateCurrent;
   late AnimationController _controller;
   late Animation<double> _animation;
   final _titleNeuTextStyle = NeumorphicTextStyle(fontSize: 12);
@@ -56,8 +55,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _store = locator<TikuStore>();
     _tis = _store.fetch(widget.courseId, widget.unitFile);
     _index = 0;
-    _checkState = List.filled(_tis!.length, []);
-    _checkStateCurrent = [];
+    _checkState = List.generate(_tis!.length, (_) => []);
   }
 
   @override
@@ -156,7 +154,6 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   }
 
   void onSlide(bool left) {
-    _checkState[_index] = _checkStateCurrent;
     if (left) {
       if (_index > 0) {
         _index--;
@@ -172,7 +169,6 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         return;
       }
     }
-    _checkStateCurrent = _checkState[_index];
     setState(() {});
     _controller.reset();
     _controller.forward();
@@ -240,22 +236,22 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
-          depth: _checkStateCurrent.contains(value) ? -20 : null),
+          depth: _checkState[_index].contains(value) ? -20 : null),
     );
   }
 
   Color? judgeColor(int value) {
-    if (_checkStateCurrent.contains(value)) {
+    if (_checkState[_index].contains(value)) {
       if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;
     }
   }
 
   void onPressed(int value) {
-    if (_checkStateCurrent.contains(value)) {
-      _checkStateCurrent.remove(value);
+    if (_checkState[_index].contains(value)) {
+      _checkState[_index].remove(value);
     } else {
-      _checkStateCurrent.add(value);
+      _checkState[_index].add(value);
     }
     setState(() {});
   }
