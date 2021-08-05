@@ -51,7 +51,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       begin: 0.0,
       end: 1.0,
     ).animate(_controller);
-    _bottomHeight = _media.size.height * 0.05 + _media.padding.bottom;
+    _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
     _store = locator<TikuStore>();
     _tis = _store.fetch(widget.courseId, widget.unitFile);
     _index = 0;
@@ -79,10 +79,14 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       child: Column(
         children: [
           _buildHead(),
-          _buildTiList(),
           SizedBox(
-            height: _bottomHeight,
-          )
+            height: _media.size.height * 0.84 - _bottomHeight,
+            child: ListView(
+              children: [
+                _buildTiList(),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -125,7 +129,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            Container(
+            SizedBox(
               width: _media.size.width * 0.5,
               child: Column(
                 children: [
@@ -202,13 +206,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Center(
-            child: NeuText(text: ti.question!, align: TextAlign.start),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: _buildRadios(ti.options!),
-          ),
+          NeuText(text: ti.question!, align: TextAlign.start),
+          SizedBox(height: _media.size.height * 0.05),
+          ..._buildRadios(ti.options!),
         ],
       ),
     );
@@ -219,7 +219,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     var idx = 0;
     for (var option in options) {
       widgets.add(_buildRadio(idx, option!));
-      widgets.add(SizedBox(
+      widgets.add(const SizedBox(
         height: 13,
       ));
       idx++;
@@ -229,7 +229,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: Container(
+      child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),
       ),

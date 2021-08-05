@@ -19,27 +19,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
+  late final MediaQueryData _media;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _media = MediaQuery.of(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final media = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildHead(media),
-          SizedBox(height: media.size.height * 0.03),
-          _buildResumeCard(media),
-          SizedBox(height: media.size.height * 0.01),
-          _buildAllCourseCard(media),
+          _buildHead(),
+          SizedBox(height: _media.size.height * 0.03),
+          _buildResumeCard(),
+          SizedBox(height: _media.size.height * 0.01),
+          _buildAllCourseCard(),
         ],
       ),
     );
   }
 
-  Widget _buildHead(MediaQueryData media) {
+  Widget _buildHead() {
     return NeuAppBar(
-        media: media,
+        media: _media,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -55,16 +62,16 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 ),
               ],
             ),
-            _buildTopBtn(media),
+            _buildTopBtn(),
           ],
         ));
   }
 
-  Widget _buildResumeCard(MediaQueryData media) {
+  Widget _buildResumeCard() {
     return NeuCard(
       child: SizedBox(
-        width: media.size.width * 0.9 - 40,
-        height: media.size.height * 0.17,
+        width: _media.size.width * 0.9 - 40,
+        height: _media.size.height * 0.17,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -82,11 +89,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     );
   }
 
-  Widget _buildAllCourseCard(MediaQueryData media) {
+  Widget _buildAllCourseCard() {
     return NeuCard(
-      child: Container(
-        width: media.size.width * 0.9 - 40,
-        height: media.size.height * 0.17,
+      child: SizedBox(
+        width: _media.size.width * 0.9 - 40,
+        height: _media.size.height * 0.17,
         child: Center(
           child: NeumorphicText('212312412312'),
         ),
@@ -94,7 +101,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     );
   }
 
-  Widget _buildTopBtn(MediaQueryData media) {
+  Widget _buildTopBtn() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,7 +109,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         NeuIconBtn(
           icon: Icons.add,
           onTap: () => AppRoute(
-                  CoursePage(data: locator<TikuProvider>().tikuIndex!.first))
+                  CoursePage(data: locator<TikuProvider>().tikuIndex!.last))
               .go(context),
         ),
         NeuIconBtn(
