@@ -7,11 +7,11 @@ class AppService {
   static const tikuRes = 'https://v2.custed.lolli.tech/res/tiku';
   final logger = Logger('AppService');
 
-  Future<List<TikuIndex>?> getTikuIndex() async {
+  Future<TikuIndexRaw?> getTikuIndex() async {
     final resp = await Dio().get('$tikuRes/index.json');
     logger.info('get index: ${resp.statusCode}');
     if (resp.statusCode == 200) {
-      return getTikuIndexList(resp.data);
+      return TikuIndexRaw(resp.data['version'], getTikuIndexList(resp.data));
     }
   }
 

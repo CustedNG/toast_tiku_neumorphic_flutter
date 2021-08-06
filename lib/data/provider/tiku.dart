@@ -17,6 +17,7 @@ class TikuProvider extends BusyProvider {
   // index下载状态用busyState获取，unit进度用downloadProgress
   double _downloadProgress = 0;
   double get downloadProgress => _downloadProgress;
+  late String indexVersion;
 
   Future<void> loadLocalData() async {
     final store = locator<TikuStore>();
@@ -25,8 +26,13 @@ class TikuProvider extends BusyProvider {
 
   Future<void> refreshIndex() async {
     setBusyState(true);
-    final tikuIndex = await AppService().getTikuIndex();
-    _tikuIndexes = tikuIndex;
+    final tikuIndexRaw = await AppService().getTikuIndex();
+    if (tikuIndexRaw == null) {
+      print('get tiku index failed');
+      return;
+    }
+    _tikuIndexes = tikuIndexRaw.tikuIndexes;
+    indexVersion = tikuIndexRaw.version;
 
     final store = locator<TikuStore>();
     store.index.put(json.encode(_tikuIndexes));
@@ -35,12 +41,19 @@ class TikuProvider extends BusyProvider {
 
   Future<void> refreshUnit() async {
     setBusyState(true);
+    final store = await locator<TikuStore>();
+    // 如果版本相同，跳过更新
+    if (store.version.fetch() == indexVersion) {
+      setBusyState(false);
+      return;
+    }
+    // 索引数据为空，跳过更新
     if (_tikuIndexes == null) {
+      setBusyState(false);
       Logger('TikuProvider')
           .info('tiku index is null, skip getting detailed data');
       return;
     }
-    final store = await locator.getAsync<TikuStore>();
     // 获取进度百分比
     int length = _tikuIndexes!.length;
     int idx = 0;
@@ -56,6 +69,7 @@ class TikuProvider extends BusyProvider {
         notifyListeners();
       }
     }
+    store.version.put(indexVersion);
     setBusyState(false);
   }
 

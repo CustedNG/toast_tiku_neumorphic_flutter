@@ -5,6 +5,7 @@ import 'package:toast_tiku/model/ti.dart';
 
 class TikuStore extends PersistentStore<String> {
   StoreProperty<String> get index => property('index');
+  StoreProperty<String> get version => property('version');
 
   void put(String courseId, String unitFile, String jsonSource) {
     box.put('$courseId-$unitFile', jsonSource);

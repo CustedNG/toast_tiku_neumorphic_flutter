@@ -111,8 +111,15 @@ class TikuIndex {
 List<TikuIndex>? getTikuIndexList(dynamic data) {
   if (data == null) return null;
   List<TikuIndex> ts = [];
-  for (var t in data) {
+  for (var t in data['content']) {
     ts.add(TikuIndex.fromJson(t));
   }
   return ts;
+}
+
+class TikuIndexRaw {
+  String version;
+  List<TikuIndex>? tikuIndexes;
+  
+  TikuIndexRaw(this.version, this.tikuIndexes);
 }

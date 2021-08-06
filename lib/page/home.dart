@@ -17,6 +17,7 @@ import 'package:toast_tiku/widget/fade_in.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
+import 'package:toast_tiku/widget/online_img.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
 class HomePage extends StatefulWidget {
@@ -87,8 +88,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Widget _buildResumeCard() {
     return Consumer<HistoryProvider>(
       builder: (_, history, ___) {
-        return Center(
-          child: Consumer<TikuProvider>(
+        return Consumer<TikuProvider>(
             builder: (_, tiku, __) {
               Widget child = SizedBox();
               if (tiku.tikuIndex == null) {
@@ -146,6 +146,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 }
               }
               return NeuCard(
+                margin: EdgeInsets.fromLTRB(17, 7, 17, 7),
                 child: SizedBox(
                   width: _media.size.width * 0.9 - 40,
                   height: _media.size.height * 0.07,
@@ -153,41 +154,47 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 ),
               );
             },
-          ),
-        );
+          );
       },
     );
   }
 
   Widget _buildAllCourseCard() {
     return NeuCard(
+      margin: EdgeInsets.fromLTRB(17, 13, 17, 13),
       child: SizedBox(
         width: _media.size.width * 0.9 - 40,
         height: _media.size.height * 0.17,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Consumer<TikuProvider>(builder: (_, tiku, __) {
-              if (tiku.tikuIndex == null) {
-                if (tiku.isBusy) {
-                  return CircularProgressIndicator();
-                }
-                return NeuText(text: '出现期望外的错误');
-              }
-              return Hero(
-                  tag: 'home_add_btn',
-                  child: NeuIconBtn(
-                    icon: Icons.add,
-                    boxShape: const NeumorphicBoxShape.circle(),
-                    onTap: () =>
-                        AppRoute(CourseSelectPage(data: tiku.tikuIndex!))
-                            .go(context),
-                  ));
-            }),
-            const NeuText(text: '还没有收藏的科目，点击添加')
-          ],
-        ),
+        child: Consumer<TikuProvider>(builder: (_, tiku, __) {
+          if (tiku.tikuIndex == null) {
+            if (tiku.isBusy) {
+              return CircularProgressIndicator();
+            }
+            return NeuText(text: '出现期望外的错误');
+          }
+
+          return GridView.builder(
+              padding: EdgeInsets.all(0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4, //每行三列
+                  childAspectRatio: 1.0 //显示区域宽高相等
+                  ),
+              itemCount: tiku.tikuIndex!.length,
+              itemBuilder: (context, idx) {
+                return NeuBtn(
+                    padding: EdgeInsets.all(0),
+                    child: Column(
+                      children: [
+                        OnlineImage(
+                            url: 'https://blog.lolli.tech/img/logo.png'),
+                        NeuText(
+                          text: tiku.tikuIndex![idx].chinese!,
+                          textStyle: NeumorphicTextStyle(fontSize: 13),
+                        )
+                      ],
+                    ));
+              });
+        }),
       ),
     );
   }
