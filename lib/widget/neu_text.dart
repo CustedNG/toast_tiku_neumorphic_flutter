@@ -8,7 +8,8 @@ class NeuText extends StatelessWidget {
   final NeumorphicStyle? style;
   final NeumorphicTextStyle? textStyle;
 
-  const NeuText({Key? key, this.align, required this.text, this.style, this.textStyle})
+  const NeuText(
+      {Key? key, this.align, required this.text, this.style, this.textStyle})
       : super(key: key);
 
   @override

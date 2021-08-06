@@ -15,8 +15,8 @@ class NeuCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Neumorphic(
       child: child,
-      margin: margin ?? const EdgeInsets.all(9),
-      padding: padding ?? const EdgeInsets.all(11),
+      padding: margin ?? const EdgeInsets.all(9),
+      margin: padding ?? const EdgeInsets.all(11),
       style: style,
     );
   }

@@ -12,7 +12,7 @@ class HistoryProvider extends BusyProvider {
   String? _lastViewed;
 
   Future<void> loadLocalData() async {
-  final store = locator<HistoryStore>();
+    final store = locator<HistoryStore>();
     _lastViewed = store.lastViewedCourse.fetch();
   }
 

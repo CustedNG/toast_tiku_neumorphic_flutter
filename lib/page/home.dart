@@ -115,13 +115,16 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                                 NeuText(
                                     text: index.chinese!,
                                     textStyle:
-                                        NeumorphicTextStyle(fontSize: 17)),
-                                NeuText(
-                                    text: unit.title!,
-                                    style: NeumorphicStyle(
-                                        color: mainColor.withOpacity(0.8)),
-                                    textStyle:
-                                        NeumorphicTextStyle(fontSize: 11))
+                                        NeumorphicTextStyle(fontSize: 17,
+                                        fontWeight: FontWeight.bold)),
+                                Hero(
+                                    tag: 'home_resume_title',
+                                    child: NeuText(
+                                        text: unit.title!,
+                                        style: NeumorphicStyle(
+                                            color: mainColor.withOpacity(0.8)),
+                                        textStyle:
+                                            NeumorphicTextStyle(fontSize: 11))),
                               ],
                             ),
                             NeuIconBtn(
@@ -172,11 +175,15 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 }
                 return NeuText(text: '出现期望外的错误');
               }
-              return NeuIconBtn(
-                icon: Icons.add,
-                boxShape: const NeumorphicBoxShape.circle(),
-                onTap: () => AppRoute(CourseSelectPage(data: tiku.tikuIndex!)).go(context),
-              );
+              return Hero(
+                  tag: 'home_add_btn',
+                  child: NeuIconBtn(
+                    icon: Icons.add,
+                    boxShape: const NeumorphicBoxShape.circle(),
+                    onTap: () =>
+                        AppRoute(CourseSelectPage(data: tiku.tikuIndex!))
+                            .go(context),
+                  ));
             }),
             const NeuText(text: '还没有收藏的科目，点击添加')
           ],

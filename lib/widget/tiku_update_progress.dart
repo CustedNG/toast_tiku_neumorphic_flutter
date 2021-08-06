@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 
 class TikuUpdateProgress extends StatelessWidget {
-  const TikuUpdateProgress({ Key? key }) : super(key: key);
+  const TikuUpdateProgress({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

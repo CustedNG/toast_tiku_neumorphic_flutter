@@ -23,13 +23,11 @@ class CourseSelectPage extends StatefulWidget {
 
 class _CourseSelectPageState extends State<CourseSelectPage> {
   late final MediaQueryData _media;
-  late final HistoryStore _historyStore;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
-    _historyStore = locator<HistoryStore>();
   }
 
   @override
@@ -53,12 +51,17 @@ class _CourseSelectPageState extends State<CourseSelectPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
-            ),
+            Hero(
+                tag: 'home_add_btn',
+                child: NeuIconBtn(
+                  icon: Icons.arrow_back,
+                  onTap: () => Navigator.of(context).pop(),
+                )),
             NeuText(text: '选择科目'),
-            SizedBox()
+            NeuIconBtn(
+              icon: Icons.feedback,
+              onTap: () => showSnackBar(context, Text('暂未开放反馈')),
+            )
           ],
         ));
   }
@@ -69,29 +72,47 @@ class _CourseSelectPageState extends State<CourseSelectPage> {
         width: _media.size.width,
         child: ListView.builder(
             itemCount: widget.data.length,
-            itemExtent: _media.size.height * 0.2,
+            itemExtent: _media.size.height * 0.13,
             itemBuilder: (ctx, idx) {
               return _buildCardItem(idx);
             }));
   }
 
   Widget _buildCardItem(int index) {
-    final pad = _media.size.height * 0.037;
     final data = widget.data[index];
-    return GestureDetector(
-      child: NeuCard(
-        margin: EdgeInsets.fromLTRB(pad, 0, pad, pad),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            NeuText(text: data.chinese!),
-            NeuText(text: '共${data.content!.length}章节')
-          ],
-        ),
+    final pad = _media.size.width * 0.06;
+    return NeuCard(
+      padding: EdgeInsets.only(left: pad, right: pad, bottom: pad),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              NeuText(text: data.chinese!, textStyle: NeumorphicTextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold
+              ),),
+              NeuText(text: '共${data.content!.length}章节', textStyle: NeumorphicTextStyle(
+                fontSize: 11
+              ),)
+            ],
+          ),
+          Row(
+            children: [
+              NeuIconBtn(
+                margin: EdgeInsets.all(3),
+                icon: Icons.favorite,
+              ),
+              NeuIconBtn(
+                margin: EdgeInsets.all(3),
+                icon: Icons.send,
+              )
+            ],
+          )
+        ],
       ),
-      onTap: () => AppRoute(CoursePage(
-        data: data,
-      )).go(context),
     );
   }
 }

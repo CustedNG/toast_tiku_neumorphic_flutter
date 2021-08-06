@@ -8,6 +8,7 @@ import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
+import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
@@ -112,7 +113,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
             child: Neumorphic(
               curve: Curves.easeInQuad,
               child: SizedBox(height: 10, width: 57),
-              style: NeumorphicStyle(color: Colors.white12, depth: 37),
+              style: NeumorphicStyle(color: mainColor, depth: 37),
             ),
           ),
         ));
@@ -141,7 +142,11 @@ class _UnitQuizPageState extends State<UnitQuizPage>
               width: _media.size.width * 0.5,
               child: Column(
                 children: [
-                  NeuText(text: widget.unitName, textStyle: _titleNeuTextStyle),
+                  Hero(
+                    tag: 'home_resume_title',
+                    child: NeuText(
+                        text: widget.unitName, textStyle: _titleNeuTextStyle),
+                  ),
                   NeuText(
                       text:
                           '${(100 * (_index / _tis!.length)).toStringAsFixed(0)}%',

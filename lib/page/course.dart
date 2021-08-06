@@ -88,7 +88,8 @@ class _CoursePageState extends State<CoursePage> {
             NeuText(text: data.title!),
             NeumorphicProgress(
               height: _media.size.height * 0.017,
-              percent: _historyStore.fetch(widget.data.id!, data.data!).length / total,
+              percent: _historyStore.fetch(widget.data.id!, data.data!).length /
+                  total,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -102,7 +103,7 @@ class _CoursePageState extends State<CoursePage> {
         ),
       ),
       onTap: () => AppRoute(UnitQuizPage(
-        courseId: widget.data.id!, 
+        courseId: widget.data.id!,
         unitFile: data.data!,
         unitName: data.title!,
       )).go(context),
