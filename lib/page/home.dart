@@ -11,10 +11,11 @@ import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/course.dart';
-import 'package:toast_tiku/page/course_select.dart';
+import 'package:toast_tiku/page/setting.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
 import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/res/color.dart';
+import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/fade_in.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
@@ -75,8 +76,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             Row(
               children: [
                 NeuIconBtn(
-                  icon: Icons.manage_accounts_outlined,
-                  onTap: () => showSnackBar(context, Text('1231')),
+                  icon: Icons.settings,
+                  onTap: () => AppRoute(SettingPage()).go(context),
                 ),
                 const NeuText(
                   text: 'Hi 👋🏻\nLollipopKit',
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               NeuText(
-                                  text: index.chinese!,
+                                  text: '继续 · ' + index.chinese!,
                                   textStyle: NeumorphicTextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold)),
@@ -132,7 +133,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                             ],
                           ),
                           NeuIconBtn(
-                            icon: Icons.play_arrow_outlined,
+                            icon: Icons.arrow_forward,
                             margin: EdgeInsets.all(5),
                             padding: EdgeInsets.all(7),
                             onTap: () => AppRoute(UnitQuizPage(
@@ -168,7 +169,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       margin: EdgeInsets.fromLTRB(17, 13, 17, 13),
       child: SizedBox(
         width: _media.size.width * 0.9 - 40,
-        height: _media.size.height * 0.17,
+        height: _media.size.height * 0.2,
         child: Consumer<TikuProvider>(builder: (_, tiku, __) {
           if (tiku.tikuIndex == null) {
             if (tiku.isBusy) {
@@ -179,24 +180,25 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
           return GridView.builder(
               padding: EdgeInsets.all(0),
+              physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, //每行三列
-                  childAspectRatio: 1.0 //显示区域宽高相等
-                  ),
+                  crossAxisCount: 4, childAspectRatio: 1.0),
               itemCount: tiku.tikuIndex!.length,
               itemBuilder: (context, idx) {
-                return NeuBtn(
-                    padding: EdgeInsets.all(0),
-                    child: Column(
-                      children: [
-                        OnlineImage(
-                            url: 'https://blog.lolli.tech/img/logo.png'),
-                        NeuText(
-                          text: tiku.tikuIndex![idx].chinese!,
-                          textStyle: NeumorphicTextStyle(fontSize: 13),
-                        )
-                      ],
-                    ));
+                final item = tiku.tikuIndex![idx];
+                return Column(mainAxisSize: MainAxisSize.min, children: [
+                  NeuBtn(
+                      padding: EdgeInsets.all(0),
+                      onTap: () => AppRoute(CoursePage(data: item)).go(context),
+                      child: SizedBox(
+                          width: (_media.size.width * 0.9 - 40) / 7.7,
+                          child: OnlineImage(
+                              url: '$courseImgUrl/${item.id}.png'))),
+                  NeuText(
+                    text: item.chinese!,
+                    textStyle: NeumorphicTextStyle(fontSize: 11),
+                  )
+                ]);
               });
         }),
       ),
@@ -209,7 +211,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         NeuIconBtn(
-          icon: Icons.favorite_outline,
+          icon: Icons.favorite,
           onTap: () => showSnackBar(context, Text('进入收藏夹')),
         ),
         NeuIconBtn(
@@ -228,10 +230,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 filter: (ti) => [
                       ti.question,
                     ],
-                builder: (ti) => ListTile(
-                      title: NeuText(text: ti.question!, align: TextAlign.start),
-                      trailing: NeuText(text: ti.typeChinese),
-                    ),
+                builder: (ti) => _buildSearchResult(ti),
                 searchStyle: TextStyle(color: mainColor)),
           ),
         ),
@@ -239,16 +238,85 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     );
   }
 
+  Widget _buildSearchResult(Ti ti) {
+    switch (ti.type) {
+      case 0:
+      case 1:
+      case 3:
+        return ListTile(
+          title: NeuText(text: ti.question!, align: TextAlign.start),
+          subtitle: NeuText(
+              text: _buildOption(ti.options ?? []) + _buildAnswer(ti),
+              align: TextAlign.start),
+          trailing: NeuText(text: ti.typeChinese, align: TextAlign.start),
+        );
+      case 2:
+        return ListTile(
+          title: NeuText(text: ti.question!, align: TextAlign.start),
+          subtitle: NeuText(
+              text: _buildOption(ti.answer!) + _buildAnswer(ti),
+              align: TextAlign.start),
+          trailing: NeuText(text: ti.typeChinese, align: TextAlign.start),
+        );
+      default:
+        return SizedBox();
+    }
+  }
+
+  String _buildOption(List option) {
+    switch (option.length) {
+      case 2:
+        return option.join('\n') + '\n';
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+        int idx = 0;
+        String result = '';
+        for (var item in option) {
+          result += String.fromCharCode(65 + idx++) + '.$item\n';
+        }
+        return result;
+      default:
+        return '';
+    }
+  }
+
+  String _buildAnswer(Ti ti) {
+    final seperator = '\n\n';
+    final answer = '\n答案：';
+    switch (ti.type) {
+      case 3:
+        if (ti.options == null) {
+          return '$answer${ti.answer![0] == 0 ? "对" : "错"}$seperator';
+        }
+        return '$answer${ti.options![ti.answer![0]]}$seperator';
+      case 2:
+        return '$answer${ti.answer!.join(",")}$seperator';
+      case 0:
+      case 1:
+        final answers = <String>[];
+        for (var item in ti.answer!) {
+          if (item is int) {
+            answers.add(String.fromCharCode(65 + item));
+          }
+        }
+        return '$answer' + answers.join(',') + seperator;
+      default:
+        return '无法解析答案';
+    }
+  }
+
   List<Ti> getAllTi() {
     final tiku = context.read<TikuProvider>();
     final store = locator<TikuStore>();
     if (tiku.tikuIndex == null) {
-      return [];
+      return <Ti>[];
     }
     final tis = <Ti>[];
     for (var item in tiku.tikuIndex!) {
       for (var unit in item.content!) {
-        tis.addAll(store.fetch(item.id!, unit!.data!)!.reversed);
+        tis.addAll(store.fetch(item.id!, unit!.data!)!);
       }
     }
     return tis;

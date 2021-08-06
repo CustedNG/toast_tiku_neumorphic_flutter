@@ -87,27 +87,26 @@ class SearchPage<T> extends SearchDelegate<T?> {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
-          textTheme: Theme.of(context).textTheme.copyWith(
-                headline6: TextStyle(
-                  color: mainColor,
-                  fontSize: 20,
-                ),
+        textTheme: Theme.of(context).textTheme.copyWith(
+              headline6: TextStyle(
+                color: mainColor,
+                fontSize: 20,
               ),
-              brightness: Brightness.dark,
-          inputDecorationTheme: InputDecorationTheme(
-            hintStyle: TextStyle(
-              color: mainColor,
-              fontSize: 20,
             ),
-            focusedErrorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            border: InputBorder.none,
+        brightness: Brightness.dark,
+        inputDecorationTheme: InputDecorationTheme(
+          hintStyle: TextStyle(
+            color: mainColor,
+            fontSize: 20,
           ),
-          primaryColor: NeumorphicTheme.baseColor(context)
-        );
+          focusedErrorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          border: InputBorder.none,
+        ),
+        primaryColor: NeumorphicTheme.baseColor(context));
   }
 
   @override

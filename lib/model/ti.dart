@@ -13,7 +13,7 @@ class Ti {
 } 
 */
 
-  List<String?>? options;
+  List<String>? options;
   String? question;
   List<dynamic>? answer;
   int? type;

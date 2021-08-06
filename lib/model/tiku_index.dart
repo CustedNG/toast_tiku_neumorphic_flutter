@@ -120,6 +120,6 @@ List<TikuIndex>? getTikuIndexList(dynamic data) {
 class TikuIndexRaw {
   String version;
   List<TikuIndex>? tikuIndexes;
-  
+
   TikuIndexRaw(this.version, this.tikuIndexes);
 }

@@ -81,7 +81,7 @@ class _CoursePageState extends State<CoursePage> {
     final total = data!.radio! + data.radio! + data.radio!;
     return GestureDetector(
       child: NeuCard(
-        margin: EdgeInsets.fromLTRB(pad, 0, pad, pad),
+        padding: EdgeInsets.fromLTRB(pad, 0, pad, pad),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

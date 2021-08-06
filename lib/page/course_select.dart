@@ -90,13 +90,15 @@ class _CourseSelectPageState extends State<CourseSelectPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              NeuText(text: data.chinese!, textStyle: NeumorphicTextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold
-              ),),
-              NeuText(text: '共${data.content!.length}章节', textStyle: NeumorphicTextStyle(
-                fontSize: 11
-              ),)
+              NeuText(
+                text: data.chinese!,
+                textStyle: NeumorphicTextStyle(
+                    fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              NeuText(
+                text: '共${data.content!.length}章节',
+                textStyle: NeumorphicTextStyle(fontSize: 11),
+              )
             ],
           ),
           Row(
