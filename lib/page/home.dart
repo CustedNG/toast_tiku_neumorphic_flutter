@@ -4,9 +4,12 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
+import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/course.dart';
 import 'package:toast_tiku/page/course_select.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
@@ -18,6 +21,7 @@ import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/online_img.dart';
+import 'package:toast_tiku/widget/search.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
 class HomePage extends StatefulWidget {
@@ -89,72 +93,72 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     return Consumer<HistoryProvider>(
       builder: (_, history, ___) {
         return Consumer<TikuProvider>(
-            builder: (_, tiku, __) {
-              Widget child = SizedBox();
-              if (tiku.tikuIndex == null) {
-                if (tiku.isBusy) {
-                  child = NeuText(text: '题库正在初始化，请稍等');
-                } else {
-                  child = NeuText(text: '未能获取到题库索引数据');
-                }
+          builder: (_, tiku, __) {
+            Widget child = SizedBox();
+            if (tiku.tikuIndex == null) {
+              if (tiku.isBusy) {
+                child = NeuText(text: '题库正在初始化，请稍等');
               } else {
-                for (var index in tiku.tikuIndex!) {
-                  // 根据用户年级推荐科目，不固定为毛概
-                  var historyData = history.lastViewed ?? 'maogai-1.json';
-                  var historySplit = historyData.split('-');
-                  if (index.id == historySplit[0]) {
-                    for (var unit in index.content!) {
-                      if (unit!.data == historySplit[1]) {
-                        child = Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                NeuText(
-                                    text: index.chinese!,
-                                    textStyle:
-                                        NeumorphicTextStyle(fontSize: 17,
-                                        fontWeight: FontWeight.bold)),
-                                Hero(
-                                    tag: 'home_resume_title',
-                                    child: NeuText(
-                                        text: unit.title!,
-                                        style: NeumorphicStyle(
-                                            color: mainColor.withOpacity(0.8)),
-                                        textStyle:
-                                            NeumorphicTextStyle(fontSize: 11))),
-                              ],
-                            ),
-                            NeuIconBtn(
-                              icon: Icons.play_arrow_outlined,
-                              margin: EdgeInsets.all(5),
-                              padding: EdgeInsets.all(7),
-                              onTap: () => AppRoute(UnitQuizPage(
-                                      courseId: historySplit[0],
-                                      unitFile: historySplit[1],
-                                      unitName: unit.title!))
-                                  .go(context),
-                            )
-                          ],
-                        );
-                        break;
-                      }
+                child = NeuText(text: '未能获取到题库索引数据');
+              }
+            } else {
+              for (var index in tiku.tikuIndex!) {
+                // 根据用户年级推荐科目，不固定为毛概
+                var historyData = history.lastViewed ?? 'maogai-1.json';
+                var historySplit = historyData.split('-');
+                if (index.id == historySplit[0]) {
+                  for (var unit in index.content!) {
+                    if (unit!.data == historySplit[1]) {
+                      child = Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              NeuText(
+                                  text: index.chinese!,
+                                  textStyle: NeumorphicTextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold)),
+                              Hero(
+                                  tag: 'home_resume_title',
+                                  child: NeuText(
+                                      text: unit.title!,
+                                      style: NeumorphicStyle(
+                                          color: mainColor.withOpacity(0.8)),
+                                      textStyle:
+                                          NeumorphicTextStyle(fontSize: 11))),
+                            ],
+                          ),
+                          NeuIconBtn(
+                            icon: Icons.play_arrow_outlined,
+                            margin: EdgeInsets.all(5),
+                            padding: EdgeInsets.all(7),
+                            onTap: () => AppRoute(UnitQuizPage(
+                                    courseId: historySplit[0],
+                                    unitFile: historySplit[1],
+                                    unitName: unit.title!))
+                                .go(context),
+                          )
+                        ],
+                      );
+                      break;
                     }
                   }
                 }
               }
-              return NeuCard(
-                margin: EdgeInsets.fromLTRB(17, 7, 17, 7),
-                child: SizedBox(
-                  width: _media.size.width * 0.9 - 40,
-                  height: _media.size.height * 0.07,
-                  child: child,
-                ),
-              );
-            },
-          );
+            }
+            return NeuCard(
+              margin: EdgeInsets.fromLTRB(17, 7, 17, 7),
+              child: SizedBox(
+                width: _media.size.width * 0.9 - 40,
+                height: _media.size.height * 0.07,
+                child: child,
+              ),
+            );
+          },
+        );
       },
     );
   }
@@ -210,10 +214,44 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         ),
         NeuIconBtn(
           icon: Icons.search,
-          onTap: () => NeumorphicTheme.of(context)!.themeMode = ThemeMode.dark,
+          onTap: () => showSearch(
+            context: context,
+            delegate: SearchPage<Ti>(
+                items: getAllTi(),
+                searchLabel: '搜索题目',
+                suggestion: Center(
+                  child: NeuText(text: '通过题目来搜索'),
+                ),
+                failure: Center(
+                  child: NeuText(text: '未找到相关题目 :('),
+                ),
+                filter: (ti) => [
+                      ti.question,
+                    ],
+                builder: (ti) => ListTile(
+                      title: NeuText(text: ti.question!, align: TextAlign.start),
+                      trailing: NeuText(text: ti.typeChinese),
+                    ),
+                searchStyle: TextStyle(color: mainColor)),
+          ),
         ),
       ],
     );
+  }
+
+  List<Ti> getAllTi() {
+    final tiku = context.read<TikuProvider>();
+    final store = locator<TikuStore>();
+    if (tiku.tikuIndex == null) {
+      return [];
+    }
+    final tis = <Ti>[];
+    for (var item in tiku.tikuIndex!) {
+      for (var unit in item.content!) {
+        tis.addAll(store.fetch(item.id!, unit!.data!)!.reversed);
+      }
+    }
+    return tis;
   }
 
   @override
