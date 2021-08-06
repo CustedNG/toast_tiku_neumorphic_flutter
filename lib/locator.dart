@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
@@ -16,11 +17,12 @@ void setupLocatorForServices() {
 void setupLocatorForProviders() {
   locator.registerSingleton(UserProvider());
   locator.registerSingleton(TikuProvider());
+  locator.registerSingleton(HistoryProvider());
 }
 
 Future<void> setupLocatorForStores() async {
   final setting = SettingStore();
-  await setting.init();
+  await setting.init(boxName: 'setting');
   locator.registerSingleton(setting);
 
   locator.registerSingletonAsync<UserStore>(() async {
@@ -45,6 +47,5 @@ Future<void> setupLocatorForStores() async {
 Future<void> setupLocator() async {
   await setupLocatorForStores();
   setupLocatorForProviders();
-
   setupLocatorForServices();
 }

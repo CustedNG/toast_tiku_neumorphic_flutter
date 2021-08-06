@@ -24,11 +24,10 @@ class StoreProperty<T> {
   T? defaultValue;
 
   ValueListenable<T> listenable() {
-    // return _box.listenable(keys: [_key]);
     return PropertyListenable<T>(_box, _key, defaultValue);
   }
 
-  T fetch() {
+  T? fetch() {
     return _box.get(_key, defaultValue: defaultValue);
   }
 

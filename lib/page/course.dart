@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
+import 'package:toast_tiku/data/store/history.dart';
+import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
@@ -19,11 +21,13 @@ class CoursePage extends StatefulWidget {
 
 class _CoursePageState extends State<CoursePage> {
   late final MediaQueryData _media;
+  late final HistoryStore _historyStore;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
+    _historyStore = locator<HistoryStore>();
   }
 
   @override
@@ -84,7 +88,7 @@ class _CoursePageState extends State<CoursePage> {
             NeuText(text: data.title!),
             NeumorphicProgress(
               height: _media.size.height * 0.017,
-              percent: 1 / total,
+              percent: _historyStore.fetch(widget.data.id!, data.data!).length / total,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

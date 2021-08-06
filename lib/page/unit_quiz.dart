@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:toast_tiku/core/utils.dart';
+import 'package:toast_tiku/data/provider/history.dart';
+import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
-import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
@@ -28,7 +30,9 @@ class UnitQuizPage extends StatefulWidget {
 class _UnitQuizPageState extends State<UnitQuizPage>
     with SingleTickerProviderStateMixin {
   late final MediaQueryData _media;
-  late final TikuStore _store;
+  late final TikuStore _tikuStore;
+  late final HistoryStore _historyStore;
+  late final HistoryProvider _historyProvider;
   late final List<Ti>? _tis;
   late int _index;
   late final List<List<int>> _checkState;
@@ -37,6 +41,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   final _titleNeuTextStyle = NeumorphicTextStyle(fontSize: 12);
   late final SnappingSheetController _sheetController;
   late double _bottomHeight;
+  late final List<int> _historyIdx;
 
   @override
   void didChangeDependencies() {
@@ -52,10 +57,13 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       end: 1.0,
     ).animate(_controller);
     _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
-    _store = locator<TikuStore>();
-    _tis = _store.fetch(widget.courseId, widget.unitFile);
+    _tikuStore = locator<TikuStore>();
+    _historyStore = locator<HistoryStore>();
+    _historyProvider = context.read<HistoryProvider>();
+    _tis = _tikuStore.fetch(widget.courseId, widget.unitFile);
     _index = 0;
     _checkState = List.generate(_tis!.length, (_) => []);
+    _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
   }
 
   @override
@@ -103,8 +111,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
             padding: EdgeInsets.only(bottom: _media.padding.bottom),
             child: Neumorphic(
               curve: Curves.easeInQuad,
-              child: SizedBox(height: 11, width: 57),
-              style: NeumorphicStyle(color: mainColor, depth: 37),
+              child: SizedBox(height: 10, width: 57),
+              style: NeumorphicStyle(color: Colors.white12, depth: 37),
             ),
           ),
         ));
@@ -151,10 +159,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   Widget _buildTiList() {
     _controller.forward();
-    return Flexible(
-      child: FadeTransition(
-          opacity: _animation, child: _buildTiView(_tis![_index])),
-    );
+    return FadeTransition(
+        opacity: _animation, child: _buildTiView(_tis![_index]));
   }
 
   void onSlide(bool left) {
@@ -204,7 +210,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     return Padding(
       padding: EdgeInsets.all(_media.size.width * 0.07),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
@@ -248,11 +254,16 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   }
 
   void onPressed(int value) {
+    _historyProvider.setLastViewed(widget.courseId, widget.unitFile);
+    if (!_historyIdx.contains(_index)) {
+      _historyIdx.add(_index);
+    }
     if (_checkState[_index].contains(value)) {
       _checkState[_index].remove(value);
     } else {
       _checkState[_index].add(value);
     }
+    _historyStore.put(widget.courseId, widget.unitFile, _historyIdx);
     setState(() {});
   }
 }
