@@ -177,7 +177,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         return;
       }
     } else {
-      if (_index < _tis!.length) {
+      if (_index < _tis!.length - 1) {
         _index++;
       } else {
         showSnackBar(context, Text('这是最后一道'));
@@ -203,11 +203,18 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   }
 
   Widget _buildFill(Ti ti) {
-    return Column(
-      children: [
-        NeuText(text: ti.question!),
-        ...ti.answer!.map((e) => NeuText(text: e)).toList()
-      ],
+    return Padding(
+      padding: EdgeInsets.all(_media.size.width * 0.07),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          NeuText(text: ti.question!, align: TextAlign.start),
+          NeuText(text: '\n答案：', align: TextAlign.start),
+          ...ti.answer!
+              .map((e) => NeuText(text: e, align: TextAlign.start))
+              .toList()
+        ],
+      ),
     );
   }
 

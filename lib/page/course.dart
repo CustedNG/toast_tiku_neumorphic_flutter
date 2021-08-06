@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/history.dart';
@@ -67,12 +68,24 @@ class _CoursePageState extends State<CoursePage> {
     return SizedBox(
         height: _media.size.height * 0.84,
         width: _media.size.width,
-        child: ListView.builder(
+        child: AnimationLimiter(
+          child: ListView.builder(
             itemCount: widget.data.length,
             itemExtent: _media.size.height * 0.2,
-            itemBuilder: (ctx, idx) {
-              return _buildCardItem(idx);
-            }));
+            itemBuilder: (BuildContext context, int idx) {
+              return AnimationConfiguration.staggeredList(
+                position: idx,
+                duration: const Duration(milliseconds: 375),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: _buildCardItem(idx),
+                  ),
+                ),
+              );
+            },
+          ),
+        ));
   }
 
   Widget _buildCardItem(int index) {

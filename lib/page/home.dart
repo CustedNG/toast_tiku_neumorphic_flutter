@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
@@ -17,7 +18,6 @@ import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/fade_in.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
@@ -45,18 +45,27 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
-      body: FadeIn(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _buildHead(),
-          TikuUpdateProgress(),
-          SizedBox(height: _media.size.height * 0.03),
-          _buildResumeCard(),
-          SizedBox(height: _media.size.height * 0.01),
-          _buildAllCourseCard(),
-        ],
-      )),
+      body: AnimationLimiter(
+        child: Column(
+          children: AnimationConfiguration.toStaggeredList(
+            duration: const Duration(milliseconds: 777),
+            childAnimationBuilder: (widget) => SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: widget,
+              ),
+            ),
+            children: [
+              _buildHead(),
+              TikuUpdateProgress(),
+              SizedBox(height: _media.size.height * 0.03),
+              _buildResumeCard(),
+              SizedBox(height: _media.size.height * 0.01),
+              _buildAllCourseCard(),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: SizedBox(
         width: _media.size.width,
         child: NeuText(
