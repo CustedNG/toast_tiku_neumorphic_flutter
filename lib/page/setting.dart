@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({Key? key}) : super(key: key);

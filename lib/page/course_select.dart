@@ -1,12 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/store/history.dart';
-import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
-import 'package:toast_tiku/page/course.dart';
-import 'package:toast_tiku/page/unit_quiz.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
@@ -90,13 +84,15 @@ class _CourseSelectPageState extends State<CourseSelectPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              NeuText(text: data.chinese!, textStyle: NeumorphicTextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold
-              ),),
-              NeuText(text: '共${data.content!.length}章节', textStyle: NeumorphicTextStyle(
-                fontSize: 11
-              ),)
+              NeuText(
+                text: data.chinese,
+                textStyle: NeumorphicTextStyle(
+                    fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              NeuText(
+                text: '共${data.content.length}章节',
+                textStyle: NeumorphicTextStyle(fontSize: 11),
+              )
             ],
           ),
           Row(

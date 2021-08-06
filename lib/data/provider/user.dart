@@ -9,21 +9,24 @@ class UserProvider extends BusyProvider {
   final _initialized = Completer();
   Future get initialized => _initialized.future;
 
-  bool? _loggedIn = false;
-  bool? get loggedIn => _loggedIn;
-  String? _un = '';
+  late bool _loggedIn;
+  bool get loggedIn => _loggedIn;
+  late String? _un;
   String? get un => _un;
-  String? _pwd = '';
+  late String? _pwd;
   String? get pwd => _pwd;
-  String? _cookie = '';
+  late String? _cookie;
   String? get cookie => _cookie;
+  late List<String> _favorite;
+  List<String> get favorite => _favorite;
 
   Future<void> loadLocalData() async {
     final store = locator<UserStore>();
-    _loggedIn = store.loggedIn.fetch();
+    _loggedIn = store.loggedIn.fetch() ?? false;
     _un = store.username.fetch();
     _pwd = store.password.fetch();
     _cookie = store.cookie.fetch();
+    _favorite = store.favorite.fetch()!;
   }
 
   Future<void> login(un, pwd, cookies) async {

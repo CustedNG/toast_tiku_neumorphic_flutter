@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
@@ -54,7 +53,7 @@ class _CoursePageState extends State<CoursePage> {
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            NeuText(text: widget.data.chinese!),
+            NeuText(text: widget.data.chinese),
             NeuIconBtn(
               icon: Icons.favorite,
               onTap: () => showSnackBar(context, const Text('star')),
@@ -77,35 +76,35 @@ class _CoursePageState extends State<CoursePage> {
 
   Widget _buildCardItem(int index) {
     final pad = _media.size.height * 0.037;
-    final data = widget.data.content![index];
-    final total = data!.radio! + data.radio! + data.radio!;
+    final data = widget.data.content[index];
+    final total = data.radio + data.radio + data.radio;
     return GestureDetector(
       child: NeuCard(
         margin: EdgeInsets.fromLTRB(pad, 0, pad, pad),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            NeuText(text: data.title!),
+            NeuText(text: data.title),
             NeumorphicProgress(
               height: _media.size.height * 0.017,
-              percent: _historyStore.fetch(widget.data.id!, data.data!).length /
+              percent: _historyStore.fetch(widget.data.id, data.data).length /
                   total,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                NeuText(text: '选择：${data.radio!}'),
-                NeuText(text: '填空：${data.fill!}'),
-                NeuText(text: '多选：${data.multiple!}')
+                NeuText(text: '选择：${data.radio}'),
+                NeuText(text: '填空：${data.fill}'),
+                NeuText(text: '多选：${data.multiple}')
               ],
             )
           ],
         ),
       ),
       onTap: () => AppRoute(UnitQuizPage(
-        courseId: widget.data.id!,
-        unitFile: data.data!,
-        unitName: data.title!,
+        courseId: widget.data.id,
+        unitFile: data.data,
+        unitName: data.title,
       )).go(context),
     );
   }

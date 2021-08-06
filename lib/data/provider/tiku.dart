@@ -14,19 +14,24 @@ class TikuProvider extends BusyProvider {
 
   List<TikuIndex>? _tikuIndexes;
   List<TikuIndex>? get tikuIndex => _tikuIndexes;
+  String? _version;
+  String? get version => _version;
   // index下载状态用busyState获取，unit进度用downloadProgress
   double _downloadProgress = 0;
   double get downloadProgress => _downloadProgress;
 
+  TikuIndexRaw? _tikuRaw;
+
   Future<void> loadLocalData() async {
     final store = locator<TikuStore>();
     _tikuIndexes = getTikuIndexList(store.index.fetch());
+    _version = store.version.fetch();
   }
 
   Future<void> refreshIndex() async {
     setBusyState(true);
-    final tikuIndex = await AppService().getTikuIndex();
-    _tikuIndexes = tikuIndex;
+    _tikuRaw = await AppService().getTikuRaw();
+    _tikuIndexes = _tikuRaw!.content;
 
     final store = locator<TikuStore>();
     store.index.put(json.encode(_tikuIndexes));
@@ -35,23 +40,32 @@ class TikuProvider extends BusyProvider {
 
   Future<void> refreshUnit() async {
     setBusyState(true);
+    final store = await locator<TikuStore>();
+
+    // 如果题库版本相同，则不更新
+    if (_tikuRaw != null && _tikuRaw!.version != _version) {
+      await refreshUnit();
+      _version = _tikuRaw!.version;
+    }
+
+    // 索引数据缺失，跳过更新
     if (_tikuIndexes == null) {
       Logger('TikuProvider')
           .info('tiku index is null, skip getting detailed data');
       return;
     }
-    final store = await locator.getAsync<TikuStore>();
-    // 获取进度百分比
+
+    // 设置题库单元文件的进度百分比
     int length = _tikuIndexes!.length;
     int idx = 0;
     for (var index in _tikuIndexes!) {
-      length += index.content!.length;
+      length += index.content.length;
     }
     for (var index in _tikuIndexes!) {
-      for (var content in index.content!) {
-        final unitData =
-            await AppService().getUnitTi(index.id!, content!.data!);
-        store.put(index.id!, content.data!, json.encode(unitData));
+      for (var content in index.content) {
+        final unitData = await AppService().getUnitTi(index.id, content.data);
+        store.put(index.id, content.data, json.encode(unitData));
+        print(content.data);
         _downloadProgress = idx++ / length;
         notifyListeners();
       }

@@ -13,31 +13,31 @@ class TikuIndexContent {
 } 
 */
 
-  String? title;
-  int? radio;
-  int? multiple;
-  int? decide;
-  int? fill;
-  String? data;
+  late String title;
+  late int radio;
+  late int multiple;
+  late int decide;
+  late int fill;
+  late String data;
 
   TikuIndexContent({
-    this.title,
-    this.radio,
-    this.multiple,
-    this.decide,
-    this.fill,
-    this.data,
+    required this.title,
+    required this.radio,
+    required this.multiple,
+    required this.decide,
+    required this.fill,
+    required this.data,
   });
   TikuIndexContent.fromJson(Map<String, dynamic> json) {
-    title = json["title"]?.toString();
-    radio = json["radio"]?.toInt();
+    title = json["title"].toString();
+    radio = json["radio"].toInt();
     multiple = json["multiple"]?.toInt();
     decide = json["decide"]?.toInt();
     fill = json["fill"]?.toInt();
-    data = json["data"]?.toString();
+    data = json["data"].toString();
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data["title"] = title;
     data["radio"] = radio;
     data["multiple"] = multiple;
@@ -67,19 +67,19 @@ class TikuIndex {
 } 
 */
 
-  String? id;
-  int? length;
-  List<TikuIndexContent?>? content;
-  String? chinese;
+  late String id;
+  late int length;
+  late List<TikuIndexContent> content;
+  late String chinese;
 
   TikuIndex({
-    this.id,
-    this.length,
-    this.content,
-    this.chinese,
+    required this.id,
+    required this.length,
+    required this.content,
+    required this.chinese,
   });
   TikuIndex.fromJson(Map<String, dynamic> json) {
-    id = json["id"]?.toString();
+    id = json["id"].toString();
     length = json["length"]?.toInt();
     if (json["content"] != null) {
       final v = json["content"];
@@ -89,21 +89,74 @@ class TikuIndex {
       });
       content = arr0;
     }
-    chinese = json["chinese"]?.toString();
+    chinese = json["chinese"].toString();
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data["id"] = id;
     data["length"] = length;
-    if (content != null) {
-      final v = content;
-      final arr0 = [];
-      for (var v in v!) {
-        arr0.add(v!.toJson());
-      }
-      data["content"] = arr0;
-    }
+    final v = content;
+    final arr0 = [];
+    v.forEach((v) {
+      arr0.add(v.toJson());
+    });
+    data["content"] = arr0;
     data["chinese"] = chinese;
+    return data;
+  }
+}
+
+class TikuIndexRaw {
+/*
+{
+  "version": "2021.08.06",
+  "content": [
+    {
+      "id": "maogai",
+      "length": 18,
+      "content": [
+        {
+          "title": "第一章 毛泽东思想及其历史地位",
+          "radio": 30,
+          "multiple": 18,
+          "decide": 12,
+          "fill": 0,
+          "data": "1.json"
+        }
+      ],
+      "chinese": "毛概"
+    }
+  ]
+} 
+*/
+
+  late String version;
+  late List<TikuIndex> content;
+
+  TikuIndexRaw({
+    required this.version,
+    required this.content,
+  });
+  TikuIndexRaw.fromJson(Map<String, dynamic> json) {
+    version = json["version"].toString();
+    if (json["content"] != null) {
+      final v = json["content"];
+      final arr0 = <TikuIndex>[];
+      v.forEach((v) {
+        arr0.add(TikuIndex.fromJson(v));
+      });
+      content = arr0;
+    }
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data["version"] = version;
+    final v = content;
+    final arr0 = [];
+    v.forEach((v) {
+      arr0.add(v.toJson());
+    });
+    data["content"] = arr0;
     return data;
   }
 }
@@ -111,7 +164,7 @@ class TikuIndex {
 List<TikuIndex>? getTikuIndexList(dynamic data) {
   if (data == null) return null;
   List<TikuIndex> ts = [];
-  for (var t in data) {
+  for (var t in data['content']) {
     ts.add(TikuIndex.fromJson(t));
   }
   return ts;
