@@ -1,16 +1,15 @@
 # toast_tiku
 
-A new Flutter project.
+**Toast题库**的**新拟态**、**Flutter**版本.
 
-## Getting Started
+## Milestone
+- [x] 题库自动更新
+- [x] 单元测试页面：每个科目、每个单元单独的、按照顺序的测试页面
+- [ ] 科目考试页面：单个科目抽取题目，做成考试
+- [ ] 题目搜索：全局全科目题目搜索
+- [ ] 题库根据版本id，酌情更新
+- [ ] 用户系统：错题库、历史记录、云同步
+- [ ] 每日小测：随即从题库抽取当前学期科目的题目
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## License
+`Apache License 2.0`
