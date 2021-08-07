@@ -41,7 +41,6 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   late final List<List<int>> _checkState;
   late AnimationController _controller;
   late Animation<double> _animation;
-  final _titleNeuTextStyle = NeumorphicTextStyle(fontSize: 12);
   late final SnappingSheetController _sheetController;
   late double _bottomHeight;
   late final List<int> _historyIdx;
@@ -91,6 +90,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       child: Column(
         children: [
           _buildHead(),
+          _buildProgress(),
           SizedBox(
             height: _media.size.height * 0.84 - _bottomHeight,
             child: ListView(
@@ -131,6 +131,13 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     );
   }
 
+  Widget _buildProgress() {
+    return NeumorphicProgress(
+      percent: _index / _tis!.length,
+      height: 2,
+    );
+  }
+
   Widget _buildHead() {
     final ti = _tis![_index];
     bool have = _favoriteStore.have(widget.courseId, ti);
@@ -145,18 +152,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
             ),
             SizedBox(
               width: _media.size.width * 0.5,
-              child: Column(
-                children: [
-                  Hero(
-                    tag: 'home_resume_title',
-                    child: NeuText(
-                        text: widget.unitName, textStyle: _titleNeuTextStyle),
-                  ),
-                  NeuText(
-                      text:
-                          '${(100 * (_index / _tis!.length)).toStringAsFixed(0)}%',
-                      textStyle: _titleNeuTextStyle)
-                ],
+              child: Hero(
+                tag: 'home_resume_title',
+                child: NeuText(text: widget.unitName),
               ),
             ),
             NeuIconBtn(

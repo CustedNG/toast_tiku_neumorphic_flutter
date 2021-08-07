@@ -7,9 +7,7 @@ import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
@@ -24,7 +22,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   late MediaQueryData _media;
   late TikuProvider _tikuProvider;
   String? _selectedCourse;
-  List<double> _tiCount = [0, 0, 0, 0];
+  late List<double> _tiCount;
 
   final titleStyle =
       NeumorphicTextStyle(fontSize: 17, fontWeight: FontWeight.bold);
@@ -93,7 +91,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     return Consumer<TikuProvider>(
       builder: (_, tiku, __) {
         if (tiku.isBusy) {
-          return centerLoading;
+          return SizedBox();
         }
         if (tiku.tikuIndex == null) {
           return Center(
@@ -109,7 +107,10 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                       BorderRadius.all(Radius.circular(7)))),
               value: item.id,
               groupValue: _selectedCourse,
-              onChanged: (val) => setState(() => _selectedCourse = val),
+              onChanged: (val) => setState(() {
+                _selectedCourse = val;
+                _tiCount = [20, 0, 0, 0];
+              }),
             ));
           }
           final gridPad = _media.size.width * 0.05;
@@ -121,6 +122,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                 constraints:
                     BoxConstraints(maxHeight: _media.size.height * 0.2),
                 child: GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.all(gridPad),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4, childAspectRatio: 2),
@@ -142,7 +144,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   Widget _buildTiTypeSelect() {
     final selected = _selectedCourse != null;
     if (!selected) {
-      return NeuText(text: '选择科目后，可以选择题目数量');
+      return SizedBox();
     }
     final index = _tikuProvider.tikuIndex;
     if (index == null) {
@@ -182,18 +184,17 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     }
     return Column(
       children: [
-        NeuText(
+        SizedBox(width: _media.size.width, child: NeuText(
           text: '$typeChinese x ${_tiCount[idx].toInt()}',
           align: TextAlign.start,
-        ),
+        ),),
         NeumorphicSlider(
           max: selected ? max : 0,
           value: _tiCount[idx],
           min: 0,
-          height: 15,
           thumb: NeuBtn(
             child: SizedBox(
-              width: 10,
+              width: 13,
             ),
             boxShape: NeumorphicBoxShape.circle(),
             onTap: () {},
@@ -213,9 +214,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           } else {
             if (_tiCount.every((element) => element == 0)) {
               showSnackBar(context, Text('题目总数不得等于0'));
-            } else {
-              
-            }
+            } else {}
           }
         },
         child: SizedBox(
