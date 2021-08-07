@@ -3,8 +3,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
-import 'neu_card.dart';
-
 class SettingItem extends StatelessWidget {
   const SettingItem({
     Key? key,
@@ -33,45 +31,38 @@ class SettingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: this.height ?? 65.0,
-        margin: EdgeInsets.only(left: 16, right: 16),
+        height: this.height ?? 55.0,
         width: double.infinity,
-        child: NeuCard(
-          style: NeumorphicStyle(
-              boxShape: NeumorphicBoxShape.roundRect(
-                  BorderRadius.all(Radius.circular(23)))),
-          margin: EdgeInsets.zero,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SizedBox(width: 10.0),
-              this.icon ?? Container(),
-              SizedBox(width: 10.0),
-              NeuText(text: this.title),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(left: 16, right: 16),
-                  child: NeuText(
-                      text: this.content,
-                      align: this.textAlign,
-                      textStyle: this.contentStyle ??
-                          NeumorphicTextStyle(fontSize: 14.0)),
-                ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            SizedBox(width: 10.0),
+            this.icon ?? Container(),
+            SizedBox(width: 10.0),
+            NeuText(text: this.title),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(left: 16, right: 16),
+                child: NeuText(
+                    text: this.content,
+                    align: this.textAlign,
+                    textStyle: this.contentStyle ??
+                        NeumorphicTextStyle(fontSize: 14.0)),
               ),
-              this.showArrow
-                  ? NeumorphicIcon(
-                      Icons.arrow_forward_ios,
-                      style: NeumorphicStyle(color: mainColor),
-                      size: 16,
-                    )
-                  : Container(),
-              SizedBox(width: 10.0),
-              this.rightBtn ?? Container(),
-              SizedBox(
-                width: 17,
-              )
-            ],
-          ),
+            ),
+            this.showArrow
+                ? NeumorphicIcon(
+                    Icons.arrow_forward_ios,
+                    style: NeumorphicStyle(color: mainColor),
+                    size: 16,
+                  )
+                : Container(),
+            SizedBox(width: 10.0),
+            this.rightBtn ?? Container(),
+            SizedBox(
+              width: 17,
+            )
+          ],
         ));
   }
 }

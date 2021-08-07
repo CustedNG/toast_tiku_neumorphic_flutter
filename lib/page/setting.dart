@@ -9,6 +9,7 @@ import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/logo_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
+import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/setting_item.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
@@ -45,11 +46,7 @@ class _SettingPageState extends State<SettingPage> {
                 child: widget,
               ),
             ),
-            children: [
-              _buildHead(),
-              TikuUpdateProgress(),
-              _buildSetting()
-            ],
+            children: [_buildHead(), TikuUpdateProgress(), _buildSetting()],
           ),
         ),
       ),
@@ -84,17 +81,29 @@ class _SettingPageState extends State<SettingPage> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
+          SizedBox(height: _media.size.height * 0.02),
           LogoCard(),
-          SettingItem(
-            title: '自动添加错题到收藏夹',
-            showArrow: false,
-            rightBtn: buildSwitch(context, _store.autoAddWrongTi2Favrorite),
-          ),
-          SettingItem(
-            title: '自动更新题库',
-            showArrow: false,
-            rightBtn: buildSwitch(context, _store.autoUpdateTiku),
-          )
+          NeuCard(
+              padding: EdgeInsets.all(_media.size.width * 0.06),
+              margin: EdgeInsets.zero,
+              style: NeumorphicStyle(
+                  boxShape: NeumorphicBoxShape.roundRect(
+                      BorderRadius.all(Radius.circular(17)))),
+              child: Column(
+                children: [
+                  SettingItem(
+                    title: '自动添加错题到收藏夹',
+                    showArrow: false,
+                    rightBtn:
+                        buildSwitch(context, _store.autoAddWrongTi2Favrorite),
+                  ),
+                  SettingItem(
+                    title: '自动更新题库',
+                    showArrow: false,
+                    rightBtn: buildSwitch(context, _store.autoUpdateTiku),
+                  )
+                ],
+              ))
         ],
       ),
     );

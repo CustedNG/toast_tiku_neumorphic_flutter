@@ -26,10 +26,10 @@ class _LogoCardState extends State<LogoCard> {
     final pad = width * 0.02;
     return NeuBtn(
       padding: EdgeInsets.all(width * 0.06),
-      margin: EdgeInsets.fromLTRB(3*pad, pad, 3*pad, pad),
+      margin: EdgeInsets.fromLTRB(3 * pad, pad, 3 * pad, pad),
       onTap: () {},
       boxShape:
-          NeumorphicBoxShape.roundRect(BorderRadius.all(Radius.circular(27))),
+          NeumorphicBoxShape.roundRect(BorderRadius.all(Radius.circular(17))),
       child: SizedBox(
           height: _media.size.height * 0.1,
           child: Row(
@@ -59,19 +59,19 @@ class _LogoCardState extends State<LogoCard> {
                 style: NeumorphicStyle(boxShape: NeumorphicBoxShape.circle()),
               ),
             )),
-        SizedBox(width: _media.size.width * 0.06),
+        SizedBox(width: _media.size.width * 0.05),
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             NeuText(
-              text: 'Toast Tiku',
-              textStyle: NeumorphicTextStyle(fontSize: 20),
+              text: BuildData.name,
+              textStyle: NeumorphicTextStyle(fontSize: 19),
             ),
             SizedBox(height: 10.0),
             NeuText(
-              text: 'Ver: 1.0.${BuildData.build}',
-              textStyle: NeumorphicTextStyle(fontSize: 15),
+              text: 'Ver: 1.0.${BuildData.build}(+${BuildData.modifications}f)',
+              textStyle: NeumorphicTextStyle(fontSize: 13),
             )
           ],
         ),

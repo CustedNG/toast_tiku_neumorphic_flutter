@@ -15,6 +15,7 @@ import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/course.dart';
+import 'package:toast_tiku/page/profile.dart';
 import 'package:toast_tiku/page/setting.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
 import 'package:toast_tiku/res/build_data.dart';
@@ -40,6 +41,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
   late FixedExtentScrollController _fixedExtentScrollController;
+  late final Timer? _timer;
 
   final titleStyle =
       NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
@@ -49,10 +51,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _fixedExtentScrollController = FixedExtentScrollController();
-    Timer.periodic(Duration(seconds: 7), (timer) {
-      _fixedExtentScrollController.animateToItem(timer.tick % 2,
-          duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
-    });
+    if (_timer == null) {
+      _timer = Timer.periodic(Duration(seconds: 7), (timer) {
+        _fixedExtentScrollController.animateToItem(timer.tick % 2,
+            duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
+      });
+    }
   }
 
   @override
@@ -94,25 +98,26 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   Widget _buildHead() {
     return NeuAppBar(
-        media: _media,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                NeuIconBtn(
-                  icon: Icons.account_circle,
-                  onTap: () => AppRoute(SettingPage()).go(context),
-                ),
-                const NeuText(
-                  text: 'Hi 👋🏻\nLollipopKit',
-                  align: TextAlign.start,
-                ),
-              ],
-            ),
-            _buildTopBtn(),
-          ],
-        ));
+      media: _media,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              NeuIconBtn(
+                icon: Icons.account_circle,
+                onTap: () => AppRoute(ProfilePage()).go(context),
+              ),
+              const NeuText(
+                text: 'Hi 👋🏻\nLollipopKit',
+                align: TextAlign.start,
+              ),
+            ],
+          ),
+          _buildTopBtn(),
+        ],
+      )
+    );
   }
 
   Widget _buildNotifyCard() {
