@@ -11,6 +11,7 @@ import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
+import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
 class CoursePage extends StatefulWidget {
   final TikuIndex data;
@@ -39,6 +40,7 @@ class _CoursePageState extends State<CoursePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildHead(),
+          TikuUpdateProgress(),
           _buildSelectCard(),
         ],
       ),

@@ -15,10 +15,9 @@ import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/course.dart';
-import 'package:toast_tiku/page/profile.dart';
+import 'package:toast_tiku/page/exam/select.dart';
 import 'package:toast_tiku/page/setting.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
-import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/res/hikotoko.dart';
 import 'package:toast_tiku/res/url.dart';
@@ -41,7 +40,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
   late FixedExtentScrollController _fixedExtentScrollController;
-  late final Timer? _timer;
 
   final titleStyle =
       NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
@@ -51,12 +49,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _fixedExtentScrollController = FixedExtentScrollController();
-    if (_timer == null) {
-      _timer = Timer.periodic(Duration(seconds: 7), (timer) {
-        _fixedExtentScrollController.animateToItem(timer.tick % 2,
-            duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
-      });
-    }
+    Timer.periodic(Duration(seconds: 7), (timer) {
+      _fixedExtentScrollController.animateToItem(timer.tick % 2,
+          duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
+    });
   }
 
   @override
@@ -78,7 +74,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               TikuUpdateProgress(),
               SizedBox(height: _media.size.height * 0.03),
               _buildNotifyCard(),
-              SizedBox(height: _media.size.height * 0.01),
               _buildResumeCard(),
               SizedBox(height: _media.size.height * 0.01),
               _buildAllCourseCard(),
@@ -86,38 +81,30 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           ),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        width: _media.size.width,
-        child: NeuText(
-          text: 'Version: 1.0.${BuildData.build} BuiltAt: ${BuildData.buildAt}',
-          textStyle: NeumorphicTextStyle(fontSize: 11),
-        ),
-      ),
     );
   }
 
   Widget _buildHead() {
     return NeuAppBar(
-      media: _media,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              NeuIconBtn(
-                icon: Icons.account_circle,
-                onTap: () => AppRoute(ProfilePage()).go(context),
-              ),
-              const NeuText(
-                text: 'Hi 👋🏻\nLollipopKit',
-                align: TextAlign.start,
-              ),
-            ],
-          ),
-          _buildTopBtn(),
-        ],
-      )
-    );
+        media: _media,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                NeuIconBtn(
+                  icon: Icons.account_circle,
+                  onTap: () => AppRoute(SettingPage()).go(context),
+                ),
+                const NeuText(
+                  text: 'Hi 👋🏻\nLollipopKit',
+                  align: TextAlign.start,
+                ),
+              ],
+            ),
+            _buildTopBtn(),
+          ],
+        ));
   }
 
   Widget _buildNotifyCard() {
@@ -141,7 +128,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       _buildBannerView('一言', hitokotos[Random().nextInt(hitokotos.length)]),
       Consumer<AppProvider>(builder: (_, app, __) {
         if (app.isBusy) {
-          return NeumorphicProgressIndeterminate();
+          return centerLoading;
         }
         if (app.notify == null) {
           return SizedBox();
@@ -152,7 +139,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   Widget _buildBannerView(String title, String content) {
-    final pad = _media.size.width * 0.06;
+    final pad = _media.size.width * 0.07;
     return NeuCard(
       padding: EdgeInsets.fromLTRB(pad, 17, pad, 17),
       child: Column(
@@ -200,7 +187,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               NeuText(
-                                  text: '继续 · ' + index.chinese!,
+                                  text: '上次学到了 · ' + index.chinese!,
                                   textStyle: NeumorphicTextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold)),
@@ -236,7 +223,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               width: _media.size.width * 0.9,
               height: _media.size.height * 0.1,
               child: Padding(
-                  padding: EdgeInsets.fromLTRB(17, 7, 17, 7), child: child),
+                  padding: EdgeInsets.fromLTRB(10, 7, 3, 7), child: child),
             );
           },
         );
@@ -296,9 +283,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        NeuIconBtn(
-          icon: Icons.settings,
-          onTap: () => AppRoute(SettingPage()).go(context),
+        NeuBtn(
+          child: NeuText(text: '模拟考'),
+          onTap: () => AppRoute(ExamSelectPage()).go(context),
         ),
         NeuIconBtn(
           icon: Icons.search,
