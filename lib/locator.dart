@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/history.dart';
@@ -15,6 +16,7 @@ void setupLocatorForServices() {
 }
 
 void setupLocatorForProviders() {
+  locator.registerSingleton(AppProvider());
   locator.registerSingleton(UserProvider());
   locator.registerSingleton(TikuProvider());
   locator.registerSingleton(HistoryProvider());

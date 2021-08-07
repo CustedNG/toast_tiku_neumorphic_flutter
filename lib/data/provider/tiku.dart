@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:simple_logger/simple_logger.dart';
 import 'package:toast_tiku/core/provider_base.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
@@ -50,8 +49,7 @@ class TikuProvider extends BusyProvider {
     // 索引数据为空，跳过更新
     if (_tikuIndexes == null) {
       setBusyState(false);
-      Logger('TikuProvider')
-          .info('tiku index is null, skip getting detailed data');
+      print('tiku index is null, skip getting detailed data');
       return;
     }
     // 获取进度百分比

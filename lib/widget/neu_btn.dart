@@ -52,8 +52,8 @@ class NeuBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      margin: margin ?? const EdgeInsets.all(9),
-      padding: padding ?? const EdgeInsets.all(9),
+      padding: margin ?? const EdgeInsets.all(9),
+      margin: padding ?? const EdgeInsets.all(9),
       child: child,
       onPressed: onTap,
       style: NeumorphicStyle(

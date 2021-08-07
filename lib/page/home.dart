@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -6,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
+import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
@@ -16,8 +19,10 @@ import 'package:toast_tiku/page/setting.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
 import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/res/color.dart';
+import 'package:toast_tiku/res/hikotoko.dart';
 import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
+import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
@@ -34,6 +39,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
+
+  final titleStyle =
+      NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
 
   @override
   void didChangeDependencies() {
@@ -59,6 +67,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               _buildHead(),
               TikuUpdateProgress(),
               SizedBox(height: _media.size.height * 0.03),
+              _buildNotifyCard(),
+              SizedBox(height: _media.size.height * 0.01),
               _buildResumeCard(),
               SizedBox(height: _media.size.height * 0.01),
               _buildAllCourseCard(),
@@ -97,6 +107,53 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             _buildTopBtn(),
           ],
         ));
+  }
+
+  Widget _buildNotifyCard() {
+    final content = _buildScrollCard();
+    return SizedBox(
+      height: _media.size.height * 0.17,
+      child: ListWheelScrollView.useDelegate(
+        itemExtent: _media.size.height * 0.17,
+        diameterRatio: 10,
+        physics: FixedExtentScrollPhysics(),
+        childDelegate: ListWheelChildBuilderDelegate(
+            builder: (context, index) => content[index],
+            childCount: content.length),
+      ),
+    );
+  }
+
+  List<Widget> _buildScrollCard() {
+    return [
+      _buildBannerView('一言', hitokotos[Random().nextInt(hitokotos.length)]),
+      Consumer<AppProvider>(builder: (_, app, __) {
+        if (app.isBusy) {
+          return NeumorphicProgressIndeterminate();
+        }
+        if (app.notify == null) {
+          return SizedBox();
+        }
+        return _buildBannerView(app.notify!['title'], app.notify!['content']);
+      })
+    ];
+  }
+
+  Widget _buildBannerView(String title, String content) {
+    return Padding(
+      padding: EdgeInsets.only(left: 37, right: 37),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          NeuText(text: title, textStyle: titleStyle),
+          NeuText(
+            text: '·',
+            textStyle: titleStyle,
+          ),
+          NeuText(text: content)
+        ],
+      ),
+    );
   }
 
   Widget _buildResumeCard() {
@@ -143,8 +200,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           ),
                           NeuIconBtn(
                             icon: Icons.arrow_forward,
-                            margin: EdgeInsets.all(5),
-                            padding: EdgeInsets.all(7),
+                            margin: EdgeInsets.all(7),
+                            padding: EdgeInsets.all(5),
                             onTap: () => AppRoute(UnitQuizPage(
                                     courseId: historySplit[0],
                                     unitFile: historySplit[1],
@@ -160,11 +217,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               }
             }
             return NeuCard(
-              margin: EdgeInsets.fromLTRB(17, 7, 17, 7),
+              margin: EdgeInsets.zero,
               child: SizedBox(
-                width: _media.size.width * 0.9 - 40,
-                height: _media.size.height * 0.07,
-                child: child,
+                width: _media.size.width * 0.9,
+                height: _media.size.height * 0.1,
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(17, 7, 17, 7), child: child),
               ),
             );
           },
@@ -174,43 +232,47 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   Widget _buildAllCourseCard() {
-    return NeuCard(
-      margin: EdgeInsets.fromLTRB(17, 13, 17, 13),
-      child: SizedBox(
-        width: _media.size.width * 0.9 - 40,
-        height: _media.size.height * 0.2,
-        child: Consumer<TikuProvider>(builder: (_, tiku, __) {
-          if (tiku.tikuIndex == null) {
-            if (tiku.isBusy) {
-              return CircularProgressIndicator();
-            }
-            return NeuText(text: '出现期望外的错误');
+    return SizedBox(
+      height: _media.size.height * 0.26,
+      width: _media.size.width * 0.9,
+      child: Consumer<TikuProvider>(builder: (_, tiku, __) {
+        if (tiku.tikuIndex == null) {
+          if (tiku.isBusy) {
+            return centerLoading;
           }
+          return Center(child: NeuText(text: '出现期望外的错误'));
+        }
 
-          return GridView.builder(
-              padding: EdgeInsets.all(0),
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, childAspectRatio: 1.0),
-              itemCount: tiku.tikuIndex!.length,
-              itemBuilder: (context, idx) {
-                final item = tiku.tikuIndex![idx];
-                return Column(mainAxisSize: MainAxisSize.min, children: [
-                  NeuBtn(
-                      padding: EdgeInsets.all(0),
-                      onTap: () => AppRoute(CoursePage(data: item)).go(context),
-                      child: SizedBox(
-                          width: (_media.size.width * 0.9 - 40) / 7.7,
-                          child: OnlineImage(
-                              url: '$courseImgUrl/${item.id}.png'))),
-                  NeuText(
-                    text: item.chinese!,
-                    textStyle: NeumorphicTextStyle(fontSize: 11),
-                  )
-                ]);
-              });
-        }),
-      ),
+        return GridView.builder(
+            padding: EdgeInsets.all(0),
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4, childAspectRatio: 1.0),
+            itemCount: tiku.tikuIndex!.length,
+            itemBuilder: (context, idx) {
+              final item = tiku.tikuIndex![idx];
+              return NeuBtn(
+                margin: EdgeInsets.all(0),
+                onTap: () => AppRoute(CoursePage(data: item)).go(context),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: (_media.size.width * 0.9 - 40) / 8.7,
+                          child:
+                              OnlineImage(url: '$courseImgUrl/${item.id}.png')),
+                      SizedBox(
+                        height: 1,
+                      ),
+                      NeuText(
+                        text: item.chinese!,
+                        textStyle: NeumorphicTextStyle(fontSize: 11),
+                      )
+                    ]),
+              );
+            });
+      }),
     );
   }
 
@@ -239,7 +301,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 filter: (ti) => [
                       ti.question,
                     ],
-                builder: (ti) => _buildSearchResult(ti),
+                builder: (ti) => NeuCard(child: _buildSearchResult(ti)),
                 searchStyle: TextStyle(color: mainColor)),
           ),
         ),
@@ -292,16 +354,15 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   String _buildAnswer(Ti ti) {
-    final seperator = '\n\n';
     final answer = '\n答案：';
     switch (ti.type) {
       case 3:
         if (ti.options == null) {
-          return '$answer${ti.answer![0] == 0 ? "对" : "错"}$seperator';
+          return '$answer${ti.answer![0] == 0 ? "对" : "错"}';
         }
-        return '$answer${ti.options![ti.answer![0]]}$seperator';
+        return '$answer${ti.options![ti.answer![0]]}';
       case 2:
-        return '$answer${ti.answer!.join(",")}$seperator';
+        return '$answer${ti.answer!.join(",")}';
       case 0:
       case 1:
         final answers = <String>[];
@@ -310,7 +371,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             answers.add(String.fromCharCode(65 + item));
           }
         }
-        return '$answer' + answers.join(',') + seperator;
+        return '$answer' + answers.join(',');
       default:
         return '无法解析答案';
     }

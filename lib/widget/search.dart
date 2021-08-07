@@ -92,7 +92,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
                 fontSize: 20,
               ),
             ),
-        brightness: Brightness.dark,
+        brightness: NeumorphicTheme.of(context)!.isUsingDark ? Brightness.dark : Brightness.light,
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: TextStyle(
             color: mainColor,
