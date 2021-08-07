@@ -6,7 +6,10 @@ class AppProvider extends BusyProvider {
   Map? get notify => _notify;
 
   Future<void> loadData() async {
+    setBusyState(true);
     final service = AppService();
     _notify = await service.getNotify();
+    setBusyState(false);
+    notifyListeners();
   }
 }

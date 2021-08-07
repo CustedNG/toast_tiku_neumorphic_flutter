@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:after_layout/after_layout.dart';
@@ -39,6 +40,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
+  late final FixedExtentScrollController _fixedExtentScrollController;
 
   final titleStyle =
       NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
@@ -47,6 +49,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
+    _fixedExtentScrollController = FixedExtentScrollController();
+    Timer.periodic(Duration(seconds: 5), (timer) {
+      _fixedExtentScrollController.animateToItem(timer.tick % 2,
+          duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
+    });
   }
 
   @override
@@ -116,6 +123,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       child: ListWheelScrollView.useDelegate(
         itemExtent: _media.size.height * 0.17,
         diameterRatio: 10,
+        controller: _fixedExtentScrollController,
         physics: FixedExtentScrollPhysics(),
         childDelegate: ListWheelChildBuilderDelegate(
             builder: (context, index) => content[index],

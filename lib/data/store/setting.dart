@@ -4,5 +4,6 @@ class SettingStore extends PersistentStore {
   StoreProperty<bool> get receiveNotification => property('notify');
   StoreProperty<bool> get autoAddWrongTi2Favrorite =>
       property('autoAddWrongTi', defaultValue: true);
-  StoreProperty<bool> get autoUpdateTiku => property('autoUpdateTiku');
+  StoreProperty<bool> get autoUpdateTiku =>
+      property('autoUpdateTiku', defaultValue: true);
 }
