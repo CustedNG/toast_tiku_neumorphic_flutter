@@ -62,7 +62,7 @@ class TikuProvider extends BusyProvider {
       for (var content in index.content!) {
         final unitData =
             await AppService().getUnitTi(index.id!, content!.data!);
-        store.put(index.id!, content.data!, json.encode(unitData));
+        store.put(index.id!, content.data!, unitData!);
         _downloadProgress = idx++ / length;
         notifyListeners();
       }

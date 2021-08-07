@@ -7,8 +7,8 @@ class TikuStore extends PersistentStore<String> {
   StoreProperty<String> get index => property('index');
   StoreProperty<String> get version => property('version');
 
-  void put(String courseId, String unitFile, String jsonSource) {
-    box.put('$courseId-$unitFile', jsonSource);
+  void put(String courseId, String unitFile, List<Ti> tis) {
+    box.put('$courseId-$unitFile', json.encode(tis));
   }
 
   List<Ti>? fetch(String courseId, String unitFile) {

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/history.dart';
+import 'package:toast_tiku/data/store/favorite.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
@@ -32,6 +33,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     with SingleTickerProviderStateMixin {
   late final MediaQueryData _media;
   late final TikuStore _tikuStore;
+  late final FavoriteStore _favoriteStore;
   late final HistoryStore _historyStore;
   late final HistoryProvider _historyProvider;
   late final List<Ti>? _tis;
@@ -59,9 +61,10 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     ).animate(_controller);
     _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
     _tikuStore = locator<TikuStore>();
+    _favoriteStore = locator<FavoriteStore>();
     _historyStore = locator<HistoryStore>();
     _historyProvider = context.read<HistoryProvider>();
-    _tis = _tikuStore.fetch(widget.courseId, widget.unitFile);
+    _tis = _tikuStore.fetch(widget.courseId, widget.unitFile) ?? [];
     _index = 0;
     _checkState = List.generate(_tis!.length, (_) => []);
     _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
@@ -129,6 +132,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   }
 
   Widget _buildHead() {
+    final ti = _tis![_index];
+    bool have = _favoriteStore.have(widget.courseId, ti);
     return NeuAppBar(
         media: _media,
         child: Row(
@@ -155,8 +160,19 @@ class _UnitQuizPageState extends State<UnitQuizPage>
               ),
             ),
             NeuIconBtn(
-              icon: Icons.favorite,
-              onTap: () => showSnackBar(context, const Text('star')),
+              icon: have ? Icons.favorite : Icons.favorite_border,
+              onTap: () {
+                if (have) {
+                  _favoriteStore.delete(widget.courseId, ti);
+                  showSnackBar(context, Text('已取消收藏'));
+                } else {
+                  _favoriteStore.put(widget.courseId, ti);
+                  showSnackBar(context, Text('已收藏'));
+                }
+                setState(() {
+                  
+                });
+              },
             )
           ],
         ));

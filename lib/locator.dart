@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/store/favorite.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/provider/user.dart';
@@ -42,6 +43,12 @@ Future<void> setupLocatorForStores() async {
   locator.registerSingletonAsync<HistoryStore>(() async {
     final store = HistoryStore();
     await store.init(boxName: 'history');
+    return store;
+  });
+
+  locator.registerSingletonAsync<FavoriteStore>(() async {
+    final store = FavoriteStore();
+    await store.init(boxName: 'favorite');
     return store;
   });
 }
