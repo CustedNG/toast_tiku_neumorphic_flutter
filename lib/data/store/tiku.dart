@@ -13,6 +13,6 @@ class TikuStore extends PersistentStore<String> {
 
   List<Ti>? fetch(String courseId, String unitFile) {
     return getTiList(
-        json.decode(box.get('$courseId-$unitFile', defaultValue: '')!));
+        json.decode(box.get('$courseId-$unitFile', defaultValue: '[]')!));
   }
 }

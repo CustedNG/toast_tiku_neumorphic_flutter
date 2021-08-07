@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
-import 'package:toast_tiku/data/store/history.dart';
-import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/res/color.dart';
@@ -14,28 +10,23 @@ import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
-class UnitQuizPage extends StatefulWidget {
+class UnitFavoritePage extends StatefulWidget {
   final String courseId;
-  final String unitFile;
-  final String unitName;
-  const UnitQuizPage({
+  final String courseName;
+  const UnitFavoritePage({
     Key? key,
     required this.courseId,
-    required this.unitFile,
-    required this.unitName,
+    required this.courseName,
   }) : super(key: key);
 
   @override
-  _UnitQuizPageState createState() => _UnitQuizPageState();
+  _UnitFavoritePageState createState() => _UnitFavoritePageState();
 }
 
-class _UnitQuizPageState extends State<UnitQuizPage>
+class _UnitFavoritePageState extends State<UnitFavoritePage>
     with SingleTickerProviderStateMixin {
   late final MediaQueryData _media;
-  late final TikuStore _tikuStore;
   late final FavoriteStore _favoriteStore;
-  late final HistoryStore _historyStore;
-  late final HistoryProvider _historyProvider;
   late final List<Ti>? _tis;
   late int _index;
   late final List<List<int>> _checkState;
@@ -60,27 +51,40 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       end: 1.0,
     ).animate(_controller);
     _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
-    _tikuStore = locator<TikuStore>();
     _favoriteStore = locator<FavoriteStore>();
-    _historyStore = locator<HistoryStore>();
-    _historyProvider = context.read<HistoryProvider>();
-    _tis = _tikuStore.fetch(widget.courseId, widget.unitFile) ?? [];
+    _tis = _favoriteStore.fetch(widget.courseId);
     _index = 0;
     _checkState = List.generate(_tis!.length, (_) => []);
-    _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
-      body: SnappingSheet(
+    var child;
+    if (_tis == null || _tis!.isEmpty) {
+      child = Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(width: _media.size.width),
+          NeuText(text: '${widget.courseName}没有收藏的题目'),
+          NeuIconBtn(
+            icon: Icons.arrow_back,
+            onTap: () => Navigator.of(context).pop(),
+          )
+        ],
+      );
+    } else {
+      child = SnappingSheet(
         controller: _sheetController,
         child: _buildMain(),
         grabbing: _buildGrab(),
         grabbingHeight: _bottomHeight,
         sheetBelow: _buildSheet(),
-      ),
+      );
+    }
+    return Scaffold(
+      backgroundColor: NeumorphicTheme.baseColor(context),
+      body: child,
     );
   }
 
@@ -149,8 +153,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
                 children: [
                   Hero(
                     tag: 'home_resume_title',
-                    child: NeuText(
-                        text: widget.unitName, textStyle: _titleNeuTextStyle),
+                    child: NeuText(text: '收藏的题', textStyle: _titleNeuTextStyle),
                   ),
                   NeuText(
                       text:
@@ -280,7 +283,6 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   }
 
   void onPressed(int value) {
-    _historyProvider.setLastViewed(widget.courseId, widget.unitFile);
     if (!_historyIdx.contains(_index)) {
       _historyIdx.add(_index);
     }
@@ -289,7 +291,6 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     } else {
       _checkState[_index].add(value);
     }
-    _historyStore.put(widget.courseId, widget.unitFile, _historyIdx);
     setState(() {});
   }
 }

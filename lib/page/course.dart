@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toast_tiku/core/route.dart';
-import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
+import 'package:toast_tiku/page/favorite.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
@@ -55,10 +55,15 @@ class _CoursePageState extends State<CoursePage> {
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            NeuText(text: widget.data.chinese!),
+            Hero(
+                tag: 'home_all_course_${widget.data.id}',
+                child: NeuText(text: widget.data.chinese!)),
             NeuIconBtn(
               icon: Icons.favorite,
-              onTap: () => showSnackBar(context, const Text('star')),
+              onTap: () => AppRoute(UnitFavoritePage(
+                courseId: widget.data.id!,
+                courseName: widget.data.chinese!,
+              )).go(context),
             )
           ],
         ));
@@ -75,7 +80,7 @@ class _CoursePageState extends State<CoursePage> {
             itemBuilder: (BuildContext context, int idx) {
               return AnimationConfiguration.staggeredList(
                 position: idx,
-                duration: const Duration(milliseconds: 375),
+                duration: const Duration(milliseconds: 377),
                 child: SlideAnimation(
                   verticalOffset: 50.0,
                   child: FadeInAnimation(

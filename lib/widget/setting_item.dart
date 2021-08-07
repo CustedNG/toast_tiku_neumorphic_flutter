@@ -38,8 +38,8 @@ class SettingItem extends StatelessWidget {
         width: double.infinity,
         child: NeuCard(
           style: NeumorphicStyle(
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.all(Radius.circular(23)))
-          ),
+              boxShape: NeumorphicBoxShape.roundRect(
+                  BorderRadius.all(Radius.circular(23)))),
           margin: EdgeInsets.zero,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +67,9 @@ class SettingItem extends StatelessWidget {
                   : Container(),
               SizedBox(width: 10.0),
               this.rightBtn ?? Container(),
-              SizedBox(width: 17,)
+              SizedBox(
+                width: 17,
+              )
             ],
           ),
         ));

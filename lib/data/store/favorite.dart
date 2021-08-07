@@ -20,5 +20,7 @@ class FavoriteStore extends PersistentStore<String> {
     box.put(courseId, json.encode(tis));
   }
 
-  bool have(String courseId, Ti ti) => fetch(courseId).where((element) => element.question == ti.question).isNotEmpty;
+  bool have(String courseId, Ti ti) => fetch(courseId)
+      .where((element) => element.question == ti.question)
+      .isNotEmpty;
 }

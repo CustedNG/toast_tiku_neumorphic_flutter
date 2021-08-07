@@ -7,6 +7,7 @@ import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
+import 'package:toast_tiku/widget/logo_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/setting_item.dart';
@@ -37,7 +38,7 @@ class _SettingPageState extends State<SettingPage> {
       body: AnimationLimiter(
         child: Column(
           children: AnimationConfiguration.toStaggeredList(
-            duration: const Duration(milliseconds: 477),
+            duration: const Duration(milliseconds: 377),
             childAnimationBuilder: (widget) => SlideAnimation(
               verticalOffset: 50.0,
               child: FadeInAnimation(
@@ -47,7 +48,6 @@ class _SettingPageState extends State<SettingPage> {
             children: [
               _buildHead(),
               TikuUpdateProgress(),
-              _buildUser(),
               _buildSetting()
             ],
           ),
@@ -77,16 +77,14 @@ class _SettingPageState extends State<SettingPage> {
         ));
   }
 
-  Widget _buildUser() {
-    return SizedBox();
-  }
-
   Widget _buildSetting() {
     return ConstrainedBox(
       constraints: BoxConstraints(
           maxHeight: _media.size.height * 0.8, maxWidth: _media.size.width),
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
+          LogoCard(),
           SettingItem(
             title: '自动添加错题到收藏夹',
             showArrow: false,

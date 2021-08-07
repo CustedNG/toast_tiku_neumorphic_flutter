@@ -7,7 +7,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/route.dart';
-import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
@@ -40,7 +39,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
-  late final FixedExtentScrollController _fixedExtentScrollController;
+  late FixedExtentScrollController _fixedExtentScrollController;
 
   final titleStyle =
       NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
@@ -50,7 +49,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _fixedExtentScrollController = FixedExtentScrollController();
-    Timer.periodic(Duration(seconds: 5), (timer) {
+    Timer.periodic(Duration(seconds: 7), (timer) {
       _fixedExtentScrollController.animateToItem(timer.tick % 2,
           duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
     });
@@ -63,7 +62,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       body: AnimationLimiter(
         child: Column(
           children: AnimationConfiguration.toStaggeredList(
-            duration: const Duration(milliseconds: 777),
+            duration: const Duration(milliseconds: 377),
             childAnimationBuilder: (widget) => SlideAnimation(
               verticalOffset: 50.0,
               child: FadeInAnimation(
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             Row(
               children: [
                 NeuIconBtn(
-                  icon: Icons.settings,
+                  icon: Icons.account_circle,
                   onTap: () => AppRoute(SettingPage()).go(context),
                 ),
                 const NeuText(
@@ -119,9 +118,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Widget _buildNotifyCard() {
     final content = _buildScrollCard();
     return SizedBox(
-      height: _media.size.height * 0.17,
+      height: _media.size.height * 0.21,
       child: ListWheelScrollView.useDelegate(
-        itemExtent: _media.size.height * 0.17,
+        itemExtent: _media.size.height * 0.2,
         diameterRatio: 10,
         controller: _fixedExtentScrollController,
         physics: FixedExtentScrollPhysics(),
@@ -148,15 +147,19 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   Widget _buildBannerView(String title, String content) {
-    return Padding(
-      padding: EdgeInsets.only(left: 37, right: 37),
+    final pad = _media.size.width * 0.06;
+    return NeuCard(
+      padding: EdgeInsets.fromLTRB(pad, 17, pad, 17),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           NeuText(text: title, textStyle: titleStyle),
-          NeuText(
-            text: '·',
-            textStyle: titleStyle,
+          SizedBox(
+            width: _media.size.width,
+            child: NeuText(
+              text: '·',
+              textStyle: titleStyle,
+            ),
           ),
           NeuText(text: content)
         ],
@@ -224,14 +227,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 }
               }
             }
-            return NeuCard(
-              margin: EdgeInsets.zero,
-              child: SizedBox(
-                width: _media.size.width * 0.9,
-                height: _media.size.height * 0.1,
-                child: Padding(
-                    padding: EdgeInsets.fromLTRB(17, 7, 17, 7), child: child),
-              ),
+            return SizedBox(
+              width: _media.size.width * 0.9,
+              height: _media.size.height * 0.1,
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(17, 7, 17, 7), child: child),
             );
           },
         );
@@ -273,10 +273,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       SizedBox(
                         height: 1,
                       ),
-                      NeuText(
-                        text: item.chinese!,
-                        textStyle: NeumorphicTextStyle(fontSize: 11),
-                      )
+                      Hero(
+                          tag: 'home_all_course_${item.id}',
+                          child: NeuText(
+                            text: item.chinese!,
+                            textStyle: NeumorphicTextStyle(fontSize: 11),
+                          ))
                     ]),
               );
             });
@@ -290,8 +292,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         NeuIconBtn(
-          icon: Icons.favorite,
-          onTap: () => showSnackBar(context, Text('进入收藏夹')),
+          icon: Icons.settings,
+          onTap: () => AppRoute(SettingPage()).go(context),
         ),
         NeuIconBtn(
           icon: Icons.search,

@@ -2,7 +2,7 @@ import 'package:toast_tiku/model/ti.dart';
 
 extension TiX on Ti {
   String get typeChinese {
-    switch (this.type) {
+    switch (type) {
       case 0:
         return '单选';
       case 1:
