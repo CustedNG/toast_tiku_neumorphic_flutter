@@ -152,6 +152,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
               child: Column(
                 children: [
                   Hero(
+                    transitionOnUserGestures: true,
                     tag: 'home_resume_title',
                     child: NeuText(text: '收藏的题', textStyle: _titleNeuTextStyle),
                   ),

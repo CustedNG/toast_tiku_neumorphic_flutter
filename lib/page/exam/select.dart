@@ -122,7 +122,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                 constraints:
                     BoxConstraints(maxHeight: _media.size.height * 0.2),
                 child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.all(gridPad),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4, childAspectRatio: 2),
@@ -184,10 +184,13 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     }
     return Column(
       children: [
-        SizedBox(width: _media.size.width, child: NeuText(
-          text: '$typeChinese x ${_tiCount[idx].toInt()}',
-          align: TextAlign.start,
-        ),),
+        SizedBox(
+          width: _media.size.width,
+          child: NeuText(
+            text: '$typeChinese x ${_tiCount[idx].toInt()}',
+            align: TextAlign.start,
+          ),
+        ),
         NeumorphicSlider(
           max: selected ? max : 0,
           value: _tiCount[idx],

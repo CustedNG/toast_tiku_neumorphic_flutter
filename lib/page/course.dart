@@ -57,9 +57,12 @@ class _CoursePageState extends State<CoursePage> {
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            SizedBox(width: _media.size.width * 0.5, child: Hero(
-                tag: 'home_all_course_${widget.data.id}',
-                child: NeuText(text: widget.data.chinese!))),
+            SizedBox(
+                width: _media.size.width * 0.5,
+                child: Hero(
+                    transitionOnUserGestures: true,
+                    tag: 'home_all_course_${widget.data.id}',
+                    child: NeuText(text: widget.data.chinese!))),
             NeuIconBtn(
               icon: Icons.favorite,
               onTap: () => AppRoute(UnitFavoritePage(

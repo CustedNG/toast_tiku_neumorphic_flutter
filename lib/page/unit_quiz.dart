@@ -153,6 +153,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
             SizedBox(
               width: _media.size.width * 0.5,
               child: Hero(
+                transitionOnUserGestures: true,
                 tag: 'home_resume_title',
                 child: NeuText(text: widget.unitName),
               ),

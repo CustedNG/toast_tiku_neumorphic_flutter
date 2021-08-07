@@ -192,6 +192,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold)),
                               Hero(
+                                  transitionOnUserGestures: true,
                                   tag: 'home_resume_title',
                                   child: NeuText(
                                       text: unit.title!,
@@ -266,6 +267,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                         height: 1,
                       ),
                       Hero(
+                          transitionOnUserGestures: true,
                           tag: 'home_all_course_${item.id}',
                           child: NeuText(
                             text: item.chinese!,
