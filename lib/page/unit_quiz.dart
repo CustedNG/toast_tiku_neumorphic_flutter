@@ -9,8 +9,8 @@ import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
-import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
+import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
@@ -73,12 +73,12 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
-      body: SnappingSheet(
-        controller: _sheetController,
-        child: _buildMain(),
-        grabbing: _buildGrab(),
-        grabbingHeight: _bottomHeight,
-        sheetBelow: _buildSheet(),
+      body: GrabSheet(
+        sheetController: _sheetController,
+        main: _buildMain(),
+        tis: _tis!,
+        checkState: _checkState,
+        onTap: (idx) => setState(() => _index = idx),
       ),
     );
   }
@@ -100,33 +100,6 @@ class _UnitQuizPageState extends State<UnitQuizPage>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildGrab() {
-    return Neumorphic(
-        style: NeumorphicStyle(
-            lightSource: LightSource.bottom,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
-                topLeft: Radius.circular(17), topRight: Radius.circular(17)))),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: _media.padding.bottom),
-            child: Neumorphic(
-              curve: Curves.easeInQuad,
-              child: SizedBox(height: 10, width: 57),
-              style: NeumorphicStyle(color: mainColor, depth: 37),
-            ),
-          ),
-        ));
-  }
-
-  SnappingSheetContent _buildSheet() {
-    return SnappingSheetContent(
-      child: Container(
-        child: Text('1'),
-        color: NeumorphicTheme.baseColor(context),
       ),
     );
   }

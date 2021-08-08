@@ -13,6 +13,7 @@ import 'package:toast_tiku/page/exam/result.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
+import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
@@ -80,12 +81,12 @@ class _ExamingPageState extends State<ExamingPage>
               ),
             );
           }
-          return SnappingSheet(
-            controller: _sheetController,
-            child: _buildMain(),
-            grabbing: _buildGrab(),
-            grabbingHeight: _bottomHeight,
-            sheetBelow: _buildSheet(),
+          return GrabSheet(
+            sheetController: _sheetController,
+            main: _buildMain(),
+            tis: _tis,
+            checkState: _checkState,
+            onTap: (idx) => setState(() => _index = idx),
           );
         },
       ),
@@ -107,33 +108,6 @@ class _ExamingPageState extends State<ExamingPage>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildGrab() {
-    return Neumorphic(
-        style: NeumorphicStyle(
-            lightSource: LightSource.bottom,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
-                topLeft: Radius.circular(17), topRight: Radius.circular(17)))),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: _media.padding.bottom),
-            child: Neumorphic(
-              curve: Curves.easeInQuad,
-              child: SizedBox(height: 10, width: 57),
-              style: NeumorphicStyle(color: mainColor, depth: 37),
-            ),
-          ),
-        ));
-  }
-
-  SnappingSheetContent _buildSheet() {
-    return SnappingSheetContent(
-      child: Container(
-        child: Text('1'),
-        color: NeumorphicTheme.baseColor(context),
       ),
     );
   }
@@ -182,7 +156,10 @@ class _ExamingPageState extends State<ExamingPage>
                 } else {
                   int correctCount = 0;
                   for (int idx = 0; idx < _tis.length; idx++) {
-                    if (_tis[idx].answer!.every((element) => _checkState[idx].contains(element))) correctCount++;
+                    if (_tis[idx]
+                        .answer!
+                        .every((element) => _checkState[idx].contains(element)))
+                      correctCount++;
                   }
                   AppRoute(ExamResultPage(
                     percent: correctCount / _tis.length * 100,

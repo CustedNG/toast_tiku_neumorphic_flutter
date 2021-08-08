@@ -231,8 +231,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
             if (_counts.every((element) => element == 0)) {
               showSnackBar(context, Text('题目总数不得等于0'));
             } else {
-              locator<ExamProvider>()
-                  .loadTi(_selectedCourse!, _units, _counts);
+              locator<ExamProvider>().loadTi(_selectedCourse!, _units, _counts);
               locator<TimerProvider>().start(DateTime.now().add(Duration(
                   minutes: (_counts[4]).toInt(),
                   // 由于页面动画的存在，所以多给一秒

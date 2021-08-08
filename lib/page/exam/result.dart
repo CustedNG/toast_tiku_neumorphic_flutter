@@ -27,7 +27,9 @@ class ExamResultPage extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             )),
-            child: _Page(percent: percent,)),
+            child: _Page(
+              percent: percent,
+            )),
       ),
     );
   }
@@ -50,52 +52,6 @@ class _PageState extends State<_Page> {
             fontWeight: FontWeight.w700,
             fontFamily: 'Samsung',
             fontSize: 80));
-  }
-
-  Widget _firstBox() {
-    return Neumorphic(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      style: NeumorphicStyle(
-        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
-      ),
-      child: Neumorphic(
-        style: NeumorphicStyle(
-          depth: -1,
-          oppositeShadowLightSource: true,
-        ),
-        padding: EdgeInsets.all(2),
-        child: SizedBox(
-          width: 40,
-          height: 60,
-        ),
-      ),
-    );
-  }
-
-  Widget _secondBox() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Transform.rotate(
-        angle: 0.79,
-        child: Neumorphic(
-          style: NeumorphicStyle(
-            lightSource: LightSource.topLeft,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
-          ),
-          child: Neumorphic(
-            style: NeumorphicStyle(
-              depth: -1,
-              oppositeShadowLightSource: true,
-              lightSource: LightSource.topLeft,
-            ),
-            child: SizedBox(
-              width: 50,
-              height: 50,
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   @override
@@ -121,7 +77,10 @@ class _PageState extends State<_Page> {
                 SizedBox(
                   height: 77,
                 ),
-                Text('正确率${widget.percent.toStringAsFixed(1)}%', style: TextStyle(color: Colors.black),),
+                Text(
+                  '正确率${widget.percent.toStringAsFixed(1)}%',
+                  style: TextStyle(color: Colors.black),
+                ),
                 SizedBox(
                   height: 77,
                 ),
