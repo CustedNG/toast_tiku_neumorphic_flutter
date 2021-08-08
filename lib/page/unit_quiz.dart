@@ -286,6 +286,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     if (_checkState[_index].contains(value)) {
       _checkState[_index].remove(value);
     } else {
+      final type = _tis![_index].type;
+      if (type == 0 || type == 3) _checkState[_index].clear();
       _checkState[_index].add(value);
     }
     _historyStore.put(widget.courseId, widget.unitFile, _historyIdx);
