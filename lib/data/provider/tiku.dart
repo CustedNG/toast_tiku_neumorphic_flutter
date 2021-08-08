@@ -5,7 +5,7 @@ import 'package:toast_tiku/core/provider_base.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
-import 'package:toast_tiku/service/app_service.dart';
+import 'package:toast_tiku/service/app.dart';
 
 class TikuProvider extends BusyProvider {
   final _initialized = Completer();

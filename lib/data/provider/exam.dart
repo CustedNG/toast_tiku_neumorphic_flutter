@@ -28,7 +28,7 @@ class ExamProvider extends BusyProvider {
 
     for (int typeIdx = 0; typeIdx < 4; typeIdx++) {
       List<int> vals = [];
-      for (int idx = 0; idx < counts[typeIdx]; idx++) {
+      for (int idx = 0; idx < counts[typeIdx].toInt(); idx++) {
         int randIdx = Random().nextInt(_tis[typeIdx].length);
         if (!vals.contains(randIdx)) {
           vals.add(randIdx);

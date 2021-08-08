@@ -10,7 +10,7 @@ import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/provider/user.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/data/store/user.dart';
-import 'package:toast_tiku/service/app_service.dart';
+import 'package:toast_tiku/service/app.dart';
 
 GetIt locator = GetIt.instance;
 

@@ -140,7 +140,7 @@ class _ExamingPageState extends State<ExamingPage>
 
   Widget _buildProgress() {
     return NeumorphicProgress(
-      percent: _index / _tis.length,
+      percent: (_index + 1) / _tis.length,
       height: 2,
     );
   }

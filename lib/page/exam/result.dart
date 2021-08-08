@@ -1,4 +1,5 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:toast_tiku/widget/neu_btn.dart';
 
 class ExamResultPage extends StatelessWidget {
   final double percent;
@@ -114,33 +115,22 @@ class _PageState extends State<_Page> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    _letter("G"),
-                    _firstBox(),
-                    _secondBox(),
-                    _letter("d"),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _letter("Job"),
+                    _letter("恭喜🎉"),
                   ],
                 ),
                 SizedBox(
                   height: 77,
                 ),
-                Text('正确率${widget.percent}%', style: TextStyle(color: Colors.black),),
+                Text('正确率${widget.percent.toStringAsFixed(1)}%', style: TextStyle(color: Colors.black),),
                 SizedBox(
                   height: 77,
                 ),
-                NeumorphicButton(
+                NeuBtn(
                   child: NeumorphicIcon(
                     Icons.arrow_back,
                     style: NeumorphicStyle(color: Colors.black),
                   ),
-                  onPressed: () => Navigator.of(context).pop(),
+                  onTap: () => Navigator.of(context).pop(),
                 )
               ],
             ),

@@ -1,5 +1,5 @@
 import 'package:toast_tiku/core/provider_base.dart';
-import 'package:toast_tiku/service/app_service.dart';
+import 'package:toast_tiku/service/app.dart';
 
 class AppProvider extends BusyProvider {
   Map? _notify;

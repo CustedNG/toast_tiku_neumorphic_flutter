@@ -133,7 +133,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   Widget _buildProgress() {
     return NeumorphicProgress(
-      percent: _index / _tis!.length,
+      percent: (_index + 1) / _tis!.length,
       height: 2,
     );
   }
