@@ -27,8 +27,8 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   late TikuProvider _tikuProvider;
   String? _selectedCourse;
 
-  /// [_tiCount] : 长度为5，分别为单选、多选、判断、填空题目的个数，以及考试时长
-  late List<double> _tiCount;
+  /// [_counts] : 长度为5，分别为单选、多选、填空、判断题目的个数，以及考试时长
+  late List<double> _counts;
   List<String> _units = [];
 
   final titleStyle =
@@ -116,14 +116,13 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               groupValue: _selectedCourse,
               onChanged: (val) => setState(() {
                 _selectedCourse = val;
-                _tiCount = [20, 0, 0, 0, 60];
+                _counts = [20, 0, 0, 0, 60];
               }),
             ));
           }
           final gridPad = _media.size.width * 0.05;
           return Column(
             children: [
-              SizedBox(height: _media.size.height * 0.01),
               NeuText(text: '科目', textStyle: titleStyle),
               ConstrainedBox(
                 constraints:
@@ -175,15 +174,15 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
             text: '题型',
             textStyle: titleStyle,
           ),
-          _buildSlider(singleCount.toDouble(), 0, '单选'),
-          _buildSlider(mutiCount.toDouble(), 1, '多选'),
-          _buildSlider(fillCount.toDouble(), 2, '填空'),
-          _buildSlider(judgeCount.toDouble(), 3, '判断'),
+          _buildSlider(singleCount.toDouble(), 0, 0, '单选'),
+          _buildSlider(mutiCount.toDouble(), 0, 1, '多选'),
+          _buildSlider(fillCount.toDouble(), 0, 2, '填空'),
+          _buildSlider(judgeCount.toDouble(), 0, 3, '判断'),
           NeuText(
             text: '考试时长',
             textStyle: titleStyle,
           ),
-          _buildSlider(120, 4, '分钟'),
+          _buildSlider(120, 1, 4, '分钟'),
           SizedBox(
             height: _media.size.height * 0.2,
           )
@@ -192,7 +191,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     );
   }
 
-  Widget _buildSlider(double max, int idx, String typeChinese) {
+  Widget _buildSlider(double max, double min, int idx, String typeChinese) {
     if (max == 0) {
       return SizedBox();
     }
@@ -201,14 +200,14 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
         SizedBox(
           width: _media.size.width,
           child: NeuText(
-            text: '$typeChinese x ${_tiCount[idx].toInt()}',
+            text: '$typeChinese x ${_counts[idx].toInt()}',
             align: TextAlign.start,
           ),
         ),
         NeumorphicSlider(
           max: _selectedCourse != null ? max : 0,
-          value: _tiCount[idx],
-          min: 0,
+          value: _counts[idx],
+          min: min,
           thumb: NeuBtn(
             child: SizedBox(
               width: 13,
@@ -216,7 +215,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
             boxShape: NeumorphicBoxShape.circle(),
             onTap: () {},
           ),
-          onChanged: (val) => setState(() => _tiCount[idx] = val),
+          onChanged: (val) => setState(() => _counts[idx] = val),
         )
       ],
     );
@@ -229,18 +228,15 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           if (_selectedCourse == null) {
             showSnackBar(context, Text('请选择科目'));
           } else {
-            if (_tiCount.every((element) => element == 0)) {
+            if (_counts.every((element) => element == 0)) {
               showSnackBar(context, Text('题目总数不得等于0'));
             } else {
               locator<ExamProvider>()
-                  .loadTi(_selectedCourse!, _units, _tiCount);
-              locator<TimerProvider>().start(
-                  DateTime.now().add(Duration(
-                    minutes: (_tiCount[4]).toInt(),
-                    // 由于页面动画的存在，所以多给一秒
-                    seconds: 1
-                  )
-              ));
+                  .loadTi(_selectedCourse!, _units, _counts);
+              locator<TimerProvider>().start(DateTime.now().add(Duration(
+                  minutes: (_counts[4]).toInt(),
+                  // 由于页面动画的存在，所以多给一秒
+                  seconds: 1)));
               AppRoute(ExamingPage()).go(context);
             }
           }

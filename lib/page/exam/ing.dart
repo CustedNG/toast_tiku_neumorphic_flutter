@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
+import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
+import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/data/provider/exam.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
+import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
+import 'package:toast_tiku/page/exam/result.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
@@ -32,6 +36,7 @@ class _ExamingPageState extends State<ExamingPage>
   late final SnappingSheetController _sheetController;
   late double _bottomHeight;
   bool isBusy = true;
+  bool _submittedAnswer = false;
 
   @override
   void didChangeDependencies() {
@@ -48,6 +53,12 @@ class _ExamingPageState extends State<ExamingPage>
     ).animate(_controller);
     _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
     _index = 0;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    locator<TimerProvider>().stop();
   }
 
   @override
@@ -92,9 +103,7 @@ class _ExamingPageState extends State<ExamingPage>
           SizedBox(
             height: _media.size.height * 0.84 - _bottomHeight,
             child: ListView(
-              children: [
-                _buildTiList(),
-              ],
+              children: [_buildTiList(), _buildAnswer()],
             ),
           ),
         ],
@@ -150,15 +159,35 @@ class _ExamingPageState extends State<ExamingPage>
               width: _media.size.width * 0.5,
               child: Consumer<TimerProvider>(
                 builder: (_, timer, __) {
+                  if (timer.finish) {
+                    _submittedAnswer = true;
+                  }
                   return NeuText(text: timer.leftTime);
                 },
               ),
             ),
             NeuBtn(
-              child: NeuText(text: '交卷'),
+              child: _submittedAnswer
+                  ? NeumorphicIcon(
+                      Icons.celebration,
+                      style: NeumorphicStyle(color: mainColor),
+                    )
+                  : NeuText(text: '交卷'),
               onTap: () {
-                showSnackBar(context, Text('交卷'));
-                setState(() {});
+                if (!_submittedAnswer) {
+                  showSnackBar(context, Text('交卷'));
+                  setState(() {
+                    _submittedAnswer = true;
+                  });
+                } else {
+                  int correctCount = 0;
+                  for (int idx = 0; idx < _tis.length; idx++) {
+                    if (_tis[idx].answer!.every((element) => _checkState[idx].contains(element))) correctCount++;
+                  }
+                  AppRoute(ExamResultPage(
+                    percent: correctCount / _tis.length * 100,
+                  )).go(context);
+                }
               },
             )
           ],
@@ -261,6 +290,7 @@ class _ExamingPageState extends State<ExamingPage>
   }
 
   void onPressed(int value) {
+    if (_submittedAnswer) return;
     if (_checkState[_index].contains(value)) {
       _checkState[_index].remove(value);
     } else {
@@ -269,5 +299,10 @@ class _ExamingPageState extends State<ExamingPage>
       _checkState[_index].add(value);
     }
     setState(() {});
+  }
+
+  Widget _buildAnswer() {
+    if (!_submittedAnswer) return SizedBox();
+    return NeuText(text: _tis[_index].answerStr);
   }
 }

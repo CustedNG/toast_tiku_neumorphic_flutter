@@ -15,4 +15,28 @@ extension TiX on Ti {
         return '未知类型';
     }
   }
+
+  String get answerStr {
+    final answerConst = '\n答案：';
+    switch (type) {
+      case 3:
+        if (options == null) {
+          return '$answerConst${answer![0] == 0 ? "对" : "错"}';
+        }
+        return '$answerConst${options![answer![0]]}';
+      case 2:
+        return '$answerConst${answer!.join(",")}';
+      case 0:
+      case 1:
+        final answers = <String>[];
+        for (var item in answer!) {
+          if (item is int) {
+            answers.add(String.fromCharCode(65 + item));
+          }
+        }
+        return answerConst + answers.join(',');
+      default:
+        return '无法解析答案';
+    }
+  }
 }

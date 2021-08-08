@@ -323,7 +323,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         return ListTile(
           title: NeuText(text: ti.question!, align: TextAlign.start),
           subtitle: NeuText(
-              text: _buildOption(ti.options ?? []) + _buildAnswer(ti),
+              text: _buildOption(ti.options ?? []) + ti.answerStr,
               align: TextAlign.start),
           trailing: NeuText(text: ti.typeChinese, align: TextAlign.start),
         );
@@ -331,7 +331,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         return ListTile(
           title: NeuText(text: ti.question!, align: TextAlign.start),
           subtitle: NeuText(
-              text: _buildOption(ti.answer!) + _buildAnswer(ti),
+              text: _buildOption(ti.answer!) + ti.answerStr,
               align: TextAlign.start),
           trailing: NeuText(text: ti.typeChinese, align: TextAlign.start),
         );
@@ -356,30 +356,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         return result;
       default:
         return '';
-    }
-  }
-
-  String _buildAnswer(Ti ti) {
-    final answer = '\n答案：';
-    switch (ti.type) {
-      case 3:
-        if (ti.options == null) {
-          return '$answer${ti.answer![0] == 0 ? "对" : "错"}';
-        }
-        return '$answer${ti.options![ti.answer![0]]}';
-      case 2:
-        return '$answer${ti.answer!.join(",")}';
-      case 0:
-      case 1:
-        final answers = <String>[];
-        for (var item in ti.answer!) {
-          if (item is int) {
-            answers.add(String.fromCharCode(65 + item));
-          }
-        }
-        return '$answer' + answers.join(',');
-      default:
-        return '无法解析答案';
     }
   }
 
