@@ -18,7 +18,7 @@ class GrabSheet extends StatefulWidget {
       required this.main,
       this.grab,
       required this.tis,
-      required this.checkState, 
+      required this.checkState,
       required this.onTap})
       : super(key: key);
 
@@ -71,23 +71,24 @@ class _GrabSheetState extends State<GrabSheet> {
         child: Container(
           color: NeumorphicTheme.baseColor(context),
           child: GridView.builder(
-            padding: EdgeInsets.symmetric(horizontal: _media.size.width * 0.05),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, childAspectRatio: 2),
-            itemCount: widget.tis.length,
-            itemBuilder: (context, idx) {
-              return Padding(
-                padding: EdgeInsets.all(7),
-                child: NeuBtn(
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.zero,
-                  child: Center(
-                    child: NeuText(text: (idx + 1).toString()),
+              padding:
+                  EdgeInsets.symmetric(horizontal: _media.size.width * 0.05),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4, childAspectRatio: 2),
+              itemCount: widget.tis.length,
+              itemBuilder: (context, idx) {
+                return Padding(
+                  padding: EdgeInsets.all(7),
+                  child: NeuBtn(
+                    margin: EdgeInsets.zero,
+                    padding: EdgeInsets.zero,
+                    child: Center(
+                      child: NeuText(text: (idx + 1).toString()),
+                    ),
+                    onTap: () => widget.onTap(idx),
                   ),
-                  onTap: () => widget.onTap(idx),
-                ),
-              );
-            }),
+                );
+              }),
         ),
       ),
     );

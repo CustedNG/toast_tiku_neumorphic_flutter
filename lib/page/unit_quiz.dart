@@ -10,6 +10,7 @@ import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
+import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
@@ -63,7 +64,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _favoriteStore = locator<FavoriteStore>();
     _historyStore = locator<HistoryStore>();
     _historyProvider = context.read<HistoryProvider>();
-    _tis = _tikuStore.fetch(widget.courseId, widget.unitFile) ?? [];
+    _tis = _tikuStore.fetch(widget.courseId, widget.unitFile);
     _index = 0;
     _checkState = List.generate(_tis!.length, (_) => []);
     _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
@@ -71,15 +72,21 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
-      body: GrabSheet(
+    var child;
+    if (_tis == null || _tis!.isEmpty) {
+      child = centerLoading;
+    } else {
+      child = GrabSheet(
         sheetController: _sheetController,
         main: _buildMain(),
         tis: _tis!,
         checkState: _checkState,
         onTap: (idx) => setState(() => _index = idx),
-      ),
+      );
+    }
+    return Scaffold(
+      backgroundColor: NeumorphicTheme.baseColor(context),
+      body: child,
     );
   }
 

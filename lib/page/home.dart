@@ -74,7 +74,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             children: [
               _buildHead(),
               TikuUpdateProgress(),
-              SizedBox(height: _media.size.height * 0.03),
               _buildNotifyCard(),
               _buildResumeCard(),
               SizedBox(height: _media.size.height * 0.01),
@@ -141,9 +140,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   Widget _buildBannerView(String title, String content) {
-    final pad = _media.size.width * 0.07;
+    final horizon = _media.size.width * 0.07;
+    final vertical = _media.size.height * 0.03;
     return NeuCard(
-      padding: EdgeInsets.fromLTRB(pad, 17, pad, 17),
+      padding: EdgeInsets.symmetric(horizontal: horizon, vertical: vertical),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

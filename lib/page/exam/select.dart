@@ -11,6 +11,7 @@ import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/page/exam/ing.dart';
 import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
+import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
@@ -98,7 +99,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     return Consumer<TikuProvider>(
       builder: (_, tiku, __) {
         if (tiku.isBusy) {
-          return SizedBox();
+          return Flexible(child: centerLoading);
         }
         if (tiku.tikuIndex == null) {
           return Center(
