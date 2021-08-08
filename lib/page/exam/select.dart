@@ -2,9 +2,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
+import 'package:toast_tiku/data/provider/exam.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/page/exam/ing.dart';
 import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
@@ -22,7 +26,10 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   late MediaQueryData _media;
   late TikuProvider _tikuProvider;
   String? _selectedCourse;
+
+  /// [_tiCount] : 长度为5，分别为单选、多选、判断、填空题目的个数，以及考试时长
   late List<double> _tiCount;
+  List<String> _units = [];
 
   final titleStyle =
       NeumorphicTextStyle(fontSize: 17, fontWeight: FontWeight.bold);
@@ -81,7 +88,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     return SizedBox(
       height: _media.size.height * 0.84,
       width: _media.size.width,
-      child: Column(
+      child: ListView(
         children: [_buildCourseSelect(), _buildTiTypeSelect()],
       ),
     );
@@ -109,18 +116,18 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               groupValue: _selectedCourse,
               onChanged: (val) => setState(() {
                 _selectedCourse = val;
-                _tiCount = [20, 0, 0, 0];
+                _tiCount = [20, 0, 0, 0, 60];
               }),
             ));
           }
           final gridPad = _media.size.width * 0.05;
           return Column(
             children: [
-              SizedBox(height: _media.size.height * 0.03),
+              SizedBox(height: _media.size.height * 0.01),
               NeuText(text: '科目', textStyle: titleStyle),
               ConstrainedBox(
                 constraints:
-                    BoxConstraints(maxHeight: _media.size.height * 0.2),
+                    BoxConstraints(maxHeight: _media.size.height * 0.18),
                 child: GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.all(gridPad),
@@ -152,11 +159,13 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     }
     final course = index.firstWhere((element) => element.id == _selectedCourse);
     int singleCount = 0, mutiCount = 0, judgeCount = 0, fillCount = 0;
+    _units.clear();
     for (var item in course.content!) {
       singleCount += item!.radio!;
       mutiCount += item.multiple!;
       judgeCount += item.decide!;
       fillCount += item.fill!;
+      _units.add(item.data!);
     }
     return Padding(
       padding: EdgeInsets.all(_media.size.width * 0.05),
@@ -166,19 +175,24 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
             text: '题型',
             textStyle: titleStyle,
           ),
-          SizedBox(
-            height: 7,
+          _buildSlider(singleCount.toDouble(), 0, '单选'),
+          _buildSlider(mutiCount.toDouble(), 1, '多选'),
+          _buildSlider(fillCount.toDouble(), 2, '填空'),
+          _buildSlider(judgeCount.toDouble(), 3, '判断'),
+          NeuText(
+            text: '考试时长',
+            textStyle: titleStyle,
           ),
-          _buildSlider(selected, singleCount.toDouble(), 0, '单选'),
-          _buildSlider(selected, mutiCount.toDouble(), 1, '多选'),
-          _buildSlider(selected, judgeCount.toDouble(), 2, '判断'),
-          _buildSlider(selected, fillCount.toDouble(), 3, '填空'),
+          _buildSlider(120, 4, '分钟'),
+          SizedBox(
+            height: _media.size.height * 0.2,
+          )
         ],
       ),
     );
   }
 
-  Widget _buildSlider(bool selected, double max, int idx, String typeChinese) {
+  Widget _buildSlider(double max, int idx, String typeChinese) {
     if (max == 0) {
       return SizedBox();
     }
@@ -192,7 +206,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           ),
         ),
         NeumorphicSlider(
-          max: selected ? max : 0,
+          max: _selectedCourse != null ? max : 0,
           value: _tiCount[idx],
           min: 0,
           thumb: NeuBtn(
@@ -217,7 +231,18 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           } else {
             if (_tiCount.every((element) => element == 0)) {
               showSnackBar(context, Text('题目总数不得等于0'));
-            } else {}
+            } else {
+              locator<ExamProvider>()
+                  .loadTi(_selectedCourse!, _units, _tiCount);
+              locator<TimerProvider>().start(
+                  DateTime.now().add(Duration(
+                    minutes: (_tiCount[4]).toInt(),
+                    // 由于页面动画的存在，所以多给一秒
+                    seconds: 1
+                  )
+              ));
+              AppRoute(ExamingPage()).go(context);
+            }
           }
         },
         child: SizedBox(

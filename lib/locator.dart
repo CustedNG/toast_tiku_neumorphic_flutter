@@ -1,7 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:toast_tiku/data/provider/app.dart';
+import 'package:toast_tiku/data/provider/exam.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
@@ -18,8 +20,10 @@ void setupLocatorForServices() {
 
 void setupLocatorForProviders() {
   locator.registerSingleton(AppProvider());
+  locator.registerSingleton(ExamProvider());
   locator.registerSingleton(UserProvider());
   locator.registerSingleton(TikuProvider());
+  locator.registerSingleton(TimerProvider());
   locator.registerSingleton(HistoryProvider());
 }
 

@@ -40,6 +40,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
   late FixedExtentScrollController _fixedExtentScrollController;
+  late Timer _timer;
 
   final titleStyle =
       NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
@@ -49,7 +50,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _fixedExtentScrollController = FixedExtentScrollController();
-    Timer.periodic(Duration(seconds: 7), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 7), (timer) {
+      if (_timer.isActive) return;
       _fixedExtentScrollController.animateToItem(timer.tick % 2,
           duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
     });

@@ -119,7 +119,8 @@ class _CoursePageState extends State<CoursePage> {
               children: [
                 NeuText(text: '选择：${data.radio!}'),
                 NeuText(text: '填空：${data.fill!}'),
-                NeuText(text: '多选：${data.multiple!}')
+                NeuText(text: '多选：${data.multiple!}'),
+                NeuText(text: '判断：${data.decide!}')
               ],
             )
           ],
