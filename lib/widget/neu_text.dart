@@ -17,7 +17,7 @@ class NeuText extends StatelessWidget {
     return NeumorphicText(
       text,
       textAlign: align ?? TextAlign.center,
-      style: style ?? const NeumorphicStyle(color: mainColor),
+      style: style ?? NeumorphicStyle(color: mainColor.resolve(context)),
       textStyle: textStyle,
     );
   }

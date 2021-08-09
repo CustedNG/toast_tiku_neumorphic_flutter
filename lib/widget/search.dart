@@ -88,7 +88,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
     return Theme.of(context).copyWith(
         textTheme: Theme.of(context).textTheme.copyWith(
               headline6: TextStyle(
-                color: mainColor,
+                color: mainColor.resolve(context),
                 fontSize: 20,
               ),
             ),
@@ -97,7 +97,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
             : Brightness.light,
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: TextStyle(
-            color: mainColor,
+            color: mainColor.resolve(context),
             fontSize: 20,
           ),
           focusedErrorBorder: InputBorder.none,
@@ -119,7 +119,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
         duration: Duration(milliseconds: 200),
         curve: Curves.easeInOutCubic,
         child: IconButton(
-          icon: Icon(Icons.clear, color: mainColor),
+          icon: Icon(Icons.clear, color: mainColor.resolve(context)),
           onPressed: () => query = '',
         ),
       )
@@ -132,7 +132,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
     // It's aware of targeted platform.
     // Used to close the view.
     return IconButton(
-      icon: Icon(Icons.arrow_back, color: mainColor),
+      icon: Icon(Icons.arrow_back, color: mainColor.resolve(context)),
       onPressed: () => close(context, null),
     );
   }

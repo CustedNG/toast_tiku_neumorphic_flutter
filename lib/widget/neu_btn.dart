@@ -25,7 +25,7 @@ class NeuIconBtn extends StatelessWidget {
       padding: padding ?? const EdgeInsets.all(9),
       child: NeumorphicIcon(
         icon,
-        style: const NeumorphicStyle(color: mainColor),
+        style: NeumorphicStyle(color: mainColor.resolve(context)),
       ),
       onTap: onTap,
       boxShape: boxShape,

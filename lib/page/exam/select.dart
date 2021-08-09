@@ -74,7 +74,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            const NeuText(
+            NeuText(
               text: '模拟考试',
             ),
             NeuIconBtn(

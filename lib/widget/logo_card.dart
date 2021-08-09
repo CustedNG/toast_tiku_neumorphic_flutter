@@ -40,7 +40,7 @@ class _LogoCardState extends State<LogoCard> {
   }
 
   Widget _buildRightIcon() {
-    return Icon(Icons.keyboard_arrow_right, color: mainColor);
+    return Icon(Icons.keyboard_arrow_right, color: mainColor.resolve(context));
   }
 
   Widget _buildContent() {

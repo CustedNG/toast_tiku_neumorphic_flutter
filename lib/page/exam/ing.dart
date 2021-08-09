@@ -144,7 +144,7 @@ class _ExamingPageState extends State<ExamingPage>
               child: _submittedAnswer
                   ? NeumorphicIcon(
                       Icons.celebration,
-                      style: NeumorphicStyle(color: mainColor),
+                      style: NeumorphicStyle(color: mainColor.resolve(context)),
                     )
                   : NeuText(text: '交卷'),
               onTap: () {

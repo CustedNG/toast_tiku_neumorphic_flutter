@@ -53,7 +53,7 @@ class SettingItem extends StatelessWidget {
             this.showArrow
                 ? NeumorphicIcon(
                     Icons.arrow_forward_ios,
-                    style: NeumorphicStyle(color: mainColor),
+                    style: NeumorphicStyle(color: mainColor.resolve(context)),
                     size: 16,
                   )
                 : Container(),

@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                   icon: Icons.account_circle,
                   onTap: () => AppRoute(SettingPage()).go(context),
                 ),
-                const NeuText(
+                NeuText(
                   text: 'Hi 👋🏻\nLollipopKit',
                   align: TextAlign.start,
                 ),
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                                   child: NeuText(
                                       text: unit.title!,
                                       style: NeumorphicStyle(
-                                          color: mainColor.withOpacity(0.8)),
+                                          color: mainColor.resolve(context).withOpacity(0.8)),
                                       textStyle:
                                           NeumorphicTextStyle(fontSize: 11))),
                             ],
@@ -308,7 +308,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       ti.question,
                     ],
                 builder: (ti) => NeuCard(child: _buildSearchResult(ti)),
-                searchStyle: TextStyle(color: mainColor)),
+                searchStyle: TextStyle(color: mainColor.resolve(context))),
           ),
         ),
       ],

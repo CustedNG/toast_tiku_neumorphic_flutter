@@ -63,7 +63,7 @@ class _SettingPageState extends State<SettingPage> {
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            const NeuText(
+            NeuText(
               text: '设置',
             ),
             NeuIconBtn(
