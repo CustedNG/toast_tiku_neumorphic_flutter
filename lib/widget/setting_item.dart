@@ -33,36 +33,39 @@ class SettingItem extends StatelessWidget {
     return Container(
         height: this.height ?? 55.0,
         width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            SizedBox(width: 10.0),
-            this.icon ?? Container(),
-            SizedBox(width: 10.0),
-            NeuText(text: this.title),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(left: 16, right: 16),
-                child: NeuText(
-                    text: this.content,
-                    align: this.textAlign,
-                    textStyle: this.contentStyle ??
-                        NeumorphicTextStyle(fontSize: 14.0)),
+        child: GestureDetector(
+          onTap: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              SizedBox(width: 10.0),
+              this.icon ?? Container(),
+              SizedBox(width: 10.0),
+              NeuText(text: this.title),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(left: 16, right: 16),
+                  child: NeuText(
+                      text: this.content,
+                      align: this.textAlign,
+                      textStyle: this.contentStyle ??
+                          NeumorphicTextStyle(fontSize: 14.0)),
+                ),
               ),
-            ),
-            this.showArrow
-                ? NeumorphicIcon(
-                    Icons.arrow_forward_ios,
-                    style: NeumorphicStyle(color: mainColor.resolve(context)),
-                    size: 16,
-                  )
-                : Container(),
-            SizedBox(width: 10.0),
-            this.rightBtn ?? Container(),
-            SizedBox(
-              width: 17,
-            )
-          ],
+              this.showArrow
+                  ? NeumorphicIcon(
+                      Icons.arrow_forward_ios,
+                      style: NeumorphicStyle(color: mainColor.resolve(context)),
+                      size: 16,
+                    )
+                  : Container(),
+              SizedBox(width: 10.0),
+              this.rightBtn ?? Container(),
+              SizedBox(
+                width: 17,
+              )
+            ],
+          ),
         ));
   }
 }

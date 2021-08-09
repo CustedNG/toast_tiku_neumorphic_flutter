@@ -8,6 +8,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
+import 'package:toast_tiku/core/update.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
@@ -40,7 +41,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
   late FixedExtentScrollController _fixedExtentScrollController;
-  late Timer _timer;
+  Timer? _timer;
 
   final titleStyle =
       NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
@@ -50,8 +51,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _fixedExtentScrollController = FixedExtentScrollController();
+    if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 7), (timer) {
-      if (_timer.isActive) return;
       _fixedExtentScrollController.animateToItem(timer.tick % 2,
           duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
     });
@@ -132,7 +133,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           return centerLoading;
         }
         if (app.notify == null) {
-          return SizedBox();
+          return _buildBannerView('🐎⬆️', '加载中');
         }
         return _buildBannerView(app.notify!['title'], app.notify!['content']);
       })
@@ -199,7 +200,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                                   child: NeuText(
                                       text: unit.title!,
                                       style: NeumorphicStyle(
-                                          color: mainColor.resolve(context).withOpacity(0.8)),
+                                          color: mainColor
+                                              .resolve(context)
+                                              .withOpacity(0.8)),
                                       textStyle:
                                           NeumorphicTextStyle(fontSize: 11))),
                             ],
@@ -378,6 +381,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Future<void> afterFirstLayout(BuildContext context) async {
     await locator<HistoryProvider>().loadLocalData();
     await locator<AppProvider>().loadData();
+    await doUpdate(context);
     await locator<TikuProvider>().refreshUnit();
   }
 }

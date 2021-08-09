@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:toast_tiku/model/app_update.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
 import 'package:toast_tiku/res/url.dart';
@@ -21,5 +22,10 @@ class AppService {
   Future<Map> getNotify() async {
     final resp = await Dio().get('$tikuResUrl/notify.json');
     return resp.data;
+  }
+
+  Future<AppUpdate> getUpdate() async {
+    final resp = await Dio().get('$tikuResUrl/update.json');
+    return AppUpdate.fromJson(resp.data);
   }
 }

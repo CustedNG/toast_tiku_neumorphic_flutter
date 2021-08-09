@@ -1,9 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/persistant_store.dart';
+import 'package:toast_tiku/core/update.dart';
 import 'package:toast_tiku/core/utils.dart';
+import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/logo_card.dart';
@@ -36,8 +40,7 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
-        children: [_buildHead(), TikuUpdateProgress(), _buildSetting()]
-      ),
+          children: [_buildHead(), TikuUpdateProgress(), _buildSetting()]),
     );
   }
 
@@ -89,7 +92,22 @@ class _SettingPageState extends State<SettingPage> {
                     title: '自动更新题库',
                     showArrow: false,
                     rightBtn: buildSwitch(context, _store.autoUpdateTiku),
-                  )
+                  ),
+                  Consumer<AppProvider>(builder: (_, app, __) {
+                    String display;
+                    if (app.newestBuild != null) {
+                      if (app.newestBuild! > BuildData.build) {
+                        display = '发现新版本：${app.newestBuild}';
+                      } else {
+                        display = '当前版本：${BuildData.build}，已是最新';
+                      }
+                    } else {
+                      display = '当前版本：${BuildData.build}';
+                    }
+                    return SettingItem(
+                        title: display,
+                        onTap: () => doUpdate(context, force: true));
+                  })
                 ],
               ))
         ],

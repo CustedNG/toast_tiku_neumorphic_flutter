@@ -120,7 +120,8 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
             child: Neumorphic(
               curve: Curves.easeInQuad,
               child: SizedBox(height: 10, width: 57),
-              style: NeumorphicStyle(color: mainColor.resolve(context), depth: 37),
+              style:
+                  NeumorphicStyle(color: mainColor.resolve(context), depth: 37),
             ),
           ),
         ));

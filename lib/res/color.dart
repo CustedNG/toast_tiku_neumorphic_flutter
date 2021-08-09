@@ -4,6 +4,7 @@ import 'package:toast_tiku/core/utils.dart';
 class DynamicColor {
   /// 白天模式显示的颜色
   Color light;
+
   /// 暗黑模式显示的颜色
   Color dark;
 
