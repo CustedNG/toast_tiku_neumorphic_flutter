@@ -28,13 +28,13 @@ class ExamingPage extends StatefulWidget {
 
 class _ExamingPageState extends State<ExamingPage>
     with SingleTickerProviderStateMixin {
-  late final MediaQueryData _media;
+  late MediaQueryData _media;
   late List<Ti> _tis = [];
   late int _index;
   late List<List<int>> _checkState = [];
   late AnimationController _controller;
   late Animation<double> _animation;
-  late final SnappingSheetController _sheetController;
+  late SnappingSheetController _sheetController;
   late double _bottomHeight;
   bool isBusy = true;
   bool _submittedAnswer = false;

@@ -25,17 +25,17 @@ class UnitFavoritePage extends StatefulWidget {
 
 class _UnitFavoritePageState extends State<UnitFavoritePage>
     with SingleTickerProviderStateMixin {
-  late final MediaQueryData _media;
-  late final FavoriteStore _favoriteStore;
-  late final List<Ti>? _tis;
+  late MediaQueryData _media;
+  late FavoriteStore _favoriteStore;
+  late List<Ti>? _tis;
   late int _index;
-  late final List<List<int>> _checkState;
+  late List<List<int>> _checkState;
   late AnimationController _controller;
   late Animation<double> _animation;
   final _titleNeuTextStyle = NeumorphicTextStyle(fontSize: 12);
-  late final SnappingSheetController _sheetController;
+  late SnappingSheetController _sheetController;
   late double _bottomHeight;
-  late final List<int> _historyIdx;
+  late List<int> _historyIdx;
 
   @override
   void didChangeDependencies() {

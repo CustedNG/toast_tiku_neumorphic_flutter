@@ -376,6 +376,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
+    await locator<HistoryProvider>().loadLocalData();
+    await locator<AppProvider>().loadData();
     await locator<TikuProvider>().refreshUnit();
   }
 }

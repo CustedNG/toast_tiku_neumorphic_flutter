@@ -16,8 +16,6 @@ Future<void> initApp() async {
   await Hive.initFlutter();
   await setupLocator();
   await locator<TikuProvider>().refreshIndex();
-  await locator<AppProvider>().loadData();
-  await locator<HistoryProvider>().loadLocalData();
 }
 
 Future<void> main() async {

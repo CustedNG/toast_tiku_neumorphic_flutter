@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
@@ -46,19 +45,8 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
-      body: AnimationLimiter(
-        child: Column(
-          children: AnimationConfiguration.toStaggeredList(
-            duration: const Duration(milliseconds: 377),
-            childAnimationBuilder: (widget) => SlideAnimation(
-              verticalOffset: 50.0,
-              child: FadeInAnimation(
-                child: widget,
-              ),
-            ),
-            children: [_buildHead(), TikuUpdateProgress(), _buildMain()],
-          ),
-        ),
+      body: Column(
+        children: [_buildHead(), TikuUpdateProgress(), _buildMain()],
       ),
       bottomSheet: _buildStart(),
     );
@@ -86,6 +74,9 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   }
 
   Widget _buildMain() {
+    if (_tikuProvider.isBusy) {
+      return Flexible(child: centerLoading);
+    }
     return SizedBox(
       height: _media.size.height * 0.84,
       width: _media.size.width,

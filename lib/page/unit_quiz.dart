@@ -32,19 +32,19 @@ class UnitQuizPage extends StatefulWidget {
 
 class _UnitQuizPageState extends State<UnitQuizPage>
     with SingleTickerProviderStateMixin {
-  late final MediaQueryData _media;
-  late final TikuStore _tikuStore;
-  late final FavoriteStore _favoriteStore;
-  late final HistoryStore _historyStore;
-  late final HistoryProvider _historyProvider;
-  late final List<Ti>? _tis;
+  late MediaQueryData _media;
+  late TikuStore _tikuStore;
+  late FavoriteStore _favoriteStore;
+  late HistoryStore _historyStore;
+  late HistoryProvider _historyProvider;
+  late List<Ti>? _tis;
   late int _index;
-  late final List<List<int>> _checkState;
+  late List<List<int>> _checkState;
   late AnimationController _controller;
   late Animation<double> _animation;
-  late final SnappingSheetController _sheetController;
+  late SnappingSheetController _sheetController;
   late double _bottomHeight;
-  late final List<int> _historyIdx;
+  late List<int> _historyIdx;
 
   @override
   void didChangeDependencies() {

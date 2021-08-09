@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toast_tiku/core/persistant_store.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/setting.dart';
@@ -23,7 +22,7 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   late MediaQueryData _media;
-  late final SettingStore _store;
+  late SettingStore _store;
 
   @override
   void didChangeDependencies() {
@@ -36,19 +35,8 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
-      body: AnimationLimiter(
-        child: Column(
-          children: AnimationConfiguration.toStaggeredList(
-            duration: const Duration(milliseconds: 377),
-            childAnimationBuilder: (widget) => SlideAnimation(
-              verticalOffset: 50.0,
-              child: FadeInAnimation(
-                child: widget,
-              ),
-            ),
-            children: [_buildHead(), TikuUpdateProgress(), _buildSetting()],
-          ),
-        ),
+      body: Column(
+        children: [_buildHead(), TikuUpdateProgress(), _buildSetting()]
       ),
     );
   }

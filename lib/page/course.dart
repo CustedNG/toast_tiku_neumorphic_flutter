@@ -22,8 +22,8 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePageState extends State<CoursePage> {
-  late final MediaQueryData _media;
-  late final HistoryStore _historyStore;
+  late MediaQueryData _media;
+  late HistoryStore _historyStore;
 
   @override
   void didChangeDependencies() {
