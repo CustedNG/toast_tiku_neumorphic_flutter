@@ -26,7 +26,7 @@ class _LogoCardState extends State<LogoCard> {
     final pad = width * 0.02;
     return NeuBtn(
       padding: EdgeInsets.all(width * 0.06),
-      margin: EdgeInsets.fromLTRB(3 * pad, pad, 3 * pad, pad),
+      margin: EdgeInsets.fromLTRB(2.7 * pad, pad, 3 * pad, pad),
       onTap: () {},
       boxShape:
           NeumorphicBoxShape.roundRect(BorderRadius.all(Radius.circular(17))),
@@ -51,13 +51,7 @@ class _LogoCardState extends State<LogoCard> {
             transitionOnUserGestures: true,
             child: SizedBox(
               height: _media.size.height * 0.07,
-              child: NeuCard(
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.zero,
-                child:
-                    OnlineImage(url: 'https://blog.lolli.tech/img/favicon.ico'),
-                style: NeumorphicStyle(boxShape: NeumorphicBoxShape.circle()),
-              ),
+              child: FlutterLogo(size: 70,),
             )),
         SizedBox(width: _media.size.width * 0.05),
         Column(

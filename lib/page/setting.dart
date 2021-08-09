@@ -14,6 +14,7 @@ import 'package:toast_tiku/widget/logo_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
+import 'package:toast_tiku/widget/online_img.dart';
 import 'package:toast_tiku/widget/setting_item.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
@@ -39,8 +40,14 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
-      body: Column(
-          children: [_buildHead(), TikuUpdateProgress(), _buildSetting()]),
+      body:
+          Column(children: [_buildHead(), TikuUpdateProgress(), _buildMain()]),
+      bottomSheet:
+          Container(
+            color: NeumorphicTheme.baseColor(context),
+            padding: EdgeInsets.only(bottom: _media.padding.bottom), 
+            child: LogoCard(),
+          ),
     );
   }
 
@@ -65,7 +72,7 @@ class _SettingPageState extends State<SettingPage> {
         ));
   }
 
-  Widget _buildSetting() {
+  Widget _buildMain() {
     return ConstrainedBox(
       constraints: BoxConstraints(
           maxHeight: _media.size.height * 0.8, maxWidth: _media.size.width),
@@ -73,46 +80,69 @@ class _SettingPageState extends State<SettingPage> {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(height: _media.size.height * 0.02),
-          LogoCard(),
-          NeuCard(
-              padding: EdgeInsets.all(_media.size.width * 0.06),
-              margin: EdgeInsets.zero,
-              style: NeumorphicStyle(
-                  boxShape: NeumorphicBoxShape.roundRect(
-                      BorderRadius.all(Radius.circular(17)))),
-              child: Column(
-                children: [
-                  SettingItem(
-                    title: '自动添加错题到收藏夹',
-                    showArrow: false,
-                    rightBtn:
-                        buildSwitch(context, _store.autoAddWrongTi2Favrorite),
-                  ),
-                  SettingItem(
-                    title: '自动更新题库',
-                    showArrow: false,
-                    rightBtn: buildSwitch(context, _store.autoUpdateTiku),
-                  ),
-                  Consumer<AppProvider>(builder: (_, app, __) {
-                    String display;
-                    if (app.newestBuild != null) {
-                      if (app.newestBuild! > BuildData.build) {
-                        display = '发现新版本：${app.newestBuild}';
-                      } else {
-                        display = '当前版本：${BuildData.build}，已是最新';
-                      }
-                    } else {
-                      display = '当前版本：${BuildData.build}';
-                    }
-                    return SettingItem(
-                        title: display,
-                        onTap: () => doUpdate(context, force: true));
-                  })
-                ],
-              ))
+          _buildUser(),
+          _buildSetting()
         ],
       ),
     );
+  }
+
+  Widget _buildUser() {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: _media.size.height * 0.17, maxWidth: _media.size.width),
+      child: Center(
+        child: Column(
+          children: [
+            ConstrainedBox(constraints: BoxConstraints(maxHeight: _media.size.height * 0.13),
+            child: NeuBtn(
+              margin: EdgeInsets.zero,
+              child: OnlineImage(url: 'https://blog.lolli.tech/img/favicon.ico'),
+              boxShape: NeumorphicBoxShape.circle(),
+              onTap: (){},
+            ),),
+            NeuText(text: 'LollipopKit'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSetting() {
+    return NeuCard(
+        padding: EdgeInsets.all(_media.size.width * 0.06),
+        margin: EdgeInsets.zero,
+        style: NeumorphicStyle(
+            boxShape: NeumorphicBoxShape.roundRect(
+                BorderRadius.all(Radius.circular(17)))),
+        child: Column(
+          children: [
+            /// TODO: 以下设置暂时无效，未实现
+            SettingItem(
+              title: '自动添加错题到收藏夹',
+              showArrow: false,
+              rightBtn: buildSwitch(context, _store.autoAddWrongTi2Favrorite),
+            ),
+            SettingItem(
+              title: '自动更新题库',
+              showArrow: false,
+              rightBtn: buildSwitch(context, _store.autoUpdateTiku),
+            ),
+            Consumer<AppProvider>(builder: (_, app, __) {
+              String display;
+              if (app.newestBuild != null) {
+                if (app.newestBuild! > BuildData.build) {
+                  display = '发现新版本：${app.newestBuild}';
+                } else {
+                  display = '当前版本：${BuildData.build}，已是最新';
+                }
+              } else {
+                display = '当前版本：${BuildData.build}';
+              }
+              return SettingItem(
+                  title: display, onTap: () => doUpdate(context, force: true));
+            })
+          ],
+        ));
   }
 
   Widget buildSwitch(BuildContext context, StoreProperty<bool> prop,
