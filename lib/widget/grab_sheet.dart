@@ -81,6 +81,9 @@ class _GrabSheetState extends State<GrabSheet> {
                 return Padding(
                   padding: EdgeInsets.all(7),
                   child: NeuBtn(
+                    style: NeumorphicStyle(
+                      depth: widget.checkState[idx].isEmpty ? null : -10
+                    ),
                     margin: EdgeInsets.zero,
                     padding: EdgeInsets.zero,
                     child: Center(
