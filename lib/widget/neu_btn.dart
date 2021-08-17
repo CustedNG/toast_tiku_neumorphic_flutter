@@ -47,7 +47,7 @@ class NeuBtn extends StatelessWidget {
       this.onTap,
       this.margin,
       this.padding,
-      this.boxShape, 
+      this.boxShape,
       this.style})
       : super(key: key);
 
@@ -58,10 +58,11 @@ class NeuBtn extends StatelessWidget {
       margin: padding ?? const EdgeInsets.all(9),
       child: child,
       onPressed: onTap,
-      style: style ?? NeumorphicStyle(
-          boxShape: boxShape ??
-              NeumorphicBoxShape.roundRect(
-                  const BorderRadius.all(Radius.circular(7)))),
+      style: style ??
+          NeumorphicStyle(
+              boxShape: boxShape ??
+                  NeumorphicBoxShape.roundRect(
+                      const BorderRadius.all(Radius.circular(7)))),
     );
   }
 }

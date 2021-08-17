@@ -42,12 +42,11 @@ class _SettingPageState extends State<SettingPage> {
       backgroundColor: NeumorphicTheme.baseColor(context),
       body:
           Column(children: [_buildHead(), TikuUpdateProgress(), _buildMain()]),
-      bottomSheet:
-          Container(
-            color: NeumorphicTheme.baseColor(context),
-            padding: EdgeInsets.only(bottom: _media.padding.bottom), 
-            child: LogoCard(),
-          ),
+      bottomSheet: Container(
+        color: NeumorphicTheme.baseColor(context),
+        padding: EdgeInsets.only(bottom: _media.padding.bottom),
+        child: LogoCard(),
+      ),
     );
   }
 
@@ -89,17 +88,21 @@ class _SettingPageState extends State<SettingPage> {
 
   Widget _buildUser() {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: _media.size.height * 0.17, maxWidth: _media.size.width),
+      constraints: BoxConstraints(
+          maxHeight: _media.size.height * 0.17, maxWidth: _media.size.width),
       child: Center(
         child: Column(
           children: [
-            ConstrainedBox(constraints: BoxConstraints(maxHeight: _media.size.height * 0.13),
-            child: NeuBtn(
-              margin: EdgeInsets.zero,
-              child: OnlineImage(url: 'https://blog.lolli.tech/img/favicon.ico'),
-              boxShape: NeumorphicBoxShape.circle(),
-              onTap: (){},
-            ),),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: _media.size.height * 0.13),
+              child: NeuBtn(
+                margin: EdgeInsets.zero,
+                child:
+                    OnlineImage(url: 'https://blog.lolli.tech/img/favicon.ico'),
+                boxShape: NeumorphicBoxShape.circle(),
+                onTap: () {},
+              ),
+            ),
             NeuText(text: 'LollipopKit'),
           ],
         ),

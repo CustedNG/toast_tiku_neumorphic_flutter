@@ -16,6 +16,7 @@ import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
+import 'package:toast_tiku/widget/text_field.dart';
 
 class ExamingPage extends StatefulWidget {
   const ExamingPage({
@@ -30,12 +31,12 @@ class _ExamingPageState extends State<ExamingPage>
     with SingleTickerProviderStateMixin {
   late MediaQueryData _media;
   late List<Ti> _tis = [];
-  late int _index;
-  late List<List<int>> _checkState = [];
+  late List<List<Object>> _checkState = [];
   late AnimationController _controller;
   late Animation<double> _animation;
   late SnappingSheetController _sheetController;
   late double _bottomHeight;
+  int _index = 0;
   bool isBusy = true;
   bool _submittedAnswer = false;
 
@@ -53,7 +54,6 @@ class _ExamingPageState extends State<ExamingPage>
       end: 1.0,
     ).animate(_controller);
     _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
-    _index = 0;
   }
 
   @override
@@ -86,7 +86,14 @@ class _ExamingPageState extends State<ExamingPage>
             main: _buildMain(),
             tis: _tis,
             checkState: _checkState,
-            onTap: (idx) => setState(() => _index = idx),
+            showColor: false,
+            onTap: (idx) {
+              setState(() {
+                _index = idx;
+              });
+              _controller.reset();
+              _controller.forward();
+            },
           );
         },
       ),
@@ -212,16 +219,32 @@ class _ExamingPageState extends State<ExamingPage>
   }
 
   Widget _buildFill(Ti ti) {
+    if (_checkState[_index].isEmpty) {
+      _checkState[_index] = List.generate(ti.answer!.length, (_) => '');
+    }
+    final textFields = [];
+    for (int answerIdx = 0; answerIdx < ti.answer!.length; answerIdx++) {
+      final initValue = _checkState[_index][answerIdx] as String;
+      textFields.add(NeuTextField(
+        key: UniqueKey(),
+        label: '$_index - ${answerIdx + 1}',
+        initValue: initValue,
+        onChanged: (value) {
+          _checkState[_index][answerIdx] = value;
+        },
+        padding: EdgeInsets.zero,
+      ));
+    }
     return Padding(
       padding: EdgeInsets.all(_media.size.width * 0.07),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NeuText(text: ti.question!, align: TextAlign.start),
-          NeuText(text: '\n答案：', align: TextAlign.start),
-          ...ti.answer!
-              .map((e) => NeuText(text: e, align: TextAlign.start))
-              .toList()
+          SizedBox(
+            height: 17,
+          ),
+          ...textFields
         ],
       ),
     );

@@ -10,8 +10,9 @@ class GrabSheet extends StatefulWidget {
   final Widget main;
   final Widget? grab;
   final List<Ti> tis;
-  final List<List<int>> checkState;
+  final List<List<Object>> checkState;
   final void Function(int index) onTap;
+  final bool showColor;
   const GrabSheet(
       {Key? key,
       required this.sheetController,
@@ -19,7 +20,8 @@ class GrabSheet extends StatefulWidget {
       this.grab,
       required this.tis,
       required this.checkState,
-      required this.onTap})
+      required this.onTap, 
+      required this.showColor})
       : super(key: key);
 
   @override
@@ -82,12 +84,13 @@ class _GrabSheetState extends State<GrabSheet> {
                   padding: EdgeInsets.all(7),
                   child: NeuBtn(
                     style: NeumorphicStyle(
-                      depth: widget.checkState[idx].isEmpty ? null : -10
-                    ),
+                        depth: widget.checkState[idx].isEmpty ? null : -10),
                     margin: EdgeInsets.zero,
                     padding: EdgeInsets.zero,
-                    child: Center(
-                      child: NeuText(text: (idx + 1).toString()),
+                    child: Container(
+                      color: judgeColor(idx),
+                      child: Center(
+                      child: NeuText(text: (idx + 1).toString())),
                     ),
                     onTap: () => widget.onTap(idx),
                   ),
@@ -96,5 +99,14 @@ class _GrabSheetState extends State<GrabSheet> {
         ),
       ),
     );
+  }
+
+  Color? judgeColor(int idx) {
+    if (widget.showColor && widget.checkState[idx].isNotEmpty) {
+      if (widget.tis[idx].answer!.every((element) => widget.checkState[idx].contains(element))) {
+        return Colors.greenAccent;
+      }
+      return Colors.redAccent;
+    }
   }
 }

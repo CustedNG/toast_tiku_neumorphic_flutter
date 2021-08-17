@@ -2,9 +2,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
-import 'package:toast_tiku/widget/online_img.dart';
 
 class LogoCard extends StatefulWidget {
   @override
@@ -51,7 +49,9 @@ class _LogoCardState extends State<LogoCard> {
             transitionOnUserGestures: true,
             child: SizedBox(
               height: _media.size.height * 0.07,
-              child: FlutterLogo(size: 70,),
+              child: FlutterLogo(
+                size: 70,
+              ),
             )),
         SizedBox(width: _media.size.width * 0.05),
         Column(

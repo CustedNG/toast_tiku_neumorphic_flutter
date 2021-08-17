@@ -15,7 +15,7 @@ class TimerProvider extends BusyProvider {
       final duration = endTime.difference(DateTime.now());
       final minutes = duration.inMinutes;
       final seconds = duration.inSeconds - 60 * minutes;
-      if (seconds <= 0) {
+      if (seconds < 0) {
         leftTime = '考试已结束';
         finish = true;
         notifyListeners();

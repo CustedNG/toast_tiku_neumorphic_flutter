@@ -77,11 +77,18 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       child = centerLoading;
     } else {
       child = GrabSheet(
+        showColor: true,
         sheetController: _sheetController,
         main: _buildMain(),
         tis: _tis!,
         checkState: _checkState,
-        onTap: (idx) => setState(() => _index = idx),
+        onTap: (idx) {
+          setState(() {
+            _index = idx;
+          });
+          _controller.reset();
+          _controller.forward();
+        },
       );
     }
     return Scaffold(
