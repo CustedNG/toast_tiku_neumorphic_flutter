@@ -75,10 +75,17 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             children: [
               _buildHead(),
               TikuUpdateProgress(),
-              _buildNotifyCard(),
+              SizedBox(
+                height: _media.size.height * 0.84,
+                child: ListView(
+                  children: [
+                    _buildNotifyCard(),
               _buildResumeCard(),
               SizedBox(height: _media.size.height * 0.01),
               _buildAllCourseCard(),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -225,12 +232,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 }
               }
             }
-            return SizedBox(
-              width: _media.size.width * 0.9,
-              height: _media.size.height * 0.1,
-              child: Padding(
-                  padding: EdgeInsets.fromLTRB(10, 7, 3, 7), child: child),
-            );
+            return Padding(
+                  padding: EdgeInsets.fromLTRB(_media.size.width * 0.07, 7, _media.size.width * 0.05, 7), child: child);
           },
         );
       },
@@ -239,7 +242,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   Widget _buildAllCourseCard() {
     return SizedBox(
-      height: _media.size.height * 0.26,
+      height: _media.size.height * 0.3,
       width: _media.size.width * 0.9,
       child: Consumer<TikuProvider>(builder: (_, tiku, __) {
         if (tiku.tikuIndex == null) {
@@ -250,7 +253,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         }
 
         return GridView.builder(
-            padding: EdgeInsets.all(0),
+            padding: EdgeInsets.symmetric(horizontal: _media.size.width * 0.05, vertical: 7),
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4, childAspectRatio: 1.0),
