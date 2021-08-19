@@ -20,7 +20,7 @@ class GrabSheet extends StatefulWidget {
       this.grab,
       required this.tis,
       required this.checkState,
-      required this.onTap, 
+      required this.onTap,
       required this.showColor})
       : super(key: key);
 
@@ -89,8 +89,7 @@ class _GrabSheetState extends State<GrabSheet> {
                     padding: EdgeInsets.zero,
                     child: Container(
                       color: judgeColor(idx),
-                      child: Center(
-                      child: NeuText(text: (idx + 1).toString())),
+                      child: Center(child: NeuText(text: (idx + 1).toString())),
                     ),
                     onTap: () => widget.onTap(idx),
                   ),
@@ -103,7 +102,8 @@ class _GrabSheetState extends State<GrabSheet> {
 
   Color? judgeColor(int idx) {
     if (widget.showColor && widget.checkState[idx].isNotEmpty) {
-      if (widget.tis[idx].answer!.every((element) => widget.checkState[idx].contains(element))) {
+      if (widget.tis[idx].answer!
+          .every((element) => widget.checkState[idx].contains(element))) {
         return Colors.greenAccent;
       }
       return Colors.redAccent;

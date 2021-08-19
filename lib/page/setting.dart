@@ -14,7 +14,6 @@ import 'package:toast_tiku/widget/logo_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
-import 'package:toast_tiku/widget/online_img.dart';
 import 'package:toast_tiku/widget/setting_item.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
@@ -42,11 +41,6 @@ class _SettingPageState extends State<SettingPage> {
       backgroundColor: NeumorphicTheme.baseColor(context),
       body:
           Column(children: [_buildHead(), TikuUpdateProgress(), _buildMain()]),
-      bottomSheet: Container(
-        color: NeumorphicTheme.baseColor(context),
-        padding: EdgeInsets.only(bottom: _media.padding.bottom),
-        child: LogoCard(),
-      ),
     );
   }
 
@@ -79,33 +73,9 @@ class _SettingPageState extends State<SettingPage> {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(height: _media.size.height * 0.02),
-          _buildUser(),
+          LogoCard(),
           _buildSetting()
         ],
-      ),
-    );
-  }
-
-  Widget _buildUser() {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-          maxHeight: _media.size.height * 0.17, maxWidth: _media.size.width),
-      child: Center(
-        child: Column(
-          children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: _media.size.height * 0.13),
-              child: NeuBtn(
-                margin: EdgeInsets.zero,
-                child:
-                    OnlineImage(url: 'https://blog.lolli.tech/img/favicon.ico'),
-                boxShape: NeumorphicBoxShape.circle(),
-                onTap: () {},
-              ),
-            ),
-            NeuText(text: 'LollipopKit'),
-          ],
-        ),
       ),
     );
   }
@@ -139,7 +109,7 @@ class _SettingPageState extends State<SettingPage> {
                   display = '当前版本：${BuildData.build}，已是最新';
                 }
               } else {
-                display = '当前版本：${BuildData.build}';
+                display = '当前版本：${BuildData.build}，点击检查更新';
               }
               return SettingItem(
                   title: display, onTap: () => doUpdate(context, force: true));

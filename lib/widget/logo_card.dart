@@ -60,11 +60,13 @@ class _LogoCardState extends State<LogoCard> {
           children: <Widget>[
             NeuText(
               text: BuildData.name,
+              align: TextAlign.start,
               textStyle: NeumorphicTextStyle(fontSize: 19),
             ),
             SizedBox(height: 10.0),
             NeuText(
-              text: 'Ver: 1.0.${BuildData.build}(+${BuildData.modifications}f)',
+              text: 'By Toast Studio',
+              align: TextAlign.start,
               textStyle: NeumorphicTextStyle(fontSize: 13),
             )
           ],

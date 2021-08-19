@@ -21,13 +21,14 @@ Future<bool> isFileAvailable(String url) async {
 Future<void> doUpdate(BuildContext context, {bool force = false}) async {
   final update = await locator<AppService>().getUpdate();
 
+  locator<AppProvider>().setNewestBuild(update.newest);
+
   if (!force && update.newest <= BuildData.build) {
     print('Update ignored due to current: ${BuildData.build}, '
         'update: ${update.newest}');
     return;
   }
   print('Update available: ${update.newest}');
-  locator<AppProvider>().setNewestBuild(update.newest);
 
   if (Platform.isAndroid && !await isFileAvailable(update.android)) {
     return;

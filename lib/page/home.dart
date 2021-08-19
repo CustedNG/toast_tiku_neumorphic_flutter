@@ -95,11 +95,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             Row(
               children: [
                 NeuIconBtn(
-                  icon: Icons.account_circle,
+                  icon: Icons.settings,
                   onTap: () => AppRoute(SettingPage()).go(context),
                 ),
                 NeuText(
-                  text: 'Hi 👋🏻\nLollipopKit',
+                  text: '今天已过去\n${(DateTime.now().hour / 24 * 100).toStringAsFixed(1)}%',
                   align: TextAlign.start,
                 ),
               ],
@@ -112,9 +112,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Widget _buildNotifyCard() {
     final content = _buildScrollCard();
     return SizedBox(
-      height: _media.size.height * 0.21,
+      height: _media.size.height * 0.27,
       child: ListWheelScrollView.useDelegate(
-        itemExtent: _media.size.height * 0.2,
+        itemExtent: _media.size.height * 0.25,
         diameterRatio: 10,
         controller: _fixedExtentScrollController,
         physics: FixedExtentScrollPhysics(),

@@ -11,12 +11,13 @@ class NeuTextField extends StatefulWidget {
 
   NeuTextField(
       {Key? key,
-        this.label,
+      this.label,
       this.hint,
       this.onChanged,
       this.padding,
       this.margin,
-      this.initValue}) : super(key: key);
+      this.initValue})
+      : super(key: key);
 
   @override
   _TextFieldState createState() => _TextFieldState();
