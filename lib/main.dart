@@ -15,7 +15,6 @@ import 'package:toast_tiku/locator.dart';
 Future<void> initApp() async {
   await Hive.initFlutter();
   await setupLocator();
-  await locator<TikuProvider>().refreshIndex();
 }
 
 Future<void> main() async {

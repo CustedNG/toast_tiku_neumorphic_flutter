@@ -5,6 +5,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
@@ -12,6 +13,7 @@ import 'package:toast_tiku/core/update.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
@@ -80,9 +82,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 child: ListView(
                   children: [
                     _buildNotifyCard(),
-              _buildResumeCard(),
-              SizedBox(height: _media.size.height * 0.01),
-              _buildAllCourseCard(),
+                    _buildResumeCard(),
+                    SizedBox(height: _media.size.height * 0.01),
+                    _buildAllCourseCard(),
                   ],
                 ),
               )
@@ -106,7 +108,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                   onTap: () => AppRoute(SettingPage()).go(context),
                 ),
                 NeuText(
-                  text: '今天已过去\n${(DateTime.now().hour / 24 * 100).toStringAsFixed(1)}%',
+                  text:
+                      '今天已过去\n${(DateTime.now().hour / 24 * 100).toStringAsFixed(1)}%',
                   align: TextAlign.start,
                 ),
               ],
@@ -233,7 +236,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               }
             }
             return Padding(
-                  padding: EdgeInsets.fromLTRB(_media.size.width * 0.07, 7, _media.size.width * 0.05, 7), child: child);
+                padding: EdgeInsets.fromLTRB(
+                    _media.size.width * 0.07, 7, _media.size.width * 0.05, 7),
+                child: child);
           },
         );
       },
@@ -253,7 +258,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         }
 
         return GridView.builder(
-            padding: EdgeInsets.symmetric(horizontal: _media.size.width * 0.05, vertical: 7),
+            padding: EdgeInsets.symmetric(
+                horizontal: _media.size.width * 0.05, vertical: 7),
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4, childAspectRatio: 1.0),
@@ -382,9 +388,17 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
+    final tiku = locator<TikuProvider>();
+    // 等待tiku store加载完成
+    await GetIt.I.allReady();
+    await tiku.loadLocalData();
+    await tiku.refreshIndex();
+
     await locator<HistoryProvider>().loadLocalData();
     await locator<AppProvider>().loadData();
     await doUpdate(context);
-    await locator<TikuProvider>().refreshUnit();
+    if (locator<SettingStore>().autoUpdateTiku.fetch()!) {
+      await locator<TikuProvider>().refreshUnit();
+    }
   }
 }
