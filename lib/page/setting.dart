@@ -93,7 +93,7 @@ class _SettingPageState extends State<SettingPage> {
             SettingItem(
               title: '自动更新题库',
               showArrow: false,
-              rightBtn: buildSwitch(context, _store.autoUpdateTiku),
+              rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
             ),
             Consumer<AppProvider>(builder: (_, app, __) {
               String display;
@@ -113,7 +113,7 @@ class _SettingPageState extends State<SettingPage> {
         ));
   }
 
-  Widget buildSwitch(BuildContext context, StoreProperty<bool> prop,
+  Widget _buildSwitch(BuildContext context, StoreProperty<bool> prop,
       {Function(bool)? func}) {
     return ValueListenableBuilder(
       valueListenable: prop.listenable(),
