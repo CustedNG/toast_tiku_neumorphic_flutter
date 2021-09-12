@@ -39,8 +39,8 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
-      body:
-          Column(children: [_buildHead(), TikuUpdateProgress(), _buildMain()]),
+      body: Column(
+          children: [_buildHead(), const TikuUpdateProgress(), _buildMain()]),
     );
   }
 
@@ -54,13 +54,13 @@ class _SettingPageState extends State<SettingPage> {
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            NeuText(
+            const NeuText(
               text: '设置',
             ),
             NeuIconBtn(
               icon: Icons.question_answer,
-              onTap: () => showSnackBarWithAction(
-                  context, '可在用户群用户群反馈问题、吹水', '加入', () => openUrl(joinQQGroupUrl)),
+              onTap: () => showSnackBarWithAction(context, '可在用户群用户群反馈问题、吹水',
+                  '加入', () => openUrl(joinQQGroupUrl)),
             ),
           ],
         ));
@@ -74,7 +74,7 @@ class _SettingPageState extends State<SettingPage> {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(height: _media.size.height * 0.02),
-          LogoCard(),
+          const LogoCard(),
           _buildSetting()
         ],
       ),
@@ -87,7 +87,7 @@ class _SettingPageState extends State<SettingPage> {
         margin: EdgeInsets.zero,
         style: NeumorphicStyle(
             boxShape: NeumorphicBoxShape.roundRect(
-                BorderRadius.all(Radius.circular(17)))),
+                const BorderRadius.all(Radius.circular(17)))),
         child: Column(
           children: [
             SettingItem(
@@ -119,7 +119,7 @@ class _SettingPageState extends State<SettingPage> {
       valueListenable: prop.listenable(),
       builder: (context, bool value, widget) {
         return ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: 27),
+          constraints: const BoxConstraints(maxHeight: 27),
           child: NeumorphicSwitch(
               height: 27,
               value: value,

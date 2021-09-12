@@ -7,11 +7,11 @@ class NeuDialog extends Dialog {
   final Widget content;
   final List<Widget> actions;
 
-  NeuDialog(
-      {required this.title,
+  const NeuDialog(
+      {Key? key, required this.title,
       required this.content,
       required this.actions,
-      this.margin});
+      this.margin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class NeuDialog extends Dialog {
     return Neumorphic(
       style: NeumorphicStyle(
           boxShape: NeumorphicBoxShape.roundRect(
-              BorderRadius.all(Radius.circular(37)))),
+              const BorderRadius.all(Radius.circular(37)))),
       child: ConstrainedBox(
         constraints: BoxConstraints(
             maxHeight: size.height * 0.5, maxWidth: size.width * 0.7),
         child: Padding(
-          padding: margin ?? EdgeInsets.fromLTRB(24, 17, 24, 7),
+          padding: margin ?? const EdgeInsets.fromLTRB(24, 17, 24, 7),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

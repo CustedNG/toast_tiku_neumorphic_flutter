@@ -30,38 +30,38 @@ class SettingItem extends StatelessWidget {
   final Icon? icon;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: this.height ?? 55.0,
+    return SizedBox(
+        height: height ?? 55.0,
         width: double.infinity,
         child: GestureDetector(
           onTap: onTap,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              SizedBox(width: 10.0),
-              this.icon ?? Container(),
-              SizedBox(width: 10.0),
-              NeuText(text: this.title),
+              const SizedBox(width: 10.0),
+              icon ?? Container(),
+              const SizedBox(width: 10.0),
+              NeuText(text: title),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(left: 16, right: 16),
+                  padding: const EdgeInsets.only(left: 16, right: 16),
                   child: NeuText(
-                      text: this.content,
-                      align: this.textAlign,
-                      textStyle: this.contentStyle ??
+                      text: content,
+                      align: textAlign,
+                      textStyle: contentStyle ??
                           NeumorphicTextStyle(fontSize: 14.0)),
                 ),
               ),
-              this.showArrow
+              showArrow
                   ? NeumorphicIcon(
                       Icons.arrow_forward_ios,
                       style: NeumorphicStyle(color: mainColor.resolve(context)),
                       size: 16,
                     )
                   : Container(),
-              SizedBox(width: 10.0),
-              this.rightBtn ?? Container(),
-              SizedBox(
+              const SizedBox(width: 10.0),
+              rightBtn ?? Container(),
+              const SizedBox(
                 width: 17,
               )
             ],

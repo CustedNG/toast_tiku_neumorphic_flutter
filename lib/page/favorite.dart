@@ -59,7 +59,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
 
   @override
   Widget build(BuildContext context) {
-    var child;
+    Widget child;
     if (_tis == null || _tis!.isEmpty) {
       child = Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,14 +112,14 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     return Neumorphic(
         style: NeumorphicStyle(
             lightSource: LightSource.bottom,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
+            boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
                 topLeft: Radius.circular(17), topRight: Radius.circular(17)))),
         child: Center(
           child: Padding(
             padding: EdgeInsets.only(bottom: _media.padding.bottom),
             child: Neumorphic(
               curve: Curves.easeInQuad,
-              child: SizedBox(height: 10, width: 57),
+              child: const SizedBox(height: 10, width: 57),
               style:
                   NeumorphicStyle(color: mainColor.resolve(context), depth: 37),
             ),
@@ -130,7 +130,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   SnappingSheetContent _buildSheet() {
     return SnappingSheetContent(
       child: Container(
-        child: Text('1'),
+        child: const Text('1'),
         color: NeumorphicTheme.baseColor(context),
       ),
     );
@@ -169,10 +169,10 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
               onTap: () {
                 if (have) {
                   _favoriteStore.delete(widget.courseId, ti);
-                  showSnackBar(context, Text('已取消收藏'));
+                  showSnackBar(context, const Text('已取消收藏'));
                 } else {
                   _favoriteStore.put(widget.courseId, ti);
-                  showSnackBar(context, Text('已收藏'));
+                  showSnackBar(context, const Text('已收藏'));
                 }
                 setState(() {});
               },
@@ -192,14 +192,14 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       if (_index > 0) {
         _index--;
       } else {
-        showSnackBar(context, Text('这是第一道'));
+        showSnackBar(context, const Text('这是第一道'));
         return;
       }
     } else {
       if (_index < _tis!.length - 1) {
         _index++;
       } else {
-        showSnackBar(context, Text('这是最后一道'));
+        showSnackBar(context, const Text('这是最后一道'));
         return;
       }
     }
@@ -228,7 +228,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NeuText(text: ti.question!, align: TextAlign.start),
-          NeuText(text: '\n答案：', align: TextAlign.start),
+          const NeuText(text: '\n答案：', align: TextAlign.start),
           ...ti.answer!
               .map((e) => NeuText(text: e, align: TextAlign.start))
               .toList()

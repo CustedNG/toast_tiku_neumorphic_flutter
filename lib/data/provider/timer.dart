@@ -10,7 +10,7 @@ class TimerProvider extends BusyProvider {
   void start(DateTime endTime) {
     finish = false;
     if (_timer != null) _timer!.cancel();
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       _timer = timer;
       final duration = endTime.difference(DateTime.now());
       final minutes = duration.inMinutes;

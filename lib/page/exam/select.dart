@@ -29,7 +29,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
 
   /// [_counts] : 长度为5，分别为单选、多选、填空、判断题目的个数，以及考试时长
   late List<double> _counts;
-  List<String> _units = [];
+  late List<String> _units;
 
   final titleStyle =
       NeumorphicTextStyle(fontSize: 17, fontWeight: FontWeight.bold);
@@ -46,7 +46,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
-        children: [_buildHead(), TikuUpdateProgress(), _buildMain()],
+        children: [_buildHead(), const TikuUpdateProgress(), _buildMain()],
       ),
       bottomSheet: _buildStart(),
     );
@@ -62,7 +62,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            NeuText(
+            const NeuText(
               text: '模拟考试',
             ),
             NeuIconBtn(
@@ -75,7 +75,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
 
   Widget _buildMain() {
     if (_tikuProvider.isBusy) {
-      return Flexible(child: centerLoading);
+      return const Flexible(child: centerLoading);
     }
     return SizedBox(
       height: _media.size.height * 0.84,
@@ -90,10 +90,10 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
     return Consumer<TikuProvider>(
       builder: (_, tiku, __) {
         if (tiku.isBusy) {
-          return Flexible(child: centerLoading);
+          return const Flexible(child: centerLoading);
         }
         if (tiku.tikuIndex == null) {
-          return Center(
+          return const Center(
             child: NeuText(text: '题库索引数据缺失'),
           );
         } else {
@@ -103,7 +103,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               child: Center(child: NeuText(text: item.chinese!)),
               style: NeumorphicRadioStyle(
                   boxShape: NeumorphicBoxShape.roundRect(
-                      BorderRadius.all(Radius.circular(7)))),
+                      const BorderRadius.all(Radius.circular(7)))),
               value: item.id,
               groupValue: _selectedCourse,
               onChanged: (val) => setState(() {
@@ -120,14 +120,15 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                 constraints:
                     BoxConstraints(maxHeight: _media.size.height * 0.18),
                 child: GridView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.all(gridPad),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4, childAspectRatio: 2),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4, childAspectRatio: 2),
                     itemCount: radios.length,
                     itemBuilder: (context, idx) {
                       return Padding(
-                        padding: EdgeInsets.all(7),
+                        padding: const EdgeInsets.all(7),
                         child: radios[idx],
                       );
                     }),
@@ -142,11 +143,11 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   Widget _buildTiTypeSelect() {
     final selected = _selectedCourse != null;
     if (!selected) {
-      return SizedBox();
+      return const SizedBox();
     }
     final index = _tikuProvider.tikuIndex;
     if (index == null) {
-      return SizedBox();
+      return const SizedBox();
     }
     final course = index.firstWhere((element) => element.id == _selectedCourse);
     int singleCount = 0, mutiCount = 0, judgeCount = 0, fillCount = 0;
@@ -185,7 +186,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
 
   Widget _buildSlider(double max, double min, int idx, String typeChinese) {
     if (max == 0) {
-      return SizedBox();
+      return const SizedBox();
     }
     return Column(
       children: [
@@ -201,10 +202,10 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           value: _counts[idx],
           min: min,
           thumb: NeuBtn(
-            child: SizedBox(
+            child: const SizedBox(
               width: 13,
             ),
-            boxShape: NeumorphicBoxShape.circle(),
+            boxShape: const NeumorphicBoxShape.circle(),
             onTap: () {},
           ),
           onChanged: (val) => setState(() => _counts[idx] = val),
@@ -218,17 +219,17 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
         padding: EdgeInsets.zero,
         onTap: () {
           if (_selectedCourse == null) {
-            showSnackBar(context, Text('请选择科目'));
+            showSnackBar(context, const Text('请选择科目'));
           } else {
             if (_counts.every((element) => element == 0)) {
-              showSnackBar(context, Text('题目总数不得等于0'));
+              showSnackBar(context, const Text('题目总数不得等于0'));
             } else {
               locator<ExamProvider>().loadTi(_selectedCourse!, _units, _counts);
               locator<TimerProvider>().start(DateTime.now().add(Duration(
                   minutes: (_counts[4]).toInt(),
                   // 由于页面动画的存在，所以多给一秒
                   seconds: 1)));
-              AppRoute(ExamingPage()).go(context);
+              AppRoute(const ExamingPage()).go(context);
             }
           }
         },
