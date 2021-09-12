@@ -59,7 +59,8 @@ class _SettingPageState extends State<SettingPage> {
             ),
             NeuIconBtn(
               icon: Icons.question_answer,
-              onTap: () => openUrl(joinQQGroupUrl),
+              onTap: () => showSnackBarWithAction(context, '可在用户群用户群反馈问题、吹水',
+                  '加入', () => openUrl(joinQQGroupUrl)),
             ),
           ],
         ));
@@ -89,13 +90,10 @@ class _SettingPageState extends State<SettingPage> {
                 const BorderRadius.all(Radius.circular(17)))),
         child: Column(
           children: [
-            /// TODO: 以下设置暂时无效，未实现
-            ///
-            ///
             SettingItem(
               title: '自动更新题库',
               showArrow: false,
-              rightBtn: buildSwitch(context, _store.autoUpdateTiku),
+              rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
             ),
             Consumer<AppProvider>(builder: (_, app, __) {
               String display;
@@ -115,7 +113,7 @@ class _SettingPageState extends State<SettingPage> {
         ));
   }
 
-  Widget buildSwitch(BuildContext context, StoreProperty<bool> prop,
+  Widget _buildSwitch(BuildContext context, StoreProperty<bool> prop,
       {Function(bool)? func}) {
     return ValueListenableBuilder(
       valueListenable: prop.listenable(),

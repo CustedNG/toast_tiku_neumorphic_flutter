@@ -5,6 +5,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/analysis.dart';
 import 'package:toast_tiku/core/build_mode.dart';
@@ -14,6 +15,7 @@ import 'package:toast_tiku/core/update.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
@@ -393,6 +395,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
+    final tiku = locator<TikuProvider>();
+    // 等待tiku store加载完成
+    await GetIt.I.allReady();
+    await tiku.loadLocalData();
+    await tiku.refreshIndex();
+
     await locator<HistoryProvider>().loadLocalData();
     await locator<AppProvider>().loadData();
     await doUpdate(context);

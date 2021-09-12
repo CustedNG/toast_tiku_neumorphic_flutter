@@ -23,3 +23,5 @@ doc/api/
 release
 android/app/key.jks
 *.DS_Store
+
+android/.idea

@@ -1,4 +1,5 @@
 # This is a generated file; do not edit or check into version control.
+<<<<<<< HEAD
 countly_flutter=D:\\Download\\flutter\\.pub-cache\\git\\countly-sdk-flutter-bridge-dcb1f6084242a7b4b8e4edd4b180a42ad7f595ca\\
 flutter_plugin_android_lifecycle=D:\\Download\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\flutter_plugin_android_lifecycle-2.0.2\\
 path_provider=D:\\Download\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\path_provider-2.0.2\\
@@ -10,3 +11,14 @@ url_launcher_linux=D:\\Download\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\
 url_launcher_macos=D:\\Download\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\url_launcher_macos-2.0.1\\
 url_launcher_web=D:\\Download\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\url_launcher_web-2.0.4\\
 url_launcher_windows=D:\\Download\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\url_launcher_windows-2.0.2\\
+=======
+path_provider=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider-2.0.3/
+path_provider_linux=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_linux-2.0.2/
+path_provider_macos=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_macos-2.0.2/
+path_provider_windows=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_windows-2.0.3/
+url_launcher=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-6.0.10/
+url_launcher_linux=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_linux-2.0.2/
+url_launcher_macos=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_macos-2.0.2/
+url_launcher_web=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_web-2.0.4/
+url_launcher_windows=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_windows-2.0.2/
+>>>>>>> refs/remotes/origin/main
