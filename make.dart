@@ -52,7 +52,7 @@ Future<Map<String, dynamic>> getBuildData() async {
 }
 
 String jsonEncodeWithIndent(Map<String, dynamic> json) {
-  final encoder = JsonEncoder.withIndent('  ');
+  const encoder = JsonEncoder.withIndent('  ');
   return encoder.convert(json);
 }
 
@@ -60,7 +60,7 @@ Future<void> updateBuildData() async {
   print('Updating BuildData...');
   final data = await getBuildData();
   print(jsonEncodeWithIndent(data));
-  final path = 'lib/res/build_data.dart';
+  const path = 'lib/res/build_data.dart';
   await writeStaicConfigFile(data, 'BuildData', path);
 }
 

@@ -1,11 +1,13 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:math' show Random;
 
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:toast_tiku/core/analysis.dart';
+import 'package:toast_tiku/core/build_mode.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/core/update.dart';
@@ -16,6 +18,7 @@ import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/course.dart';
+import 'package:toast_tiku/page/debug.dart';
 import 'package:toast_tiku/page/exam/select.dart';
 import 'package:toast_tiku/page/setting.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
@@ -52,9 +55,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     _media = MediaQuery.of(context);
     _fixedExtentScrollController = FixedExtentScrollController();
     if (_timer != null) return;
-    _timer = Timer.periodic(Duration(seconds: 7), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 7), (timer) {
       _fixedExtentScrollController.animateToItem(timer.tick % 2,
-          duration: Duration(milliseconds: 577), curve: Curves.easeInOutExpo);
+          duration: const Duration(milliseconds: 577),
+          curve: Curves.easeInOutExpo);
     });
   }
 
@@ -74,15 +78,15 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             ),
             children: [
               _buildHead(),
-              TikuUpdateProgress(),
+              const TikuUpdateProgress(),
               SizedBox(
                 height: _media.size.height * 0.84,
                 child: ListView(
                   children: [
                     _buildNotifyCard(),
-              _buildResumeCard(),
-              SizedBox(height: _media.size.height * 0.01),
-              _buildAllCourseCard(),
+                    _buildResumeCard(),
+                    SizedBox(height: _media.size.height * 0.01),
+                    _buildAllCourseCard(),
                   ],
                 ),
               )
@@ -103,11 +107,15 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               children: [
                 NeuIconBtn(
                   icon: Icons.settings,
-                  onTap: () => AppRoute(SettingPage()).go(context),
+                  onTap: () => AppRoute(const SettingPage()).go(context),
                 ),
-                NeuText(
-                  text: '今天已过去\n${(DateTime.now().hour / 24 * 100).toStringAsFixed(1)}%',
-                  align: TextAlign.start,
+                GestureDetector(
+                  onLongPress: () => AppRoute(const DebugPage()).go(context),
+                  child: NeuText(
+                    text:
+                        '今天已过去\n${(DateTime.now().hour / 24 * 100).toStringAsFixed(1)}%',
+                    align: TextAlign.start,
+                  ),
                 ),
               ],
             ),
@@ -124,7 +132,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         itemExtent: _media.size.height * 0.25,
         diameterRatio: 10,
         controller: _fixedExtentScrollController,
-        physics: FixedExtentScrollPhysics(),
+        physics: const FixedExtentScrollPhysics(),
         childDelegate: ListWheelChildBuilderDelegate(
             builder: (context, index) => content[index],
             childCount: content.length),
@@ -174,12 +182,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       builder: (_, history, ___) {
         return Consumer<TikuProvider>(
           builder: (_, tiku, __) {
-            Widget child = SizedBox();
+            Widget child = const SizedBox();
             if (tiku.tikuIndex == null) {
               if (tiku.isBusy) {
-                child = NeuText(text: '题库正在初始化，请稍等');
+                child = const NeuText(text: '题库正在初始化，请稍等');
               } else {
-                child = NeuText(text: '未能获取到题库索引数据');
+                child = const NeuText(text: '未能获取到题库索引数据');
               }
             } else {
               for (var index in tiku.tikuIndex!) {
@@ -216,8 +224,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           ),
                           NeuIconBtn(
                             icon: Icons.arrow_forward,
-                            margin: EdgeInsets.all(7),
-                            padding: EdgeInsets.all(5),
+                            margin: const EdgeInsets.all(7),
+                            padding: const EdgeInsets.all(5),
                             onTap: () => AppRoute(UnitQuizPage(
                                     courseId: historySplit[0],
                                     unitFile: historySplit[1],
@@ -233,7 +241,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               }
             }
             return Padding(
-                  padding: EdgeInsets.fromLTRB(_media.size.width * 0.07, 7, _media.size.width * 0.05, 7), child: child);
+                padding: EdgeInsets.fromLTRB(
+                    _media.size.width * 0.07, 7, _media.size.width * 0.05, 7),
+                child: child);
           },
         );
       },
@@ -249,19 +259,20 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           if (tiku.isBusy) {
             return centerLoading;
           }
-          return Center(child: NeuText(text: '出现期望外的错误'));
+          return const Center(child: NeuText(text: '出现期望外的错误'));
         }
 
         return GridView.builder(
-            padding: EdgeInsets.symmetric(horizontal: _media.size.width * 0.05, vertical: 7),
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            padding: EdgeInsets.symmetric(
+                horizontal: _media.size.width * 0.05, vertical: 7),
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4, childAspectRatio: 1.0),
             itemCount: tiku.tikuIndex!.length,
             itemBuilder: (context, idx) {
               final item = tiku.tikuIndex![idx];
               return NeuBtn(
-                margin: EdgeInsets.all(0),
+                margin: const EdgeInsets.all(0),
                 onTap: () => AppRoute(CoursePage(data: item)).go(context),
                 child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -271,7 +282,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           width: (_media.size.width * 0.9 - 40) / 8.7,
                           child:
                               OnlineImage(url: '$courseImgUrl/${item.id}.png')),
-                      SizedBox(
+                      const SizedBox(
                         height: 1,
                       ),
                       Hero(
@@ -294,8 +305,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         NeuBtn(
-          child: NeuText(text: '模拟考'),
-          onTap: () => AppRoute(ExamSelectPage()).go(context),
+          child: const NeuText(text: '模拟考'),
+          onTap: () => AppRoute(const ExamSelectPage()).go(context),
         ),
         NeuIconBtn(
           icon: Icons.search,
@@ -304,10 +315,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             delegate: SearchPage<Ti>(
                 items: getAllTi(),
                 searchLabel: '搜索题目',
-                suggestion: Center(
+                suggestion: const Center(
                   child: NeuText(text: '通过题目来搜索'),
                 ),
-                failure: Center(
+                failure: const Center(
                   child: NeuText(text: '未找到相关题目 :('),
                 ),
                 filter: (ti) => [
@@ -342,7 +353,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           trailing: NeuText(text: ti.typeChinese, align: TextAlign.start),
         );
       default:
-        return SizedBox();
+        return const SizedBox();
     }
   }
 
@@ -386,5 +397,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     await locator<AppProvider>().loadData();
     await doUpdate(context);
     await locator<TikuProvider>().refreshUnit();
+    if (BuildMode.isRelease) {
+      Analysis.init(false);
+    }
   }
 }

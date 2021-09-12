@@ -21,7 +21,7 @@ class OnlineImage extends StatelessWidget {
           case LoadState.failed:
             return Center(
                 child: IconButton(
-              icon: Icon(Icons.refresh),
+              icon: const Icon(Icons.refresh),
               onPressed: () => xState.reLoadImage(),
             ));
           case LoadState.completed:
@@ -30,7 +30,7 @@ class OnlineImage extends StatelessWidget {
               image: xState.extendedImageInfo?.image,
             ));
           default:
-            return Center(child: Icon(Icons.sync_problem));
+            return const Center(child: Icon(Icons.sync_problem));
         }
       },
     );

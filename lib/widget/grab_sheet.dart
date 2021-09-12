@@ -52,14 +52,14 @@ class _GrabSheetState extends State<GrabSheet> {
     return Neumorphic(
         style: NeumorphicStyle(
             lightSource: LightSource.bottom,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
+            boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
                 topLeft: Radius.circular(17), topRight: Radius.circular(17)))),
         child: Center(
           child: Padding(
             padding: EdgeInsets.only(bottom: _media.padding.bottom),
             child: Neumorphic(
               curve: Curves.easeInQuad,
-              child: SizedBox(height: 10, width: 57),
+              child: const SizedBox(height: 10, width: 57),
               style:
                   NeumorphicStyle(color: mainColor.resolve(context), depth: 37),
             ),
@@ -76,12 +76,12 @@ class _GrabSheetState extends State<GrabSheet> {
           child: GridView.builder(
               padding:
                   EdgeInsets.symmetric(horizontal: _media.size.width * 0.05),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4, childAspectRatio: 2),
               itemCount: widget.tis.length,
               itemBuilder: (context, idx) {
                 return Padding(
-                  padding: EdgeInsets.all(7),
+                  padding: const EdgeInsets.all(7),
                   child: NeuBtn(
                     style: NeumorphicStyle(
                         depth: widget.checkState[idx].isEmpty ? null : -10),

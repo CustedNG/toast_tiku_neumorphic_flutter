@@ -40,7 +40,7 @@ class TikuProvider extends BusyProvider {
 
   Future<void> refreshUnit() async {
     setBusyState(true);
-    final store = await locator<TikuStore>();
+    final store = locator<TikuStore>();
     // 如果版本相同，跳过更新
     if (store.version.fetch() == indexVersion) {
       setBusyState(false);

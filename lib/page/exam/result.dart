@@ -9,7 +9,7 @@ class ExamResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: NeumorphicThemeData(
+      theme: const NeumorphicThemeData(
         baseColor: Color(0xFFE5E5E5),
         depth: 20,
         intensity: 1,
@@ -18,7 +18,7 @@ class ExamResultPage extends StatelessWidget {
       themeMode: ThemeMode.light,
       child: Material(
         child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(
               colors: [
                 Color(0xFFF1F1F1),
@@ -47,7 +47,7 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   Widget _letter(String letter) {
     return Text(letter,
-        style: TextStyle(
+        style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w700,
             fontFamily: 'Samsung',
@@ -74,20 +74,20 @@ class _PageState extends State<_Page> {
                     _letter("恭喜🎉"),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 77,
                 ),
                 Text(
                   '正确率${widget.percent.toStringAsFixed(1)}%',
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 77,
                 ),
                 NeuBtn(
                   child: NeumorphicIcon(
                     Icons.arrow_back,
-                    style: NeumorphicStyle(color: Colors.black),
+                    style: const NeumorphicStyle(color: Colors.black),
                   ),
                   onTap: () => Navigator.of(context).pop(),
                 )

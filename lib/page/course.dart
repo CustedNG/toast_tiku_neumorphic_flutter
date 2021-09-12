@@ -40,7 +40,7 @@ class _CoursePageState extends State<CoursePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildHead(),
-          TikuUpdateProgress(),
+          const TikuUpdateProgress(),
           _buildSelectCard(),
         ],
       ),

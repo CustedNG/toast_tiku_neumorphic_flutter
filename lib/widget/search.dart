@@ -116,7 +116,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
     return [
       AnimatedOpacity(
         opacity: query.isNotEmpty ? 1.0 : 0.0,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOutCubic,
         child: IconButton(
           icon: Icon(Icons.clear, color: mainColor.resolve(context)),

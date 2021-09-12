@@ -72,10 +72,11 @@ class _ExamingPageState extends State<ExamingPage>
             return centerLoading;
           }
           if (_tis.isEmpty) _tis = exam.result;
-          if (_checkState.isEmpty)
+          if (_checkState.isEmpty) {
             _checkState = List.generate(_tis.length, (_) => []);
+          }
           if (_tis.isEmpty) {
-            return Center(
+            return const Center(
               child: NeuText(
                 text: '题库为空，发生未知错误',
               ),
@@ -153,20 +154,20 @@ class _ExamingPageState extends State<ExamingPage>
                       Icons.celebration,
                       style: NeumorphicStyle(color: mainColor.resolve(context)),
                     )
-                  : NeuText(text: '交卷'),
+                  : const NeuText(text: '交卷'),
               onTap: () {
                 if (!_submittedAnswer) {
-                  showSnackBar(context, Text('交卷'));
+                  showSnackBar(context, const Text('交卷'));
                   setState(() {
                     _submittedAnswer = true;
                   });
                 } else {
                   int correctCount = 0;
                   for (int idx = 0; idx < _tis.length; idx++) {
-                    if (_tis[idx]
-                        .answer!
-                        .every((element) => _checkState[idx].contains(element)))
+                    if (_tis[idx].answer!.every(
+                        (element) => _checkState[idx].contains(element))) {
                       correctCount++;
+                    }
                   }
                   AppRoute(ExamResultPage(
                     percent: correctCount / _tis.length * 100,
@@ -189,14 +190,14 @@ class _ExamingPageState extends State<ExamingPage>
       if (_index > 0) {
         _index--;
       } else {
-        showSnackBar(context, Text('这是第一道'));
+        showSnackBar(context, const Text('这是第一道'));
         return;
       }
     } else {
       if (_index < _tis.length - 1) {
         _index++;
       } else {
-        showSnackBar(context, Text('这是最后一道'));
+        showSnackBar(context, const Text('这是最后一道'));
         return;
       }
     }
@@ -241,7 +242,7 @@ class _ExamingPageState extends State<ExamingPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NeuText(text: ti.question!, align: TextAlign.start),
-          SizedBox(
+          const SizedBox(
             height: 17,
           ),
           ...textFields
@@ -302,7 +303,7 @@ class _ExamingPageState extends State<ExamingPage>
   }
 
   Widget _buildAnswer() {
-    if (!_submittedAnswer) return SizedBox();
+    if (!_submittedAnswer) return const SizedBox();
     return NeuText(text: _tis[_index].answerStr);
   }
 }

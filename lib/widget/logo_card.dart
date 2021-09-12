@@ -5,6 +5,8 @@ import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
 class LogoCard extends StatefulWidget {
+  const LogoCard({Key? key}) : super(key: key);
+
   @override
   _LogoCardState createState() => _LogoCardState();
 }
@@ -26,8 +28,8 @@ class _LogoCardState extends State<LogoCard> {
       padding: EdgeInsets.all(width * 0.06),
       margin: EdgeInsets.fromLTRB(2.7 * pad, pad, 3 * pad, pad),
       onTap: () {},
-      boxShape:
-          NeumorphicBoxShape.roundRect(BorderRadius.all(Radius.circular(17))),
+      boxShape: NeumorphicBoxShape.roundRect(
+          const BorderRadius.all(Radius.circular(17))),
       child: SizedBox(
           height: _media.size.height * 0.1,
           child: Row(
@@ -49,7 +51,7 @@ class _LogoCardState extends State<LogoCard> {
             transitionOnUserGestures: true,
             child: SizedBox(
               height: _media.size.height * 0.07,
-              child: FlutterLogo(
+              child: const FlutterLogo(
                 size: 70,
               ),
             )),
@@ -63,7 +65,7 @@ class _LogoCardState extends State<LogoCard> {
               align: TextAlign.start,
               textStyle: NeumorphicTextStyle(fontSize: 19),
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             NeuText(
               text: 'By Toast Studio',
               align: TextAlign.start,

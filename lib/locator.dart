@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:toast_tiku/data/provider/app.dart';
+import 'package:toast_tiku/data/provider/debug.dart';
 import 'package:toast_tiku/data/provider/exam.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
@@ -23,6 +24,7 @@ void setupLocatorForProviders() {
   locator.registerSingleton(ExamProvider());
   locator.registerSingleton(UserProvider());
   locator.registerSingleton(TikuProvider());
+  locator.registerSingleton(DebugProvider());
   locator.registerSingleton(TimerProvider());
   locator.registerSingleton(HistoryProvider());
 }

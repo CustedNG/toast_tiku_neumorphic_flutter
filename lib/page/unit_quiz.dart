@@ -40,9 +40,10 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   late List<Ti>? _tis;
   late int _index;
   late List<List<int>> _checkState;
-  late AnimationController _controller;
+  late AnimationController _animationController;
   late Animation<double> _animation;
   late SnappingSheetController _sheetController;
+
   late double _bottomHeight;
   late List<int> _historyIdx;
 
@@ -51,14 +52,14 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _sheetController = SnappingSheetController();
-    _controller = AnimationController(
+    _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 377),
     );
     _animation = Tween(
       begin: 0.0,
       end: 1.0,
-    ).animate(_controller);
+    ).animate(_animationController);
     _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
     _tikuStore = locator<TikuStore>();
     _favoriteStore = locator<FavoriteStore>();
@@ -72,7 +73,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   @override
   Widget build(BuildContext context) {
-    var child;
+    Widget child;
     if (_tis == null || _tis!.isEmpty) {
       child = centerLoading;
     } else {
@@ -86,8 +87,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
           setState(() {
             _index = idx;
           });
-          _controller.reset();
-          _controller.forward();
+          _animationController.reset();
+          _animationController.forward();
         },
       );
     }
@@ -150,10 +151,10 @@ class _UnitQuizPageState extends State<UnitQuizPage>
               onTap: () {
                 if (have) {
                   _favoriteStore.delete(widget.courseId, ti);
-                  showSnackBar(context, Text('已取消收藏'));
+                  showSnackBar(context, const Text('已取消收藏'));
                 } else {
                   _favoriteStore.put(widget.courseId, ti);
-                  showSnackBar(context, Text('已收藏'));
+                  showSnackBar(context, const Text('已收藏'));
                 }
                 setState(() {});
               },
@@ -163,7 +164,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   }
 
   Widget _buildTiList() {
-    _controller.forward();
+    _animationController.forward();
     return FadeTransition(
         opacity: _animation, child: _buildTiView(_tis![_index]));
   }
@@ -173,20 +174,20 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       if (_index > 0) {
         _index--;
       } else {
-        showSnackBar(context, Text('这是第一道'));
+        showSnackBar(context, const Text('这是第一道'));
         return;
       }
     } else {
       if (_index < _tis!.length - 1) {
         _index++;
       } else {
-        showSnackBar(context, Text('这是最后一道'));
+        showSnackBar(context, const Text('这是最后一道'));
         return;
       }
     }
     setState(() {});
-    _controller.reset();
-    _controller.forward();
+    _animationController.reset();
+    _animationController.forward();
   }
 
   Widget _buildTiView(Ti ti) {
@@ -209,7 +210,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NeuText(text: ti.question!, align: TextAlign.start),
-          NeuText(text: '\n答案：', align: TextAlign.start),
+          const NeuText(text: '\n答案：', align: TextAlign.start),
           ...ti.answer!
               .map((e) => NeuText(text: e, align: TextAlign.start))
               .toList()

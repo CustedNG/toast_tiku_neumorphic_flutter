@@ -33,7 +33,7 @@ class AppUpdate {
     changelog = json["changelog"].toString();
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data["newest"] = newest;
     data["android"] = android;
     data["ios"] = ios;

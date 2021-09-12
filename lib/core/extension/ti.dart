@@ -17,7 +17,7 @@ extension TiX on Ti {
   }
 
   String get answerStr {
-    final answerConst = '\n答案：';
+    const answerConst = '\n答案：';
     switch (type) {
       case 3:
         if (options == null) {

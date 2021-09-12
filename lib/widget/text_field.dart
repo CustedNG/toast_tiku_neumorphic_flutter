@@ -9,7 +9,7 @@ class NeuTextField extends StatefulWidget {
   final EdgeInsets? margin;
   final ValueChanged<String>? onChanged;
 
-  NeuTextField(
+  const NeuTextField(
       {Key? key,
       this.label,
       this.hint,
@@ -43,7 +43,7 @@ class _TextFieldState extends State<NeuTextField> {
           padding: widget.padding ??
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
           child: Text(
-            this.widget.label ?? '',
+            widget.label ?? '',
             style: TextStyle(
               fontWeight: FontWeight.w700,
               color: mainColor.resolve(context),
@@ -52,13 +52,13 @@ class _TextFieldState extends State<NeuTextField> {
         ),
         Neumorphic(
           margin: widget.padding ??
-              EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
+              const EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
           style: NeumorphicStyle(
             depth: NeumorphicTheme.embossDepth(context),
-            boxShape: NeumorphicBoxShape.stadium(),
+            boxShape: const NeumorphicBoxShape.stadium(),
           ),
           padding: widget.margin ??
-              EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+              const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
           child: TextField(
             onChanged: widget.onChanged,
             controller: _controller,
