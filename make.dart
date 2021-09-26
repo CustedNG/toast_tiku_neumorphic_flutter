@@ -1,5 +1,7 @@
 #!/usr/bin/env dart
 
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -98,6 +100,23 @@ Future<void> flutterBuild(String source, String target, bool isAndroid) async {
   print('Spent time: ${endTime.difference(startTime).toString()}');
 }
 
+Future<void> flutterBuildWeb() async {
+  final startTime = DateTime.now();
+  final buildResult =
+      await Process.run('flutter', ['build', 'web'], runInShell: true);
+  if (buildResult.exitCode == 0) {
+    print('Build successfully.');
+    final copyResult =
+        await Process.run('cp', ['-r', 'tiku', 'build/web'], runInShell: true);
+    print('Copy res dir ${copyResult.exitCode == 0 ? "successfully" : "failed"}.');
+  } else {
+    print(buildResult.stderr.toString());
+    print('\nBuild failed with exit code $exitCode');
+  }
+  final endTime = DateTime.now();
+  print('Spent time: ${endTime.difference(startTime).toString()}');
+}
+
 Future<void> flutterBuildIOS() async {
   await flutterBuild('./build/ios/iphoneos/ToastTiku.app',
       './release/ToastTiku_build.app', false);
@@ -126,6 +145,8 @@ void main(List<String> args) async {
           return flutterBuildAndroid();
         } else if (args[1] == 'ios') {
           return flutterBuildIOS();
+        } else if (args[1] == 'web') {
+          return flutterBuildWeb();
         }
         print('unkonwn build arg: ${args[1]}');
       }

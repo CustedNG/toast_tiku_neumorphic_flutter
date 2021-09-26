@@ -8,17 +8,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const NeumorphicApp(
+    return NeumorphicApp(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
-      supportedLocales: [Locale('zh')],
+      localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+      supportedLocales: const [Locale('zh')],
       title: 'Toast题库',
+      color: NeumorphicTheme.baseColor(context),
       themeMode: ThemeMode.system,
-      darkTheme: NeumorphicThemeData(
+      darkTheme: const NeumorphicThemeData(
           baseColor: Color.fromRGBO(37, 37, 37, 1),
           shadowLightColor: Colors.deepPurple,
           intensity: 0.37),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
