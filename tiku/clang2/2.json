@@ -1,0 +1,599 @@
+[
+    {
+        "options": [
+            "定义line是一个数组,每个数组元素是一个基类型为char为指针变量",
+            "定义line是一个指针变量,该变量可以指向一个长度为5的字符型数组",
+            "定义line是一个指针数组,语句中的*号称为间址运算符",
+            "定义line是一个指向字符型函数的指针"
+        ],
+        "question": "若有语句:char *line[5];,以下叙述中正确的是______。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "a[p-a]",
+            "*(&a[i])",
+            "p[i]",
+            "a[10]"
+        ],
+        "question": "若已定义int a[]={0,1,2,3,4,5,6,7,8,9}, *p=a,i; ，其中则对a数组元素不正确的引用是______。",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "5",
+            "6",
+            "9",
+            "8"
+        ],
+        "question": "有如下程序 \n int a[10]={1,2,3,4,5,6,7,8,9,10};  \n int *p=&a[3],b;b=p[5];  \n 则b的值是______。 \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "0",
+            "1",
+            "10",
+            "9"
+        ],
+        "question": "下面程序的输出结果是______。 \n #include&ltstdio.h&gt \n main()  \n { int a[]={1,2,3,4,5,6,7,8,9,0},*p;  \n p=a;  \n printf(\"%d\\n\",*p+9);}  \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "2,2,3,4,5,",
+            "6,2,3,4,5,",
+            "1,2,3,4,5,",
+            "2,3,4,5,6,"
+        ],
+        "question": "有以下程序 \n void f(int *q)  \n { int i=0;  \n for(;i&lt5; i++) (*q)++;  \n }  \n main()  \n { int a[5] ={1,2,3,4,5}, i;  \n f(a);  \n for(i=0;i&lt5; i++) printf(\"%d,\", a[i]);  \n }  \n 程序运行后的输出结果是______。 \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "char a[10]=\"china\";",
+            "char a[10],*p=a;p=\"china\"",
+            "char *a;a=\"china\"",
+            "char a[10],*p;p=a=\"china\""
+        ],
+        "question": "下面说明不正确的是______。",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "cde",
+            "字符’c’",
+            "字符’c’的地址",
+            "无确定的输出结果"
+        ],
+        "question": "下面程序段的运行结果是______。 \n char *s=\"abcde\";  \n s+=2;printf(\"%d\",s);  \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "67",
+            "0",
+            "字符’C’的地址",
+            "字符’C’"
+        ],
+        "question": "下面程序段的运行结果是______。 \n char str[]=\"ABC\",*p=str;  \n printf(\"%d\\n\",*(p+3));  \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "char *a=\"china\";等价于 char *a;*a=\"china\";",
+            "char str[5]={\"china\"};等价于char str[]={\"china\"};",
+            "char *s=\"china\";等价于 char *s;s=\"china\";",
+            "char c[4]=\"abc\",d[4]=\"abc\";等价于char c[4]=d[4]=\"abc\";"
+        ],
+        "question": "下面判断正确的是______。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "9",
+            "5",
+            "6",
+            "7"
+        ],
+        "question": "下面程序段中,输出*的个数是______。 \n char *s=\"\\ta\\018bc\";  \n for(;*s!=’\\0’;s++)printf(\"*\");  \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "sizeof(p)",
+            "sizeof(char)",
+            "sizeof(*q)",
+            "sizeof(p[0])"
+        ],
+        "question": "设有定义:char p[]={’1’,’2’,’3’},*q=p;,以下不能计算出一个char型数据所占字节数的表达式是______。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "char a[11], *p; strcpy(p=a+1,&st[4]);",
+            "char a[11]; strcpy(++a, st);",
+            "char a[11]; strcpy(a, st);",
+            "char a[], *p; strcpy(p=&a[1],st+2);"
+        ],
+        "question": "若有定义: char *st= \"how are you \"; ,下列程序段中正确的是______。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "求字符串s的长度",
+            "比较两个串的大小",
+            "将串s复制到串t",
+            "求字符串s所占字节数"
+        ],
+        "question": "有以下函数 \n int aaa(char *s)  \n { char *t=s;  \n while(*t++);  \n t--;  \n return(t-s);  \n }  \n 以下关于aaa函数的功能的叙述正确的是______。 \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "question": "下列程序执行后的输出结果是______。 \n void func(int *a,int b[ ])  \n { b[0]=*a+6; }  \n main()  \n { int a,b[5];  \n a=0; b[0]=3;  \n func(&a,b); printf(\"%d\\n\",b[0]);}  \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "LANGUAGE",
+            "language",
+            "LAN",
+            "langUAGE"
+        ],
+        "question": "下面程序段的运行结果是______。 \n char a[]=\"lanuage\",*p;  \n p=a;  \n while(*p!=′u′){printf(\"%c\",*p-32);p++;}  \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "ABCDDEFEDBD",
+            "abcDDfefDbD",
+            "abcAAfefAbA",
+            "Abcddfefdbd"
+        ],
+        "question": "有以下程序： \n void ss(char *s,char t)  \n { while(*s)  \n { if(*s==t)*s=t-’a’+’A’;  \n s++; }  \n }  \n main()  \n { char str1[100]=\"abcddfefdbd\", c=’d’;  \n ss(str1,c); printf(\"%s\\n\",str1);}  \n 程序运行后的输出结果是______。 \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "int *p;  \n  scanf(\"%d\",p);",
+            "int *s, k;  \n  *s=100;",
+            "int *s, k;  \n  char *p, c;  \n  s=&k;  \n  p=&c;  \n  *p=’a’;  \n  …",
+            "int *s, k;  \n  char *p, c;  \n  s=&k;  \n  p=&c;  \n  s=p;  \n  *s=1 \n  …"
+        ],
+        "question": "请选出正确的程序段______。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "xy,aaaacc",
+            "aaaacc,xy",
+            "bcc,aabcc",
+            "aabcc,bcc"
+        ],
+        "question": "有以下程序 \n #include &ltstdio.h&gt \n #include &ltstring.h&gt \n void fun(char *s[],int n)  \n { char *t; int i,j;  \n for(i=0;i&ltn-1;i++)  \n for(j=i+1;j&ltn;j++)  \n if(strlen(s[i])&gtstrlen(s[j])) {t=s[i];s[i]=s[j];s[j]=t;}  \n }  \n main()  \n { char *ss[]={\"bcc\",\"bbcc\",\"xy\",\"aaaacc\",\"aabcc\"};  \n fun(ss,5); printf(\"%s,%s\\n\",ss[0],ss[4]);  \n }  \n 程序的运行结果是______。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "0987654321",
+            "4321098765",
+            "5678901234",
+            "0987651234"
+        ],
+        "question": "有以下程序 \n #include &ltstdio.h&gt \n void fun(int *s, int n1,int n2)  \n { int i,j,t;  \n i=n1; j=n2;  \n while(i&ltj) {t=s[i];s[i]=s[j];s[j]=t;i++;j--;}  \n }  \n main()  \n { int a[10]={1,2,3,4,5,6,7,8,9,0},k;  \n fun(a,0,3); fun(a,4,9); fun(a,0,9);  \n for(k=0;k&lt10;k++)printf(\"%d\",a[k]); printf(\"\\n\");  \n }  \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "2 1 4 3",
+            "1 2 1 2",
+            "1 2 3 4",
+            "2 1 1 2"
+        ],
+        "question": "以下程序的运行结果是______。 \n void fun(int *x,int *y) \n { \n printf(\"%d%d\",*x,*y); \n *x=3; \n *y=4; \n } \n int main() \n { \n int x=1,y=2; \n fun(&y,&x); \n printf(\"%d%d\",x,y); \n return 0; \n } \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "1,2,3,4,5,6,7,8,9,0,",
+            "0,9,8,7,6,5,1,2,3,4,",
+            "0,9,8,7,6,5,4,3,2,1,",
+            "1,2,3,4,9,8,7,6,5,0,"
+        ],
+        "question": "有以下程序 \n #include &ltstdio.h&gt \n void fun(int *a,int n)/*fun函数的功能是将a所指数组元素从大到小排序*/  \n { int t,i,j;  \n for(i=0;i&ltn-1;i++)  \n for(j=i+1;j&ltn;j++)  \n if(a[i]&lta[j]) { t=a[i];a[i]=a[j];a[j]=t;}  \n }  \n  \n main()  \n { int c[10]={1,2,3,4,5,6,7,8,9,0},i;  \n fun(c+4,6);  \n for(i=0;i&lt10;i++) printf(\"%d,\",c[i]);  \n printf(\"\\n\");  \n }  \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "正整数",
+            "负整数",
+            "零",
+            "不确定的数"
+        ],
+        "question": "下面程序的运行结果是______。 \n #include&ltstdio.h&gt \n #include&ltstring.h&gt \n main() \n { \n char *s1=”aBDeFg”; \n char *s2=”aBdeFg”; \n s1=s1+2; \n s2=s2+2; \n printf(“%d\\n”,strcmp(s1,s2)); \n } \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "9",
+            "61490",
+            "61",
+            "5"
+        ],
+        "question": "有以下程序 \n #include &ltstdio.h&gt \n int fun(char s[])  \n { int n=0;  \n while(*s&lt=’9’&&*s&gt=’0’) {n=10*n+*s-’0’;s++;}  \n return(n);  \n }  \n main()  \n { char s[10]={’6’,’1’,’*’,’4’,’*’,’9’,’*’,’0’,’*’};  \n printf(\"%d\\n\",fun(s)); \n }  \n 程序的运行结果是______。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "str[]=abdef",
+            "str[]=abcdef",
+            "str[]=a",
+            "str[]=ab"
+        ],
+        "question": "下列程序的运行结果为______。 \n #include&ltstdio.h&gt \n void abc(char*str)  \n { int a,b;  \n for(a=b=0;str[a]!=’\\0’;a++) \n if(str[a]!=’c’)  \n str[b++]=str[a];  \n str[b]=’\\0’;}  \n void main( )  \n { char str[]=\"abcdef\";  \n abc(str); printf(\"str[]=%s\",str); }  \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "accxyy,bbxxyy",
+            "acc,bbxxyy",
+            "accxxyy,bbxxyy",
+            "accbbxxyy,bbxxyy"
+        ],
+        "question": "有以下程序 \n #include &ltstdio.h&gt \n void fun(char *t, char *s)  \n { while(*t!=0) t++;  \n while((*t++=*s++)!=0);  \n }  \n main()  \n { char ss[10]=\"acc\",aa[10]=\"bbxxyy\";  \n fun(ss,aa); printf(\"%s,%s\\n\",ss,aa);  \n }  \n 程序的运行结果是______。 \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "3e,6",
+            "62,5",
+            "56,5",
+            "3E,6"
+        ],
+        "question": "阅读下列程序,则执行后的结果为______。 \n #include \"stdio.h\"  \n main()  \n { int c[][4]={1,2,3,4,5,6,7,34,213,56,62,3,23,12,34,56};  \n printf(\"%x,%x\\n\",c[2][2],*(*(c+1)+1));}  \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "69825",
+            "63825",
+            "6385",
+            "693825"
+        ],
+        "question": "有如下程序 \n main()  \n { char ch[2][5]={\"6937\",\"8254\"},*p[2];  \n int i,j,s=0;  \n for(i=0;i&lt2;i++)p[i]=ch[i];  \n for(i=0;i&lt2;i++)  \n for(j=0;p[i][j]&gt′\\0′;j+=2) \n s=10*s+p[i][j]-′0′;  \n printf(\"%d\\n\",s);}  \n 该程序的输出结果是______。 \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "21",
+            "78",
+            "23",
+            "28"
+        ],
+        "question": "现有如下程序段 \n #include \"stdio.h\"  \n main()  \n { int a[5][6]={23,3,65,21,6,78,28,5,67,25,435,76,8, \n 22,45,7,8,34,6,78,32,4,5,67,4,21,1};  \n int i=0,j=5;  \n printf(\"%d\\n\",*(&a[0][0]+2*i+j-2));}  \n 则程序的输出结果为______。 \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "18",
+            "19",
+            "20",
+            "21"
+        ],
+        "question": "有下面程序段 \n #include \"stdio.h\"  \n #include \"string.h\"  \n main()  \n { char a[3][20]={{\"china\"},{\"isa\"},{\"bigcountry!\"}};  \n char k[100]={0},*p=k;  \n int i;  \n for(i=0;i&lt3;i++)  \n { p=strcat(p,a[i]);}  \n i=strlen(p);  \n printf(\"%d\\n\",i);} \n 则程序段的输出结果是______。 \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "1",
+            "4",
+            "7",
+            "5"
+        ],
+        "question": "以下程序的输出结果是______。 \n #include&ltstdio.h&gt \n int a[3][3]={1,2,3,4,5,6,7,8,9},*p;  \n main()  \n { p=(int*)malloc(sizeof(int));  \n f(p,a);  \n printf(\"%d\\n\",*p);  \n free(p); }  \n f(int *s, int p[][3])  \n { *s=p[1][1]; }  \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "question": "若有定义和语句int a[10],*p; p=a; 在程序中引用数组元素a[i]的四种形式是______、______、______、和a[i]。（假设m已正确说明并赋值）",
+        "answer": [
+            "*（a+i）",
+            "*(p+i)",
+            "p[i]"
+        ],
+        "type": 2,
+        "answer_num": 3,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序的运行结果是______。 \n main() \n { \n int a[5]={1,3,5,7,9},*p=a; \n p+=2; \n printf(“%d”,*p); \n } \n",
+        "answer": [
+            "5"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "有定义和语句int a[5]={2,4,6,8,10},*p; p=&a[1]; 则*p++的值是______。",
+        "answer": [
+            "4"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "若有定义和语句int a[3][4]={0},(*p)[4]; p=a; 则p+2表示数组元素______的地址。",
+        "answer": [
+            "a[2][0]"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下函数返回a所指数组中最小的值所在的下标值 \n fun(int *a, int n)  \n { int i,j=0,p;  \n p=j;  \n for(i=j;i&ltn;i++)  \n if(a[i]&lta[p]) ________; \n return(p); \n }  \n",
+        "answer": [
+            "p=i"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序的输出结果是______。 \n void fun(int *a) \n { \n a[0]=a[1]; \n } \n main() \n { \n int a[10]={10,9,8,7,6,5,4,3,2,1},i; \n for(i=2;i&gt=0;i--) \n fun(&a[i]); \n for(i=0;i&lt10;i++) \n printf(\"%d\",a[i]); \n } \n",
+        "answer": [
+            "7777654321"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下面程序的运行结果是________。 \n void swap(int *a, int *b) \n {  \n int *t; \n t=a;  \n a=b; \n b=t; \n } \n main() \n {  \n int x=3, y=5, *p=&x, *q=&y; \n swap(p,q); \n printf(\"%d %d\\n\", *p, *q); \n } \n",
+        "answer": [
+            "3  5"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序的输出结果为______。 \n #include &ltconio.h&gt \n #include &ltstdio.h&gt \n int fun(int *s, int t, int *k)  \n { int i;  \n *k=0;  \n for(i=0;i&ltt;i++)  \n if(s[*k]&lts[i])*k=i;  \n return s[*k]; }  \n main()  \n { int a[10]={ 876,675,896,101,301,401,980,431,451,777},k;  \n fun(a, 10, &k);  \n printf(\"%d, %d\\n\",k,a[k]);}  \n",
+        "answer": [
+            "6,980"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "运行以下程序后，a的值为______，b的值为______。 \n int main(void) \n { \n int a,b,k=4,m=6,*p1=&k,*p2=&m; \n a=p1==&m; \n b=(*p1)/(*p2)+7; \n printf(\"a=%d\\n\",a); \n printf(\"b=%d\\n\",b); \n return 0; \n } \n",
+        "answer": [
+            "0",
+            "7"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序的输出结果是______。 \n main() \n { \n char a[]=”programming”,b[]=”language”; \n char *p1,*p2; \n int i;  \n p1=a; p2=b; \n for(i=0;i&lt7;i++) \n if(*(p1+i)==*(p2+i)) \n printf(“%c”,*(p1+i)); \n }  \n",
+        "answer": [
+            "ga"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序的运行结果是______。 \n #include &ltstdio.h&gt \n void fun(char *a,char*b)  \n { while(*a==’*’)a++;  \n while(*b=*a){b++;a++;}  \n }  \n main()  \n { char *s=\"*****a*b****\",t[80];  \n fun(s,t); puts(t);  \n }  \n",
+        "answer": [
+            "a*b****"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下面程序的输出结果是______。 \n #include&ltstdio.h&gt \n #include&ltstring.h&gt \n main()  \n { char p1[20]=\"abc\",*p2=\"ABC\",str[50]= \"xyz\";  \n strcpy(str+2,strcat(p1,p2));  \n printf(\"%s\\n\",str); } \n",
+        "answer": [
+            "xyabcABC"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序的运行结果是______。 \n int main(void) \n { \n char a[]=\"123456789\",*p=a; \n int i=0; \n while(*p) \n { \n if(i%2==0) \n *p=’*’; \n p++; \n i++; \n } \n puts(a); \n return 0; \n} \n",
+        "answer": [
+            "*2*4*6*8*"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "当运行以下程序时，从键盘输入： apple↙  \ntample↙ \n则下面程序的运行结果是______。 \n#include \"stdio.h\" \nmain() \n{  \n char s[80], *t; \n t=s; \n gets(t); \n while (*(++t)!=’\\0’) \n if (*t==’a’) break; \n else { t++; gets(t); } \n puts(t); \n} \n",
+        "answer": [
+            "ample"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下面程序用来计算一个英文句子中最长单词的长度（字母个数）max。假设该英文句子中只含有字母和空格，在空格之间连续的字母串称为单词，句子以’.’为结束。请填空。 \nmain() \n{  \n static char s[]={\" you make me happy when days are grey.\"}, *t; \n int max=0, length=0; \n t=s; \n while (*t!=’.’) \n { while (((*t<=’Z’)&&(*t&gt=’A’))||((*t&lt=’z’)&&(*t&gt=’a’))) \n { \n length++; \n ______ ; \n } \n if (max&ltlength) ______; \n length=0; \n t++; \n} \nprintf(\"max=%d\", max); \n} \n",
+        "answer": [
+            "t++",
+            "max=length"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序的运行结果是______。 \n #include&ltstdio.h&gt \n #define N 5 \n main() \n { \n char *str[]={\"abc\",\"def\",\"ijk\",\"mno\"}; \n char **p; \n int i; \n p=str; \n for(i=0;i&lt4;i++) \n printf(\"%s\",p[i]); \n } \n",
+        "answer": [
+            "abcdefijkmno"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下列程序的功能是删除字符串中的空格，输入asd af aa z67时输出为asdafaaz67请完善该程序。 \n #include &ltstdio.h&gt \n #include &ltctype.h&gt \n #include &ltstring.h&gt \n int fun (char *str)  \n { int i,j=0;  \n for(i=0;str[i]!=’\\0’;i++) \n if(str[i]!=’ ’)str[j++]=str[i];  \n ______ ; \n } \n main()  \n {  \n char str[81];  \n int n;  \n printf(\"Input a string : \");  \n gets(str);  \n ______; \n printf(\"%s\\n\",str); \n }  \n",
+        "answer": [
+            "str[j]='\\0'",
+            "fun(str)"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "若有以下定义int a[2][3]={1,2,3,4,5,6}; 则a[1][0]的值是______，*(*(a+1)+1)的值是______。",
+        "answer": [
+            "4",
+            "5"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序的运行结果是______。 \n#include&ltstdio.h&gt \n main() \n{ \n char ch[2][5]={\"369\",\"528\"},*p[2]; \n int i,k,j,s=0; \n for(i=0;i&lt2;i++) \n p[i]=ch[i]; \n for(i=0;i&lt2;i++) \n for(j=0;p[i][j]&gt=’0’&&p[i][j]&lt=’9’;j+=2) \n s=10*s+p[i][j]-’0’; \n printf(\"%d\",s); \n } \n",
+        "answer": [
+            "3958"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序中，主函数调用了LineMax函数，实现在N行M列的二维数组中找出每一行上的最大值。请填空完善该程序。 \n #include&ltstdio.h&gt \n #define N 3 \n #define M 4 \n void LineMax(int x[N][M]) \n { \n int i,j,p; \n for(i=0;i&ltN;i++) \n { \n p=0; \n for(j=0;j&ltM;j++) \n if(x[i][p]&ltx[i][j]) \n ______； \n printf(\"The max value in line %d is %d\\n\",i,______ ); \n } \n } \n main() \n { \n int x[N][M]={1,5,7,4,2,6,4,3,8,2,3,1}; \n ______； \n } \n",
+        "answer": [
+            "p=j;",
+            "x[i][p]   LineMax(x);"
+        ],
+        "type": 2,
+        "answer_num": 3,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    }
+]

@@ -1,0 +1,604 @@
+[
+    {
+        "options": [
+            "i=10,sum=9",
+            "i=9,sum=9",
+            "i=2,sum=1",
+            "运行出现错误"
+        ],
+        "question": "列程序运行的情况是_____。 \n main() \n { int i=1,sum=0; \n while(i<10)  \n sum=sum+1; \n i++; \n printf(\"i=%d,sum=%d\",i,sum); \n } \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "x=4",
+            "x=8",
+            "x=6",
+            "x=12"
+        ],
+        "question": "下列程序的输出为_____。 \n #include\"stdio.h\" \n main() \n { int i,j,x=0; \n for(i=0;i<2;i++) \n { x++; \n for(j＝0;j<=3;j++) \n { if(j%2) continue; \n x++;  \n } \n x++; \n } \n printf(\"x=%d\\n\",x); \n } \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "20",
+            "24",
+            "25",
+            "30"
+        ],
+        "question": "若i,j已定义为int类型，则以下程序段中内循环的总的执行次数是_____。 \n for (i=5；i；i--) \n for (j=0；j<4；j++) \n {…} \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "x=4,y=4,a=1",
+            "x=5,y=5,a=1",
+            "x=5,y=4,a=3",
+            "x=5,y=4,a=1"
+        ],
+        "question": "下面程序的输出结果是_____。 \n main() \n {  \n int x=3,y=6,a=0; \n while (x++!=(y-=1)) \n { \n a+=1; \n if (y&ltx) break; \n } \n printf(\"x=%d,y=%d,a=%d\\n\",x,y,a); \n} \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "for(i=1; ;i++) {sum+=i;if(i==100)break;}",
+            "for(i=1;i&lt=100;){sum+=i;i++;}",
+            "i=1;for(;i&lt=100;)sum+=i;",
+            "i=1;for(; ;){sum+=i;if(i==100)break;i++;}"
+        ],
+        "question": "有以下语句： \n i=1; \n for(;i&lt=100;i++) sum+=i; \n 与以上语句序列不等价的有_____。 \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "循环体将执行一次",
+            "循环体将执行两次",
+            "循环体将执行无数多次",
+            "系统将提示有语法错误"
+        ],
+        "question": "当执行以下程序段时_____。  \n x=-1； \n do  \n { \n x=x*x； \n }while (!x)； \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "-1",
+            "1",
+            "8",
+            "0"
+        ],
+        "question": "执行以下程序后输出的结果是_____。 \n main() \n { \n int y=10; \n do \n { \n y--; \n }while(--y); \n printf(\"%d\\n\",y--); \n } \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "12457810",
+            "369",
+            "12",
+            "12345678910"
+        ],
+        "question": "下面程序的运行结果为_____。 \n main() \n { int n; \n for(n=1;n&lt=10;n++) \n { if(n%3==0)continue; \n printf(\"%d\",n); \n } \n } \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "x=4",
+            "x=0",
+            "x=2",
+            "x=3"
+        ],
+        "question": "下面程序的运行结果是_____。 \n main() \n { int x,y,z; \n x=0;y=z=-1; \n x+=-z---y; \n printf(\"x=%d\\n\",x); \n } \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "20",
+            "19",
+            "10",
+            "9"
+        ],
+        "question": "标有/**/的语句的执行次数是_____。 \n int y,i; \n for(i=0;i&lt20;i++) \n { if(i%2==0)continue; \n y+=i;/**/ \n } \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "n=0;   do{++n;}while(n&lt=0);",
+            "n=0; while(1){n++;}",
+            "n=10;  while(n);{n--;}",
+            "for(n=0,i=1;  ;i++)n+=i;"
+        ],
+        "question": "以下不构成无限循环的语句或语句组是",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "k=0,m=3",
+            "k=0,m=5",
+            "k=1,m=3",
+            "k=1,m=5"
+        ],
+        "question": "下列程序的输出为_____。 \n #include&ltstdio.h&gt \n main( ) \n { int i,j,k=0,m=0; \n for(i=0;i&lt2;i++) \n { for(j=0;j&lt3;j++) \n k++; \n k-=j; \n } \n m=i+j; \n printf(\"k=%d,m=%d\\n\",k,m); \n } \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "0",
+            "1",
+            "true",
+            "非0"
+        ],
+        "question": "在C语言中，为了结束由do-while语句构成的循环，while后一对圆括号中表达式的值应为_____。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "a=4,b=4",
+            "a=4,b=5",
+            "a=5,b=4",
+            "a=5,b=5"
+        ],
+        "question": "下列程序的输出结果是_____。 \n#include \"stdio.h\"  \nmain()  \n{  \n int i,a=0,b=0;  \n for(i=1;i&lt10;i++)  \n { if(i%2==0)  \n { a++;  \n continue;}  \n b++;}  \n printf(\"a=%d,b=%d\",a,b); }  \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "10192",
+            "9876",
+            "10990",
+            "101091"
+        ],
+        "question": "以下程序的输出结果是_____。 \n main() \n { \n int x=10,y=10,i; \n for(i=0; x&gt8; y=++i) \n printf(\"%d%d\",x--,y); \n } \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "uwxsta",
+            "u                             \nw                                  \nx ",
+            "u  \nw \nxs",
+            "u \nw \nxsta                                "
+        ],
+        "question": "下列程序的输出是_____。 \n #include&ltstdio.h&gt \n main() \n { int i;char c; \n for(i=0;i&lt=5;i++) \n { c=getchar(); \n putchar(c); \n } \n } \n 程序执行时从第一列开始输入以下数据，&ltCR&gt代表换行符。 \n u&ltCR&gt \n w&ltCR&gt \n xsta&ltCR&gt \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "0,0",
+            "0,1",
+            "1,1",
+            "程序进入无限循环"
+        ],
+        "question": "若变量已正确定义，有以下程序段 \n i=0;  \n do printf(\"%d,\",i);while(i++);  \n printf(\"%d\\n\",i);  \n 其输出结果是_____。 \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "运行程序段后输出0",
+            "运行程序段后输出1",
+            "程序段中的控制表达式是非法的",
+            "程序段执行无限次"
+        ],
+        "question": "设有以下程序段 \n int x=0,s=0;  \n while(!x!=0) s+=++x;  \n printf(\"%d\",s);  \n 则_____。 \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "循环控制表达式的值为0",
+            "循环控制表达式的值为1",
+            "循环控制表达式不合法",
+            "以上说法都不对"
+        ],
+        "question": "已知 \n int t=0;  \n while (t=1)  \n {...}  \n 则以下叙述正确的是_____。 \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "20",
+            "31",
+            "321",
+            "210"
+        ],
+        "question": "以下程序的输出结果是_____。 \n main() \n {  \n int n=4; \n while (n--) \n printf(〞%d〞,--n)； \n } \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "由于do-while循环中循环体语句只能是一条可执行语句,所以循环体内不能使用复合语句",
+            "do-while循环由do开始,用while结束,在while(表达式)后面不能写分号",
+            "在do-while循环体中,是先执行一次循环,再进行判断",
+            "do-while循环中,根据情况可以省略while"
+        ],
+        "question": "以下描述中正确的是_____。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "409",
+            "277",
+            "1",
+            "91"
+        ],
+        "question": "有以下程序 \nmain()  \n{  \n int i,s=1;  \n for (i=1;i&lt50;i++)  \n if(!(i%5)&&!(i%3)) s+=i;  \n printf(\"%d\\n\",s); \n}  \n程序的输出结果是_____。 \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "668977",
+            "668966",
+            "6677877",
+            "6688766"
+        ],
+        "question": "若程序执行时的输入数据是\"2473\",则下述程序的输出结果是_____。 \n #include&ltstdio.h&gt void main()  \n { int cs;  \n while((cs=getchar())!=’\\n’) \n {switch(cs-’2’)  \n { case 0:  \n case 1:putchar(cs+4);  \n case 2:putchar(cs+4);  \n break;  \n case 3:putchar(cs+3)default:putchar(cs+2); } } } ",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "31",
+            "13",
+            "10",
+            "20"
+        ],
+        "question": "以下程序的输出结果是_____。 \n main()  \n { int a,i;a=0;  \n for(i=1;i<5;i++)  \n { switch(i)  \n {case 0:  \n case 3:a+=2;  \n case 1:  \n case 2:a+=3;  \n default:a+=5; }  \n }printf(\"%d\\n\",a);}  \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "0",
+            "1",
+            "2",
+            "3"
+        ],
+        "question": "有以下程序 \n #include &ltstdio.h&gt \n main()  \n { int i,j,m=55;  \n for(i=1;i&lt=3;i++)  \n for(j=3;j&lt=i;j++)m=m%j;  \n printf(\"%d\\n\",m);  \n }  \n 程序的运行结果是_____。  \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "235",
+            "0235",
+            "02356",
+            "2356"
+        ],
+        "question": "有以下程序 \n main()  \n {int k=5,n=0;  \n do  \n {switch(k)  \n { case 1:  \n case 3: n+=1;k--;break;  \n default: n=0;k--;  \n case 2:  \n case 4: n+=2;k--;break;  \n }  \n printf(\"%d\",n);  \n }whiwhile(k>0 && n<5);  \n }  \n 程序运行后的输出结果是_____。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "987",
+            "876",
+            "8765",
+            "9876"
+        ],
+        "question": "有如下程序_____。 \n main()  \n { int n=9;  \n while(n&gt6){n--; printf(\"%d\",n);} }  \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "2,1",
+            "2,2",
+            "2,5",
+            "5,2"
+        ],
+        "question": "有以下程序 \n main()  \n { int x=0,y=0,i;  \n for (i=1;;++i) \n { if (i%2==0) {x++;continue;}  \n if (i%5==0) {y++;break;} }  \n printf (\" %d,%d\",x,y); }  \n 程序的输出结果是_____。 \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "7,4,2,",
+            "8,7,5,2,",
+            "9,7,6,4,",
+            "8,5,4,2,"
+        ],
+        "question": "有以下程序 \n #include &ltstdio.h&gt \n main()  \n { int x=8;  \n for( ; x&gt0; x--)  \n { if(x%3) {printf(\"%d,\",x--); continue;}  \n printf(\"%d,\",--x);  \n }  \n }  \n 程序的运行结果是_____。 \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "741",
+            "963",
+            "852",
+            "875421"
+        ],
+        "question": "有以下程序 \n#include &ltstdio.h&gt \nmain0  \n{ int y=9;  \n for( ; y&gt0;y--)  \n if(y%3==0) printf(\"%d\",--y);  \n}  \n程序的运行结果是_____。 \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "question": "若输入字母C，程序输出结果为________；若输入字符*，程序将________。 \n #include&ltstdio.h&gt \n main() \n {  \n char c1,c2; \n c1=getchar(); \n while(c1&lt97||c1&gt122) \n c1=getchar(); \n c2=c1-32; \n printf(\"%c,%c\\n\",c1,c2); \n } \n",
+        "answer": [
+            "c C",
+            "等待继续输入，直到输入小写字母"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序运行的结果为________。 \n main() \n {  \n int a,b,c,x,y,z; \n a=10;b=2; \n c=!(a%b); \n x=!(a/b); \n y=(a&ltb)&&(b&gt=0); \n z=(a&ltb)||(b&gt=0); \n printf(\"%d,%d,%d,%d\\n\",c,x,y,z); \n } \n",
+        "answer": [
+            "1,0,0,1"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序运行的结果________。  \n main() \n {  \n int i=1,sum=0; \n loop:if(i&lt=10) \n { sum+=i; \n i++; \n goto loop; \n } \n printf(\"sum=%d\\n\",sum); \n} \n",
+        "answer": [
+            "sum=55"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序运行的结果________。 \n main() \n {  \n int x=2,y,z; \n x*=3+1; \n printf(\"%d,\",x++); \n x+=y=z=5; \n printf(\"%d,\",x); \n x=y==z; \n printf(\"%d\\n\",x); \n} \n",
+        "answer": [
+            "7,14,1"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序运行的结果________。 \n #include&ltstdio.h&gt \n #include&ltmath.h&gt \n main() \n {  \n int i,k,m,n=0; \n for(m=1;m&lt=10;m+=2) \n { if(n%10==0) \n printf(\"\\n\"); \n k=sqrt(m); \n for(i=2;i&lt=k;i++) \n if(m%i==0) \n break; \n if(i&gtk) \n { printf(\"%2d\",m); \n n++; \n } \n } \n} \n",
+        "answer": [
+            "1 3 5 7"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "如果输入‘1’，‘2’，‘3’，‘4’，程序运行输出的是________。 \n #include&ltstdio.h&gt \n main() \n {  \n char c; \n int i,k; \n k=0; \n for(i=0;i&lt4;i++) \n { while(1) \n { c=getchar(); \n if(c&gt=’0’&&c&lt=’9’) \n break; \n } \n k=k*10+c-’0’; \n } \n printf(\"k=%d\\n\",k); \n } \n",
+        "answer": [
+            "1234"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "运行以下程序后，如果从键盘上输入china#&lt回车&gt,则输出结果为________。 \n #include &ltstdio.h&gt \n main() \n {  \n int v1=0,v2=0; \n char ch; \n while ((ch=getchar())!=’#’) \n switch(ch) \n { case ’a’: \n case ’h’: \n default: v1++; \n case ’0’:v2++; \n } \n printf(\"%d,%d\\n\",v1,v2); \n } \n",
+        "answer": [
+            "5,5"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "程序运行结果是_________。 \n #include&ltstdio.h&gt \n main() \n {  \n int i; \n for(i=1;i+1;i++) \n { if(i&gt4) \n { printf(\"%d\\t\",i++); \n break; \n } \n printf(\"%d\\t\",i++); \n } \n } \n",
+        "answer": [
+            "1 3 5"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序运行的结果是_________。 \n #include&ltstdio.h&gt \n main() \n {  \n int a,b;  \n for(a=1,b=1;a&lt=100;a++) \n { if(b&gt=20) \n break; \n if(b%3==1) \n { b+=3; \n continue; \n } \n b-=5; \n } \n printf(\"%d\\n\",a); \n } \n",
+        "answer": [
+            "8"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序运行的结果是________。 \n main() \n {  \n int i=1; \n while(i&lt10) \n if(++i%3!=1) \n continue; \n else  \n printf(\"%d\",i); \n } \n",
+        "answer": [
+            "4 7 10"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "程序运行的结果是________。 \n main() \n {  \n int n=0; \n while(n++<=1) \n printf(\"%d\\t\",n); \n printf(\"%d\\n\",n); \n } \n",
+        "answer": [
+            "1 2 3"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "此程序运行时，输入qwert?程序的运行结果是_________。 \n#include&ltstdio.h&gt \nmain() \n{  \n char c; \n while((c=getchar())!=’?’) \n putchar(++c); \n} \n",
+        "answer": [
+            "rxfsu"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "对以下程序： \n 当输入65 14时，其运行结果是_________。 \n 当输入14 63时，其运行结果是_________。 \n 当输入25 125时，其运行结果时_________。 \n #includefine&ltstdio.h&gt main() \n {  \n int m,n; \n scanf(\"%d%d\",&m,&n); \n while(m!=n) \n { while(m&gtn) \n m-=n; \n while(n&gtm) \n n-=m; \n } \n printf(\"m=%d\\n\",m); \n } \n",
+        "answer": [
+            "m=1",
+            "m=7",
+            "m=25"
+        ],
+        "type": 2,
+        "answer_num": 3,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "求出1000以内的“完全数”。（提示：如果一个数恰好等于它的因子之和（因子包括1，不包括数本身），则称该数为“完全数”。如：6的因子是1，2，3而6=1+2+3，则6是个“完数”）。 \n main() \n {  \n int i,a,m; \n for(i=1;i&lt1000;i++) \n { for(m=0,a=1;a&lt=i/2;a++) \n if(!(i%a))  \n _________; \n if_________)  \n printf(\"%4d\",i); \n } \n } \n",
+        "answer": [
+            "m=m+a",
+            "m==i"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "“百钱买百鸡问题”：100元钱买100只鸡，公鸡一只5元钱，母鸡一只3元钱，小鸡一元钱三只，求100元钱能买公鸡、母鸡、小鸡各多少只？ \n#include&ltstdio.h&gt \nmain() \n{  \nint cocks,hens,chicks; \ncocks=0; \nwhile(cocks&lt=19) \n { hens=0; \n while(hens&lt=33) \n { chicks=100.0-cocks-hens; \n if(50*cocks+3.0*hens+chicks/3.0==100.0printf(\"%d,%d,%d\\n\",cocks,hens,chicks); \n _________; \n } \n _________; \n } \n}  \n",
+        "answer": [
+            "hens++",
+            "cocks++"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "爱因斯坦的阶梯问题：设有一阶梯，每步跨2阶，最后余1阶；每步跨3阶，最后余2阶；每步跨5阶，最后余4阶；每步跨6阶，最后余5阶；只有每步跨7阶时，正好到阶梯顶。求阶梯的个数。 \nMain() \n{  \nint ladders=7; \n while(_________) \n ladders+=14; \n printf(\"%d\\n\",ladders); \n}",
+        "answer": [
+            "ladders%3!=2||ladders%5!=4||ladders%6!=5"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下列程序计算平均成绩并统计90分及以上人数。 \nMain() \n{  \n int n,m; \n float grade,average; \n average=n=m=_________; \n while(_________) \n {  \n scanf(\"%f\",&grade); \n if(grade&lt0)break; \n n++; \n average+=grade; \n if(grade&lt90) _________; \n m++; \n } \n if(n)printf(\"%.2f%d\\n\",average/n,m); \n } \n",
+        "answer": [
+            "0",
+            "1",
+            "continue"
+        ],
+        "type": 2,
+        "answer_num": 3,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下列程序计算Fibonacci数列：1，1，2，3，5，8，13……的前40项。 \n Main() \n { int n; \n long f1,f2; \n _________; \n for(n=0; n<20; n++) \n { printf(\"%12ld%12ld\",f1,f2); \n if(n%2)  \n printf(\"\\n\"); \n f1+=f2; \n _________; \n } \n }",
+        "answer": [
+            "f1=1;f2=1",
+            "f2+=f1"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下列程序判断一个数是否为素数。 \n #include&ltstdio.h&gt \n #include&ltmath.h&gt \n main() \n {  \n int I,k,m; \n scanf(\"%d\",&m); \n k=sqrt(_________); \n for(i=2;i&lt=k;i++) \n if(m%i==0) _________; \n if(_________) \n printf(\"%dyes\\n\",m); \n else  \n printf(\"%dno\\n\",m); \n }",
+        "answer": [
+            "m",
+            "break",
+            "i>=k+1"
+        ],
+        "type": 2,
+        "answer_num": 3,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "求100~499之间的所有水仙花数，即各位数字的立方和恰好等于该数本身的数。 \nMain() \n{ int I,j,k,m,n; \n for(i=1; _________;i++) \n for(j=0;j&lt=9;j++) \n for(k=0;k&lt=9;k++) \n { _________; \n n=i*i*i+j*j*j+k*k*k; \n if(_________) \n printf(\"%d\",m); \n } \n}  \n",
+        "answer": [
+            "i<=4",
+            "m=i*100+j*10+k",
+            "m==n"
+        ],
+        "type": 2,
+        "answer_num": 3,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    }
+]

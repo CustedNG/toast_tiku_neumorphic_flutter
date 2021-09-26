@@ -1,0 +1,418 @@
+[
+    {
+        "options": [
+            "n-1",
+            "2n-1",
+            "n+1",
+            "2n+1"
+        ],
+        "question": "在有n个结点的二叉链表中，值为空的链域个数为______。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "0",
+            "1",
+            "2",
+            "不确定"
+        ],
+        "question": "已知完全二叉树有30个结点，则整个二叉树有______个度为1的结点。",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "2k-1",
+            "2k-2",
+            "2k-1",
+            "2k-2"
+        ],
+        "question": "深度为k的完全二叉树至少有______个结点。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "2k-1",
+            "2k-2",
+            "2k-1",
+            "2k-2"
+        ],
+        "question": "深度为k的完全二叉树至多有______个结点。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "url:/QuestionPhotoes/5sig_a.png",
+            "url:/QuestionPhotoes/5sig_b.png",
+            "url:/QuestionPhotoes/5sig_c.png",
+            "url:/QuestionPhotoes/5sig_d.png"
+        ],
+        "question": "如图所示的4棵二叉树中，______不是完全二叉树。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "N2-1",
+            "N2+1",
+            "N2",
+            "N2-2"
+        ],
+        "question": "对于任何一棵二叉树，如果其终端结点数为N0，度为2的结点数为N2，则N0=______。",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "0",
+            "1",
+            "-1",
+            "2"
+        ],
+        "question": "树中所有结点的度等于所有结点数加______。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "0",
+            "1",
+            "2",
+            "任意多个"
+        ],
+        "question": "在一棵树中，每个结点最多有______个前驱结点。",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "question": "在一棵度为3的树中，度为3的结点数为2个，度为2的结点数为1个，度 \n为1的结点点数为2个，则度为0的结点数为______个。 \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "16",
+            "15",
+            "8",
+            "32"
+        ],
+        "question": "在一棵二叉树上第5层的结点数最多为______。A",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "2i",
+            "2i+1",
+            "2i-1",
+            "2n"
+        ],
+        "question": "在一棵具有n个结点的二叉树的第i层上，最多具有______个结点。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "6",
+            "7",
+            "5",
+            "8"
+        ],
+        "question": "一颗具有35个结点的完全二叉树的深度为______。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "2i",
+            "2i-1",
+            "2i+1",
+            "2i+2"
+        ],
+        "question": "在一棵完全二叉树中，若编号为i的结点存在右孩子，则右孩子结点的编号为______。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "5",
+            "4",
+            "3",
+            "30"
+        ],
+        "question": "按照二叉树的定义，具有3个结点的二叉树有______种状态。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "ECBAD",
+            "DEABC",
+            "DECAB",
+            "EDBCA"
+        ],
+        "question": "已知某二叉树的后序遍历序列是DACBE，中序序列是DEBAC，则它的前序遍历序列是______。",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "url:/QuestionPhotoes/16sig_a.png",
+            "url:/QuestionPhotoes/16sig_b.png",
+            "url:/QuestionPhotoes/16sig_c.png",
+            "url:/QuestionPhotoes/16sig_d.png"
+        ],
+        "question": "已知某二叉树的前序遍历序列是ABDEFGC，中序序列是DEBGFAC，则对应的二叉树为______。",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "11",
+            "10",
+            "8",
+            "9"
+        ],
+        "question": "在具有10 个结点的树中，其边的树目为______。",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "有且只有1",
+            "1或多于1",
+            "0或1",
+            "至少2"
+        ],
+        "question": "树是结点的集合,它的根结点数目是 ______。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "32",
+            "31",
+            "16",
+            "15"
+        ],
+        "question": "在深度为5的满二叉树中,叶子结点的个数为 ______。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "n+1",
+            "n-1",
+            "2n",
+            "n/2"
+        ],
+        "question": "某二叉树中有n个度为2的结点,则该二叉树中的叶子结点数为______。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "question": "对于一棵具有n个结点的树，该树中所有结点的度数之和为______。",
+        "answer": [
+            "n-1"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "在一棵二叉树中，假定度为2的结点数为5个，度为1的结点数为6个，则叶子结点数为______个。 ",
+        "answer": [
+            "6"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "设二叉树的深度为h，且只有度为0和2的结点，则此二叉树中所含结点数最多为_______。",
+        "answer": [
+            "2h-1"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "如图所示，该二叉树的中序遍历序列是____________。",
+        "answer": [
+            "ABCDEGF"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            "url:/QuestionPhotoes/4blank.png",
+            null,
+            null
+        ]
+    },
+    {
+        "question": "由a,b,c三个结点构成的二叉树，共有_________种不同的结构。",
+        "answer": [
+            "5"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "设一棵二叉树中有3个叶子结点，有4个度为1的结点，则该二叉树中总的结点数是______。",
+        "answer": [
+            "9"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "已知二叉树后序遍历序列是dabec，中序遍历序列是debac，它的前序遍历序列是______。 ",
+        "answer": [
+            "cebda"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "在含有N个结点的二叉链表中有______空链域。",
+        "answer": [
+            "N-i-1"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "完全二叉树T按顺序存放，编号依次为1,2,...,n,则编号为6的结点右孩子如 \n果存在的话，其编号为______。 \n",
+        "answer": [
+            "13"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "如图：该树度为______，树深度为4，度为2的结点有______个。",
+        "answer": [
+            "3",
+            "3"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            "url:/QuestionPhotoes/10blank_a.png",
+            "url:/QuestionPhotoes/10blank_b.png",
+            null
+        ]
+    },
+    {
+        "question": "在深度为6的满二叉树中，叶子结点的个数为______。",
+        "answer": [
+            "32"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "在深度为6的二叉树中，至多有______个结点。",
+        "answer": [
+            "63"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "具有20个结点的完全二叉树深度为______。",
+        "answer": [
+            "5"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "遍历一含有n个结点的二叉树，时间复杂度为______。 ",
+        "answer": [
+            "O(n)"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "具有300个结点的完全二叉树，叶子结点数为______。 ",
+        "answer": [
+            "150"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    }
+]

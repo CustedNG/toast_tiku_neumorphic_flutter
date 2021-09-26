@@ -1,0 +1,353 @@
+[
+    {
+        "options": [
+            "123.141593",
+            "12└┘3.141593",
+            "12,3.141593",
+            "123.1415930"
+        ],
+        "question": "程序段：int x=12;double y=3.141593;printf(\"%d%8.6f\",x,y);的输出结果是_ ______。",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "x=%2,y=%3",
+            "x=%%d,y=%%d",
+            "x=2,y=3",
+            "x=%d,y=%d"
+        ],
+        "question": "以下程序的执行结果是_____。 \nmain() \n{ int x=2,y=3; \n printf(\"x=%%d,y=%%d\\n\",x,y); \n} \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "10□X□20□Y<回车>",
+            "10□X20□Y<回车>",
+            "10□X<回车>20□Y<回车>",
+            "10X<回车>20Y<回车>"
+        ],
+        "question": "设变量均已正确定义,若要通过scanf(\"%d%c%d%c\",&a1,&c1,&a2,&c2);语句为变量a1和a2赋数值10和20,为变量c1和c2赋字符X和Y。以下所示的输入形式中正确的是_____。(注:□代表空格字符) ",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "12",
+            "34",
+            "12345",
+            "提示出错、无结果"
+        ],
+        "question": "以下程序段的输出结果是_____。 \nint a=12345; printf(\"%2d\\n\", a);  \n",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "10<回车>                           \n   22<回车>                              \n   33",
+            "10.0,22.0,33.0<回车>",
+            "10.0<回车>                          \n   22.0    33.0<回车>",
+            "10   22<回车>  \n    33<回车>"
+        ],
+        "question": "若变量已正确说明为float类型， 要通过语句scanf(\"%f %f%f\", &a, &b, &c);给a赋予10.0， b赋予22.0， c赋予33.0， 不正确的输入形式为_____。",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "1020AB",
+            "10└┘20└┘ABC",
+            "10└┘20",
+            "10└┘20AB"
+        ],
+        "question": "有如下程序，若要求x1、x2、y1、y2的值分别为10、20、A、B，正确的数据输入是_____。（注：└┘代表空格） \nint x1，x2； \nchar y1，y2； \nscanf（\"%d%d\"，&x1,&x2）; \nscanf（\"%c%c\", &y1,&y2）; \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "2.04<回车>                           \n  5.67<回车>",
+            "2.04,5.67<回车>",
+            "A=2.04,B=5.67<回车>",
+            "2.055.67<回车>"
+        ],
+        "question": "有如下程序段，对应正确的数据输入是_____。 \nfloat x,y; \nscanf(\"%f%f\", &x,&y); \nprintf(\"a=%f,b=%f\", x,y); \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "123",
+            "x=1,y=2,z=3",
+            "1,2,3",
+            "x=1└┘ y=2└┘ z=3"
+        ],
+        "question": "有如下程序段，从键盘输入数据的正确形式应是_____。（注：└┘代表空格） \nfloat x,y,z; \nscanf(\"x=%d,y=%d,z=%d\",&a,&y,&z); \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "scan(\"%f,%f\",&x,&y);",
+            "scanf(\"%f%f\",&x,&y);",
+            "scanf(\"%3.2f└┘%2.1f\",&x,&y);",
+            "scanf(\"%3.2f%2.1f\",&x,&y);"
+        ],
+        "question": "根据定义和数据的输入方式，输入语句的正确形式为：_____。（注：└┘代表空格） \n已有定义：float x,y; \n数据的输入方式：1.23<回车> \n 4.5<回车> \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "因变量类型与格式描述符的类型不匹配输出无定值",
+            "输出项与格式描述符个数不符,输出为零值或不定值",
+            "a,97,12k=12",
+            "a,97,k=12"
+        ],
+        "question": "有以下程序段 \nchar ch; int k;  \nch=′a′; \nk=12;  \nprintf(\"%c,%d,\",ch,ch,k); printf(\"k=%d \\n\",k); \n已知字符a的ASCII码值为97,则执行上述程序段后输出结果是_____。  \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "scanf(\"%d%f\",&a,&b);              \n      printf(\"\\na+b=%5.3f\",a+b);",
+            "scanf(\"%d%3.1f\",&a,&b); \n      printf(\"\\na+b=%f\",a+b);",
+            "scanf(\"%d,%f\",&a,&b);              \n      printf(\"\\na+b=%5.3f\",a+b)",
+            "scanf(\"%d%f\",&a,&b);               \n\tprintf(\"\\na+b=%f\",a+b);D.scanf(\"%d%f\",&a,&b);"
+        ],
+        "question": "根据题目中已给出的数据的输入和输出形式，程序中输入输出语句的正确内容是_____。 \nmain() \n{ int a;  \n float b; \n 输入语句 \n 输出语句 \n} \n输入形式：1└┘2.3<回车> （注：└┘代表空格） \n输出形式：a+b=3.300 \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "a+b=46",
+            "有语法错误",
+            "a+b=12",
+            "不确定值"
+        ],
+        "question": "阅读以下程序，当输入数据的形式为：12,34，正确的输出结果为_____。 \nmain() \n{ int a,b; \n scanf(\"%d%d\", &a,&b); \n printf(\"a+b=%d\\n\",a+b); \n}  \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "定义语句出错，case是关键字，不能用作用户自定义标识符",
+            "定义语句出错，printF不能用作用户自定义标识符",
+            "定义语句无错，scanf不能作为输入函数使用",
+            "定义语句无错，printf不能输出case的值"
+        ],
+        "question": "阅读以下程序  \nmain() \n{ int case; float printF; \n printf(\"请输入2个数：\"); \n scanf(\"%d %f\",&case,&printF); \n printf(\"%d %f\\n\",case,printF); \n} \n该程序编译时产生错误，其出错原因是_____。  \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "E,68",
+            "D,69",
+            "E,D",
+            "输出无定值"
+        ],
+        "question": "已知字母A的ASCII码为65，以下程序运行后的输出结果是_____。 \nmain() \n{  \n char c1,c2; \n c1=A+8-4; \n c2=A+8-5; \n printf(\"%c,%d\\n\",c1,c2); \n} \n",
+        "answer": 0,
+        "type": 0
+    },
+    {
+        "options": [
+            "55566.0",
+            "566.0",
+            "7777.0",
+            "566777.0"
+        ],
+        "question": "有以下程序段_____。 \nint j; float y; char name[50];  \nscanf(\"%2d%f%s\",&j,&y,name);  \n当执行上述程序段,从键盘上输入55566 7777abc后,y的值为_____。 \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "1 3 2",
+            "1,3,2",
+            "a=1 b=3 c=2",
+            "a=1,b=3,c=2"
+        ],
+        "question": "变量a、b、c已被定义为int型，有输入语句“scanf(\"a=%d,b=%d,c=%d \",&a,&b,&c);”，为使变量a的值为1，b的值为3，c的值为2，从键盘输入数据的正确形式是_____。",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "a+b=10",
+            "a+b=30",
+            "30",
+            "出错"
+        ],
+        "question": "下列程序运行后的输出结果是_____。 \nint main(void) \n{ int a=0,b=0; \n a=10;/*给a赋值 \n b=20; 给b赋值*/ \n printf(\"a+b=%d\\n\",a+b); /*输出计算结果*/ \n return 0; } \n",
+        "answer": 1,
+        "type": 0
+    },
+    {
+        "options": [
+            "注释语句书写位置错误",
+            "圆半径变量r不应该定义为整型",
+            "输出语句中格式符错误",
+            "计算圆面积的赋值语句中使用了未定义的标识符"
+        ],
+        "question": "下列程序的功能是：输入数据r，计算半径为r的原面积s。程序在编译时出现错误，分析原因是_____。 \nint main(void) \n/*changchun*/ \n{ int r; float s; \n scanf(\"%d\",&r); \n s=PI*r*r; \n printf(\"s=%f\\n\",s); \n return 0; \n } \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "options": [
+            "A,B",
+            "A,68",
+            "65,66",
+            "65,68"
+        ],
+        "question": "已知字符′A′的ASCII码值是65,字符变量cl的值是′A′,c2 的值是′D′。执行语句printf(\"%d,%d\",c1,c2-2);后,输出结果是_____。",
+        "answer": 2,
+        "type": 0
+    },
+    {
+        "options": [
+            "0,0",
+            "1,0",
+            "3,2",
+            "1,2"
+        ],
+        "question": "以下程序运行后的输出结果是_____。 \nmain() \n{ int a=1,b=0; \n printf(\"%d,\",b=a+b); \n printf(\"%d\\n\",a=2*b); \n} \n",
+        "answer": 3,
+        "type": 0
+    },
+    {
+        "question": "以下程序的执行结果是：________。 \n main() \n {  \n char c=’c’+5; \n printf(”c=%c\\n”,c); \n } \n",
+        "answer": [
+            "c=h"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "C语言中与长整型long int变量对应的格式符是___________。",
+        "answer": [
+            "%ld"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "若变量定义为“int x,z; double y;”，要实现依次输入x、y、z的语句为________。",
+        "answer": [
+            "scanf(\"%d%lf%d\",&x,&y,&z)；"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下面程序运行后的输出结果是__________。 \n int main(void) \n { float a; \n int b=5; \n a=5/2; \n b=b/2*a; \n printf(\"%f,%d\\n\",a,b); \n return 0; \n } \n",
+        "answer": [
+            "2.000000,4"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "通过输入语句“scanf(\"a=%d,b=%d\",&a,&b);”，给a赋值为1，给b赋值为2， \n则运行程序时输入数据的形式应该是_________。 \n",
+        "answer": [
+            "a=1,b=2"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "下面程序运行后的输出结果是__________。 \n int main(void) \n { int a=2,b=3; \n a=a+b; \n b=a-b; \n a=a-b; \n printf(\"%d,%d\\n\",a,b); \n return 0; \n } \n",
+        "answer": [
+            "3,2"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "若变量x、y已定义为int类型且x的值为99，y的值为9，请将输出语句printf(________，x/y);补充完整，使其输出的计算结果形式为：x/y=11。",
+        "answer": [
+            "\"x/y=%d\""
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "以下程序输入1└┘2└┘3后的执行结果是________。（注：└┘代表空格）  \n main() \n { \n int i,j; \n char k; \n scanf(”%d%c%d”,&i,&k,&j); \n printf(”i=%d,k=%c,j=%d\\n”,i,k,j); \n } \n",
+        "answer": [
+            "i=1,k=└┘,j=2"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "C语言中getchar（）函数是从键盘读入_______个字符。",
+        "answer": [
+            "1"
+        ],
+        "type": 2,
+        "answer_num": 1,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "question": "有一输入函数scanf(”%d”,k);则不能使float类型变量k得到正确数值的原因是：________、________。",
+        "answer": [
+            "格式符应为%f",
+            "变量前边未加取地址符&"
+        ],
+        "type": 2,
+        "answer_num": 2,
+        "img_list": [
+            null,
+            null,
+            null
+        ]
+    }
+]
