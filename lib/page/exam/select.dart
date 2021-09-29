@@ -67,7 +67,8 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
             ),
             NeuIconBtn(
               icon: Icons.question_answer,
-              onTap: () => openUrl(joinQQGroupUrl),
+              onTap: () => showSnackBarWithAction(context, '可在用户群用户群反馈问题、吹水',
+                  '加入', () => openUrl(joinQQGroupUrl)),
             ),
           ],
         ));
