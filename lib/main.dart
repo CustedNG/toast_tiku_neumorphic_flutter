@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/app.dart';
@@ -17,6 +18,11 @@ import 'package:toast_tiku/locator.dart';
 Future<void> initApp() async {
   await Hive.initFlutter();
   await setupLocator();
+  // 等待store加载完成
+  await GetIt.I.allReady();
+  await locator<TikuProvider>().loadLocalData();
+  await locator<HistoryProvider>().loadLocalData();
+  await locator<AppProvider>().loadData();
 }
 
 void runInZone(dynamic Function() body) {

@@ -39,6 +39,7 @@ class _ExamingPageState extends State<ExamingPage>
   int _index = 0;
   bool isBusy = true;
   bool _submittedAnswer = false;
+  late TimerProvider _timerProvider;
 
   @override
   void didChangeDependencies() {
@@ -57,9 +58,9 @@ class _ExamingPageState extends State<ExamingPage>
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    locator<TimerProvider>().stop();
+  void initState() {
+    super.initState();
+    _timerProvider = locator<TimerProvider>();
   }
 
   @override
@@ -144,7 +145,11 @@ class _ExamingPageState extends State<ExamingPage>
                   if (timer.finish) {
                     _submittedAnswer = true;
                   }
-                  return NeuText(text: timer.leftTime);
+                  return NeuText(
+                      text: _submittedAnswer
+                          ? '${timer.leftTime}\n正确率：${_getCorrectCount() / _tis.length}%'
+                          : timer.leftTime,
+                      textStyle: _submittedAnswer ? NeumorphicTextStyle(fontSize: 12) : null,);
                 },
               ),
             ),
@@ -156,23 +161,9 @@ class _ExamingPageState extends State<ExamingPage>
                     )
                   : const NeuText(text: '交卷'),
               onTap: () {
-                if (!_submittedAnswer) {
-                  showSnackBar(context, const Text('交卷'));
-                  setState(() {
-                    _submittedAnswer = true;
-                  });
-                } else {
-                  int correctCount = 0;
-                  for (int idx = 0; idx < _tis.length; idx++) {
-                    if (_tis[idx].answer!.every(
-                        (element) => _checkState[idx].contains(element))) {
-                      correctCount++;
-                    }
-                  }
-                  AppRoute(ExamResultPage(
-                    percent: correctCount / _tis.length * 100,
-                  )).go(context);
-                }
+                _submittedAnswer = true;
+                _timerProvider.stop();
+                setState(() {});
               },
             )
           ],
@@ -286,8 +277,16 @@ class _ExamingPageState extends State<ExamingPage>
       ),
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
+          color: _submittedAnswer ? judgeColor(value) : null,
           depth: _checkState[_index].contains(value) ? -20 : null),
     );
+  }
+
+  Color? judgeColor(int value) {
+    if (_checkState[_index].contains(value)) {
+      if (!_tis[_index].answer!.contains(value)) return Colors.redAccent;
+      return Colors.greenAccent;
+    }
   }
 
   void onPressed(int value) {
@@ -300,6 +299,18 @@ class _ExamingPageState extends State<ExamingPage>
       _checkState[_index].add(value);
     }
     setState(() {});
+  }
+
+  int _getCorrectCount() {
+    int correctCount = 0;
+    for (int idx = 0; idx < _tis.length; idx++) {
+      if (_tis[idx]
+          .answer!
+          .every((element) => _checkState[idx].contains(element))) {
+        correctCount++;
+      }
+    }
+    return correctCount;
   }
 
   Widget _buildAnswer() {

@@ -33,5 +33,7 @@ class TimerProvider extends BusyProvider {
       _timer!.cancel();
       _timer == null;
     }
+    leftTime = '考试已结束';
+    notifyListeners();
   }
 }

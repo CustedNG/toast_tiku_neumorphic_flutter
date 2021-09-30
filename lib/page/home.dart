@@ -5,13 +5,13 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/analysis.dart';
 import 'package:toast_tiku/core/build_mode.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/core/update.dart';
+import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
@@ -81,8 +81,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               _buildHead(),
               const TikuUpdateProgress(),
               SizedBox(
-                height: _media.size.height * 0.84,
+                height: _media.size.height * 0.83,
                 child: ListView(
+                  physics: const BouncingScrollPhysics(),
                   children: [
                     _buildNotifyCard(),
                     _buildResumeCard(),
@@ -133,7 +134,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         itemExtent: _media.size.height * 0.25,
         diameterRatio: 10,
         controller: _fixedExtentScrollController,
-        physics: const FixedExtentScrollPhysics(),
+        physics:
+            const FixedExtentScrollPhysics(parent: BouncingScrollPhysics()),
         childDelegate: ListWheelChildBuilderDelegate(
             builder: (context, index) => content[index],
             childCount: content.length),
@@ -192,7 +194,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               }
             } else {
               for (var index in tiku.tikuIndex!) {
-                // 根据用户年级推荐科目，不固定为毛概
+                // TODO: 根据用户年级推荐科目，不固定为毛概
                 var historyData = history.lastViewed ?? 'maogai-1.json';
                 var historySplit = historyData.split('-');
                 if (index.id == historySplit[0]) {
@@ -305,8 +307,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        NeuBtn(
-          child: const NeuText(text: '模拟考'),
+        NeuIconBtn(
+          icon: Icons.checklist,
           onTap: () => AppRoute(const ExamSelectPage()).go(context),
         ),
         NeuIconBtn(
@@ -377,33 +379,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     }
   }
 
-  List<Ti> getAllTi() {
-    final tiku = context.read<TikuProvider>();
-    final store = locator<TikuStore>();
-    if (tiku.tikuIndex == null) {
-      return <Ti>[];
-    }
-    final tis = <Ti>[];
-    for (var item in tiku.tikuIndex!) {
-      for (var unit in item.content!) {
-        tis.addAll(store.fetch(item.id!, unit!.data!)!);
-      }
-    }
-    return tis;
-  }
-
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
     final tiku = locator<TikuProvider>();
-    // 等待tiku store加载完成
-    await GetIt.I.allReady();
-    await tiku.loadLocalData();
     await tiku.refreshIndex();
-
-    await locator<HistoryProvider>().loadLocalData();
-    await locator<AppProvider>().loadData();
+    await tiku.refreshUnit();
     await doUpdate(context);
-    await locator<TikuProvider>().refreshUnit();
     if (BuildMode.isRelease) {
       Analysis.init(false);
     }

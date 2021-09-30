@@ -8,10 +8,12 @@ class NeuDialog extends Dialog {
   final List<Widget> actions;
 
   const NeuDialog(
-      {Key? key, required this.title,
+      {Key? key,
+      required this.title,
       required this.content,
       required this.actions,
-      this.margin}) : super(key: key);
+      this.margin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

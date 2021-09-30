@@ -27,9 +27,9 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   late TikuProvider _tikuProvider;
   String? _selectedCourse;
 
-  /// [_counts] : 长度为5，分别为单选、多选、填空、判断题目的个数，以及考试时长
-  late List<double> _counts;
-  late List<String> _units;
+  /// [_counts] : 长度为5，分别为[单选]、[多选]、[填空]、[判断]题目的个数，以及[考试时长]
+  List<double> _counts = [];
+  final List<String> _units = [];
 
   final titleStyle =
       NeumorphicTextStyle(fontSize: 17, fontWeight: FontWeight.bold);

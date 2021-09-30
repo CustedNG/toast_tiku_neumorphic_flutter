@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/store/tiku.dart';
+import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/model/ti.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void unawaited(Future<void> future) {}
@@ -24,20 +28,23 @@ void showSnackBarWithAction(
 }
 
 Future<bool> openUrl(String url) async {
-  print('openUrl $url');
-
   if (!await canLaunch(url)) {
-    print('canLaunch false');
     return false;
   }
+  return await launch(url, forceSafariVC: false);
+}
 
-  final ok = await launch(url, forceSafariVC: false);
-
-  if (ok == true) {
-    return true;
+List<Ti> getAllTi() {
+  final tiku = locator<TikuProvider>();
+  final store = locator<TikuStore>();
+  if (tiku.tikuIndex == null) {
+    return <Ti>[];
   }
-
-  print('launch $url failed');
-
-  return false;
+  final tis = <Ti>[];
+  for (var item in tiku.tikuIndex!) {
+    for (var unit in item.content!) {
+      tis.addAll(store.fetch(item.id!, unit!.data!)!);
+    }
+  }
+  return tis;
 }
