@@ -146,20 +146,20 @@ class _ExamingPageState extends State<ExamingPage>
                     _submittedAnswer = true;
                   }
                   return NeuText(
-                      text: _submittedAnswer
-                          ? '${timer.leftTime}\n正确率：${_getCorrectCount() / _tis.length}%'
-                          : timer.leftTime,
-                      textStyle: _submittedAnswer ? NeumorphicTextStyle(fontSize: 12) : null,);
+                    text: _submittedAnswer
+                        ? '${timer.leftTime}\n正确率：${(_getCorrectCount() * 100 / _tis.length).toStringAsFixed(1)}%'
+                        : timer.leftTime,
+                    textStyle: _submittedAnswer
+                        ? NeumorphicTextStyle(fontSize: 12)
+                        : null,
+                  );
                 },
               ),
             ),
             NeuBtn(
-              child: _submittedAnswer
-                  ? NeumorphicIcon(
-                      Icons.celebration,
-                      style: NeumorphicStyle(color: mainColor.resolve(context)),
-                    )
-                  : const NeuText(text: '交卷'),
+              child: NeumorphicIcon(
+                  _submittedAnswer ? Icons.celebration : Icons.send,
+                  style: NeumorphicStyle(color: mainColor.resolve(context))),
               onTap: () {
                 _submittedAnswer = true;
                 _timerProvider.stop();

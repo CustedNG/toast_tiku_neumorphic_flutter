@@ -1,11 +1,27 @@
 #!/usr/bin/env dart
+
+/// 使用示例
+/// 请在使用前，在本项目根目录创建[countly_config]文件，按行填入URL和KEY。
+/// `./make.dart build android`编译Android 64bit版本
+/// `./make.dart build android 32`编译Android 32bit版本
+/// `./make.dart build ios`编译iOS 64bit版本
+
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
 import 'dart:io';
 
+const appName = 'Toast题库';
+const buildDataClassPath = 'lib/res/build_data.dart';
+
+Encoding? getCommandLineEncoding() {
+  return Encoding.getByName("UTF-8");
+}
+
 Future<int> getGitCommitCount() async {
-  final result = await Process.run('git', ['log', '--oneline']);
+  final encoding = getCommandLineEncoding();
+  final result = await Process.run('git', ['log', '--oneline'],
+      stdoutEncoding: encoding, stderrEncoding: encoding);
   return (result.stdout as String)
       .split('\n')
       .where((line) => line.isNotEmpty)
@@ -37,13 +53,14 @@ Future<int> getGitModificationCount() async {
 }
 
 Future<String> getFlutterVersion() async {
-  final result = await Process.run('flutter', ['--version'], runInShell: true);
+  final result = await Process.run('flutter', ['--version'],
+      runInShell: true, stdoutEncoding: getCommandLineEncoding());
   return (result.stdout as String);
 }
 
 Future<Map<String, dynamic>> getBuildData() async {
   final data = {
-    'name': 'Toast题库',
+    'name': appName,
     'build': await getGitCommitCount(),
     'engine': await getFlutterVersion(),
     'buildAt': DateTime.now().toString(),
@@ -61,23 +78,23 @@ Future<void> updateBuildData() async {
   print('Updating BuildData...');
   final data = await getBuildData();
   print(jsonEncodeWithIndent(data));
-  const path = 'lib/res/build_data.dart';
-  await writeStaicConfigFile(data, 'BuildData', path);
+  await writeStaicConfigFile(data, 'BuildData', buildDataClassPath);
 }
 
-void flutterRun() {
-  Process.start('flutter', ['run'],
+void flutterRun(String mode) {
+  Process.start('flutter', ['run', '--$mode'],
       mode: ProcessStartMode.inheritStdio, runInShell: true);
 }
 
-Future<void> flutterBuild(String source, String target, bool isAndroid) async {
+void flutterBuild(
+    String source, String target, bool isAndroid, bool is32Bit) async {
   final startTime = DateTime.now();
   final build = await getGitCommitCount();
 
   final args = [
     'build',
     isAndroid ? 'apk' : 'ipa',
-    '--target-platform=android-arm64',
+    '--target-platform=android-arm${is32Bit ? "" : 64}',
     '--build-number=$build',
     '--build-name=1.0.$build'
   ];
@@ -99,32 +116,14 @@ Future<void> flutterBuild(String source, String target, bool isAndroid) async {
   print('Spent time: ${endTime.difference(startTime).toString()}');
 }
 
-Future<void> flutterBuildWeb() async {
-  final startTime = DateTime.now();
-  final buildResult =
-      await Process.run('flutter', ['build', 'web'], runInShell: true);
-  if (buildResult.exitCode == 0) {
-    print('Build successfully.');
-    final copyResult =
-        await Process.run('cp', ['-r', 'tiku', 'build/web'], runInShell: true);
-    print(
-        'Copy res dir ${copyResult.exitCode == 0 ? "successfully" : "failed"}.');
-  } else {
-    print(buildResult.stderr.toString());
-    print('\nBuild failed with exit code $exitCode');
-  }
-  final endTime = DateTime.now();
-  print('Spent time: ${endTime.difference(startTime).toString()}');
+void flutterBuildIOS() async {
+  flutterBuild('./build/ios/iphoneos/$appName.app',
+      './release/${appName}_build.app', false, false);
 }
 
-Future<void> flutterBuildIOS() async {
-  await flutterBuild('./build/ios/iphoneos/ToastTiku.app',
-      './release/ToastTiku_build.app', false);
-}
-
-Future<void> flutterBuildAndroid() async {
-  await flutterBuild('./build/app/outputs/flutter-apk/app-release.apk',
-      './release/ToastTiku_build_Arm64.apk', true);
+void flutterBuildAndroid(bool is32Bit) async {
+  flutterBuild('./build/app/outputs/flutter-apk/app-release.apk',
+      './release/${appName}_build_Arm${is32Bit ? "" : 64}.apk', true, is32Bit);
 }
 
 void main(List<String> args) async {
@@ -134,19 +133,20 @@ void main(List<String> args) async {
   }
 
   final command = args[0];
+  await updateBuildData();
 
   switch (command) {
     case 'run':
-      return flutterRun();
+      if (args.length > 1) {
+        return flutterRun(args[1]);
+      }
+      return flutterRun('');
     case 'build':
       if (args.length > 1) {
-        await updateBuildData();
         if (args[1] == 'android' || args[1] == 'harmony') {
-          return flutterBuildAndroid();
+          return flutterBuildAndroid(args.last == '32');
         } else if (args[1] == 'ios') {
           return flutterBuildIOS();
-        } else if (args[1] == 'web') {
-          return flutterBuildWeb();
         }
         print('unkonwn build arg: ${args[1]}');
       }

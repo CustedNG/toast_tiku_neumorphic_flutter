@@ -1,6 +1,5 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/res/build_data.dart';
-import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
@@ -30,9 +29,8 @@ class _LogoCardState extends State<LogoCard> {
       onTap: () {},
       boxShape: NeumorphicBoxShape.roundRect(
           const BorderRadius.all(Radius.circular(17))),
-      child: SizedBox(
-          height: _media.size.height * 0.1,
-          child: _buildContent()),
+      child:
+          SizedBox(height: _media.size.height * 0.11, child: _buildContent()),
     );
   }
 
@@ -60,7 +58,7 @@ class _LogoCardState extends State<LogoCard> {
             ),
             const SizedBox(height: 10.0),
             NeuText(
-              text: 'Toast Studio made with 💗',
+              text: 'Made with 💗 by Toast Studio',
               align: TextAlign.start,
               textStyle: NeumorphicTextStyle(fontSize: 12),
             )
