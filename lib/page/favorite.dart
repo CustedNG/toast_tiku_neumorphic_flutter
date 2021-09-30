@@ -7,6 +7,7 @@ import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
+import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
@@ -30,7 +31,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   late List<Ti>? _tis;
   late int _index;
   late List<List<int>> _checkState;
-  late AnimationController _controller;
+  late AnimationController _animationController;
   late Animation<double> _animation;
   final _titleNeuTextStyle = NeumorphicTextStyle(fontSize: 12);
   late SnappingSheetController _sheetController;
@@ -42,14 +43,14 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _sheetController = SnappingSheetController();
-    _controller = AnimationController(
+    _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 377),
     );
     _animation = Tween(
       begin: 0.0,
       end: 1.0,
-    ).animate(_controller);
+    ).animate(_animationController);
     _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
     _favoriteStore = locator<FavoriteStore>();
     _tis = _favoriteStore.fetch(widget.courseId);
@@ -67,6 +68,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         children: [
           SizedBox(width: _media.size.width),
           NeuText(text: '${widget.courseName}没有收藏的题目'),
+          SizedBox(height: _media.size.height * 0.3),
           NeuIconBtn(
             icon: Icons.arrow_back,
             onTap: () => Navigator.of(context).pop(),
@@ -74,13 +76,19 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         ],
       );
     } else {
-      child = SnappingSheet(
-        controller: _sheetController,
-        child: _buildMain(),
-        grabbing: _buildGrab(),
-        grabbingHeight: _bottomHeight,
-        sheetBelow: _buildSheet(),
-      );
+      child = GrabSheet(
+          showColor: true,
+          sheetController: _sheetController,
+          main: _buildMain(),
+          checkState: _checkState,
+          tis: _tis!,
+          onTap: (idx) {
+            setState(() {
+              _index = idx;
+            });
+            _animationController.reset();
+            _animationController.forward();
+          });
     }
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
@@ -104,34 +112,6 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildGrab() {
-    return Neumorphic(
-        style: NeumorphicStyle(
-            lightSource: LightSource.bottom,
-            boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
-                topLeft: Radius.circular(17), topRight: Radius.circular(17)))),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: _media.padding.bottom),
-            child: Neumorphic(
-              curve: Curves.easeInQuad,
-              child: const SizedBox(height: 10, width: 57),
-              style:
-                  NeumorphicStyle(color: mainColor.resolve(context), depth: 37),
-            ),
-          ),
-        ));
-  }
-
-  SnappingSheetContent _buildSheet() {
-    return SnappingSheetContent(
-      child: Container(
-        child: const Text('1'),
-        color: NeumorphicTheme.baseColor(context),
       ),
     );
   }
@@ -182,7 +162,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   }
 
   Widget _buildTiList() {
-    _controller.forward();
+    _animationController.forward();
     return FadeTransition(
         opacity: _animation, child: _buildTiView(_tis![_index]));
   }
@@ -204,8 +184,8 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       }
     }
     setState(() {});
-    _controller.reset();
-    _controller.forward();
+    _animationController.reset();
+    _animationController.forward();
   }
 
   Widget _buildTiView(Ti ti) {

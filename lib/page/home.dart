@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               SizedBox(
                 height: _media.size.height * 0.83,
                 child: ListView(
+                  padding: EdgeInsets.zero,
                   physics: const BouncingScrollPhysics(),
                   children: [
                     _buildNotifyCard(),

@@ -32,15 +32,8 @@ class _LogoCardState extends State<LogoCard> {
           const BorderRadius.all(Radius.circular(17))),
       child: SizedBox(
           height: _media.size.height * 0.1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[_buildContent(), _buildRightIcon()],
-          )),
+          child: _buildContent()),
     );
-  }
-
-  Widget _buildRightIcon() {
-    return Icon(Icons.keyboard_arrow_right, color: mainColor.resolve(context));
   }
 
   Widget _buildContent() {
@@ -50,7 +43,7 @@ class _LogoCardState extends State<LogoCard> {
             tag: 'logo_card_img',
             transitionOnUserGestures: true,
             child: SizedBox(
-              height: _media.size.height * 0.07,
+              height: _media.size.height * 0.06,
               child: const FlutterLogo(
                 size: 70,
               ),
@@ -63,13 +56,13 @@ class _LogoCardState extends State<LogoCard> {
             NeuText(
               text: BuildData.name,
               align: TextAlign.start,
-              textStyle: NeumorphicTextStyle(fontSize: 19),
+              textStyle: NeumorphicTextStyle(fontSize: 18),
             ),
             const SizedBox(height: 10.0),
             NeuText(
-              text: 'By Toast Studio',
+              text: 'Toast Studio made with 💗',
               align: TextAlign.start,
-              textStyle: NeumorphicTextStyle(fontSize: 13),
+              textStyle: NeumorphicTextStyle(fontSize: 12),
             )
           ],
         ),
