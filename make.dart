@@ -1,5 +1,4 @@
 #!/usr/bin/env dart
-
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
@@ -108,7 +107,8 @@ Future<void> flutterBuildWeb() async {
     print('Build successfully.');
     final copyResult =
         await Process.run('cp', ['-r', 'tiku', 'build/web'], runInShell: true);
-    print('Copy res dir ${copyResult.exitCode == 0 ? "successfully" : "failed"}.');
+    print(
+        'Copy res dir ${copyResult.exitCode == 0 ? "successfully" : "failed"}.');
   } else {
     print(buildResult.stderr.toString());
     print('\nBuild failed with exit code $exitCode');
