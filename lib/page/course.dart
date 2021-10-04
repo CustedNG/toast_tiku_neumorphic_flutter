@@ -26,10 +26,15 @@ class _CoursePageState extends State<CoursePage> {
   late HistoryStore _historyStore;
 
   @override
+  void initState() {
+    super.initState();
+    _historyStore = locator<HistoryStore>();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
-    _historyStore = locator<HistoryStore>();
   }
 
   @override
@@ -113,6 +118,7 @@ class _CoursePageState extends State<CoursePage> {
               height: _media.size.height * 0.017,
               percent: _historyStore.fetch(widget.data.id!, data.data!).length /
                   total,
+              style: const ProgressStyle(variant: Colors.grey),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

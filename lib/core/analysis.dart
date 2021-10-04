@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:countly_flutter/countly_flutter.dart';
+import 'package:logging/logging.dart';
 
 class Analysis {
   static const _url = 'https://countly.xuty.cc';
@@ -19,7 +20,7 @@ class Analysis {
     await Countly.start();
     await Countly.enableCrashReporting();
     await Countly.giveAllConsent();
-    print('Countly init successfully.');
+    Logger('COUNTLY').fine('Init successfully.');
   }
 
   static void recordView(String view) {

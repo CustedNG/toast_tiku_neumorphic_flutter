@@ -5,7 +5,6 @@ import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
-import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
@@ -39,9 +38,8 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   late List<int> _historyIdx;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _media = MediaQuery.of(context);
+  void initState() {
+    super.initState();
     _sheetController = SnappingSheetController();
     _animationController = AnimationController(
       vsync: this,
@@ -51,11 +49,17 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       begin: 0.0,
       end: 1.0,
     ).animate(_animationController);
-    _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
     _favoriteStore = locator<FavoriteStore>();
     _tis = _favoriteStore.fetch(widget.courseId);
     _index = 0;
     _checkState = List.generate(_tis!.length, (_) => []);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _media = MediaQuery.of(context);
+    _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
   }
 
   @override

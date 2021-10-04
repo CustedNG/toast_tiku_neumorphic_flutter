@@ -38,6 +38,11 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
     _tikuProvider = locator<TikuProvider>();
   }
 

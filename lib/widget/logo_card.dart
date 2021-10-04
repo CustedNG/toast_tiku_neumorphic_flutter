@@ -1,5 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/res/build_data.dart';
+import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
@@ -26,7 +28,8 @@ class _LogoCardState extends State<LogoCard> {
     return NeuBtn(
       padding: EdgeInsets.all(width * 0.06),
       margin: EdgeInsets.fromLTRB(2.7 * pad, pad, 3 * pad, pad),
-      onTap: () {},
+      onTap: () => showSnackBarWithAction(context, '是否查看本项目开源代码？',
+                  '查看', () => openUrl(openSourceUrl)),
       boxShape: NeumorphicBoxShape.roundRect(
           const BorderRadius.all(Radius.circular(17))),
       child:

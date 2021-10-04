@@ -15,7 +15,6 @@ import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
-import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/course.dart';
@@ -195,7 +194,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               }
             } else {
               for (var index in tiku.tikuIndex!) {
-                // TODO: 根据用户年级推荐科目，不固定为毛概
                 var historyData = history.lastViewed ?? 'maogai-1.json';
                 var historySplit = historyData.split('-');
                 if (index.id == historySplit[0]) {

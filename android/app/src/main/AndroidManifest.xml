@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
    <application
-        android:label="toast_tiku"
+        android:label="Toast题库"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

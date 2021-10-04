@@ -32,6 +32,11 @@ class _SettingPageState extends State<SettingPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
     _store = locator<SettingStore>();
   }
 

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/app.dart';
 import 'package:toast_tiku/core/analysis.dart';
@@ -23,6 +24,12 @@ Future<void> initApp() async {
   await locator<TikuProvider>().loadLocalData();
   await locator<HistoryProvider>().loadLocalData();
   await locator<AppProvider>().loadData();
+
+  Logger.root.level = Level.ALL; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    // ignore: avoid_print
+    print('[${record.loggerName}][${record.level.name}]: ${record.message}');
+  });
 }
 
 void runInZone(dynamic Function() body) {
@@ -47,7 +54,7 @@ void runInZone(dynamic Function() body) {
 }
 
 void onError(Object obj, StackTrace stack) {
-  print('error: $obj');
+  Logger('MAIN').warning('error: $obj');
   Analysis.recordException(obj);
   final debugProvider = locator<DebugProvider>();
   debugProvider.addError(obj);

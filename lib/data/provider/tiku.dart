@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:logging/logging.dart';
 import 'package:toast_tiku/core/provider_base.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
@@ -8,6 +9,7 @@ import 'package:toast_tiku/model/tiku_index.dart';
 import 'package:toast_tiku/service/app.dart';
 
 class TikuProvider extends BusyProvider {
+  final logger = Logger('TIKU');
   final _initialized = Completer();
   Future get initialized => _initialized.future;
 
@@ -27,7 +29,7 @@ class TikuProvider extends BusyProvider {
     setBusyState(true);
     final tikuIndexRaw = await AppService().getTikuIndex();
     if (tikuIndexRaw == null) {
-      print('get tiku index failed');
+      logger.warning('get tiku index failed');
       return;
     }
     _tikuIndexes = tikuIndexRaw.tikuIndexes;
@@ -49,7 +51,7 @@ class TikuProvider extends BusyProvider {
     // 索引数据为空，跳过更新
     if (_tikuIndexes == null) {
       setBusyState(false);
-      print('tiku index is null, skip getting detailed data');
+      logger.warning('tiku index is null, skip getting detailed data');
       return;
     }
     // 获取进度百分比

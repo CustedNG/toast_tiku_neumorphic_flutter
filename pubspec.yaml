@@ -29,6 +29,7 @@ dependencies:
     git: 
       url: https://github.com/Countly/countly-sdk-flutter-bridge.git
       ref: master
+  logging: ^1.0.2
 
 
 dev_dependencies:
