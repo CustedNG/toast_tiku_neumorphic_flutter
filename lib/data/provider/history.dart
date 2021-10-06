@@ -6,20 +6,20 @@ import 'package:toast_tiku/locator.dart';
 
 class HistoryProvider extends BusyProvider {
   final _initialized = Completer();
+  late HistoryStore _store;
   Future get initialized => _initialized.future;
 
   String? get lastViewed => _lastViewed;
   String? _lastViewed;
 
   Future<void> loadLocalData() async {
-    final store = locator<HistoryStore>();
-    _lastViewed = store.lastViewedCourse.fetch();
+    _store = locator<HistoryStore>();
+    _lastViewed = _store.lastViewedCourse.fetch();
   }
 
   void setLastViewed(String courseId, String unitFile) {
     final data = '$courseId-$unitFile';
-    final store = locator<HistoryStore>();
-    store.lastViewedCourse.put(data);
+    _store.lastViewedCourse.put(data);
     _lastViewed = data;
     notifyListeners();
   }

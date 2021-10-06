@@ -10,8 +10,11 @@ import 'package:toast_tiku/service/app.dart';
 
 class TikuProvider extends BusyProvider {
   final logger = Logger('TIKU');
+
   final _initialized = Completer();
   Future get initialized => _initialized.future;
+
+  late TikuStore _store;
 
   List<TikuIndex>? _tikuIndexes;
   List<TikuIndex>? get tikuIndex => _tikuIndexes;
@@ -21,8 +24,8 @@ class TikuProvider extends BusyProvider {
   late String indexVersion;
 
   Future<void> loadLocalData() async {
-    final store = locator<TikuStore>();
-    _tikuIndexes = getTikuIndexList(store.index.fetch());
+    _store = locator<TikuStore>();
+    _tikuIndexes = getTikuIndexList(_store.index.fetch());
   }
 
   Future<void> refreshIndex() async {
@@ -35,16 +38,14 @@ class TikuProvider extends BusyProvider {
     _tikuIndexes = tikuIndexRaw.tikuIndexes;
     indexVersion = tikuIndexRaw.version;
 
-    final store = locator<TikuStore>();
-    store.index.put(json.encode(_tikuIndexes));
+    _store.index.put(json.encode(_tikuIndexes));
     setBusyState(false);
   }
 
   Future<void> refreshUnit() async {
     setBusyState(true);
-    final store = locator<TikuStore>();
     // 如果版本相同，跳过更新
-    if (store.version.fetch() == indexVersion) {
+    if (_store.version.fetch() == indexVersion) {
       setBusyState(false);
       return;
     }
@@ -64,12 +65,12 @@ class TikuProvider extends BusyProvider {
       for (var content in index.content!) {
         final unitData =
             await AppService().getUnitTi(index.id!, content!.data!);
-        store.put(index.id!, content.data!, unitData!);
+        _store.put(index.id!, content.data!, unitData!);
         _downloadProgress = idx++ / length;
         notifyListeners();
       }
     }
-    store.version.put(indexVersion);
+    _store.version.put(indexVersion);
     setBusyState(false);
   }
 
