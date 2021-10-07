@@ -380,9 +380,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
-    final tiku = locator<TikuProvider>();
-    await tiku.refreshIndex();
-    await tiku.refreshUnit();
+    await locator<TikuProvider>().refreshData();
+    await locator<AppProvider>().loadData();
     await doUpdate(context);
     if (BuildMode.isRelease) {
       Analysis.init(false);

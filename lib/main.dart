@@ -23,7 +23,6 @@ Future<void> initApp() async {
   await GetIt.I.allReady();
   await locator<TikuProvider>().loadLocalData();
   await locator<HistoryProvider>().loadLocalData();
-  await locator<AppProvider>().loadData();
 
   Logger.root.level = Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {

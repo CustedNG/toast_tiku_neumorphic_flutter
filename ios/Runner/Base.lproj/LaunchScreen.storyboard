@@ -22,7 +22,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Toast 题库" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Re2-hv-daE">
                                 <rect key="frame" x="-19" y="402" width="452" height="92"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
