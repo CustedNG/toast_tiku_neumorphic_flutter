@@ -287,13 +287,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       const SizedBox(
                         height: 1,
                       ),
-                      Hero(
-                          transitionOnUserGestures: true,
-                          tag: 'home_all_course_${item.id}',
-                          child: NeuText(
+                      NeuText(
                             text: item.chinese!,
                             textStyle: NeumorphicTextStyle(fontSize: 11),
-                          ))
+                          )
                     ]),
               );
             });
@@ -380,11 +377,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
-    await locator<TikuProvider>().refreshData();
     await locator<AppProvider>().loadData();
-    await doUpdate(context);
     if (BuildMode.isRelease) {
-      Analysis.init(false);
+      await Analysis.init(false);
     }
+    await doUpdate(context);
+    await locator<TikuProvider>().refreshData();
   }
 }
