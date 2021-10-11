@@ -9,8 +9,10 @@ class AppProvider extends BusyProvider {
 
   Future<void> loadData() async {
     setBusyState(true);
+
     final service = AppService();
     _notify = await service.getNotify();
+
     setBusyState(false);
     notifyListeners();
   }

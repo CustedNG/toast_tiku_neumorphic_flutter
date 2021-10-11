@@ -7,6 +7,7 @@ import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
 import 'package:toast_tiku/page/favorite.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
+import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
@@ -107,6 +108,7 @@ class _CoursePageState extends State<CoursePage> {
     final pad = _media.size.height * 0.037;
     final data = widget.data.content![index];
     final total = data!.radio! + data.radio! + data.radio!;
+    final doneTiCount = _historyStore.fetch(widget.data.id!, data.data!).length;
     return GestureDetector(
       child: NeuCard(
         padding: EdgeInsets.fromLTRB(pad, 0, pad, pad),
@@ -116,9 +118,9 @@ class _CoursePageState extends State<CoursePage> {
             NeuText(text: data.title!),
             NeumorphicProgress(
               height: _media.size.height * 0.017,
-              percent: _historyStore.fetch(widget.data.id!, data.data!).length /
+              percent: doneTiCount /
                   total,
-              style: const ProgressStyle(variant: Colors.grey),
+              style: ProgressStyle(border: NeumorphicBorder(color: neuProgressColor.resolve(context))),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

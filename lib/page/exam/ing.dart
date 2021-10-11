@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
+import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/data/provider/exam.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
+import 'package:toast_tiku/page/exam/result.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
@@ -86,7 +88,7 @@ class _ExamingPageState extends State<ExamingPage>
             main: _buildMain(),
             tis: _tis,
             checkState: _checkState,
-            showColor: false,
+            showColor: _submittedAnswer,
             onTap: (idx) {
               setState(() {
                 _index = idx;
@@ -159,9 +161,17 @@ class _ExamingPageState extends State<ExamingPage>
                   _submittedAnswer ? Icons.celebration : Icons.send,
                   style: NeumorphicStyle(color: mainColor.resolve(context))),
               onTap: () {
-                _submittedAnswer = true;
-                _timerProvider.stop();
-                setState(() {});
+                if (_submittedAnswer) {
+                  AppRoute(ExamResultPage(
+                    percent: _getCorrectCount() / _tis.length,
+                  )).go(context);
+                } else {
+                  showSnackBarWithAction(context, '是否确认交卷？交卷后无法撤销', '交卷', () {
+                    _submittedAnswer = true;
+                    _timerProvider.stop();
+                    setState(() {});
+                  });
+                }
               },
             )
           ],

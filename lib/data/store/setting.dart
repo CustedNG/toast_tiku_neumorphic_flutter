@@ -5,4 +5,6 @@ class SettingStore extends PersistentStore {
       property('notify', defaultValue: true);
   StoreProperty<bool> get autoUpdateTiku =>
       property('autoUpdateTiku', defaultValue: true);
+  StoreProperty<bool> get blackBackground =>
+      property('blackBackground', defaultValue: false);
 }

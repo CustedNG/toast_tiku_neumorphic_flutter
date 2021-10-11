@@ -100,6 +100,11 @@ class _SettingPageState extends State<SettingPage> {
               showArrow: false,
               rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
             ),
+            SettingItem(
+              title: '夜间模式使用纯黑背景',
+              showArrow: false,
+              rightBtn: _buildSwitch(context, _store.blackBackground),
+            ),
             Consumer<AppProvider>(builder: (_, app, __) {
               String display;
               if (app.newestBuild != null) {

@@ -288,9 +288,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                         height: 1,
                       ),
                       NeuText(
-                            text: item.chinese!,
-                            textStyle: NeumorphicTextStyle(fontSize: 11),
-                          )
+                        text: item.chinese!,
+                        textStyle: NeumorphicTextStyle(fontSize: 11),
+                      )
                     ]),
               );
             });

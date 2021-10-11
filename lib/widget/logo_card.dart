@@ -28,8 +28,8 @@ class _LogoCardState extends State<LogoCard> {
     return NeuBtn(
       padding: EdgeInsets.all(width * 0.06),
       margin: EdgeInsets.fromLTRB(2.7 * pad, pad, 3 * pad, pad),
-      onTap: () => showSnackBarWithAction(context, '是否查看本项目开源代码？',
-                  '查看', () => openUrl(openSourceUrl)),
+      onTap: () => showSnackBarWithAction(
+          context, '是否查看本项目开源代码？', '查看', () => openUrl(openSourceUrl)),
       boxShape: NeumorphicBoxShape.roundRect(
           const BorderRadius.all(Radius.circular(17))),
       child:
