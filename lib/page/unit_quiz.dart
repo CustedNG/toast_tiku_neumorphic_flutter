@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
+import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
@@ -113,10 +114,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
           _buildProgress(),
           SizedBox(
             height: _media.size.height * 0.84 - _bottomHeight,
-            child: ListView(
-              children: [
-                _buildTiList(),
-              ],
+            child: SingleChildScrollView(
+              child: _buildTiList(),
             ),
           ),
         ],
@@ -226,6 +225,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
           ..._buildRadios(ti.options!),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
+import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
 import 'package:toast_tiku/locator.dart';
@@ -109,10 +110,8 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
           _buildHead(),
           SizedBox(
             height: _media.size.height * 0.84 - _bottomHeight,
-            child: ListView(
-              children: [
-                _buildTiList(),
-              ],
+            child: SingleChildScrollView(
+              child: _buildTiList(),
             ),
           ),
         ],
@@ -211,6 +210,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
           NeuText(text: ti.question!, align: TextAlign.start),
           const NeuText(text: '\n答案：', align: TextAlign.start),
           ...ti.answer!
@@ -227,6 +227,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
           ..._buildRadios(ti.options!),

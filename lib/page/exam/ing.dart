@@ -240,6 +240,7 @@ class _ExamingPageState extends State<ExamingPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
           NeuText(text: ti.question!, align: TextAlign.start),
           const SizedBox(
             height: 17,
@@ -256,6 +257,7 @@ class _ExamingPageState extends State<ExamingPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
           ..._buildRadios(ti.options!),
