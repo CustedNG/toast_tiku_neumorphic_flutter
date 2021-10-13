@@ -11,6 +11,7 @@ import 'package:toast_tiku/service/app.dart';
 
 final logger = Logger('UPDATE');
 
+/// 判断更新文件是否可用
 Future<bool> isFileAvailable(String url) async {
   try {
     final resp = await Dio().head(url);
@@ -21,11 +22,13 @@ Future<bool> isFileAvailable(String url) async {
   }
 }
 
+/// 开始尝试更新
 Future<void> doUpdate(BuildContext context, {bool force = false}) async {
   final update = await locator<AppService>().getUpdate();
 
   locator<AppProvider>().setNewestBuild(update.newest);
 
+  /// 如果不是强制，切版本不是最新，则跳过更新
   if (!force && update.newest <= BuildData.build) {
     logger.info('Update ignored due to current: ${BuildData.build}, '
         'update: ${update.newest}');
@@ -33,10 +36,12 @@ Future<void> doUpdate(BuildContext context, {bool force = false}) async {
   }
   logger.fine('Update available: ${update.newest}');
 
+  /// 如果为Android且更新文件不可用，则跳过
   if (Platform.isAndroid && !await isFileAvailable(update.android)) {
     return;
   }
 
+  /// 显示Snackbar，提示有更新
   showSnackBarWithAction(
       context,
       '${BuildData.name}有更新啦，Ver：${update.newest}\n${update.changelog}',

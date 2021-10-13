@@ -34,6 +34,7 @@ import 'package:toast_tiku/widget/online_img.dart';
 import 'package:toast_tiku/widget/search.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
+/// App启动后的主页面
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -43,9 +44,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
+  /// 一言及通知上下滚动banner的控制器
   late FixedExtentScrollController _fixedExtentScrollController;
+  /// banner滚动定时器
   Timer? _timer;
 
+  /// 标题文字风格
   final titleStyle =
       NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
 
@@ -54,7 +58,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _fixedExtentScrollController = FixedExtentScrollController();
+    /// 如果定时器已被初始化，则跳过
     if (_timer != null) return;
+    /// 每隔七秒钟，banner滚动一次
     _timer = Timer.periodic(const Duration(seconds: 7), (timer) {
       _fixedExtentScrollController.animateToItem(timer.tick % 2,
           duration: const Duration(milliseconds: 577),
@@ -80,7 +86,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               _buildHead(),
               const TikuUpdateProgress(),
               SizedBox(
-                height: _media.size.height * 0.83,
+                height: _media.size.height * 0.844,
                 child: ListView(
                   padding: EdgeInsets.zero,
                   physics: const BouncingScrollPhysics(),

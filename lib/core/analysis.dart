@@ -9,6 +9,7 @@ class Analysis {
 
   static bool _enabled = false;
 
+  /// 初始化Countly统计
   static Future<void> init(bool debug) async {
     if (_url.isEmpty || _key.isEmpty) {
       return;
@@ -23,11 +24,13 @@ class Analysis {
     Logger('COUNTLY').fine('Init successfully.');
   }
 
+  /// 统计不同页面的使用次数
   static void recordView(String view) {
     if (!_enabled) return;
     Countly.recordView(view);
   }
 
+  /// 记录exception
   static void recordException(Object exception, [bool fatal = false]) {
     if (!_enabled) return;
     Countly.logException(exception.toString(), !fatal, null);

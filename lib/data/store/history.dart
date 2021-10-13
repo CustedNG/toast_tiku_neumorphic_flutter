@@ -1,5 +1,6 @@
 import 'package:toast_tiku/core/persistant_store.dart';
 
+/// 题库浏览历史储存库
 class HistoryStore extends PersistentStore {
   StoreProperty<String> get lastViewedCourse => property('lastViewedCourse');
 

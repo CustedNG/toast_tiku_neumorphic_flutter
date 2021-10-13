@@ -5,6 +5,7 @@ import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
+/// Logo卡片，位于设置页
 class LogoCard extends StatefulWidget {
   const LogoCard({Key? key}) : super(key: key);
 

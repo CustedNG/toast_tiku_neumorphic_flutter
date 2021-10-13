@@ -13,17 +13,20 @@ import 'package:toast_tiku/data/provider/exam.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
-import 'package:toast_tiku/data/provider/user.dart';
 import 'package:toast_tiku/locator.dart';
 
 Future<void> initApp() async {
+  /// 加载Hive数据库
   await Hive.initFlutter();
   await setupLocator();
+  
   // 等待store加载完成
   await GetIt.I.allReady();
+  /// Provider初始化数据
   await locator<TikuProvider>().loadLocalData();
   await locator<HistoryProvider>().loadLocalData();
 
+  ///设置Logger
   Logger.root.level = Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
     // ignore: avoid_print
@@ -68,7 +71,6 @@ Future<void> main() async {
         providers: [
           ChangeNotifierProvider(create: (_) => locator<AppProvider>()),
           ChangeNotifierProvider(create: (_) => locator<ExamProvider>()),
-          ChangeNotifierProvider(create: (_) => locator<UserProvider>()),
           ChangeNotifierProvider(create: (_) => locator<TikuProvider>()),
           ChangeNotifierProvider(create: (_) => locator<DebugProvider>()),
           ChangeNotifierProvider(create: (_) => locator<TimerProvider>()),

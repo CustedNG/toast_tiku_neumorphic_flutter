@@ -15,11 +15,22 @@ class TikuIndexContent {
 } 
 */
 
+  /// 章节标题
   String? title;
+
+  /// 单选题的数量
   int? radio;
+
+  /// 多选题的数量
   int? multiple;
+
+  /// 判断题的数量
   int? decide;
+
+  /// 填空题的数量
   int? fill;
+
+  /// 该章节数据的文件名
   String? data;
 
   TikuIndexContent({
@@ -69,9 +80,16 @@ class TikuIndex {
 } 
 */
 
+  /// 科目id
   String? id;
+
+  /// 科目章节数
   int? length;
+
+  /// 科目章节数据
   List<TikuIndexContent?>? content;
+
+  /// 科目的中文名
   String? chinese;
 
   TikuIndex({

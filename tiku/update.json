@@ -1,7 +1,7 @@
 {
-    "newest": 33,
-    "android": "https://v2.custed.lolli.tech",
-    "ios": "https://v2.custed.lolli.tech",
-    "min": 30,
-    "changelog": ""
+    "newest": 62,
+    "android": "https://cdn2.cust.app/uploads/ToastTiku_62_Arm64.apk",
+    "ios": "https://apps.apple.com/cn/app/toast-%E9%A2%98%E5%BA%93/id1580345312",
+    "min": 62,
+    "changelog": "做题时会显示题目类型"
 }

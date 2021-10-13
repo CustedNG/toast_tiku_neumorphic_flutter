@@ -2,6 +2,14 @@
 
 **Toast题库**的**新拟态**、**Flutter**版本.
 
+## Usage
+**请使用`make.dart`进行运行、编译操作**
+`./make.dart run`，以debug模式运行
+`./make.dart run release`， 以release模式运行
+`./make.dart build android`，编译Android 64bit版本
+`./make.dart build android 32`，编译Android 32bit版本
+`./make.dart build ios`，编译iOS 64bit版本
+
 ## Milestone
 - [x] 题库自动更新，根据版本id，酌情更新
 - [x] 单元测试页面：每个科目、每个单元单独的、按照顺序的测试页面

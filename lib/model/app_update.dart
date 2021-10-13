@@ -12,10 +12,19 @@ class AppUpdate {
 } 
 */
 
+  /// 最新版本号
   late int newest;
+
+  /// Android最新版本下载地址
   late String android;
+
+  /// iOS App Store链接
   late String ios;
+
+  /// 最小版本，低于此版本会强制提醒升级
   late int min;
+
+  /// 当前最新版本的更新日志
   late String changelog;
 
   AppUpdate({

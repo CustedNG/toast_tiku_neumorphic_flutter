@@ -16,6 +16,7 @@ import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
+/// 单元测试页
 class UnitQuizPage extends StatefulWidget {
   final String courseId;
   final String unitFile;
@@ -33,6 +34,7 @@ class UnitQuizPage extends StatefulWidget {
 
 class _UnitQuizPageState extends State<UnitQuizPage>
     with SingleTickerProviderStateMixin {
+  /// 注释内容大致与[ing.dart]文件相似，请跳转查看
   late MediaQueryData _media;
   late TikuStore _tikuStore;
   late FavoriteStore _favoriteStore;
@@ -106,8 +108,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   Widget _buildMain() {
     return GestureDetector(
-      onHorizontalDragEnd: (detail) =>
-          onSlide(detail.velocity.pixelsPerSecond.dx > 100),
+      onHorizontalDragEnd: (detail) => onSlide(
+          detail.velocity.pixelsPerSecond.dx > 277,
+          detail.velocity.pixelsPerSecond.dx < -277),
       child: Column(
         children: [
           _buildHead(),
@@ -169,7 +172,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         opacity: _animation, child: _buildTiView(_tis![_index]));
   }
 
-  void onSlide(bool left) {
+  void onSlide(bool left, bool right) {
+    if (!left && !right) return;
     if (left) {
       if (_index > 0) {
         _index--;
@@ -225,7 +229,11 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
+          NeuText(
+            text: ti.typeChinese + '\n',
+            align: TextAlign.start,
+            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+          ),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
           ..._buildRadios(ti.options!),

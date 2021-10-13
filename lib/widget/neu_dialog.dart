@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+/// Neumorphic风格对话框
 class NeuDialog extends Dialog {
   final EdgeInsets? margin;
   final Widget title;

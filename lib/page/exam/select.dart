@@ -15,6 +15,7 @@ import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
+/// 考试科目、题目类型数量、时间选择页
 class ExamSelectPage extends StatefulWidget {
   const ExamSelectPage({Key? key}) : super(key: key);
 
@@ -23,14 +24,18 @@ class ExamSelectPage extends StatefulWidget {
 }
 
 class _ExamSelectPageState extends State<ExamSelectPage> {
+  /// 设备媒体数据
   late MediaQueryData _media;
+  /// 题库数据Provider
   late TikuProvider _tikuProvider;
   String? _selectedCourse;
 
   /// [_counts] : 长度为5，分别为[单选]、[多选]、[填空]、[判断]题目的个数，以及[考试时长]
   List<double> _counts = [];
+  /// 选择的单元
   final List<String> _units = [];
 
+  /// 标题文字风格
   final titleStyle =
       NeumorphicTextStyle(fontSize: 17, fontWeight: FontWeight.bold);
 

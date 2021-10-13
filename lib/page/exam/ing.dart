@@ -18,6 +18,7 @@ import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/text_field.dart';
 
+/// 正在进行考试时的页面
 class ExamingPage extends StatefulWidget {
   const ExamingPage({
     Key? key,
@@ -27,20 +28,43 @@ class ExamingPage extends StatefulWidget {
   _ExamingPageState createState() => _ExamingPageState();
 }
 
+/// with [SingleTickerProviderStateMixin]，融合了一个ticker provider
 class _ExamingPageState extends State<ExamingPage>
     with SingleTickerProviderStateMixin {
+  /// 设备Media数据
   late MediaQueryData _media;
+
+  /// 当前所加载的所有题目
   late List<Ti> _tis = [];
+
+  /// 用户对每道题的选项做出的选择的数据
   late List<List<Object>> _checkState = [];
+
+  /// 题目渐显渐隐动画控制器
   late AnimationController _controller;
+
+  /// 题目渐显渐隐动画
   late Animation<double> _animation;
+
+  /// 底部SnapSheet视图控制器
   late SnappingSheetController _sheetController;
+
+  /// 底部高度
   late double _bottomHeight;
+
+  /// 题目的index
   int _index = 0;
+
+  /// 是否忙
   bool isBusy = true;
+
+  /// 是否已经交卷，结束考试
   bool _submittedAnswer = false;
+
+  /// 考试计时器Provider
   late TimerProvider _timerProvider;
 
+  /// 此覆写，详解请看Flutter生命周期
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -104,14 +128,15 @@ class _ExamingPageState extends State<ExamingPage>
 
   Widget _buildMain() {
     return GestureDetector(
-      onHorizontalDragEnd: (detail) =>
-          onSlide(detail.velocity.pixelsPerSecond.dx > 100),
+      onHorizontalDragEnd: (detail) => onSlide(
+          detail.velocity.pixelsPerSecond.dx > 277,
+          detail.velocity.pixelsPerSecond.dx < -277),
       child: Column(
         children: [
           _buildHead(),
           _buildProgress(),
           SizedBox(
-            height: _media.size.height * 0.84 - _bottomHeight,
+            height: _media.size.height * 0.844 - _bottomHeight,
             child: ListView(
               children: [_buildTiList(), _buildAnswer()],
             ),
@@ -184,7 +209,8 @@ class _ExamingPageState extends State<ExamingPage>
         opacity: _animation, child: _buildTiView(_tis[_index]));
   }
 
-  void onSlide(bool left) {
+  void onSlide(bool left, bool right) {
+    if (!left && !right) return;
     if (left) {
       if (_index > 0) {
         _index--;
@@ -240,7 +266,11 @@ class _ExamingPageState extends State<ExamingPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
+          NeuText(
+            text: ti.typeChinese + '\n',
+            align: TextAlign.start,
+            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+          ),
           NeuText(text: ti.question!, align: TextAlign.start),
           const SizedBox(
             height: 17,
@@ -257,7 +287,11 @@ class _ExamingPageState extends State<ExamingPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
+          NeuText(
+            text: ti.typeChinese + '\n',
+            align: TextAlign.start,
+            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+          ),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
           ..._buildRadios(ti.options!),

@@ -1,25 +1,15 @@
 #!/usr/bin/env dart
-
-/// 使用示例
-/// 请在使用前，在本项目根目录创建[countly_config]文件，按行填入URL和KEY。
-/// `./make.dart build android`编译Android 64bit版本
-/// `./make.dart build android 32`编译Android 32bit版本
-/// `./make.dart build ios`编译iOS 64bit版本
-
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
 import 'dart:io';
 
-const appName = 'Toast题库';
+const appName = 'ToastTiku';
 const buildDataClassPath = 'lib/res/build_data.dart';
 
-Encoding? getCommandLineEncoding() {
-  return Encoding.getByName("UTF-8");
-}
+final encoding = Encoding.getByName("UTF-8");
 
 Future<int> getGitCommitCount() async {
-  final encoding = getCommandLineEncoding();
   final result = await Process.run('git', ['log', '--oneline'],
       stdoutEncoding: encoding, stderrEncoding: encoding);
   return (result.stdout as String)
@@ -54,7 +44,7 @@ Future<int> getGitModificationCount() async {
 
 Future<String> getFlutterVersion() async {
   final result = await Process.run('flutter', ['--version'],
-      runInShell: true, stdoutEncoding: getCommandLineEncoding());
+      runInShell: true, stdoutEncoding: encoding);
   return (result.stdout as String);
 }
 

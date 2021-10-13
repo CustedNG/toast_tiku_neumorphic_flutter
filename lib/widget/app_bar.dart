@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+/// App顶部bar
 class NeuAppBar extends StatelessWidget {
   final MediaQueryData media;
   final Widget child;

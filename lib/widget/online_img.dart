@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/fade_in.dart';
 
+/// 在线图片显示Widget
 class OnlineImage extends StatelessWidget {
   final String url;
   const OnlineImage({Key? key, required this.url}) : super(key: key);

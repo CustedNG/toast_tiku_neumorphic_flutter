@@ -82,7 +82,7 @@ class _CoursePageState extends State<CoursePage> {
 
   Widget _buildSelectCard() {
     return SizedBox(
-        height: _media.size.height * 0.84,
+        height: _media.size.height * 0.844,
         width: _media.size.width,
         child: AnimationLimiter(
           child: ListView.builder(
@@ -118,9 +118,10 @@ class _CoursePageState extends State<CoursePage> {
             NeuText(text: data.title!),
             NeumorphicProgress(
               height: _media.size.height * 0.017,
-              percent: doneTiCount /
-                  total,
-              style: ProgressStyle(border: NeumorphicBorder(color: neuProgressColor.resolve(context))),
+              percent: doneTiCount / total,
+              style: ProgressStyle(
+                  border: NeumorphicBorder(
+                      color: neuProgressColor.resolve(context))),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

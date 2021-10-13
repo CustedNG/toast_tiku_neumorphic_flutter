@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/res/color.dart';
 
+/// Neumorphic风格图标按钮
 class NeuIconBtn extends StatelessWidget {
   final IconData icon;
   final Function()? onTap;
@@ -33,6 +34,7 @@ class NeuIconBtn extends StatelessWidget {
   }
 }
 
+/// Neumorphic风格按钮
 class NeuBtn extends StatelessWidget {
   final Widget child;
   final Function()? onTap;

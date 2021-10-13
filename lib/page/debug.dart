@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/data/provider/debug.dart';
 
+/// 调试页面
 class DebugPage extends StatefulWidget {
   const DebugPage({Key? key}) : super(key: key);
 
@@ -10,9 +11,6 @@ class DebugPage extends StatefulWidget {
 }
 
 class _DebugPageState extends State<DebugPage> {
-  String baseUrl = '';
-  String otpInput = '';
-
   DebugProvider get debug => Provider.of<DebugProvider>(context);
 
   @override

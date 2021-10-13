@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
+/// 持久化储存实例
 class PersistentStore<E> {
   late Box<E> box;
 
@@ -16,6 +17,7 @@ class PersistentStore<E> {
   }
 }
 
+/// 某属性值储存实例的实现
 class StoreProperty<T> {
   StoreProperty(this._box, this._key, this.defaultValue);
 
@@ -23,23 +25,28 @@ class StoreProperty<T> {
   final String _key;
   T? defaultValue;
 
+  // 对此[属性值储存实例]，创建一个[可监听的对象]
   ValueListenable<T> listenable() {
     return PropertyListenable<T>(_box, _key, defaultValue);
   }
 
+  /// 获取值
   T? fetch() {
     return _box.get(_key, defaultValue: defaultValue);
   }
 
+  /// 放入/更新，值
   Future<void> put(T value) {
     return _box.put(_key, value);
   }
 
+  /// 删除值
   Future<void> delete() {
     return _box.delete(_key);
   }
 }
 
+/// 属性值可监听对象
 class PropertyListenable<T> extends ValueListenable<T> {
   PropertyListenable(this.box, this.key, this.defaultValue);
 
@@ -50,6 +57,7 @@ class PropertyListenable<T> extends ValueListenable<T> {
   final List<VoidCallback> _listeners = [];
   StreamSubscription? _subscription;
 
+  /// 添加监听者
   @override
   void addListener(VoidCallback listener) {
     _subscription ??= box.watch().listen((event) {
@@ -63,6 +71,7 @@ class PropertyListenable<T> extends ValueListenable<T> {
     _listeners.add(listener);
   }
 
+  /// 删除监听者
   @override
   void removeListener(VoidCallback listener) {
     _listeners.remove(listener);
@@ -73,6 +82,7 @@ class PropertyListenable<T> extends ValueListenable<T> {
     }
   }
 
+  /// 获取监听的属性的值
   @override
   T get value => box.get(key, defaultValue: defaultValue);
 }

@@ -11,6 +11,7 @@ import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
+/// 单元收藏题目页
 class UnitFavoritePage extends StatefulWidget {
   final String courseId;
   final String courseName;
@@ -26,6 +27,7 @@ class UnitFavoritePage extends StatefulWidget {
 
 class _UnitFavoritePageState extends State<UnitFavoritePage>
     with SingleTickerProviderStateMixin {
+  /// 注释内容大致与[ing.dart]文件相似，请跳转查看
   late MediaQueryData _media;
   late FavoriteStore _favoriteStore;
   late List<Ti>? _tis;
@@ -103,8 +105,9 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
 
   Widget _buildMain() {
     return GestureDetector(
-      onHorizontalDragEnd: (detail) =>
-          onSlide(detail.velocity.pixelsPerSecond.dx > 100),
+      onHorizontalDragEnd: (detail) => onSlide(
+          detail.velocity.pixelsPerSecond.dx > 277,
+          detail.velocity.pixelsPerSecond.dx < -277),
       child: Column(
         children: [
           _buildHead(),
@@ -170,7 +173,8 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         opacity: _animation, child: _buildTiView(_tis![_index]));
   }
 
-  void onSlide(bool left) {
+  void onSlide(bool left, bool right) {
+    if (!left && !right) return;
     if (left) {
       if (_index > 0) {
         _index--;
@@ -210,7 +214,11 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
+          NeuText(
+            text: ti.typeChinese + '\n',
+            align: TextAlign.start,
+            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+          ),
           NeuText(text: ti.question!, align: TextAlign.start),
           const NeuText(text: '\n答案：', align: TextAlign.start),
           ...ti.answer!
@@ -227,7 +235,11 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NeuText(text: ti.typeChinese + '\n', align: TextAlign.start, textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
+          NeuText(
+            text: ti.typeChinese + '\n',
+            align: TextAlign.start,
+            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+          ),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
           ..._buildRadios(ti.options!),

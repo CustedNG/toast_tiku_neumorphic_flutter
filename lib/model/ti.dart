@@ -13,9 +13,16 @@ class Ti {
 } 
 */
 
+  /// 题目的选项
   List<String>? options;
+
+  /// 题目的问题
   String? question;
+
+  /// 题目的答案
   List<dynamic>? answer;
+
+  /// 题目的类型
   int? type;
 
   Ti({

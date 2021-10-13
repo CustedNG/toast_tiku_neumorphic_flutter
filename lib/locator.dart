@@ -8,11 +8,10 @@ import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
-import 'package:toast_tiku/data/provider/user.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
-import 'package:toast_tiku/data/store/user.dart';
 import 'package:toast_tiku/service/app.dart';
 
+/// Locator，教程可见: https://pub.dev/packages/get_it, https://blog.csdn.net/unicorn97/article/details/100769418
 GetIt locator = GetIt.instance;
 
 void setupLocatorForServices() {
@@ -22,7 +21,6 @@ void setupLocatorForServices() {
 void setupLocatorForProviders() {
   locator.registerSingleton(AppProvider());
   locator.registerSingleton(ExamProvider());
-  locator.registerSingleton(UserProvider());
   locator.registerSingleton(TikuProvider());
   locator.registerSingleton(DebugProvider());
   locator.registerSingleton(TimerProvider());
@@ -33,12 +31,6 @@ Future<void> setupLocatorForStores() async {
   final setting = SettingStore();
   await setting.init(boxName: 'setting');
   locator.registerSingleton(setting);
-
-  locator.registerSingletonAsync<UserStore>(() async {
-    final store = UserStore();
-    await store.init(boxName: 'user');
-    return store;
-  });
 
   locator.registerSingletonAsync<TikuStore>(() async {
     final store = TikuStore();

@@ -2,11 +2,18 @@ import 'dart:async';
 
 import 'package:toast_tiku/core/provider_base.dart';
 
+/// 考试时间计时器的实现
 class TimerProvider extends BusyProvider {
+  /// 计时器
   Timer? _timer;
+
+  /// 剩余时间
   late String leftTime = '';
+
+  /// 考试是否结束
   bool finish = false;
 
+  /// 开始考试计时
   void start(DateTime endTime) {
     finish = false;
     if (_timer != null) _timer!.cancel();
@@ -28,6 +35,7 @@ class TimerProvider extends BusyProvider {
     });
   }
 
+  /// 结束计时，考试结束
   void stop() {
     if (_timer != null) {
       _timer!.cancel();

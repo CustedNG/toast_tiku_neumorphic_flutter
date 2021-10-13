@@ -5,6 +5,7 @@ import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/page/home.dart';
 
+/// App入口
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 

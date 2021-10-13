@@ -1,7 +1,9 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 
+/// 考试结果展示页
 class ExamResultPage extends StatelessWidget {
+  /// 正确率
   final double percent;
 
   const ExamResultPage({Key? key, required this.percent}) : super(key: key);

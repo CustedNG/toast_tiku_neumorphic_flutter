@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// 渐隐渐显实现
 class FadeIn extends StatefulWidget {
   final Widget child;
 

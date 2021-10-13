@@ -17,6 +17,7 @@ import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/setting_item.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
+/// 设置页面
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
 
@@ -74,7 +75,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget _buildMain() {
     return ConstrainedBox(
       constraints: BoxConstraints(
-          maxHeight: _media.size.height * 0.8, maxWidth: _media.size.width),
+          maxHeight: _media.size.height * 0.844, maxWidth: _media.size.width),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [

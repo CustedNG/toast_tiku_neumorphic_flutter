@@ -5,14 +5,23 @@ import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 
+/// 底部上拉菜单实现
 class GrabSheet extends StatefulWidget {
+  /// Sheet控制器
   final SnappingSheetController sheetController;
+  /// 主视图
   final Widget main;
+  /// 上拉视图
   final Widget? grab;
+  /// 题目
   final List<Ti> tis;
+  /// 题目选项状态
   final List<List<Object>> checkState;
+  /// 点击后的操作
   final void Function(int index) onTap;
+  /// 是否显示选择的对错
   final bool showColor;
+  
   const GrabSheet(
       {Key? key,
       required this.sheetController,

@@ -1,6 +1,7 @@
 import 'package:toast_tiku/model/ti.dart';
 
 extension TiX on Ti {
+  ///  返回题目类型的中文名
   String get typeChinese {
     switch (type) {
       case 0:
@@ -16,6 +17,7 @@ extension TiX on Ti {
     }
   }
 
+  /// 返回题目的答案String
   String get answerStr {
     const answerConst = '\n答案：';
     switch (type) {
