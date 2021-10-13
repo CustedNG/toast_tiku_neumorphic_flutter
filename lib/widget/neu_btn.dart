@@ -4,10 +4,19 @@ import 'package:toast_tiku/res/color.dart';
 
 /// Neumorphic风格图标按钮
 class NeuIconBtn extends StatelessWidget {
+  /// 图标
   final IconData icon;
+
+  /// 按下后的操作
   final Function()? onTap;
+
+  /// 外间距
   final EdgeInsets? margin;
+
+  /// 内间距
   final EdgeInsets? padding;
+
+  /// 按钮形状
   final NeumorphicBoxShape? boxShape;
 
   const NeuIconBtn(
@@ -26,7 +35,7 @@ class NeuIconBtn extends StatelessWidget {
       padding: padding ?? const EdgeInsets.all(9),
       child: NeumorphicIcon(
         icon,
-        style: NeumorphicStyle(color: mainColor.resolve(context)),
+        style: NeumorphicStyle(color: mainTextColor.resolve(context)),
       ),
       onTap: onTap,
       boxShape: boxShape,
@@ -36,6 +45,7 @@ class NeuIconBtn extends StatelessWidget {
 
 /// Neumorphic风格按钮
 class NeuBtn extends StatelessWidget {
+  /// 注释同[NeuIconBtn]
   final Widget child;
   final Function()? onTap;
   final EdgeInsets? margin;

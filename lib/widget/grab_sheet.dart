@@ -9,19 +9,25 @@ import 'package:toast_tiku/widget/neu_text.dart';
 class GrabSheet extends StatefulWidget {
   /// Sheet控制器
   final SnappingSheetController sheetController;
+
   /// 主视图
   final Widget main;
+
   /// 上拉视图
   final Widget? grab;
+
   /// 题目
   final List<Ti> tis;
+
   /// 题目选项状态
   final List<List<Object>> checkState;
+
   /// 点击后的操作
   final void Function(int index) onTap;
+
   /// 是否显示选择的对错
   final bool showColor;
-  
+
   const GrabSheet(
       {Key? key,
       required this.sheetController,
@@ -69,8 +75,8 @@ class _GrabSheetState extends State<GrabSheet> {
             child: Neumorphic(
               curve: Curves.easeInQuad,
               child: const SizedBox(height: 10, width: 57),
-              style:
-                  NeumorphicStyle(color: mainColor.resolve(context), depth: 37),
+              style: NeumorphicStyle(
+                  color: mainTextColor.resolve(context), depth: 37),
             ),
           ),
         ));
@@ -109,6 +115,7 @@ class _GrabSheetState extends State<GrabSheet> {
     );
   }
 
+  /// 是否显示颜色
   Color? judgeColor(int idx) {
     if (widget.showColor && widget.checkState[idx].isNotEmpty) {
       if (widget.tis[idx].answer!

@@ -16,7 +16,11 @@ class TimerProvider extends BusyProvider {
   /// 开始考试计时
   void start(DateTime endTime) {
     finish = false;
+
+    /// 如果[_timer]已经被初始化，则取消之前的[_timer]
     if (_timer != null) _timer!.cancel();
+
+    /// 每隔一秒钟，刷新一次剩余时间
     Timer.periodic(const Duration(seconds: 1), (timer) {
       _timer = timer;
       final duration = endTime.difference(DateTime.now());

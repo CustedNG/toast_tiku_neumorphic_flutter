@@ -11,5 +11,6 @@ class DynamicColor {
   resolve(BuildContext context) => isDarkMode(context) ? dark : light;
 }
 
-final mainColor = DynamicColor(Colors.black87, Colors.white70);
+/// 主文字颜色
+final mainTextColor = DynamicColor(Colors.black87, Colors.white70);
 final neuProgressColor = DynamicColor(Colors.black12, Colors.deepPurple);

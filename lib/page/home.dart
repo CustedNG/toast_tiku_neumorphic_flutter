@@ -44,8 +44,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   late MediaQueryData _media;
+
   /// 一言及通知上下滚动banner的控制器
   late FixedExtentScrollController _fixedExtentScrollController;
+
   /// banner滚动定时器
   Timer? _timer;
 
@@ -58,8 +60,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
     _fixedExtentScrollController = FixedExtentScrollController();
+
     /// 如果定时器已被初始化，则跳过
     if (_timer != null) return;
+
     /// 每隔七秒钟，banner滚动一次
     _timer = Timer.periodic(const Duration(seconds: 7), (timer) {
       _fixedExtentScrollController.animateToItem(timer.tick % 2,
@@ -223,7 +227,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                                   child: NeuText(
                                       text: unit.title!,
                                       style: NeumorphicStyle(
-                                          color: mainColor
+                                          color: mainTextColor
                                               .resolve(context)
                                               .withOpacity(0.8)),
                                       textStyle:
@@ -330,7 +334,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       ti.question,
                     ],
                 builder: (ti) => NeuCard(child: _buildSearchResult(ti)),
-                searchStyle: TextStyle(color: mainColor.resolve(context))),
+                searchStyle: TextStyle(color: mainTextColor.resolve(context))),
           ),
         ),
       ],

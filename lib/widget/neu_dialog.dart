@@ -3,9 +3,16 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 /// Neumorphic风格对话框
 class NeuDialog extends Dialog {
+  /// 外间距
   final EdgeInsets? margin;
+
+  /// 标题
   final Widget title;
+
+  /// 内容
   final Widget content;
+
+  /// 按钮
   final List<Widget> actions;
 
   const NeuDialog(

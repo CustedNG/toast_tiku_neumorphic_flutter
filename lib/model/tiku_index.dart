@@ -128,6 +128,7 @@ class TikuIndex {
   }
 }
 
+/// 从String或者List转为List<TikuIndex>?
 List<TikuIndex>? getTikuIndexList(dynamic data) {
   if (data == null) return null;
   List<TikuIndex> ts = [];
@@ -145,6 +146,7 @@ List<TikuIndex>? getTikuIndexList(dynamic data) {
   return ts;
 }
 
+/// 从网络获取到的题库原始数据
 class TikuIndexRaw {
   String version;
   List<TikuIndex>? tikuIndexes;

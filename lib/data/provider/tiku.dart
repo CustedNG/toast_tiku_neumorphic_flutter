@@ -70,9 +70,12 @@ class TikuProvider extends BusyProvider {
     }
     for (var index in _tikuIndexes!) {
       for (var content in index.content!) {
+        /// 获取每个章节的数据
         final unitData =
             await AppService().getUnitTi(index.id!, content!.data!);
         _store.put(index.id!, content.data!, unitData!);
+
+        /// 更新进度
         _downloadProgress = idx++ / length;
         notifyListeners();
       }

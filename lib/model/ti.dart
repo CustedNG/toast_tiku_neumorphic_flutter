@@ -66,6 +66,7 @@ class Ti {
   }
 }
 
+/// 将List转为List<Ti>
 List<Ti>? getTiList(dynamic data) {
   if (data == null) return null;
   List<Ti> tis = [];

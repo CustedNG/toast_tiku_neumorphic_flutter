@@ -41,15 +41,12 @@ class _LogoCardState extends State<LogoCard> {
   Widget _buildContent() {
     return Row(
       children: [
-        Hero(
-            tag: 'logo_card_img',
-            transitionOnUserGestures: true,
-            child: SizedBox(
-              height: _media.size.height * 0.06,
-              child: const FlutterLogo(
-                size: 70,
-              ),
-            )),
+        SizedBox(
+          height: _media.size.height * 0.06,
+          child: const FlutterLogo(
+            size: 70,
+          ),
+        ),
         SizedBox(width: _media.size.width * 0.05),
         Column(
           mainAxisSize: MainAxisSize.min,

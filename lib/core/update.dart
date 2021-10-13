@@ -9,12 +9,16 @@ import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/service/app.dart';
 
+/// 设置Logger名称
 final logger = Logger('UPDATE');
 
 /// 判断更新文件是否可用
 Future<bool> isFileAvailable(String url) async {
   try {
+    /// 通过HTTP HEAD判断
     final resp = await Dio().head(url);
+
+    /// HTTP状态码为200即文件可用
     return resp.statusCode == 200;
   } catch (e) {
     logger.warning('update file not available: $e');
@@ -22,13 +26,14 @@ Future<bool> isFileAvailable(String url) async {
   }
 }
 
-/// 开始尝试更新
+/// 开始尝试更新, [force]是否强制更新
 Future<void> doUpdate(BuildContext context, {bool force = false}) async {
   final update = await locator<AppService>().getUpdate();
 
+  /// [AppProvider]设置最新版本号
   locator<AppProvider>().setNewestBuild(update.newest);
 
-  /// 如果不是强制，切版本不是最新，则跳过更新
+  /// 如果不是强制更新，且版本不是最新，则跳过更新
   if (!force && update.newest <= BuildData.build) {
     logger.info('Update ignored due to current: ${BuildData.build}, '
         'update: ${update.newest}');

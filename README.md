@@ -2,15 +2,42 @@
 
 **Toast题库**的**新拟态**、**Flutter**版本.
 
-## Usage
+## 使用
 **请使用`make.dart`进行运行、编译操作**
-`./make.dart run`，以debug模式运行
-`./make.dart run release`， 以release模式运行
-`./make.dart build android`，编译Android 64bit版本
-`./make.dart build android 32`，编译Android 32bit版本
-`./make.dart build ios`，编译iOS 64bit版本
+```shell
+# 以debug模式运行
+./make.dart run
+# 以release模式运行
+./make.dart run release
+# 编译Android 64bit版本
+./make.dart build android
+# 编译Android 32bit版本
+./make.dart build android 32
+# 编译iOS 64bit版本
+./make.dart build ios
+```
 
-## Milestone
+## 提示
+```shell
+项目基本结构；
+├── LICENSE                 # 开源证书
+├── README.md               # 本README Markdown文件
+├── android                 # Android平台特有代码
+├── build                   # 构建缓存
+├── ios                     # iOS平台代码
+├── lib                     # Flutter项目中主要代码，通常在该目录内修改文件
+├── macos                   # macOS平台代码
+├── make.dart               # 编译脚本
+├── pubspec.lock            # PUB版本锁
+├── pubspec.yaml            # PUB依赖文件
+├── release                 # 编译好的包
+├── test                    # 测试文件
+├── tiku                    # 题库资源目录
+├── toast_tiku.iml          # 项目配置
+└── web                     # web平台代码
+```
+
+## 里程碑
 - [x] 题库自动更新，根据版本id，酌情更新
 - [x] 单元测试页面：每个科目、每个单元单独的、按照顺序的测试页面
 - [x] 收藏功能

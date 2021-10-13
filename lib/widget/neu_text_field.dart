@@ -3,11 +3,22 @@ import 'package:toast_tiku/res/color.dart';
 
 /// Neumorphic风格输入框
 class NeuTextField extends StatefulWidget {
+  /// 标签
   final String? label;
+
+  /// 隐式文字
   final String? hint;
+
+  /// 初始值
   final String? initValue;
+
+  /// 内间距
   final EdgeInsets? padding;
+
+  /// 外间距
   final EdgeInsets? margin;
+
+  /// 值改变时的操作
   final ValueChanged<String>? onChanged;
 
   const NeuTextField(
@@ -47,7 +58,7 @@ class _TextFieldState extends State<NeuTextField> {
             widget.label ?? '',
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              color: mainColor.resolve(context),
+              color: mainTextColor.resolve(context),
             ),
           ),
         ),

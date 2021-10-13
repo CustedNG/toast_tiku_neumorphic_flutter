@@ -16,7 +16,7 @@ import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
-import 'package:toast_tiku/widget/text_field.dart';
+import 'package:toast_tiku/widget/neu_text_field.dart';
 
 /// 正在进行考试时的页面
 class ExamingPage extends StatefulWidget {
@@ -29,6 +29,7 @@ class ExamingPage extends StatefulWidget {
 }
 
 /// with [SingleTickerProviderStateMixin]，融合了一个ticker provider
+/// with的语法参考：https://dart.cn/samples#mixins
 class _ExamingPageState extends State<ExamingPage>
     with SingleTickerProviderStateMixin {
   /// 设备Media数据
@@ -65,6 +66,7 @@ class _ExamingPageState extends State<ExamingPage>
   late TimerProvider _timerProvider;
 
   /// 此覆写，详解请看Flutter生命周期
+  /// 例如：https://juejin.cn/post/6844903874617147399
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -81,12 +83,14 @@ class _ExamingPageState extends State<ExamingPage>
     _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
   }
 
+  /// 同上[didChangeDependencies]的注释
   @override
   void initState() {
     super.initState();
     _timerProvider = locator<TimerProvider>();
   }
 
+  /// 同上[didChangeDependencies]的注释
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,6 +132,7 @@ class _ExamingPageState extends State<ExamingPage>
 
   Widget _buildMain() {
     return GestureDetector(
+      /// 传入参数[左右滑动的速度超过每秒钟277像素]
       onHorizontalDragEnd: (detail) => onSlide(
           detail.velocity.pixelsPerSecond.dx > 277,
           detail.velocity.pixelsPerSecond.dx < -277),
@@ -184,7 +189,8 @@ class _ExamingPageState extends State<ExamingPage>
             NeuBtn(
               child: NeumorphicIcon(
                   _submittedAnswer ? Icons.celebration : Icons.send,
-                  style: NeumorphicStyle(color: mainColor.resolve(context))),
+                  style:
+                      NeumorphicStyle(color: mainTextColor.resolve(context))),
               onTap: () {
                 if (_submittedAnswer) {
                   AppRoute(ExamResultPage(
@@ -204,11 +210,13 @@ class _ExamingPageState extends State<ExamingPage>
   }
 
   Widget _buildTiList() {
+    /// 动画执行，渐显效果
     _controller.forward();
     return FadeTransition(
         opacity: _animation, child: _buildTiView(_tis[_index]));
   }
 
+  /// 滑动切换题目的逻辑判断
   void onSlide(bool left, bool right) {
     if (!left && !right) return;
     if (left) {
@@ -227,10 +235,13 @@ class _ExamingPageState extends State<ExamingPage>
       }
     }
     setState(() {});
+
+    /// 动画重新执行，题目切换不会突兀
     _controller.reset();
     _controller.forward();
   }
 
+  /// 根据不同题目类型返回不同view
   Widget _buildTiView(Ti ti) {
     switch (ti.type) {
       case 0:
@@ -244,6 +255,7 @@ class _ExamingPageState extends State<ExamingPage>
     }
   }
 
+  /// 构建填空题view
   Widget _buildFill(Ti ti) {
     if (_checkState[_index].isEmpty) {
       _checkState[_index] = List.generate(ti.answer!.length, (_) => '');
@@ -281,6 +293,7 @@ class _ExamingPageState extends State<ExamingPage>
     );
   }
 
+  /// 构建选择题view
   Widget _buildSelect(Ti ti) {
     return Padding(
       padding: EdgeInsets.all(_media.size.width * 0.07),
@@ -300,6 +313,7 @@ class _ExamingPageState extends State<ExamingPage>
     );
   }
 
+  /// 构建选择题具体的所有选项
   List<Widget> _buildRadios(List<String?> options) {
     final List<Widget> widgets = [];
     var idx = 0;
@@ -313,6 +327,7 @@ class _ExamingPageState extends State<ExamingPage>
     return widgets;
   }
 
+  /// 构建选择题具体的单个选项
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
       child: SizedBox(
@@ -326,6 +341,7 @@ class _ExamingPageState extends State<ExamingPage>
     );
   }
 
+  /// 判断是否显示颜色，（根据对错）显示什么颜色
   Color? judgeColor(int value) {
     if (_checkState[_index].contains(value)) {
       if (!_tis[_index].answer!.contains(value)) return Colors.redAccent;
@@ -333,6 +349,7 @@ class _ExamingPageState extends State<ExamingPage>
     }
   }
 
+  /// 按下单个选项时，进行的操作
   void onPressed(int value) {
     if (_submittedAnswer) return;
     if (_checkState[_index].contains(value)) {
@@ -345,9 +362,11 @@ class _ExamingPageState extends State<ExamingPage>
     setState(() {});
   }
 
+  /// 获取答对的题目的数量
   int _getCorrectCount() {
     int correctCount = 0;
     for (int idx = 0; idx < _tis.length; idx++) {
+      /// 要求包含每个选项
       if (_tis[idx]
           .answer!
           .every((element) => _checkState[idx].contains(element))) {
@@ -357,6 +376,7 @@ class _ExamingPageState extends State<ExamingPage>
     return correctCount;
   }
 
+  /// 构建答案视图
   Widget _buildAnswer() {
     if (!_submittedAnswer) return const SizedBox();
     return NeuText(text: _tis[_index].answerStr);

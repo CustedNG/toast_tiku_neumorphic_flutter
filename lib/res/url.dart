@@ -2,12 +2,16 @@
 
 /// App后端地址
 const backendUrl = 'https://tiku.lolli.fun';
+
 /// 题库资源地址
 const tikuResUrl = backendUrl + '/tiku';
+
 /// 科目图标地址
 const courseImgUrl = tikuResUrl + '/img';
+
 /// 加群地址
 const joinQQGroupUrl = 'https://jq.qq.com/?_wv=1027&k=G0hUmPAq';
+
 /// 本项目开源地址
 const openSourceUrl =
     'https://github.com/CustedNG/toast_tiku_neumorphic_flutter';

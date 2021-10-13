@@ -19,15 +19,34 @@ class SettingItem extends StatelessWidget {
     this.icon,
   }) : super(key: key);
 
+  /// 点击后操作
   final GestureTapCallback? onTap;
+
+  /// 标题
   final String title;
+
+  /// 内容
   final String content;
+
+  /// 文字对齐
   final TextAlign textAlign;
+
+  /// 标题文字风格
   final NeumorphicTextStyle? titleStyle;
+
+  /// 内容文字风格
   final NeumorphicTextStyle? contentStyle;
+
+  /// 右侧视图
   final Widget? rightBtn;
+
+  /// 高度
   final double? height;
+
+  /// 是否显示箭头
   final bool showArrow;
+
+  /// 图标
   final Icon? icon;
   @override
   Widget build(BuildContext context) {
@@ -56,7 +75,8 @@ class SettingItem extends StatelessWidget {
               showArrow
                   ? NeumorphicIcon(
                       Icons.arrow_forward_ios,
-                      style: NeumorphicStyle(color: mainColor.resolve(context)),
+                      style: NeumorphicStyle(
+                          color: mainTextColor.resolve(context)),
                       size: 16,
                     )
                   : Container(),

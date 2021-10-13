@@ -14,10 +14,12 @@ import 'package:toast_tiku/service/app.dart';
 /// Locator，教程可见: https://pub.dev/packages/get_it, https://blog.csdn.net/unicorn97/article/details/100769418
 GetIt locator = GetIt.instance;
 
+/// 注册服务
 void setupLocatorForServices() {
   locator.registerLazySingleton(() => AppService());
 }
 
+/// 注册Provider
 void setupLocatorForProviders() {
   locator.registerSingleton(AppProvider());
   locator.registerSingleton(ExamProvider());
@@ -27,6 +29,7 @@ void setupLocatorForProviders() {
   locator.registerSingleton(HistoryProvider());
 }
 
+/// 注册持久化储存
 Future<void> setupLocatorForStores() async {
   final setting = SettingStore();
   await setting.init(boxName: 'setting');
@@ -51,6 +54,7 @@ Future<void> setupLocatorForStores() async {
   });
 }
 
+/// 初始化locator
 Future<void> setupLocator() async {
   await setupLocatorForStores();
   setupLocatorForProviders();

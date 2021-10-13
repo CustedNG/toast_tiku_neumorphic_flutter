@@ -7,11 +7,13 @@ import 'package:hive/hive.dart';
 class PersistentStore<E> {
   late Box<E> box;
 
+  /// 初始化储存库，[boxName]为储存库名称
   Future<PersistentStore<E>> init({String boxName = 'defaultBox'}) async {
     box = await Hive.openBox(boxName);
     return this;
   }
 
+  /// [key]为键，[defaultValue]为键值为空时返回的默认值
   StoreProperty<T> property<T>(String key, {T? defaultValue}) {
     return StoreProperty<T>(box, key, defaultValue);
   }
@@ -21,8 +23,13 @@ class PersistentStore<E> {
 class StoreProperty<T> {
   StoreProperty(this._box, this._key, this.defaultValue);
 
+  /// 内部储存库实例
   final Box _box;
+
+  /// 键
   final String _key;
+
+  /// 键值为空时返回的默认值
   T? defaultValue;
 
   // 对此[属性值储存实例]，创建一个[可监听的对象]
@@ -30,17 +37,17 @@ class StoreProperty<T> {
     return PropertyListenable<T>(_box, _key, defaultValue);
   }
 
-  /// 获取值
+  /// 获取值，如果为空，返回[defaultValue]
   T? fetch() {
     return _box.get(_key, defaultValue: defaultValue);
   }
 
-  /// 放入/更新，值
+  /// 为键[_key]放入/更新值为[value]
   Future<void> put(T value) {
     return _box.put(_key, value);
   }
 
-  /// 删除值
+  /// 删除键为[_key]的值
   Future<void> delete() {
     return _box.delete(_key);
   }
@@ -50,8 +57,13 @@ class StoreProperty<T> {
 class PropertyListenable<T> extends ValueListenable<T> {
   PropertyListenable(this.box, this.key, this.defaultValue);
 
+  /// 内部储存库实例
   final Box box;
+
+  /// 键
   final String key;
+
+  /// 键值为空时返回的默认值
   T? defaultValue;
 
   final List<VoidCallback> _listeners = [];

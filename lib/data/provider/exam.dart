@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:toast_tiku/core/provider_base.dart';
-import 'package:toast_tiku/data/store/tiku.dart';
-import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/model/ti.dart';
 
 class ExamProvider extends BusyProvider {
@@ -20,18 +19,27 @@ class ExamProvider extends BusyProvider {
   Future<void> loadTi(
       String courseId, List<String> units, List<double> counts) async {
     setBusyState(true);
+
+    /// 初始化空数据
     _tis = [[], [], [], []];
     result = [];
-    final _tikuStore = locator<TikuStore>();
-    final allTis = <Ti>[];
-    for (var item in units) {
-      allTis.addAll(_tikuStore.fetch(courseId, item) ?? []);
-    }
+
+    /// 获取题库内所有题目
+    final allTis = getAllTi();
+
+    /// 选出题目type为0的题
     _tis[0] = allTis.where((element) => element.type == 0).toList();
+
+    /// 选出题目type为1的题
     _tis[1] = allTis.where((element) => element.type == 1).toList();
+
+    /// 选出题目type为2的题
     _tis[2] = allTis.where((element) => element.type == 2).toList();
+
+    /// 选出题目type为3的题
     _tis[3] = allTis.where((element) => element.type == 3).toList();
 
+    /// 在题目数量内，随机抽取一道题，添加进[result]
     for (int typeIdx = 0; typeIdx < 4; typeIdx++) {
       List<int> vals = [];
       for (int idx = 0; idx < counts[typeIdx].toInt(); idx++) {
@@ -46,6 +54,8 @@ class ExamProvider extends BusyProvider {
         result.add(_tis[typeIdx][item]);
       }
     }
+
+    /// 清空所有题目List
     _tis = [];
     setBusyState(false);
   }

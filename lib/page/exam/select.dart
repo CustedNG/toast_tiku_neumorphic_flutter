@@ -26,12 +26,14 @@ class ExamSelectPage extends StatefulWidget {
 class _ExamSelectPageState extends State<ExamSelectPage> {
   /// 设备媒体数据
   late MediaQueryData _media;
+
   /// 题库数据Provider
   late TikuProvider _tikuProvider;
   String? _selectedCourse;
 
   /// [_counts] : 长度为5，分别为[单选]、[多选]、[填空]、[判断]题目的个数，以及[考试时长]
   List<double> _counts = [];
+
   /// 选择的单元
   final List<String> _units = [];
 

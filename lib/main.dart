@@ -15,13 +15,15 @@ import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/locator.dart';
 
+/// 初始化App
 Future<void> initApp() async {
   /// 加载Hive数据库
   await Hive.initFlutter();
   await setupLocator();
-  
+
   // 等待store加载完成
   await GetIt.I.allReady();
+
   /// Provider初始化数据
   await locator<TikuProvider>().loadLocalData();
   await locator<HistoryProvider>().loadLocalData();
@@ -34,6 +36,7 @@ Future<void> initApp() async {
   });
 }
 
+/// 在空间内运行
 void runInZone(dynamic Function() body) {
   final zoneSpec = ZoneSpecification(
     print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
@@ -55,6 +58,7 @@ void runInZone(dynamic Function() body) {
   );
 }
 
+/// 发生错误时，执行的操作
 void onError(Object obj, StackTrace stack) {
   Logger('MAIN').warning('error: $obj');
   Analysis.recordException(obj);
@@ -63,6 +67,7 @@ void onError(Object obj, StackTrace stack) {
   debugProvider.addError(stack);
 }
 
+/// 程序入口
 Future<void> main() async {
   runInZone(() async {
     await initApp();
