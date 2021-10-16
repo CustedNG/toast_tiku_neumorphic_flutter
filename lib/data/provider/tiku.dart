@@ -20,6 +20,7 @@ class TikuProvider extends BusyProvider {
   /// 题库索引数据
   List<TikuIndex>? _tikuIndexes;
   List<TikuIndex>? get tikuIndex => _tikuIndexes;
+
   // [题库数据下载进度]，index下载状态用busyState获取，unit下载进度用downloadProgress获取
   double _downloadProgress = 0;
   double get downloadProgress => _downloadProgress;

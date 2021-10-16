@@ -56,9 +56,6 @@ class _ExamingPageState extends State<ExamingPage>
   /// 题目的index
   int _index = 0;
 
-  /// 是否忙
-  bool isBusy = true;
-
   /// 是否已经交卷，结束考试
   bool _submittedAnswer = false;
 
@@ -95,6 +92,8 @@ class _ExamingPageState extends State<ExamingPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
+
+      /// 可以通过[Consumer<T>()]获取到需要的Provider
       body: Consumer<ExamProvider>(
         builder: (_, exam, __) {
           if (exam.isBusy) {

@@ -15,11 +15,12 @@ void unawaited(Future<void> future) {}
 bool isDarkMode(BuildContext context) =>
     NeumorphicTheme.of(context)!.isUsingDark;
 
-/// 先试Snackbar
+/// 显示Snackbar，[child]显示的widget，[context]背景
 void showSnackBar(BuildContext context, Widget child) =>
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: child));
 
 /// 显示带有action的Snackbar
+/// [content]snackbar内容，[action]snackbar按钮文字，[onTap]点击按钮后的操作
 void showSnackBarWithAction(BuildContext context, String content, String action,
     GestureTapCallback onTap) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -43,10 +44,14 @@ Future<bool> openUrl(String url) async {
 List<Ti> getAllTi() {
   final tiku = locator<TikuProvider>();
   final store = locator<TikuStore>();
+
+  /// 先获取题库索引
   if (tiku.tikuIndex == null) {
     return <Ti>[];
   }
   final tis = <Ti>[];
+
+  /// 根据索引，循环获取每一章节数据
   for (var item in tiku.tikuIndex!) {
     for (var unit in item.content!) {
       tis.addAll(store.fetch(item.id!, unit!.data!)!);

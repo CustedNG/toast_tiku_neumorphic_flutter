@@ -5,6 +5,8 @@
 ## 使用
 **请使用`make.dart`进行运行、编译操作**
 ```shell
+# Windows平台下请将命令 ./make.dart 替换为 dart make.dart
+
 # 以debug模式运行
 ./make.dart run
 # 以release模式运行
@@ -18,8 +20,13 @@
 ```
 
 ## 提示
+
+#### 参考链接
+[Dart语言概览](https://dart.cn/samples)，[Flutter入门](https://flutterchina.club/get-started/install/)，[Flutter实践](https://book.flutterchina.club)，[PUB库](https://pub.dev)  
+以上链接大部分为中文，有能力可以看官网英文原版
+
+#### 项目结构
 ```shell
-项目基本结构；
 ├── LICENSE                 # 开源证书
 ├── README.md               # 本README Markdown文件
 ├── android                 # Android平台特有代码
@@ -36,6 +43,8 @@
 ├── toast_tiku.iml          # 项目配置
 └── web                     # web平台代码
 ```
+
+#### 
 
 ## 里程碑
 - [x] 题库自动更新，根据版本id，酌情更新

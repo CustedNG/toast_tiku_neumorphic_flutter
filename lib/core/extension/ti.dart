@@ -33,6 +33,7 @@ extension TiX on Ti {
         final answers = <String>[];
         for (var item in answer!) {
           if (item is int) {
+            /// 将选项index int（1、2、3...）转为string（A、B、C、D...）之类的
             answers.add(String.fromCharCode(65 + item));
           }
         }

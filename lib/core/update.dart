@@ -15,7 +15,7 @@ final logger = Logger('UPDATE');
 /// 判断更新文件是否可用
 Future<bool> isFileAvailable(String url) async {
   try {
-    /// 通过HTTP HEAD判断
+    /// 通过HTTP HEAD判断文件是否可用
     final resp = await Dio().head(url);
 
     /// HTTP状态码为200即文件可用
@@ -28,6 +28,7 @@ Future<bool> isFileAvailable(String url) async {
 
 /// 开始尝试更新, [force]是否强制更新
 Future<void> doUpdate(BuildContext context, {bool force = false}) async {
+  /// 调用[AppService.getUpdate()]，开始检查更新
   final update = await locator<AppService>().getUpdate();
 
   /// [AppProvider]设置最新版本号

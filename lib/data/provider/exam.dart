@@ -12,9 +12,6 @@ class ExamProvider extends BusyProvider {
   /// 条件筛选后的题目
   late List<Ti> result;
 
-  /// 考试时间计时器
-  late Timer timer;
-
   /// 加载题目到Provider
   Future<void> loadTi(
       String courseId, List<String> units, List<double> counts) async {

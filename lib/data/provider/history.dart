@@ -6,8 +6,9 @@ import 'package:toast_tiku/locator.dart';
 
 class HistoryProvider extends BusyProvider {
   final _initialized = Completer();
-  late HistoryStore _store;
   Future get initialized => _initialized.future;
+
+  late HistoryStore _store;
 
   /// 上次浏览的科目和章节
   String? get lastViewed => _lastViewed;

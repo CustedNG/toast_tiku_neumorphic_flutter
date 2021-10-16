@@ -18,6 +18,7 @@ enum ProviderState {
 
 /// 相比于[ProviderBase]多了[setBusyState]，[busyRun]方法
 class BusyProvider extends ProviderBase {
+  /// 此Provider是否正忙
   bool _isBusy = false;
   bool get isBusy => _isBusy;
 
