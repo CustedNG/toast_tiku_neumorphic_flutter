@@ -26,13 +26,13 @@ class NeuDialog extends Dialog {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Neumorphic(
-      style: NeumorphicStyle(
-          boxShape: NeumorphicBoxShape.roundRect(
-              const BorderRadius.all(Radius.circular(37)))),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-            maxHeight: size.height * 0.5, maxWidth: size.width * 0.7),
+    return SizedBox(
+      height: size.height * 0.5,
+      width: size.width * 0.7,
+      child: Neumorphic(
+        style: NeumorphicStyle(
+            boxShape: NeumorphicBoxShape.roundRect(
+                const BorderRadius.all(Radius.circular(37)))),
         child: Padding(
           padding: margin ?? const EdgeInsets.fromLTRB(24, 17, 24, 7),
           child: Column(

@@ -11,10 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// 创建了一个可监听的、范型为bool的监听器，[locator<SettingStore>().blackBackground.listenable()]的所有变化，都会使视图刷新
-    return ValueListenableBuilder<bool>(
-      valueListenable: locator<SettingStore>().blackBackground.listenable(),
+    /// 返回了一个可监听的、范型为bool的构建器。[locator<SettingStore>().appPrimaryColor]的所有变化，都会使视图刷新
+    return ValueListenableBuilder<int>(
+      valueListenable: locator<SettingStore>().appPrimaryColor.listenable(),
       builder: (_, value, __) {
+        final primaryColor = Color(value);
         return NeumorphicApp(
           /// 不显示App右上角的debug调试条
           debugShowCheckedModeBanner: false,
@@ -31,15 +32,22 @@ class MyApp extends StatelessWidget {
           /// App主色调
           color: NeumorphicTheme.baseColor(context),
 
-          /// App主题模式，分为白天、黑夜和跟随系统模式
+          /// App主题模式，三种参数分为白天、黑夜和跟随系统模式，这里是跟随系统
           themeMode: ThemeMode.system,
 
-          /// 自定义夜间模式的参数
+          /// 自定义白天模式主题的参数
+          theme: NeumorphicThemeData(
+              accentColor: primaryColor,
+              shadowLightColor: primaryColor,
+              intensity: 0.33),
+
+          /// 自定义夜间模式主题的参数
           darkTheme: NeumorphicThemeData(
-              baseColor:
-                  value ? Colors.black : const Color.fromRGBO(37, 37, 37, 1),
-              shadowLightColor: Colors.deepPurple,
-              intensity: 0.37),
+              baseColor: const Color.fromRGBO(37, 37, 37, 1),
+              shadowLightColor: primaryColor,
+              intensity: 0.43),
+
+          /// App视图入口
           home: const HomePage(),
         );
       },

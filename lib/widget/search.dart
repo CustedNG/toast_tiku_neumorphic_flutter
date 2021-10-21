@@ -1,7 +1,6 @@
 /// Copy from https://github.com/jesusrp98/search_page
 /// license GPL
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/res/color.dart';
 
@@ -92,9 +91,6 @@ class SearchPage<T> extends SearchDelegate<T?> {
                 fontSize: 20,
               ),
             ),
-        brightness: NeumorphicTheme.of(context)!.isUsingDark
-            ? Brightness.dark
-            : Brightness.light,
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: TextStyle(
             color: mainTextColor.resolve(context),

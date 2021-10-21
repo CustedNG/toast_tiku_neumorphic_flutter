@@ -6,6 +6,7 @@ import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
+import 'package:toast_tiku/widget/neu_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// 不等待
@@ -13,7 +14,7 @@ void unawaited(Future<void> future) {}
 
 /// 判断是否为夜间模式
 bool isDarkMode(BuildContext context) =>
-    NeumorphicTheme.of(context)!.isUsingDark;
+    NeumorphicTheme.of(context)?.isUsingDark ?? false;
 
 /// 显示Snackbar，[child]显示的widget，[context]背景
 void showSnackBar(BuildContext context, Widget child) =>
@@ -58,4 +59,19 @@ List<Ti> getAllTi() {
     }
   }
   return tis;
+}
+
+Future<T?> showNeuDialog<T>(
+    BuildContext context, String title, Widget child, List<Widget> actions,
+    {EdgeInsets? padding}) {
+  return showDialog(
+      context: context,
+      builder: (ctx) {
+        return NeuDialog(
+          title: Text(title),
+          content: child,
+          actions: actions,
+          margin: padding,
+        );
+      });
 }

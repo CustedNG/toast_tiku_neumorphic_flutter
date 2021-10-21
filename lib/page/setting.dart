@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/persistant_store.dart';
@@ -28,6 +29,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   late MediaQueryData _media;
   late SettingStore _store;
+  late int _selectedColorValue;
 
   @override
   void didChangeDependencies() {
@@ -101,11 +103,7 @@ class _SettingPageState extends State<SettingPage> {
               showArrow: false,
               rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
             ),
-            SettingItem(
-              title: '夜间模式使用纯黑背景',
-              showArrow: false,
-              rightBtn: _buildSwitch(context, _store.blackBackground),
-            ),
+            _buildAppColorPreview(),
             Consumer<AppProvider>(builder: (_, app, __) {
               String display;
               if (app.newestBuild != null) {
@@ -122,6 +120,50 @@ class _SettingPageState extends State<SettingPage> {
             })
           ],
         ));
+  }
+
+  Widget _buildAppColorPreview() {
+    final nowAppColor = _store.appPrimaryColor.fetch()!;
+    return SizedBox(
+      width: _media.size.width * 0.8,
+      child: ExpansionTile(
+          tilePadding: const EdgeInsets.only(left: 7.7, right: 7.7),
+          childrenPadding: EdgeInsets.zero,
+          children: [
+            _buildAppColorPicker(Color(nowAppColor)),
+            _buildColorPickerConfirmBtn()
+          ],
+          trailing: ClipOval(
+            child: Container(
+              color: Color(nowAppColor),
+              height: 27,
+              width: 27,
+            ),
+          ),
+          title: const NeuText(
+            text: 'App主题色',
+            align: TextAlign.start,
+          )),
+    );
+  }
+
+  Widget _buildAppColorPicker(Color selected) {
+    return MaterialColorPicker(
+        shrinkWrap: true,
+        onColorChange: (Color color) {
+          _selectedColorValue = color.value;
+        },
+        selectedColor: selected);
+  }
+
+  Widget _buildColorPickerConfirmBtn() {
+    return NeuIconBtn(
+      icon: Icons.save,
+      onTap: (() {
+        _store.appPrimaryColor.put(_selectedColorValue);
+        setState(() {});
+      }),
+    );
   }
 
   Widget _buildSwitch(BuildContext context, StoreProperty<bool> prop,

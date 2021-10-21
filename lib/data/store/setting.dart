@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:toast_tiku/core/persistant_store.dart';
 
 class SettingStore extends PersistentStore {
@@ -9,11 +10,11 @@ class SettingStore extends PersistentStore {
   StoreProperty<bool> get autoUpdateTiku =>
       property('autoUpdateTiku', defaultValue: true);
 
-  /// 夜间模式是否显示全黑背景
-  StoreProperty<bool> get blackBackground =>
-      property('blackBackground', defaultValue: false);
-
   /// 第一次使用时的提醒，例如做题界面左右滑动切换题目
   StoreProperty<bool> get firstNotify =>
       property('firstNotify', defaultValue: false);
+
+  /// App强调色
+  StoreProperty<int> get appPrimaryColor =>
+      property('appPrimaryColor', defaultValue: Colors.blueAccent.value);
 }
