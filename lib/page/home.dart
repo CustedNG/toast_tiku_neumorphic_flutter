@@ -252,7 +252,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   Widget _buildAllCourseCard() {
     return SizedBox(
-      height: _media.size.height * 0.3,
+      height: _media.size.height * 0.5,
       width: _media.size.width * 0.9,
       child: Consumer<TikuProvider>(builder: (_, tiku, __) {
         if (tiku.tikuIndex == null) {

@@ -107,6 +107,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
           errorBorder: InputBorder.none,
           border: InputBorder.none,
         ),
+        appBarTheme: AppBarTheme(color: NeumorphicTheme.baseColor(context)),
         primaryColor: NeumorphicTheme.baseColor(context));
   }
 
