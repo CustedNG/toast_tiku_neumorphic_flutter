@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
           /// 自定义夜间模式主题的参数
           darkTheme: NeumorphicThemeData(
               baseColor: const Color.fromRGBO(37, 37, 37, 1),
+              accentColor: primaryColor,
               shadowLightColor: primaryColor,
               intensity: 0.43),
 

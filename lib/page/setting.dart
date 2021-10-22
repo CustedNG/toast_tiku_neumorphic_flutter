@@ -67,7 +67,7 @@ class _SettingPageState extends State<SettingPage> {
             ),
             NeuIconBtn(
               icon: Icons.question_answer,
-              onTap: () => showSnackBarWithAction(context, '可在用户群用户群反馈问题、吹水',
+              onTap: () => showSnackBarWithAction(context, '可在用户群反馈问题、吹水',
                   '加入', () => openUrl(joinQQGroupUrl)),
             ),
           ],
