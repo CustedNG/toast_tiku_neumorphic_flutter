@@ -1,5 +1,7 @@
 import 'package:toast_tiku/model/ti.dart';
 
+/// 创建了一个名为[TiX]、基于[Ti]的拓展
+/// extension 相关，可在dart官网查看
 extension TiX on Ti {
   ///  返回题目类型的中文名
   String get typeChinese {

@@ -1,6 +1,34 @@
 # toast_tiku
 
 **Toast题库**的**新拟态**、**Flutter**版本.
+## 截屏
+<table>
+  <tr>
+    <td>
+	    <img width="200px" src="https://raw.githubusercontent.com/CustedNG/toast_tiku_neumorphic_flutter/main/screenshots/IMG_3211.PNG">
+    </td>
+    <td>
+	    <img width="200px" src="https://raw.githubusercontent.com/CustedNG/toast_tiku_neumorphic_flutter/main/screenshots/IMG_3212.PNG">
+    </td>
+    <td>
+	    <img width="200px" src="https://raw.githubusercontent.com/CustedNG/toast_tiku_neumorphic_flutter/main/screenshots/IMG_3213.PNG">
+    </td>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td>
+	    <img width="200px" src="https://raw.githubusercontent.com/CustedNG/toast_tiku_neumorphic_flutter/main/screenshots/IMG_3214.PNG">
+    </td>
+    <td>
+	    <img width="200px" src="https://raw.githubusercontent.com/CustedNG/toast_tiku_neumorphic_flutter/main/screenshots/IMG_3215.PNG">
+    <td>
+	    <img width="200px" src="https://raw.githubusercontent.com/CustedNG/toast_tiku_neumorphic_flutter/main/screenshots/IMG_3216.PNG">
+    </td>
+  </tr>
+</table>
 
 ## 使用
 **请使用`make.dart`进行运行、编译操作**
