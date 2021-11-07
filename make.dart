@@ -116,6 +116,34 @@ void flutterBuildAndroid(bool is32Bit) async {
       './release/${appName}_build_Arm${is32Bit ? "" : 64}.apk', true, is32Bit);
 }
 
+void flutterBuildWeb() async {
+  final startTime = DateTime.now();
+
+  final args = [
+    'build',
+    'web',
+  ];
+  print('Building with args: ${args.join(' ')}');
+  final buildResult = await Process.run('flutter', args, runInShell: true);
+  final exitCode = buildResult.exitCode;
+
+  if (exitCode == 0) {
+    print('Copying dir "tiku" to web build dir.');
+    final cpResult = await Process.run('cp', ['-r', 'tiku', 'build/web'], runInShell: true);
+    if (cpResult.exitCode != 0) {
+      print(cpResult.stderr.toString());
+      print('\nCopy failed with exit code ${cpResult.exitCode}');
+    } else {
+      print('Done.');
+    }
+  } else {
+    print(buildResult.stderr.toString());
+    print('\nBuild failed with exit code $exitCode');
+  }
+  final endTime = DateTime.now();
+  print('Spent time: ${endTime.difference(startTime).toString()}');
+}
+
 void main(List<String> args) async {
   if (args.isEmpty) {
     print('No action. Exit.');
@@ -137,6 +165,8 @@ void main(List<String> args) async {
           return flutterBuildAndroid(args.last == '32');
         } else if (args[1] == 'ios') {
           return flutterBuildIOS();
+        } else if (args[1] == 'web') {
+          return flutterBuildWeb();
         }
         print('unkonwn build arg: ${args[1]}');
       }

@@ -1,10 +1,10 @@
 ///App内所有固定的链接
 
 /// App后端地址
-const backendUrl = 'https://tiku.lolli.fun';
+const backendUrl = 'https://v2.custed.lolli.tech/';
 
 /// 题库资源地址
-const tikuResUrl = backendUrl + '/tiku';
+const tikuResUrl = backendUrl + 'res/tiku';
 
 /// 科目图标地址
 const courseImgUrl = tikuResUrl + '/img';
