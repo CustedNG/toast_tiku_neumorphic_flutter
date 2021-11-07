@@ -68,6 +68,14 @@ class _ExamingPageState extends State<ExamingPage>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
+    _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
+  }
+
+  /// 同上[didChangeDependencies]的注释
+  @override
+  void initState() {
+    super.initState();
+    _timerProvider = locator<TimerProvider>();
     _sheetController = SnappingSheetController();
     _controller = AnimationController(
       vsync: this,
@@ -77,14 +85,6 @@ class _ExamingPageState extends State<ExamingPage>
       begin: 0.0,
       end: 1.0,
     ).animate(_controller);
-    _bottomHeight = _media.size.height * 0.08 + _media.padding.bottom;
-  }
-
-  /// 同上[didChangeDependencies]的注释
-  @override
-  void initState() {
-    super.initState();
-    _timerProvider = locator<TimerProvider>();
   }
 
   /// 同上[didChangeDependencies]的注释
@@ -262,9 +262,10 @@ class _ExamingPageState extends State<ExamingPage>
     final textFields = [];
     for (int answerIdx = 0; answerIdx < ti.answer!.length; answerIdx++) {
       final initValue = _checkState[_index][answerIdx] as String;
+      final id = '$_index - ${answerIdx + 1}';
       textFields.add(NeuTextField(
-        key: UniqueKey(),
-        label: '$_index - ${answerIdx + 1}',
+        key: Key(id),
+        label: id,
         initValue: initValue,
         onChanged: (value) {
           _checkState[_index][answerIdx] = value;

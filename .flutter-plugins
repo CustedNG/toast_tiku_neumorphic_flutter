@@ -1,7 +1,7 @@
 # This is a generated file; do not edit or check into version control.
 countly_flutter=/Users/fengjunyuan/Downloads/flutter/.pub-cache/git/countly-sdk-flutter-bridge-dcb1f6084242a7b4b8e4edd4b180a42ad7f595ca/
-flutter_plugin_android_lifecycle=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.3/
-path_provider=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.5/
+flutter_plugin_android_lifecycle=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.4/
+path_provider=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.6/
 path_provider_linux=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.0/
 path_provider_macos=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.2/
 path_provider_windows=/Users/fengjunyuan/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.3/
