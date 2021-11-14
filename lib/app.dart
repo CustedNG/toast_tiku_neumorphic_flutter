@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
           darkTheme: NeumorphicThemeData(
               baseColor: const Color.fromRGBO(37, 37, 37, 1),
               accentColor: primaryColor,
+              variantColor: primaryColor.withOpacity(0.47),
               shadowLightColor: primaryColor,
               intensity: 0.43),
 
