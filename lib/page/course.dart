@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
@@ -83,12 +84,24 @@ class _CoursePageState extends State<CoursePage> {
     return SizedBox(
         height: _media.size.height * 0.844,
         width: _media.size.width,
-        child: ListView.builder(
-          itemCount: widget.data.length,
-          itemExtent: _media.size.height * 0.2,
-          itemBuilder: (BuildContext context, int idx) {
-            return _buildCardItem(idx);
-          },
+        child: AnimationLimiter(
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: widget.data.length,
+            itemExtent: _media.size.height * 0.2,
+            itemBuilder: (BuildContext context, int index) {
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(milliseconds: 375),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: _buildCardItem(index),
+                  ),
+                ),
+              );
+            },
+          ),
         ));
   }
 
@@ -109,7 +122,8 @@ class _CoursePageState extends State<CoursePage> {
               percent: doneTiCount / total,
               style: ProgressStyle(
                   border: NeumorphicBorder(
-                      color: Color(locator<SettingStore>().appPrimaryColor.fetch()!),)),
+                color: Color(locator<SettingStore>().appPrimaryColor.fetch()!),
+              )),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

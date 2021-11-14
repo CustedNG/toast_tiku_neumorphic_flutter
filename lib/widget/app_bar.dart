@@ -15,7 +15,10 @@ class NeuAppBar extends StatelessWidget {
     return Neumorphic(
       child: Padding(
           padding: EdgeInsets.fromLTRB(pad, pad + media.padding.top, pad, pad),
-          child: child),
+          child: SizedBox(
+            height: media.size.height * 0.08,
+            child: child,
+          )),
       style: const NeumorphicStyle(
           lightSource: LightSource.top,
           shadowLightColorEmboss: Colors.cyanAccent),

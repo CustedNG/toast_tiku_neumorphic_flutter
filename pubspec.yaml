@@ -30,6 +30,7 @@ dependencies:
       ref: master
   logging: ^1.0.2
   flutter_material_color_picker: ^1.1.0+2
+  flutter_staggered_animations: ^1.0.0
 
 
 dev_dependencies:

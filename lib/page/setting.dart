@@ -77,8 +77,9 @@ class _SettingPageState extends State<SettingPage> {
   Widget _buildMain() {
     return ConstrainedBox(
       constraints: BoxConstraints(
-          maxHeight: _media.size.height * 0.844, maxWidth: _media.size.width),
+          maxHeight: _media.size.height * 0.84, maxWidth: _media.size.width),
       child: ListView(
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.zero,
         children: [
           SizedBox(height: _media.size.height * 0.02),
