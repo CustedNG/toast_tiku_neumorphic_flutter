@@ -294,7 +294,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       return Colors.greenAccent;
     }
     if (_tis![_index].answer!.contains(value) &&
-        _checkState[_index].length == _tis![_index].answer!.length &&
+        _checkState[_index].length >= _tis![_index].answer!.length &&
         _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
