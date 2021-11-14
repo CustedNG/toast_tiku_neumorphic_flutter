@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           /// 自定义白天模式主题的参数
           theme: NeumorphicThemeData(
               accentColor: primaryColor,
+              variantColor: primaryColor.withOpacity(0.47),
               shadowLightColor: primaryColor,
               intensity: 0.33),
 

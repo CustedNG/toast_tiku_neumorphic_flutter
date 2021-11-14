@@ -13,4 +13,3 @@ class DynamicColor {
 
 /// 主文字颜色
 final mainTextColor = DynamicColor(Colors.black87, Colors.white70);
-final neuProgressColor = DynamicColor(Colors.black12, Colors.deepPurple);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/data/store/history.dart';
+import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
 import 'package:toast_tiku/page/favorite.dart';
@@ -95,7 +96,7 @@ class _CoursePageState extends State<CoursePage> {
   Widget _buildCardItem(int index) {
     final pad = _media.size.height * 0.037;
     final data = widget.data.content![index];
-    final total = data!.radio! + data.radio! + data.radio!;
+    final total = data!.radio! + data.decide! + data.fill! + data.multiple!;
     final doneTiCount = _historyStore.fetch(widget.data.id!, data.data!).length;
     return GestureDetector(
       child: NeuCard(
@@ -109,7 +110,7 @@ class _CoursePageState extends State<CoursePage> {
               percent: doneTiCount / total,
               style: ProgressStyle(
                   border: NeumorphicBorder(
-                      color: neuProgressColor.resolve(context))),
+                      color: Color(locator<SettingStore>().appPrimaryColor.fetch()!),)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
