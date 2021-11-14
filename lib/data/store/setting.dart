@@ -21,4 +21,8 @@ class SettingStore extends PersistentStore {
   /// 选下选项后，是否自动显示答案
   StoreProperty<bool> get autoDisplayAnswer =>
       property('autoDisplayAnswer', defaultValue: true);
+
+  /// 单元模式下，是否以前选择的选项（答案）
+  StoreProperty<bool> get saveAnswer =>
+      property('saveAnswer', defaultValue: false);
 }

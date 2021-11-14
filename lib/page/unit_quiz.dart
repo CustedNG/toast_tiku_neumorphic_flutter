@@ -51,6 +51,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   late double _bottomHeight;
   late List<int> _historyIdx;
+  late bool _saveAnswer;
 
   @override
   void initState() {
@@ -71,7 +72,15 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _historyProvider = context.read<HistoryProvider>();
     _tis = _tikuStore.fetch(widget.courseId, widget.unitFile);
     _index = 0;
-    _checkState = List.generate(_tis!.length, (_) => []);
+    _saveAnswer = _settingStore.saveAnswer.fetch()!;
+    final _checkStateHistory =
+        _historyStore.fetchCheckState(widget.courseId, widget.unitFile);
+    if (_checkStateHistory == null || !_saveAnswer) {
+      _checkState = List.generate(_tis!.length, (_) => []);
+    } else {
+      _checkState = _checkStateHistory;
+    }
+
     _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
   }
 
@@ -293,6 +302,10 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   void onPressed(int value) {
     _historyProvider.setLastViewed(widget.courseId, widget.unitFile);
+    if (_settingStore.saveAnswer.fetch()!) {
+      _historyStore.putCheckState(
+          widget.courseId, widget.unitFile, _checkState);
+    }
     if (!_historyIdx.contains(_index)) {
       _historyIdx.add(_index);
     }

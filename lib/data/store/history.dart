@@ -11,4 +11,12 @@ class HistoryStore extends PersistentStore {
   List<int> fetch(String courseId, String unitFile) {
     return box.get('$courseId-$unitFile', defaultValue: <int>[])!;
   }
+
+  void putCheckState(String courseId, String unitFile, List<List<int>> checkState) {
+    box.put('$courseId-$unitFile-checkState', checkState);
+  }
+
+  List<List<int>>? fetchCheckState(String courseId, String unitFile) {
+    return box.get('$courseId-$unitFile-checkState');
+  }
 }
