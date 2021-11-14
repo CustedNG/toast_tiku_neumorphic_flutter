@@ -307,16 +307,24 @@ class _ExamingPageState extends State<ExamingPage>
           ),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
-          ..._buildRadios(ti.options!),
+          ..._buildRadios(ti.options),
         ],
       ),
     );
   }
 
   /// 构建选择题具体的所有选项
-  List<Widget> _buildRadios(List<String?> options) {
+  List<Widget> _buildRadios(List<String?>? options) {
     final List<Widget> widgets = [];
     var idx = 0;
+    if (options == null) {
+      widgets.add(_buildRadio(0, '是'));
+      widgets.add(const SizedBox(
+        height: 13,
+      ));
+      widgets.add(_buildRadio(1, '否'));
+      return widgets;
+    }
     for (var option in options) {
       widgets.add(_buildRadio(idx, option!));
       widgets.add(const SizedBox(

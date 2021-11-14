@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 class Analysis {
   /// 后端URL
   static const _url = 'https://countly.xuty.cc';
+
   /// 依靠KEY，让后端知道是这个app
   static const _key = 'e8c747031e8bcd7bec293247e1b9ce7058ab6e16';
 

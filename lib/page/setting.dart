@@ -67,8 +67,8 @@ class _SettingPageState extends State<SettingPage> {
             ),
             NeuIconBtn(
               icon: Icons.question_answer,
-              onTap: () => showSnackBarWithAction(context, '可在用户群反馈问题、吹水',
-                  '加入', () => openUrl(joinQQGroupUrl)),
+              onTap: () => showSnackBarWithAction(
+                  context, '可在用户群反馈问题、吹水', '加入', () => openUrl(joinQQGroupUrl)),
             ),
           ],
         ));
@@ -99,6 +99,11 @@ class _SettingPageState extends State<SettingPage> {
         child: Column(
           children: [
             SettingItem(
+              title: '自动展示答案',
+              showArrow: false,
+              rightBtn: _buildSwitch(context, _store.autoDisplayAnswer),
+            ),
+            SettingItem(
               title: '自动更新题库',
               showArrow: false,
               rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
@@ -108,12 +113,12 @@ class _SettingPageState extends State<SettingPage> {
               String display;
               if (app.newestBuild != null) {
                 if (app.newestBuild! > BuildData.build) {
-                  display = '发现新版本：${app.newestBuild}';
+                  display = '发现App新版本：${app.newestBuild}';
                 } else {
-                  display = '当前版本：${BuildData.build}，已是最新';
+                  display = 'App当前版本：${BuildData.build}，已是最新';
                 }
               } else {
-                display = '当前版本：${BuildData.build}，点击检查更新';
+                display = 'App当前版本：${BuildData.build}，点击检查更新';
               }
               return SettingItem(
                   title: display, onTap: () => doUpdate(context, force: true));

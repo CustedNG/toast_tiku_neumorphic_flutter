@@ -129,7 +129,8 @@ void flutterBuildWeb() async {
 
   if (exitCode == 0) {
     print('Copying dir "tiku" to web build dir.');
-    final cpResult = await Process.run('cp', ['-r', 'tiku', 'build/web'], runInShell: true);
+    final cpResult =
+        await Process.run('cp', ['-r', 'tiku', 'build/web'], runInShell: true);
     if (cpResult.exitCode != 0) {
       print(cpResult.stderr.toString());
       print('\nCopy failed with exit code ${cpResult.exitCode}');

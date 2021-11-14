@@ -119,7 +119,8 @@ class _GrabSheetState extends State<GrabSheet> {
   Color? judgeColor(int idx) {
     if (widget.showColor && widget.checkState[idx].isNotEmpty) {
       if (widget.tis[idx].answer!
-          .every((element) => widget.checkState[idx].contains(element))) {
+              .every((element) => widget.checkState[idx].contains(element)) &&
+          widget.tis[idx].answer!.length == widget.checkState[idx].length) {
         return Colors.greenAccent;
       }
       return Colors.redAccent;

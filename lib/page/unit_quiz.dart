@@ -7,6 +7,7 @@ import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/history.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
 import 'package:toast_tiku/data/store/history.dart';
+import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
@@ -40,6 +41,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   late FavoriteStore _favoriteStore;
   late HistoryStore _historyStore;
   late HistoryProvider _historyProvider;
+  late SettingStore _settingStore;
   late List<Ti>? _tis;
   late int _index;
   late List<List<int>> _checkState;
@@ -65,6 +67,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _tikuStore = locator<TikuStore>();
     _favoriteStore = locator<FavoriteStore>();
     _historyStore = locator<HistoryStore>();
+    _settingStore = locator<SettingStore>();
     _historyProvider = context.read<HistoryProvider>();
     _tis = _tikuStore.fetch(widget.courseId, widget.unitFile);
     _index = 0;
@@ -236,15 +239,23 @@ class _UnitQuizPageState extends State<UnitQuizPage>
           ),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
-          ..._buildRadios(ti.options!),
+          ..._buildRadios(ti.options),
         ],
       ),
     );
   }
 
-  List<Widget> _buildRadios(List<String?> options) {
+  List<Widget> _buildRadios(List<String?>? options) {
     final List<Widget> widgets = [];
     var idx = 0;
+    if (options == null) {
+      widgets.add(_buildRadio(0, '是'));
+      widgets.add(const SizedBox(
+        height: 13,
+      ));
+      widgets.add(_buildRadio(1, '否'));
+      return widgets;
+    }
     for (var option in options) {
       widgets.add(_buildRadio(idx, option!));
       widgets.add(const SizedBox(
@@ -271,6 +282,11 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   Color? judgeColor(int value) {
     if (_checkState[_index].contains(value)) {
       if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
+      return Colors.greenAccent;
+    }
+    if (_tis![_index].answer!.contains(value) &&
+        _checkState[_index].length == _tis![_index].answer!.length &&
+        _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
   }

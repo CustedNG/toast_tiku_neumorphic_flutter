@@ -4,6 +4,7 @@ import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
+import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
@@ -30,6 +31,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   /// 注释内容大致与[ing.dart]文件相似，请跳转查看
   late MediaQueryData _media;
   late FavoriteStore _favoriteStore;
+  late SettingStore _settingStore;
   late List<Ti>? _tis;
   late int _index;
   late List<List<int>> _checkState;
@@ -53,6 +55,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       end: 1.0,
     ).animate(_animationController);
     _favoriteStore = locator<FavoriteStore>();
+    _settingStore = locator<SettingStore>();
     _tis = _favoriteStore.fetch(widget.courseId);
     _index = 0;
     _checkState = List.generate(_tis!.length, (_) => []);
@@ -242,15 +245,23 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
           ),
           NeuText(text: ti.question!, align: TextAlign.start),
           SizedBox(height: _media.size.height * 0.05),
-          ..._buildRadios(ti.options!),
+          ..._buildRadios(ti.options),
         ],
       ),
     );
   }
 
-  List<Widget> _buildRadios(List<String?> options) {
+  List<Widget> _buildRadios(List<String?>? options) {
     final List<Widget> widgets = [];
     var idx = 0;
+    if (options == null) {
+      widgets.add(_buildRadio(0, '是'));
+      widgets.add(const SizedBox(
+        height: 13,
+      ));
+      widgets.add(_buildRadio(1, '否'));
+      return widgets;
+    }
     for (var option in options) {
       widgets.add(_buildRadio(idx, option!));
       widgets.add(const SizedBox(
@@ -277,6 +288,11 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   Color? judgeColor(int value) {
     if (_checkState[_index].contains(value)) {
       if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
+      return Colors.greenAccent;
+    }
+    if (_tis![_index].answer!.contains(value) &&
+        _checkState[_index].length == _tis![_index].answer!.length &&
+        _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
   }
