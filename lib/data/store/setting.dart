@@ -25,4 +25,8 @@ class SettingStore extends PersistentStore {
   /// 单元模式下，是否以前选择的选项（答案）
   StoreProperty<bool> get saveAnswer =>
       property('saveAnswer', defaultValue: false);
+
+  /// 单元模式下，选择正确时，自动跳转下一题
+  StoreProperty<bool> get autoSlide2NextWhenCorrect =>
+      property('autoSlide2NextWhenCorrect', defaultValue: true);
 }

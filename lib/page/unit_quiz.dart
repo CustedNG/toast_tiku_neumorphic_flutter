@@ -52,6 +52,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   late double _bottomHeight;
   late List<int> _historyIdx;
   late bool _saveAnswer;
+  late bool _autoSlide2NextWhenCorrect;
 
   @override
   void initState() {
@@ -73,6 +74,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _tis = _tikuStore.fetch(widget.courseId, widget.unitFile);
     _index = 0;
     _saveAnswer = _settingStore.saveAnswer.fetch()!;
+    _autoSlide2NextWhenCorrect =
+        _settingStore.autoSlide2NextWhenCorrect.fetch()!;
     final _checkStateHistory =
         _historyStore.fetchCheckState(widget.courseId, widget.unitFile);
     if (_checkStateHistory == null || !_saveAnswer) {
@@ -318,5 +321,15 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     }
     _historyStore.put(widget.courseId, widget.unitFile, _historyIdx);
     setState(() {});
+
+    /// 答对自动跳转下一题
+    Future.delayed(const Duration(milliseconds: 377), () {
+      if (_checkState[_index]
+              .every((element) => _tis![_index].answer!.contains(element)) &&
+          _autoSlide2NextWhenCorrect &&
+          _checkState[_index].length == _tis![_index].answer!.length) {
+        onSlide(false, true);
+      }
+    });
   }
 }

@@ -105,6 +105,11 @@ class _SettingPageState extends State<SettingPage> {
               rightBtn: _buildSwitch(context, _store.autoDisplayAnswer),
             ),
             SettingItem(
+              title: '答对自动跳转下一题',
+              showArrow: false,
+              rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
+            ),
+            SettingItem(
               title: '显示历史选择的选项',
               showArrow: false,
               rightBtn: _buildSwitch(context, _store.saveAnswer),

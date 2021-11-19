@@ -46,10 +46,25 @@ class GrabSheet extends StatefulWidget {
 class _GrabSheetState extends State<GrabSheet> {
   late MediaQueryData _media;
 
+
+  late final List<Ti> single;
+  late final List<Ti> multiple;
+  late final List<Ti> fill;
+  late final List<Ti> judge;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    single = widget.tis.where((element) => element.type == 0).toList();
+    multiple = widget.tis.where((element) => element.type == 1).toList();
+    fill = widget.tis.where((element) => element.type == 2).toList();
+    judge = widget.tis.where((element) => element.type == 3).toList();
   }
 
   @override
@@ -84,34 +99,52 @@ class _GrabSheetState extends State<GrabSheet> {
 
   SnappingSheetContent _buildSheet() {
     return SnappingSheetContent(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: _media.size.height * 0.18),
-        child: Container(
+      child: Container(
           color: NeumorphicTheme.baseColor(context),
-          child: GridView.builder(
-              padding:
-                  EdgeInsets.symmetric(horizontal: _media.size.width * 0.05),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, childAspectRatio: 2),
-              itemCount: widget.tis.length,
-              itemBuilder: (context, idx) {
-                return Padding(
-                  padding: const EdgeInsets.all(7),
-                  child: NeuBtn(
-                    style: NeumorphicStyle(
-                        depth: widget.checkState[idx].isEmpty ? null : -10),
-                    margin: EdgeInsets.zero,
-                    padding: EdgeInsets.zero,
-                    child: Container(
-                      color: judgeColor(idx),
-                      child: Center(child: NeuText(text: (idx + 1).toString())),
-                    ),
-                    onTap: () => widget.onTap(idx),
-                  ),
-                );
-              }),
-        ),
-      ),
+          child: ListView(
+            children: [
+              _buildEachTypeGrid(0, '单选', single, 0),
+              _buildEachTypeGrid(1, '多选', multiple, single.length),
+              _buildEachTypeGrid(2, '填空', fill, single.length + multiple.length),
+              _buildEachTypeGrid(3, '判断', judge, single.length + multiple.length + fill.length),
+              const SizedBox(height: 37),
+            ],
+          ),
+      ));
+  }
+
+  Widget _buildEachTypeGrid(int typeInt, String type, List<Ti> tis, int prefixIdx) {
+    if (tis.isEmpty) {
+      return const SizedBox();
+    }
+    return Column(
+      children: [
+        const SizedBox(height: 7,),
+        NeuText(text: type),
+        const SizedBox(height: 13,),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: _media.size.width * 0.05),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4, childAspectRatio: 2),
+        itemCount: tis.length,
+        itemBuilder: (context, idx) {
+          return Padding(
+            padding: const EdgeInsets.all(7),
+            child: NeuBtn(
+              style: NeumorphicStyle(
+                  depth: widget.checkState[idx].isEmpty ? null : -10),
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              child: Container(
+                color: judgeColor(idx),
+                child: Center(child: NeuText(text: (idx + 1).toString())),
+              ),
+              onTap: () => widget.onTap(prefixIdx + idx),
+            ),
+          );
+        })]
     );
   }
 
