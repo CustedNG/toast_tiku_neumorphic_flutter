@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:logging/logging.dart';
+import 'package:r_upgrade/r_upgrade.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/locator.dart';
@@ -19,18 +20,16 @@ Future<void> doUpdate(BuildContext context, {bool force = false}) async {
   /// [AppProvider]设置最新版本号
   locator<AppProvider>().setNewestBuild(update.newest);
 
-  /// 如果不是强制更新，且版本不是最新，则跳过更新
-  if (!force && update.newest <= BuildData.build) {
-    logger.info('Update ignored due to current: ${BuildData.build}, '
-        'update: ${update.newest}');
-    return;
-  }
-  logger.fine('Update available: ${update.newest}');
-
   /// 显示Snackbar，提示有更新
   showSnackBarWithAction(
       context,
       '${BuildData.name}有更新啦，Ver：${update.newest}\n${update.changelog}',
-      '更新',
-      () => openUrl(Platform.isAndroid ? update.android : update.ios));
+      '更新', () async {
+    if (Platform.isAndroid) {
+      await RUpgrade.upgrade(update.android,
+          fileName: update.android.split('/').last, isAutoRequestInstall: true);
+    } else if (Platform.isIOS) {
+      await RUpgrade.upgradeFromAppStore(update.ios.split('id').last);
+    }
+  });
 }
