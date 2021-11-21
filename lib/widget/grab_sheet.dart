@@ -46,7 +46,6 @@ class GrabSheet extends StatefulWidget {
 class _GrabSheetState extends State<GrabSheet> {
   late MediaQueryData _media;
 
-
   late final List<Ti> single;
   late final List<Ti> multiple;
   late final List<Ti> fill;
@@ -99,53 +98,59 @@ class _GrabSheetState extends State<GrabSheet> {
 
   SnappingSheetContent _buildSheet() {
     return SnappingSheetContent(
-      child: Container(
-          color: NeumorphicTheme.baseColor(context),
-          child: ListView(
-            children: [
-              _buildEachTypeGrid(0, '单选', single, 0),
-              _buildEachTypeGrid(1, '多选', multiple, single.length),
-              _buildEachTypeGrid(2, '填空', fill, single.length + multiple.length),
-              _buildEachTypeGrid(3, '判断', judge, single.length + multiple.length + fill.length),
-              const SizedBox(height: 37),
-            ],
-          ),
-      ));
+        child: Container(
+      color: NeumorphicTheme.baseColor(context),
+      child: ListView(
+        children: [
+          _buildEachTypeGrid(0, '单选', single, 0),
+          _buildEachTypeGrid(1, '多选', multiple, single.length),
+          _buildEachTypeGrid(2, '填空', fill, single.length + multiple.length),
+          _buildEachTypeGrid(
+              3, '判断', judge, single.length + multiple.length + fill.length),
+          const SizedBox(height: 37),
+        ],
+      ),
+    ));
   }
 
-  Widget _buildEachTypeGrid(int typeInt, String type, List<Ti> tis, int prefixIdx) {
+  Widget _buildEachTypeGrid(
+      int typeInt, String type, List<Ti> tis, int prefixIdx) {
     if (tis.isEmpty) {
       return const SizedBox();
     }
-    return Column(
-      children: [
-        const SizedBox(height: 7,),
-        NeuText(text: type),
-        const SizedBox(height: 13,),
-        GridView.builder(
+    return Column(children: [
+      const SizedBox(
+        height: 7,
+      ),
+      NeuText(text: type),
+      const SizedBox(
+        height: 13,
+      ),
+      GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: _media.size.width * 0.05),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, childAspectRatio: 2),
-        itemCount: tis.length,
-        itemBuilder: (context, idx) {
-          return Padding(
-            padding: const EdgeInsets.all(7),
-            child: NeuBtn(
-              style: NeumorphicStyle(
-                  depth: widget.checkState[idx].isEmpty ? null : -10),
-              margin: EdgeInsets.zero,
-              padding: EdgeInsets.zero,
-              child: Container(
-                color: judgeColor(idx),
-                child: Center(child: NeuText(text: (idx + 1).toString())),
+          padding: EdgeInsets.symmetric(horizontal: _media.size.width * 0.05),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4, childAspectRatio: 2),
+          itemCount: tis.length,
+          itemBuilder: (context, idx) {
+            int currentIdx = prefixIdx + idx;
+            return Padding(
+              padding: const EdgeInsets.all(7),
+              child: NeuBtn(
+                style: NeumorphicStyle(
+                    depth: widget.checkState[currentIdx].isEmpty ? null : -10),
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.zero,
+                child: Container(
+                  color: judgeColor(currentIdx),
+                  child: Center(child: NeuText(text: (idx + 1).toString())),
+                ),
+                onTap: () => widget.onTap(currentIdx),
               ),
-              onTap: () => widget.onTap(prefixIdx + idx),
-            ),
-          );
-        })]
-    );
+            );
+          })
+    ]);
   }
 
   /// 是否显示颜色
