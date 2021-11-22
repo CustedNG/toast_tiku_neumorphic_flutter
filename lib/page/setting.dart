@@ -132,7 +132,7 @@ class _SettingPageState extends State<SettingPage> {
                 display = 'App当前版本：${BuildData.build}，点击检查更新';
               }
               return SettingItem(
-                  title: display, onTap: () => doUpdate(context, force: true));
+                  title: display, onTap: () => doUpdate(context));
             })
           ],
         ));
