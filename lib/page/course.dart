@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toast_tiku/core/route.dart';
+import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
@@ -82,7 +83,7 @@ class _CoursePageState extends State<CoursePage> {
 
   Widget _buildSelectCard() {
     return SizedBox(
-        height: _media.size.height * 0.844,
+        height: getRemainHeight(_media),
         width: _media.size.width,
         child: AnimationLimiter(
           child: ListView.builder(

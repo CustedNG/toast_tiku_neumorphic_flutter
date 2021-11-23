@@ -11,14 +11,14 @@ class NeuAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pad = media.size.width * 0.04;
     return Neumorphic(
-      child: Padding(
-          padding: EdgeInsets.fromLTRB(pad, pad + media.padding.top, pad, pad),
-          child: SizedBox(
-            height: media.size.height * 0.08,
-            child: child,
-          )),
+      child: Column(
+        children: [SizedBox(height: media.padding.top,), SizedBox(
+            height: media.size.height * 0.11,
+            width: media.size.width,
+            child: Padding(padding: EdgeInsets.symmetric(horizontal: media.size.width * 0.04), child: child,),
+          )],
+      ),
       style: const NeumorphicStyle(
           lightSource: LightSource.top,
           shadowLightColorEmboss: Colors.cyanAccent),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/page/home.dart';
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setSystemBottomNavigationBarColor(context);
     /// 返回了一个可监听的、范型为bool的构建器。[locator<SettingStore>().appPrimaryColor]的所有变化，都会使视图刷新
     return ValueListenableBuilder<int>(
       valueListenable: locator<SettingStore>().appPrimaryColor.listenable(),

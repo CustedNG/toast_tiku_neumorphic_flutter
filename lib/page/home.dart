@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                   _buildHead(),
                   const TikuUpdateProgress(),
                   SizedBox(
-                    height: _media.size.height * 0.844,
+                    height: getRemainHeight(_media),
                     child: ListView(
                       padding: EdgeInsets.zero,
                       physics: const BouncingScrollPhysics(),

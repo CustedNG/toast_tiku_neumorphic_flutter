@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
@@ -75,3 +77,21 @@ Future<T?> showNeuDialog<T>(
         );
       });
 }
+
+void setSystemBottomNavigationBarColor(BuildContext context) {
+  if (Platform.isAndroid) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
+        overlays: [SystemUiOverlay.top]); // Enable Edge-to-Edge on Android 10+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor:
+          Colors.transparent, // Setting a transparent navigation bar color
+      systemNavigationBarContrastEnforced: true, // Default
+      systemNavigationBarIconBrightness: isDarkMode(context)
+          ? Brightness.light
+          : Brightness.dark, // This defines the color of the scrim
+    ));
+  }
+}
+
+double getRemainHeight(MediaQueryData media) =>
+    media.size.height * 0.89 - media.padding.top - media.padding.bottom;
