@@ -131,10 +131,10 @@ class _SettingPageState extends State<SettingPage> {
       ),
       SettingItem(
         title: '答对自动跳转下一题',
-        rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
+        rightBtn: _buildSwitch(context, _store.autoSlide2NextWhenCorrect),
       ),
       SettingItem(
-        title: '显示历史选择的选项',
+        title: '显示做题历史记录',
         rightBtn: _buildSwitch(context, _store.saveAnswer),
       ),
       Consumer<TikuProvider>(builder: (_, tiku, __) {

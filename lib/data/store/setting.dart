@@ -6,14 +6,6 @@ class SettingStore extends PersistentStore {
   StoreProperty<bool> get receiveNotification =>
       property('notify', defaultValue: true);
 
-  /// 是否自动更新题库数据
-  StoreProperty<bool> get autoUpdateTiku =>
-      property('autoUpdateTiku', defaultValue: true);
-
-  /// 第一次使用时的提醒，例如做题界面左右滑动切换题目
-  StoreProperty<bool> get firstNotify =>
-      property('firstNotify', defaultValue: false);
-
   /// App强调色
   StoreProperty<int> get appPrimaryColor =>
       property('appPrimaryColor', defaultValue: Colors.blueAccent.value);
