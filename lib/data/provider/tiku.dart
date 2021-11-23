@@ -74,7 +74,12 @@ class TikuProvider extends BusyProvider {
         /// 获取每个章节的数据
         final unitData =
             await AppService().getUnitTi(index.id!, content!.data!);
-        _store.put(index.id!, content.data!, unitData!);
+        if (unitData == null) {
+          logger.warning('get unit data failed');
+          continue;
+        }
+        unitData.sort((a, b) => a.type!.compareTo(b.type!));
+        _store.put(index.id!, content.data!, unitData);
 
         /// 更新进度
         _downloadProgress = idx++ / length;

@@ -94,4 +94,4 @@ void setSystemBottomNavigationBarColor(BuildContext context) {
 }
 
 double getRemainHeight(MediaQueryData media) =>
-    media.size.height * 0.89 - media.padding.top - media.padding.bottom;
+    media.size.height * 0.89 - media.padding.top - media.padding.bottom - 3;

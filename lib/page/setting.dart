@@ -141,14 +141,14 @@ class _SettingPageState extends State<SettingPage> {
         if (tiku.isBusy) {
           return SettingItem(
             title: '题库数据正在更新',
-            rightBtn: Text('${tiku.downloadProgress}%'),
+            rightBtn: NeuText(text: (tiku.downloadProgress * 100).toStringAsFixed(2) + '%'),
           );
         }
 
         /// 不忙，下载完成，则显示空视图
         return SettingItem(
           title: '题库数据已是最新',
-          rightBtn: Text(tiku.indexVersion),
+          rightBtn: NeuText(text: tiku.indexVersion),
         );
       }),
     ]);

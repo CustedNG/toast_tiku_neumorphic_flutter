@@ -44,6 +44,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   late SettingStore _settingStore;
   late List<Ti>? _tis;
   late int _index;
+  // TODO: 使用hash作为id，储存题目历史选项
   late List<List<int>> _checkState;
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -72,6 +73,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _settingStore = locator<SettingStore>();
     _historyProvider = context.read<HistoryProvider>();
     _tis = _tikuStore.fetch(widget.courseId, widget.unitFile);
+    if (_tis != null) {
+      _tis!.sort((a, b) => a.type!.compareTo(b.type!));
+    }
     _saveAnswer = _settingStore.saveAnswer.fetch()!;
     _autoSlide2NextWhenCorrect =
         _settingStore.autoSlide2NextWhenCorrect.fetch()!;

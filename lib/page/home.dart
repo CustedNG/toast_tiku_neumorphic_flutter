@@ -126,9 +126,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Widget _buildNotifyCard() {
     final content = _buildScrollCard();
     return SizedBox(
-      height: _media.size.height * 0.27,
+      height: _media.size.height * 0.29,
       child: ListWheelScrollView.useDelegate(
-        itemExtent: _media.size.height * 0.25,
+        itemExtent: _media.size.height * 0.27,
         diameterRatio: 10,
         controller: _fixedExtentScrollController,
         physics:
