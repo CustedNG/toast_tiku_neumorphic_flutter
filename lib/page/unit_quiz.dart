@@ -72,7 +72,6 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _settingStore = locator<SettingStore>();
     _historyProvider = context.read<HistoryProvider>();
     _tis = _tikuStore.fetch(widget.courseId, widget.unitFile);
-    _index = 0;
     _saveAnswer = _settingStore.saveAnswer.fetch()!;
     _autoSlide2NextWhenCorrect =
         _settingStore.autoSlide2NextWhenCorrect.fetch()!;
@@ -85,6 +84,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     }
 
     _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
+    _historyIdx.sort((a, b) => a - b);
+    _index = _historyIdx.isEmpty ? 0 : _historyIdx.last;
   }
 
   @override

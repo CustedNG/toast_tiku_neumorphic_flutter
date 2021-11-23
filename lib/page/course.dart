@@ -4,7 +4,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/history.dart';
-import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
 import 'package:toast_tiku/page/favorite.dart';
