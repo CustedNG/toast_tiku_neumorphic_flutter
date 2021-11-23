@@ -13,7 +13,7 @@ class HistoryStore extends PersistentStore {
   }
 
   void putCheckState(
-      String courseId, String unitFile, List<List<int>> checkState) {
+      String courseId, String unitFile, List<List<int>>? checkState) {
     box.put('$courseId-$unitFile-checkState', checkState);
   }
 

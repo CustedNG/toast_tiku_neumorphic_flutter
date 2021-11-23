@@ -6,6 +6,7 @@ import 'package:toast_tiku/core/persistant_store.dart';
 import 'package:toast_tiku/core/update.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/app.dart';
+import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/res/build_data.dart';
@@ -84,13 +85,14 @@ class _SettingPageState extends State<SettingPage> {
         children: [
           SizedBox(height: _media.size.height * 0.02),
           const LogoCard(),
-          _buildSetting()
+          _buildTikuSetting(),
+          _buildAppSetting()
         ],
       ),
     );
   }
 
-  Widget _buildSetting() {
+  Widget _buildSettingCard(List<Widget> children) {
     return NeuCard(
         padding: EdgeInsets.all(_media.size.width * 0.06),
         margin: EdgeInsets.zero,
@@ -98,52 +100,66 @@ class _SettingPageState extends State<SettingPage> {
             boxShape: NeumorphicBoxShape.roundRect(
                 const BorderRadius.all(Radius.circular(17)))),
         child: Column(
-          children: [
-            SettingItem(
-              title: '自动展示答案',
-              showArrow: false,
-              rightBtn: _buildSwitch(context, _store.autoDisplayAnswer),
-            ),
-            SettingItem(
-              title: '答对自动跳转下一题',
-              showArrow: false,
-              rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
-            ),
-            SettingItem(
-              title: '显示历史选择的选项',
-              showArrow: false,
-              rightBtn: _buildSwitch(context, _store.saveAnswer),
-            ),
-            SettingItem(
-              title: '自动更新题库',
-              showArrow: false,
-              rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
-            ),
-            _buildAppColorPreview(),
-            Consumer<AppProvider>(builder: (_, app, __) {
-              String display;
-              if (app.newestBuild != null) {
-                if (app.newestBuild! > BuildData.build) {
-                  display = '发现App新版本：${app.newestBuild}';
-                } else {
-                  display = 'App当前版本：${BuildData.build}，已是最新';
-                }
-              } else {
-                display = 'App当前版本：${BuildData.build}，点击检查更新';
-              }
-              return SettingItem(
-                  title: display, onTap: () => doUpdate(context));
-            })
-          ],
+          children: children,
         ));
   }
 
-  Widget _buildAppColorPreview() {
+  Widget _buildAppSetting() {
+    return _buildSettingCard([
+      _buildAppColorSetting(),
+      Consumer<AppProvider>(builder: (_, app, __) {
+        String display;
+        if (app.newestBuild != null) {
+          if (app.newestBuild! > BuildData.build) {
+            display = '发现App新版本：${app.newestBuild}';
+          } else {
+            display = 'App当前版本：${BuildData.build}，已是最新';
+          }
+        } else {
+          display = 'App当前版本：${BuildData.build}，点击检查更新';
+        }
+        return SettingItem(title: display, onTap: () => doUpdate(context));
+      })
+    ]);
+  }
+
+  Widget _buildTikuSetting() {
+    return _buildSettingCard([
+      SettingItem(
+        title: '自动展示答案',
+        rightBtn: _buildSwitch(context, _store.autoDisplayAnswer),
+      ),
+      SettingItem(
+        title: '答对自动跳转下一题',
+        rightBtn: _buildSwitch(context, _store.autoUpdateTiku),
+      ),
+      SettingItem(
+        title: '显示历史选择的选项',
+        rightBtn: _buildSwitch(context, _store.saveAnswer),
+      ),
+      Consumer<TikuProvider>(builder: (_, tiku, __) {
+        if (tiku.isBusy) {
+          return SettingItem(
+            title: '题库数据正在更新',
+            rightBtn: Text('${tiku.downloadProgress}%'),
+          );
+        }
+
+        /// 不忙，下载完成，则显示空视图
+        return SettingItem(
+          title: '题库数据已是最新',
+          rightBtn: Text(tiku.indexVersion),
+        );
+      }),
+    ]);
+  }
+
+  Widget _buildAppColorSetting() {
     final pColor = primaryColor;
     return SizedBox(
       width: _media.size.width * 0.8,
       child: ExpansionTile(
-          tilePadding: const EdgeInsets.only(left: 7.7, right: 7.7),
+          tilePadding: const EdgeInsets.only(left: 4.7, right: 7.7),
           childrenPadding: EdgeInsets.zero,
           children: [
             _buildAppColorPicker(pColor),

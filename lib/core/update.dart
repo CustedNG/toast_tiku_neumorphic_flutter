@@ -12,7 +12,7 @@ import 'package:toast_tiku/service/app.dart';
 /// 设置Logger名称
 final logger = Logger('UPDATE');
 
-/// 开始尝试更新, [force]是否强制更新
+/// 开始尝试更新
 Future<void> doUpdate(BuildContext context) async {
   /// 调用[AppService.getUpdate()]，开始检查更新
   final update = await locator<AppService>().getUpdate();
@@ -34,7 +34,8 @@ Future<void> doUpdate(BuildContext context) async {
       '${BuildData.name}有更新啦，Ver：${update.newest}\n${update.changelog}',
       '更新', () async {
     if (Platform.isAndroid) {
-      await RUpgrade.upgrade(update.android, fileName: update.android.split('/').last, isAutoRequestInstall: true);
+      await RUpgrade.upgrade(update.android,
+          fileName: update.android.split('/').last, isAutoRequestInstall: true);
     } else if (Platform.isIOS) {
       await RUpgrade.upgradeFromAppStore(update.ios.split('id').last);
     }

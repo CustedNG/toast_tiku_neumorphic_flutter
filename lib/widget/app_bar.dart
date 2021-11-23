@@ -13,11 +13,20 @@ class NeuAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Neumorphic(
       child: Column(
-        children: [SizedBox(height: media.padding.top,), SizedBox(
+        children: [
+          SizedBox(
+            height: media.padding.top,
+          ),
+          SizedBox(
             height: media.size.height * 0.11,
             width: media.size.width,
-            child: Padding(padding: EdgeInsets.symmetric(horizontal: media.size.width * 0.04), child: child,),
-          )],
+            child: Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: media.size.width * 0.04),
+              child: child,
+            ),
+          )
+        ],
       ),
       style: const NeumorphicStyle(
           lightSource: LightSource.top,

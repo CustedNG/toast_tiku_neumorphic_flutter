@@ -72,7 +72,7 @@ class SettingItem extends StatelessWidget {
                           contentStyle ?? NeumorphicTextStyle(fontSize: 14.0)),
                 ),
               ),
-              showArrow
+              showArrow && rightBtn == null
                   ? NeumorphicIcon(
                       Icons.arrow_forward_ios,
                       style: NeumorphicStyle(

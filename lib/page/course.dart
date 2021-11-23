@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/history.dart';
@@ -60,23 +59,48 @@ class _CoursePageState extends State<CoursePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
+            Row(
+              children: [
+                NeuIconBtn(
+                  icon: Icons.arrow_back,
+                  onTap: () => Navigator.of(context).pop(),
+                ),
+                const SizedBox(width: 13),
+                SizedBox(
+                    width: _media.size.width * 0.3,
+                    child: Hero(
+                        transitionOnUserGestures: true,
+                        tag: 'home_all_course_${widget.data.id}',
+                        child: NeuText(
+                          text: widget.data.chinese!,
+                          align: TextAlign.left,
+                        ))),
+              ],
             ),
-            SizedBox(
-                width: _media.size.width * 0.5,
-                child: Hero(
-                    transitionOnUserGestures: true,
-                    tag: 'home_all_course_${widget.data.id}',
-                    child: NeuText(text: widget.data.chinese!))),
-            NeuIconBtn(
-              icon: Icons.favorite,
-              onTap: () => AppRoute(UnitFavoritePage(
-                courseId: widget.data.id!,
-                courseName: widget.data.chinese!,
-              )).go(context),
-            )
+            Row(
+              children: [
+                NeuIconBtn(
+                  icon: Icons.favorite_outline,
+                  onTap: () => AppRoute(UnitFavoritePage(
+                    courseId: widget.data.id!,
+                    courseName: widget.data.chinese!,
+                  )).go(context),
+                ),
+                NeuIconBtn(
+                    icon: Icons.delete_outlined,
+                    onTap: () => showSnackBarWithAction(
+                            context,
+                            '是否删除${widget.data.chinese}所有的做题记录？\n请注意，操作无法撤回！',
+                            '确认', () {
+                          final courseId = widget.data.id ?? '';
+                          for (var unit in widget.data.content!) {
+                            final unitId = unit!.data ?? '';
+                            _historyStore.put(courseId, unitId, []);
+                            _historyStore.putCheckState(courseId, unitId, null);
+                          }
+                        }))
+              ],
+            ),
           ],
         ));
   }
@@ -85,24 +109,13 @@ class _CoursePageState extends State<CoursePage> {
     return SizedBox(
         height: getRemainHeight(_media),
         width: _media.size.width,
-        child: AnimationLimiter(
-          child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: widget.data.length,
-            itemExtent: _media.size.height * 0.2,
-            itemBuilder: (BuildContext context, int index) {
-              return AnimationConfiguration.staggeredList(
-                position: index,
-                duration: const Duration(milliseconds: 375),
-                child: SlideAnimation(
-                  verticalOffset: 50.0,
-                  child: FadeInAnimation(
-                    child: _buildCardItem(index),
-                  ),
-                ),
-              );
-            },
-          ),
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: widget.data.length,
+          itemExtent: _media.size.height * 0.2,
+          itemBuilder: (BuildContext context, int index) {
+            return _buildCardItem(index);
+          },
         ));
   }
 

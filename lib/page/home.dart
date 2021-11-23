@@ -4,7 +4,6 @@ import 'dart:math' show Random;
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/analysis.dart';
 import 'package:toast_tiku/core/build_mode.dart';
@@ -76,37 +75,24 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: NeumorphicTheme.baseColor(context),
-        body: SingleChildScrollView(
-          child: AnimationLimiter(
-            child: Column(
-              children: AnimationConfiguration.toStaggeredList(
-                duration: const Duration(milliseconds: 375),
-                childAnimationBuilder: (widget) => SlideAnimation(
-                  verticalOffset: 50.0,
-                  child: FadeInAnimation(
-                    child: widget,
-                  ),
-                ),
+        body: Column(
+          children: [
+            _buildHead(),
+            const TikuUpdateProgress(),
+            SizedBox(
+              height: getRemainHeight(_media),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                physics: const BouncingScrollPhysics(),
                 children: [
-                  _buildHead(),
-                  const TikuUpdateProgress(),
-                  SizedBox(
-                    height: getRemainHeight(_media),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      physics: const BouncingScrollPhysics(),
-                      children: [
-                        _buildNotifyCard(),
-                        _buildResumeCard(),
-                        SizedBox(height: _media.size.height * 0.01),
-                        _buildAllCourseCard(),
-                      ],
-                    ),
-                  )
+                  _buildNotifyCard(),
+                  _buildResumeCard(),
+                  SizedBox(height: _media.size.height * 0.01),
+                  _buildAllCourseCard(),
                 ],
               ),
-            ),
-          ),
+            )
+          ],
         ));
   }
 
