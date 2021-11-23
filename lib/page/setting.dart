@@ -9,6 +9,7 @@ import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/res/build_data.dart';
+import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/logo_card.dart';
@@ -138,19 +139,19 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Widget _buildAppColorPreview() {
-    final nowAppColor = _store.appPrimaryColor.fetch()!;
+    final pColor = primaryColor;
     return SizedBox(
       width: _media.size.width * 0.8,
       child: ExpansionTile(
           tilePadding: const EdgeInsets.only(left: 7.7, right: 7.7),
           childrenPadding: EdgeInsets.zero,
           children: [
-            _buildAppColorPicker(Color(nowAppColor)),
+            _buildAppColorPicker(pColor),
             _buildColorPickerConfirmBtn()
           ],
           trailing: ClipOval(
             child: Container(
-              color: Color(nowAppColor),
+              color: pColor,
               height: 27,
               width: 27,
             ),
