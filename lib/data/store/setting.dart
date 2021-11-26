@@ -8,7 +8,7 @@ class SettingStore extends PersistentStore {
 
   /// App强调色
   StoreProperty<int> get appPrimaryColor =>
-      property('appPrimaryColor', defaultValue: Colors.blueAccent.value);
+      property('appPrimaryColor', defaultValue: Colors.deepPurpleAccent.value);
 
   /// 选下选项后，是否自动显示答案
   StoreProperty<bool> get autoDisplayAnswer =>

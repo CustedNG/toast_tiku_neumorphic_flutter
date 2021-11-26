@@ -44,7 +44,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   late SettingStore _settingStore;
   late List<Ti>? _tis;
   late int _index;
-  // TODO: 使用hash作为id，储存题目历史选项
+  // TODO: 使用[Ti]的hash作为id，储存题目历史选项
   late List<List<int>> _checkState;
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -174,10 +174,8 @@ class _UnitQuizPageState extends State<UnitQuizPage>
               onTap: () {
                 if (have) {
                   _favoriteStore.delete(widget.courseId, ti);
-                  showSnackBar(context, const Text('已取消收藏'));
                 } else {
                   _favoriteStore.put(widget.courseId, ti);
-                  showSnackBar(context, const Text('已收藏'));
                 }
                 setState(() {});
               },
@@ -250,7 +248,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NeuText(
-            text: ti.typeChinese + '\n',
+            text: '${_index + 1}.${ti.typeChinese}\n',
             align: TextAlign.start,
             textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
           ),

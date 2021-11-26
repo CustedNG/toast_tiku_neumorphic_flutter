@@ -37,10 +37,9 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   late List<List<int>> _checkState;
   late AnimationController _animationController;
   late Animation<double> _animation;
-  final _titleNeuTextStyle = NeumorphicTextStyle(fontSize: 12);
   late SnappingSheetController _sheetController;
   late double _bottomHeight;
-  late List<int> _historyIdx;
+  late bool _autoSlide2NextWhenCorrect;
 
   @override
   void initState() {
@@ -57,6 +56,8 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     _favoriteStore = locator<FavoriteStore>();
     _settingStore = locator<SettingStore>();
     _tis = _favoriteStore.fetch(widget.courseId);
+    _autoSlide2NextWhenCorrect =
+        _settingStore.autoSlide2NextWhenCorrect.fetch()!;
     _index = 0;
     _checkState = List.generate(_tis!.length, (_) => []);
   }
@@ -139,29 +140,15 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
             ),
             SizedBox(
               width: _media.size.width * 0.5,
-              child: Column(
-                children: [
-                  Hero(
-                    transitionOnUserGestures: true,
-                    tag: 'home_resume_title',
-                    child: NeuText(text: '收藏的题', textStyle: _titleNeuTextStyle),
-                  ),
-                  NeuText(
-                      text:
-                          '${(100 * (_index / _tis!.length)).toStringAsFixed(0)}%',
-                      textStyle: _titleNeuTextStyle)
-                ],
-              ),
+              child: NeuText(text: '${widget.courseName}&收藏'),
             ),
             NeuIconBtn(
               icon: have ? Icons.favorite : Icons.favorite_border,
               onTap: () {
                 if (have) {
                   _favoriteStore.delete(widget.courseId, ti);
-                  showSnackBar(context, const Text('已取消收藏'));
                 } else {
                   _favoriteStore.put(widget.courseId, ti);
-                  showSnackBar(context, const Text('已收藏'));
                 }
                 setState(() {});
               },
@@ -217,11 +204,6 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NeuText(
-            text: ti.typeChinese + '\n',
-            align: TextAlign.start,
-            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-          ),
           NeuText(text: ti.question!, align: TextAlign.start),
           const NeuText(text: '\n答案：', align: TextAlign.start),
           ...ti.answer!
@@ -239,7 +221,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NeuText(
-            text: ti.typeChinese + '\n',
+            text: '${_index + 1}.${ti.typeChinese}\n',
             align: TextAlign.start,
             textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
           ),
@@ -291,21 +273,30 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       return Colors.greenAccent;
     }
     if (_tis![_index].answer!.contains(value) &&
-        _checkState[_index].length == _tis![_index].answer!.length &&
+        _checkState[_index].length >= _tis![_index].answer!.length &&
         _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
   }
 
   void onPressed(int value) {
-    if (!_historyIdx.contains(_index)) {
-      _historyIdx.add(_index);
-    }
     if (_checkState[_index].contains(value)) {
       _checkState[_index].remove(value);
     } else {
+      final type = _tis![_index].type;
+      if (type == 0 || type == 3) _checkState[_index].clear();
       _checkState[_index].add(value);
     }
     setState(() {});
+
+    /// 答对自动跳转下一题
+    Future.delayed(const Duration(milliseconds: 377), () {
+      if (_checkState[_index]
+              .every((element) => _tis![_index].answer!.contains(element)) &&
+          _autoSlide2NextWhenCorrect &&
+          _checkState[_index].length == _tis![_index].answer!.length) {
+        onSlide(false, true);
+      }
+    });
   }
 }
