@@ -26,7 +26,7 @@ class TikuProvider extends BusyProvider {
   double get downloadProgress => _downloadProgress;
 
   /// 题库索引的版本号
-  late String indexVersion;
+  String? indexVersion;
 
   /// 加载数据到Provider
   Future<void> loadLocalData() async {
@@ -86,7 +86,7 @@ class TikuProvider extends BusyProvider {
         notifyListeners();
       }
     }
-    _store.version.put(indexVersion);
+    _store.version.put(indexVersion ?? '');
     setBusyState(false);
   }
 
