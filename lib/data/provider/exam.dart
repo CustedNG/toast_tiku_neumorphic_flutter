@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:toast_tiku/core/provider_base.dart';
-import 'package:toast_tiku/core/utils.dart';
+import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/store/tiku.dart';
+import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 
 class ExamProvider extends BusyProvider {
@@ -21,8 +23,17 @@ class ExamProvider extends BusyProvider {
     _tis = [[], [], [], []];
     result = [];
 
-    /// 获取题库内所有题目
-    final allTis = getAllTi();
+    /// 获取题库内该科目的所有题目
+    final allTis = <Ti>[];
+    final tikuStore = locator<TikuStore>();
+    for (var subject in locator<TikuProvider>().tikuIndex!) {
+      if (subject.id != courseId) {
+        continue;
+      }
+      for (var content in subject.content!) {
+        allTis.addAll(tikuStore.fetch(subject.id!, content!.data!)!);
+      }
+    }
 
     /// 选出题目type为0的题
     _tis[0] = allTis.where((element) => element.type == 0).toList();
