@@ -14,7 +14,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     setSystemBottomNavigationBarColor(context);
 
-    /// 返回了一个可监听的、范型为bool的构建器。[locator<SettingStore>().appPrimaryColor]的所有变化，都会使视图刷新
+    // ignore: avoid_print
+    print(r'''
+ _____               _  _____ _ _          
+|_   _|__   __ _ ___| ||_   _(_) | ___   _ 
+  | |/ _ \ / _` / __| __|| | | | |/ / | | |
+  | | (_) | (_| \__ \ |_ | | | |   <| |_| |
+  |_|\___/ \__,_|___/\__||_| |_|_|\_\\__,_|
+
+            Start your journey!        
+    ''');
+
+    /// 返回了一个可监听的、泛型为bool的构建器。
+    /// [locator<SettingStore>().appPrimaryColor]的所有变化，都会使视图刷新
     return ValueListenableBuilder<int>(
       valueListenable: locator<SettingStore>().appPrimaryColor.listenable(),
       builder: (_, value, __) {

@@ -12,17 +12,20 @@ class AppUpdate {
 } 
 */
 
-  /// 最新版本号
+  /// Android 最新版本号
   late int newest;
 
-  /// Android最新版本下载地址
+  /// Android 最新版本下载地址
   late String android;
 
-  /// iOS App Store链接
+  /// iOS App Store 链接
   late String ios;
 
   /// 最小版本，低于此版本会强制提醒升级
   late int min;
+
+  /// iOS 最新版本号
+  late int iosbuild;
 
   /// 当前最新版本的更新日志
   late String changelog;
@@ -32,6 +35,7 @@ class AppUpdate {
     required this.android,
     required this.ios,
     required this.min,
+    required this.iosbuild,
     required this.changelog,
   });
   AppUpdate.fromJson(Map<String, dynamic> json) {
@@ -39,6 +43,7 @@ class AppUpdate {
     android = json["android"].toString();
     ios = json["ios"].toString();
     min = json["min"].toInt();
+    iosbuild = json["iosbuild"].toInt();
     changelog = json["changelog"].toString();
   }
   Map<String, dynamic> toJson() {
@@ -47,6 +52,7 @@ class AppUpdate {
     data["android"] = android;
     data["ios"] = ios;
     data["min"] = min;
+    data["iosbuild"] = iosbuild;
     data["changelog"] = changelog;
     return data;
   }
