@@ -47,12 +47,12 @@ Future<bool> openUrl(String url) async {
 List<Ti> getAllTi() {
   final tiku = locator<TikuProvider>();
   final store = locator<TikuStore>();
+  final tis = <Ti>[];
 
   /// 先获取题库索引
   if (tiku.tikuIndex == null) {
-    return <Ti>[];
+    return tis;
   }
-  final tis = <Ti>[];
 
   /// 根据索引，循环获取每一章节数据
   for (var item in tiku.tikuIndex!) {
@@ -94,4 +94,4 @@ void setSystemBottomNavigationBarColor(BuildContext context) {
 }
 
 double getRemainHeight(MediaQueryData media) =>
-    media.size.height * 0.89 - media.padding.top - media.padding.bottom - 3;
+    media.size.height * 0.89 - media.padding.top - 3;

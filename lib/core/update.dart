@@ -20,18 +20,17 @@ Future<void> doUpdate(BuildContext context) async {
   /// [AppProvider]设置最新版本号
   final newest = Platform.isAndroid ? update.newest : update.iosbuild;
   locator<AppProvider>().setNewestBuild(newest);
+  logger.info('Update: $newest, now: ${BuildData.build}');
 
   /// 如果版本不是最新，则跳过更新
   if (newest <= BuildData.build) {
     return;
   }
-  logger.info('Update: $newest, now: ${BuildData.build}');
 
   /// 显示Snackbar，提示有更新
   showSnackBarWithAction(
-      context,
-      '${BuildData.name}有更新啦，Ver：$newest\n${update.changelog}',
-      '更新', () async {
+      context, '${BuildData.name}有更新啦，Ver：$newest\n${update.changelog}', '更新',
+      () async {
     if (Platform.isAndroid) {
       await RUpgrade.upgrade(update.android,
           fileName: update.android.split('/').last, isAutoRequestInstall: true);
