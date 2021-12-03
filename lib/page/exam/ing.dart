@@ -6,8 +6,10 @@ import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/data/provider/exam.dart';
+import 'package:toast_tiku/data/provider/exam_history.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/model/exam_history.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/exam/result.dart';
 import 'package:toast_tiku/res/color.dart';
@@ -62,6 +64,9 @@ class _ExamingPageState extends State<ExamingPage>
   /// 考试计时器Provider
   late TimerProvider _timerProvider;
 
+  /// [单选数量，多选数量，填空数量，判断数量]
+  late List<int> _eachTypeTiCount;
+
   /// 此覆写，详解请看Flutter生命周期
   /// 例如：https://juejin.cn/post/6844903874617147399
   @override
@@ -90,41 +95,105 @@ class _ExamingPageState extends State<ExamingPage>
   /// 同上[didChangeDependencies]的注释
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
+    return WillPopScope(
+        child: Scaffold(
+          backgroundColor: NeumorphicTheme.baseColor(context),
 
-      /// 可以通过[Consumer<T>()]获取到需要的Provider
-      body: Consumer<ExamProvider>(
-        builder: (_, exam, __) {
-          if (exam.isBusy) {
-            return centerLoading;
-          }
-          if (_tis.isEmpty) _tis = exam.result;
-          if (_checkState.isEmpty) {
-            _checkState = List.generate(_tis.length, (_) => []);
-          }
-          if (_tis.isEmpty) {
-            return const Center(
-              child: NeuText(
-                text: '题库为空，发生未知错误',
-              ),
-            );
-          }
-          return GrabSheet(
-            sheetController: _sheetController,
-            main: _buildMain(),
-            tis: _tis,
-            checkState: _checkState,
-            showColor: _submittedAnswer,
-            onTap: (idx) {
-              setState(() {
-                _index = idx;
-              });
-              _controller.reset();
-              _controller.forward();
+          /// 可以通过[Consumer<T>()]获取到需要的Provider
+          body: Consumer<ExamProvider>(
+            builder: (_, exam, __) {
+              if (exam.isBusy) {
+                return centerLoading;
+              }
+              if (_tis.isEmpty) _tis = exam.result;
+              if (_checkState.isEmpty) {
+                _checkState = List.generate(_tis.length, (_) => []);
+              }
+              _eachTypeTiCount = [
+                _tis.where((element) => element.type == 0).length,
+                _tis.where((element) => element.type == 1).length,
+                _tis.where((element) => element.type == 2).length,
+                _tis.where((element) => element.type == 3).length
+              ];
+              if (_tis.isEmpty) {
+                return const Center(
+                  child: NeuText(
+                    text: '题库为空，发生未知错误',
+                  ),
+                );
+              }
+              return GrabSheet(
+                sheetController: _sheetController,
+                main: _buildMain(),
+                tis: _tis,
+                checkState: _checkState,
+                showColor: _submittedAnswer,
+                onTap: (idx) {
+                  setState(() {
+                    _index = idx;
+                  });
+                  _controller.reset();
+                  _controller.forward();
+                },
+              );
             },
-          );
-        },
+          ),
+        ),
+        onWillPop: () async => await _onWillPop() ?? false);
+  }
+
+  int typeIdx(Ti ti, int index) {
+    switch (ti.type) {
+      case 0:
+        return index;
+      case 1:
+        return index - _eachTypeTiCount[0];
+      case 2:
+        return index - _eachTypeTiCount[0] - _eachTypeTiCount[1];
+      case 3:
+        return index -
+            _eachTypeTiCount[0] -
+            _eachTypeTiCount[1] -
+            _eachTypeTiCount[2];
+      default:
+        return 0;
+    }
+  }
+
+  double get correctRate => _getCorrectCount() * 100 / _tis.length;
+
+  Future<bool?> _onWillPop() async {
+    if (_submittedAnswer) {
+      return true;
+    }
+    return showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        backgroundColor: NeumorphicTheme.baseColor(context),
+        title: NeuText(
+          text: '确定要退出考试吗？',
+          textStyle: NeumorphicTextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+          align: TextAlign.start,
+        ),
+        actions: <Widget>[
+          IconButton(
+            color: primaryColor,
+            icon: const Icon(Icons.done),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+          ),
+          IconButton(
+            color: primaryColor,
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+          ),
+        ],
       ),
     );
   }
@@ -165,7 +234,12 @@ class _ExamingPageState extends State<ExamingPage>
           children: [
             NeuIconBtn(
               icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
+              onTap: () async {
+                final back = await _onWillPop();
+                if (back == true) {
+                  Navigator.of(context).pop();
+                }
+              },
             ),
             SizedBox(
               width: _media.size.width * 0.5,
@@ -176,7 +250,7 @@ class _ExamingPageState extends State<ExamingPage>
                   }
                   return NeuText(
                     text: _submittedAnswer
-                        ? '${timer.leftTime}\n正确率：${(_getCorrectCount() * 100 / _tis.length).toStringAsFixed(1)}%'
+                        ? '${timer.leftTime}\n正确率：${correctRate.toStringAsFixed(1)}%'
                         : timer.leftTime,
                     textStyle: _submittedAnswer
                         ? NeumorphicTextStyle(fontSize: 12)
@@ -199,6 +273,8 @@ class _ExamingPageState extends State<ExamingPage>
                   showSnackBarWithAction(context, '是否确认交卷？交卷后无法撤销', '交卷', () {
                     _submittedAnswer = true;
                     _timerProvider.stop();
+                    locator<ExamHistoryProvider>().addHistory(ExamHistory(_tis,
+                        _checkState, DateTime.now().toString(), correctRate));
                     setState(() {});
                   });
                 }
@@ -211,8 +287,27 @@ class _ExamingPageState extends State<ExamingPage>
   Widget _buildTiList() {
     /// 动画执行，渐显效果
     _controller.forward();
+
+    final ti = _tis[_index];
+    final children = _buildTiView(ti);
+    children.insert(
+        0,
+        NeuText(
+          text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
+          align: TextAlign.start,
+          textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+        ));
+
     return FadeTransition(
-        opacity: _animation, child: _buildTiView(_tis[_index]));
+      opacity: _animation,
+      child: Padding(
+        padding: EdgeInsets.all(_media.size.width * 0.07),
+        child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: children),
+      ),
+    );
   }
 
   /// 滑动切换题目的逻辑判断
@@ -241,7 +336,7 @@ class _ExamingPageState extends State<ExamingPage>
   }
 
   /// 根据不同题目类型返回不同view
-  Widget _buildTiView(Ti ti) {
+  List<Widget> _buildTiView(Ti ti) {
     switch (ti.type) {
       case 0:
       case 1:
@@ -250,12 +345,12 @@ class _ExamingPageState extends State<ExamingPage>
       case 2:
         return _buildFill(ti);
       default:
-        return const NeuText(text: '题目解析失败');
+        return const [NeuText(text: '题目解析失败')];
     }
   }
 
   /// 构建填空题view
-  Widget _buildFill(Ti ti) {
+  List<Widget> _buildFill(Ti ti) {
     if (_checkState[_index].isEmpty) {
       _checkState[_index] = List.generate(ti.answer!.length, (_) => '');
     }
@@ -273,44 +368,22 @@ class _ExamingPageState extends State<ExamingPage>
         padding: EdgeInsets.zero,
       ));
     }
-    return Padding(
-      padding: EdgeInsets.all(_media.size.width * 0.07),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          NeuText(
-            text: ti.typeChinese + '\n',
-            align: TextAlign.start,
-            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-          ),
-          NeuText(text: ti.question!, align: TextAlign.start),
-          const SizedBox(
-            height: 17,
-          ),
-          ...textFields
-        ],
+    return [
+      NeuText(text: ti.question!, align: TextAlign.start),
+      const SizedBox(
+        height: 17,
       ),
-    );
+      ...textFields
+    ];
   }
 
   /// 构建选择题view
-  Widget _buildSelect(Ti ti) {
-    return Padding(
-      padding: EdgeInsets.all(_media.size.width * 0.07),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          NeuText(
-            text: ti.typeChinese + '\n',
-            align: TextAlign.start,
-            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-          ),
-          NeuText(text: ti.question!, align: TextAlign.start),
-          SizedBox(height: _media.size.height * 0.05),
-          ..._buildRadios(ti.options),
-        ],
-      ),
-    );
+  List<Widget> _buildSelect(Ti ti) {
+    return [
+      NeuText(text: ti.question!, align: TextAlign.start),
+      SizedBox(height: _media.size.height * 0.05),
+      ..._buildRadios(ti.options),
+    ];
   }
 
   /// 构建选择题具体的所有选项

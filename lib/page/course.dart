@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/store/history.dart';
+import 'package:toast_tiku/data/store/unit_history.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
 import 'package:toast_tiku/page/favorite.dart';

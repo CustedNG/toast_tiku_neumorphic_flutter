@@ -12,7 +12,7 @@ import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/core/update.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/app.dart';
-import 'package:toast_tiku/data/provider/history.dart';
+import 'package:toast_tiku/data/provider/unit_history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';

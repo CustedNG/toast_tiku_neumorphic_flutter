@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/provider/history.dart';
+import 'package:toast_tiku/data/provider/unit_history.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
-import 'package:toast_tiku/data/store/history.dart';
+import 'package:toast_tiku/data/store/unit_history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
@@ -44,6 +44,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   late SettingStore _settingStore;
   late List<Ti>? _tis;
   late int _index;
+
+  /// [单选数量，多选数量，填空数量，判断数量]
+  late List<int> _eachTypeTiCount;
   // TODO: 使用[Ti]的hash作为id，储存题目历史选项
   late List<List<int>> _checkState;
   late AnimationController _animationController;
@@ -76,6 +79,12 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     if (_tis != null) {
       _tis!.sort((a, b) => a.type!.compareTo(b.type!));
     }
+    _eachTypeTiCount = [
+      _tis!.where((element) => element.type == 0).length,
+      _tis!.where((element) => element.type == 1).length,
+      _tis!.where((element) => element.type == 2).length,
+      _tis!.where((element) => element.type == 3).length
+    ];
     _saveAnswer = _settingStore.saveAnswer.fetch()!;
     _autoSlide2NextWhenCorrect =
         _settingStore.autoSlide2NextWhenCorrect.fetch()!;
@@ -138,7 +147,10 @@ class _UnitQuizPageState extends State<UnitQuizPage>
           SizedBox(
             height: _media.size.height * 0.84 - _bottomHeight,
             child: SingleChildScrollView(
-              child: _buildTiList(),
+              child: SizedBox(
+                width: _media.size.width,
+                child: _buildTiList(),
+              ),
             ),
           ),
         ],
@@ -186,8 +198,27 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   Widget _buildTiList() {
     _animationController.forward();
+
+    final ti = _tis![_index];
+    final children = _buildTiView(ti);
+    children.insert(
+        0,
+        NeuText(
+          text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
+          align: TextAlign.start,
+          textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+        ));
+
     return FadeTransition(
-        opacity: _animation, child: _buildTiView(_tis![_index]));
+      opacity: _animation,
+      child: Padding(
+        padding: EdgeInsets.all(_media.size.width * 0.07),
+        child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: children),
+      ),
+    );
   }
 
   void onSlide(bool left, bool right) {
@@ -212,7 +243,25 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _animationController.forward();
   }
 
-  Widget _buildTiView(Ti ti) {
+  int typeIdx(Ti ti, int index) {
+    switch (ti.type) {
+      case 0:
+        return index;
+      case 1:
+        return index - _eachTypeTiCount[0];
+      case 2:
+        return index - _eachTypeTiCount[0] - _eachTypeTiCount[1];
+      case 3:
+        return index -
+            _eachTypeTiCount[0] -
+            _eachTypeTiCount[1] -
+            _eachTypeTiCount[2];
+      default:
+        return 0;
+    }
+  }
+
+  List<Widget> _buildTiView(Ti ti) {
     switch (ti.type) {
       case 0:
       case 1:
@@ -221,43 +270,26 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       case 2:
         return _buildFill(ti);
       default:
-        return const NeuText(text: '题目解析失败');
+        return const [NeuText(text: '题目解析失败')];
     }
   }
 
-  Widget _buildFill(Ti ti) {
-    return Padding(
-      padding: EdgeInsets.all(_media.size.width * 0.07),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          NeuText(text: ti.question!, align: TextAlign.start),
-          const NeuText(text: '\n答案：', align: TextAlign.start),
-          ...ti.answer!
-              .map((e) => NeuText(text: e, align: TextAlign.start))
-              .toList()
-        ],
-      ),
-    );
+  List<Widget> _buildFill(Ti ti) {
+    return [
+      NeuText(text: ti.question!, align: TextAlign.start),
+      const NeuText(text: '\n答案：', align: TextAlign.start),
+      ...ti.answer!
+          .map((e) => NeuText(text: e, align: TextAlign.start))
+          .toList()
+    ];
   }
 
-  Widget _buildSelect(Ti ti) {
-    return Padding(
-      padding: EdgeInsets.all(_media.size.width * 0.07),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          NeuText(
-            text: '${_index + 1}.${ti.typeChinese}\n',
-            align: TextAlign.start,
-            textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-          ),
-          NeuText(text: ti.question!, align: TextAlign.start),
-          SizedBox(height: _media.size.height * 0.05),
-          ..._buildRadios(ti.options),
-        ],
-      ),
-    );
+  List<Widget> _buildSelect(Ti ti) {
+    return [
+      NeuText(text: ti.question!, align: TextAlign.start),
+      SizedBox(height: _media.size.height * 0.05),
+      ..._buildRadios(ti.options),
+    ];
   }
 
   List<Widget> _buildRadios(List<String?>? options) {

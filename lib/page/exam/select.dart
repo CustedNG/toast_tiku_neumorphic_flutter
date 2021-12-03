@@ -7,8 +7,8 @@ import 'package:toast_tiku/data/provider/exam.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/page/exam/history_list.dart';
 import 'package:toast_tiku/page/exam/ing.dart';
-import 'package:toast_tiku/res/url.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
@@ -78,9 +78,8 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               text: '模拟考试',
             ),
             NeuIconBtn(
-              icon: Icons.question_answer,
-              onTap: () => showSnackBarWithAction(
-                  context, '可在用户群反馈问题、吹水', '加入', () => openUrl(joinQQGroupUrl)),
+              icon: Icons.history,
+              onTap: () => AppRoute(const ExamHistoryListPage()).go(context),
             ),
           ],
         ));

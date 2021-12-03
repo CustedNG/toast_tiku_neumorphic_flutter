@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:toast_tiku/core/provider_base.dart';
-import 'package:toast_tiku/data/store/history.dart';
+import 'package:toast_tiku/data/store/unit_history.dart';
 import 'package:toast_tiku/locator.dart';
 
 class HistoryProvider extends BusyProvider {
