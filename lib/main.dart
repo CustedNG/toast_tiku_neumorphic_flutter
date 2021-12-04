@@ -10,7 +10,6 @@ import 'package:toast_tiku/core/analysis.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/debug.dart';
 import 'package:toast_tiku/data/provider/exam.dart';
-import 'package:toast_tiku/data/provider/exam_history.dart';
 import 'package:toast_tiku/data/provider/unit_history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
@@ -28,7 +27,6 @@ Future<void> initApp() async {
   /// Provider初始化数据
   await locator<TikuProvider>().loadLocalData();
   await locator<HistoryProvider>().loadLocalData();
-  await locator<ExamHistoryProvider>().loadData();
 
   ///设置Logger
   Logger.root.level = Level.ALL; // defaults to Level.INFO

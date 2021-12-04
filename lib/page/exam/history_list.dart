@@ -1,13 +1,11 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/provider/exam_history.dart';
+import 'package:toast_tiku/data/store/exam_history.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/exam_history.dart';
 import 'package:toast_tiku/page/exam/history_view.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
@@ -23,16 +21,24 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
   /// 设备媒体数据
   late MediaQueryData _media;
   late double padding;
+  late List<ExamHistory> _historyList;
 
   /// 标题文字风格
   final titleStyle =
       NeumorphicTextStyle(fontSize: 17, fontWeight: FontWeight.bold);
+  final dateStyle = NeumorphicTextStyle(fontSize: 14);
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _media = MediaQuery.of(context);
-    padding = _media.size.height * 0.037;
+    padding = _media.size.height * 0.027;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _historyList = locator<ExamHistoryStore>().fetch().reversed.toList();
   }
 
   @override
@@ -60,48 +66,72 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
             ),
             NeuIconBtn(
               icon: Icons.question_answer,
-              onTap: () => showSnackBarWithAction(context, '删除历史考试记录', '确认',
-                  () => locator<ExamHistoryProvider>().delAllHistory()),
+              onTap: () =>
+                  showSnackBarWithAction(context, '删除所有历史考试记录', '确认', () {
+                locator<ExamHistoryStore>().clear();
+                _historyList.clear();
+              }),
             ),
           ],
         ));
   }
 
   Widget _buildMain() {
-    return Consumer<ExamHistoryProvider>(builder: (_, his, __) {
-      if (his.isBusy) {
-        return const Flexible(child: centerLoading);
-      }
-      return SizedBox(
-        height: _media.size.height * 0.84,
-        width: _media.size.width,
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: his.histories.length,
-          itemExtent: _media.size.height * 0.2,
-          itemBuilder: (_, int index) {
-            return _buildItem(his.histories[index]);
-          },
-        ),
-      );
-    });
+    return SizedBox(
+      height: _media.size.height * 0.84,
+      width: _media.size.width,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: _historyList.length,
+        itemExtent: _media.size.height * 0.13,
+        itemBuilder: (_, int index) {
+          return _buildItem(_historyList[index]);
+        },
+      ),
+    );
   }
 
-  Widget _buildItem(ExamHistory histoy) {
+  Widget _buildItem(ExamHistory history) {
+    final rateColor = history.correctRate >= 60 ? Colors.green : Colors.red;
     return GestureDetector(
       child: NeuCard(
+        margin: EdgeInsets.symmetric(horizontal: padding),
         padding: EdgeInsets.fromLTRB(padding, 0, padding, padding),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            NeuText(text: histoy.date, textStyle: titleStyle),
-            NeuText(text: '${histoy.correctRate}%')
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                NeuText(
+                    text: history.subject,
+                    textStyle: titleStyle,
+                    align: TextAlign.start),
+                NeuText(
+                    text: history.date.split('.').first,
+                    align: TextAlign.start,
+                    textStyle: dateStyle,
+                    style: const NeumorphicStyle(color: Colors.grey)),
+              ],
+            ),
+            NeuText(
+              text: '${history.correctRate}%',
+              textStyle: titleStyle,
+              align: TextAlign.end,
+              style: NeumorphicStyle(color: rateColor),
+            )
           ],
         ),
       ),
       onTap: () => AppRoute(ExamHistoryViewPage(
-        examHistory: histoy,
+        examHistory: history,
       )).go(context),
+      onLongPress: () => showSnackBarWithAction(context, '删除该考试记录', '确认', () {
+        locator<ExamHistoryStore>().del(history);
+        _historyList.remove(history);
+      }),
     );
   }
 }

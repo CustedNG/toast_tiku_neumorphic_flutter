@@ -80,7 +80,7 @@ class _PageState extends State<_Page> {
                   height: 77,
                 ),
                 Text(
-                  '正确率${widget.percent}%',
+                  '正确率 ${widget.percent * 100}%',
                   style: const TextStyle(color: Colors.black),
                 ),
                 const SizedBox(

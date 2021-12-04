@@ -6,8 +6,8 @@ import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/data/provider/exam.dart';
-import 'package:toast_tiku/data/provider/exam_history.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
+import 'package:toast_tiku/data/store/exam_history.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/exam_history.dart';
 import 'package:toast_tiku/model/ti.dart';
@@ -22,8 +22,11 @@ import 'package:toast_tiku/widget/neu_text_field.dart';
 
 /// 正在进行考试时的页面
 class ExamingPage extends StatefulWidget {
+  final String subject;
+  final String subjectId;
   const ExamingPage({
     Key? key,
+    required this.subject, required this.subjectId,
   }) : super(key: key);
 
   @override
@@ -41,7 +44,7 @@ class _ExamingPageState extends State<ExamingPage>
   late List<Ti> _tis = [];
 
   /// 用户对每道题的选项做出的选择的数据
-  late List<List<Object>> _checkState = [];
+  late List<List<Object>> _checkState;
 
   /// 题目渐显渐隐动画控制器
   late AnimationController _controller;
@@ -90,6 +93,7 @@ class _ExamingPageState extends State<ExamingPage>
       begin: 0.0,
       end: 1.0,
     ).animate(_controller);
+    _checkState = List.generate(_tis.length, (_) => []);
   }
 
   /// 同上[didChangeDependencies]的注释
@@ -273,8 +277,14 @@ class _ExamingPageState extends State<ExamingPage>
                   showSnackBarWithAction(context, '是否确认交卷？交卷后无法撤销', '交卷', () {
                     _submittedAnswer = true;
                     _timerProvider.stop();
-                    locator<ExamHistoryProvider>().addHistory(ExamHistory(_tis,
-                        _checkState, DateTime.now().toString(), correctRate));
+                    locator<ExamHistoryStore>().add(ExamHistory(
+                        _tis,
+                        _checkState,
+                        DateTime.now().toString(),
+                        correctRate,
+                        widget.subject,
+                        widget.subjectId
+                        ));
                     setState(() {});
                   });
                 }

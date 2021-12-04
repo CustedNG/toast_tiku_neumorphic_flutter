@@ -12,9 +12,9 @@ class ExamHistoryStore extends PersistentStore {
   }
 
   List<ExamHistory> fetch() {
-    final data = box.get('all', defaultValue: [])!;
+    final data = box.get('all', defaultValue: '[]')!;
     final histories = <ExamHistory>[];
-    for (var item in data) {
+    for (var item in json.decode(data)) {
       histories.add(ExamHistory.fromJson(item));
     }
     return histories;
@@ -23,7 +23,7 @@ class ExamHistoryStore extends PersistentStore {
   bool del(ExamHistory history) {
     final old = fetch();
     final index =
-        old.indexWhere((item) => item.chechState == history.chechState);
+        old.indexWhere((item) => item.checkState == history.checkState);
     if (index == -1) {
       return false;
     }

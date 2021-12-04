@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/debug.dart';
 import 'package:toast_tiku/data/provider/exam.dart';
-import 'package:toast_tiku/data/provider/exam_history.dart';
 import 'package:toast_tiku/data/provider/unit_history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
@@ -29,7 +28,6 @@ void setupLocatorForProviders() {
   locator.registerSingleton(DebugProvider());
   locator.registerSingleton(TimerProvider());
   locator.registerSingleton(HistoryProvider());
-  locator.registerSingleton(ExamHistoryProvider());
 }
 
 /// 注册持久化储存

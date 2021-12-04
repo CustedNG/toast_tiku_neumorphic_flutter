@@ -30,6 +30,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   /// 题库数据Provider
   late TikuProvider _tikuProvider;
   String? _selectedCourse;
+  String? _selectedCourseName;
 
   /// [_counts] : 长度为5，分别为[单选]、[多选]、[填空]、[判断]题目的个数，以及[考试时长]
   List<double> _counts = [];
@@ -120,6 +121,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               groupValue: _selectedCourse,
               onChanged: (val) => setState(() {
                 _selectedCourse = val;
+                _selectedCourseName = item.chinese;
                 _counts = [20, 0, 0, 0, 60];
               }),
             ));
@@ -241,7 +243,10 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                   minutes: (_counts[4]).toInt(),
                   // 由于页面动画的存在，所以多给一秒
                   seconds: 1)));
-              AppRoute(const ExamingPage()).go(context);
+              AppRoute(ExamingPage(
+                subject: _selectedCourseName ?? '',
+                subjectId: _selectedCourse ?? '',
+              )).go(context);
             }
           }
         },
