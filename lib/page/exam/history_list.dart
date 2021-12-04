@@ -65,11 +65,12 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
               text: '考试记录',
             ),
             NeuIconBtn(
-              icon: Icons.question_answer,
+              icon: Icons.delete,
               onTap: () =>
                   showSnackBarWithAction(context, '删除所有历史考试记录', '确认', () {
                 locator<ExamHistoryStore>().clear();
                 _historyList.clear();
+                setState(() {});
               }),
             ),
           ],
@@ -77,6 +78,11 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
   }
 
   Widget _buildMain() {
+    if (_historyList.isEmpty) {
+      return const Expanded(child: Center(child: NeuText(
+        text: '暂无考试记录',
+      ),));
+    }
     return SizedBox(
       height: _media.size.height * 0.84,
       width: _media.size.width,
@@ -132,6 +138,7 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
       onLongPress: () => showSnackBarWithAction(context, '删除该考试记录', '确认', () {
         locator<ExamHistoryStore>().del(history);
         _historyList.remove(history);
+        setState(() {});
       }),
     );
   }

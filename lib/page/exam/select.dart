@@ -220,9 +220,14 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           children: [
             NeuText(
               text: typeChinese,
-              textStyle: titleStyle,
             ),
-            NeuText(text: '${_counts[idx].toInt()} $suffix'),
+            SizedBox(
+              width: _media.size.width * 0.2,
+              child: NeuText(
+                text: '${_counts[idx].toInt()} $suffix',
+                align: TextAlign.end,
+              ),
+            ),
           ],
         ),
       ),
@@ -237,7 +242,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
             _counts[idx] = newValue;
           });
         },
-        divisions: realMax ~/ 5 < 2 ? realMax.toInt(): realMax ~/ 5,
+        divisions: realMax ~/ 5 < 2 ? realMax.toInt() : realMax ~/ 5,
       ),
       const SizedBox(
         height: 3,
@@ -252,7 +257,11 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           if (_selectedCourse == null) {
             showSnackBar(context, const Text('请选择科目'));
           } else {
-            if (_counts.every((element) => element == 0)) {
+            final total = _counts[0] +
+                _counts[1] +
+                _counts[2] +
+                _counts[3];
+            if (total == 0) {
               showSnackBar(context, const Text('题目总数不得等于0'));
             } else {
               locator<ExamProvider>().loadTi(_selectedCourse!, _units, _counts);

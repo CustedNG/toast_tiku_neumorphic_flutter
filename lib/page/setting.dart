@@ -105,8 +105,48 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Widget _buildAppSetting() {
+    final pColor = primaryColor;
     return _buildSettingCard([
-      _buildAppColorSetting(),
+      SettingItem(
+        title: 'App主题色',
+        rightBtn: ClipOval(
+          child: Container(
+            color: pColor,
+            height: 27,
+            width: 27,
+          ),
+        ),
+        onTap: () => showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: NeumorphicTheme.baseColor(context),
+                title: const NeuText(
+                  text: 'App主题色',
+                  align: TextAlign.start,
+                ),
+                content: SizedBox(
+                  width: _media.size.width * 0.8,
+                  child: _buildAppColorPicker(pColor),
+                ),
+                actions: [
+                  NeuIconBtn(
+                    icon: Icons.done,
+                    onTap: () {
+                      _store.appPrimaryColor.put(_selectedColorValue);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  NeuIconBtn(
+                    icon: Icons.close,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            }),
+      ),
       Consumer<AppProvider>(builder: (_, app, __) {
         String display;
         if (app.newestBuild != null) {
@@ -159,31 +199,6 @@ class _SettingPageState extends State<SettingPage> {
     ]);
   }
 
-  Widget _buildAppColorSetting() {
-    final pColor = primaryColor;
-    return SizedBox(
-      width: _media.size.width * 0.8,
-      child: ExpansionTile(
-          tilePadding: const EdgeInsets.only(left: 4.7, right: 7.7),
-          childrenPadding: EdgeInsets.zero,
-          children: [
-            _buildAppColorPicker(pColor),
-            _buildColorPickerConfirmBtn()
-          ],
-          trailing: ClipOval(
-            child: Container(
-              color: pColor,
-              height: 27,
-              width: 27,
-            ),
-          ),
-          title: const NeuText(
-            text: 'App主题色',
-            align: TextAlign.start,
-          )),
-    );
-  }
-
   Widget _buildAppColorPicker(Color selected) {
     return MaterialColorPicker(
         shrinkWrap: true,
@@ -191,16 +206,6 @@ class _SettingPageState extends State<SettingPage> {
           _selectedColorValue = color.value;
         },
         selectedColor: selected);
-  }
-
-  Widget _buildColorPickerConfirmBtn() {
-    return NeuIconBtn(
-      icon: Icons.save,
-      onTap: (() {
-        _store.appPrimaryColor.put(_selectedColorValue);
-        setState(() {});
-      }),
-    );
   }
 
   Widget _buildSwitch(BuildContext context, StoreProperty<bool> prop,

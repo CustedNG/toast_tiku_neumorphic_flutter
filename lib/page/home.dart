@@ -300,8 +300,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        NeuIconBtn(
-          icon: Icons.checklist,
+        NeuBtn(
+          child: NeuText(text: '模考', textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold)),
           onTap: () => AppRoute(const ExamSelectPage()).go(context),
         ),
         NeuIconBtn(
