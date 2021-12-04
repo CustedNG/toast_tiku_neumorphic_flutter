@@ -109,6 +109,7 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
                     text: history.subject,
                     textStyle: titleStyle,
                     align: TextAlign.start),
+                const SizedBox(height: 7),
                 NeuText(
                     text: history.date.split('.').first,
                     align: TextAlign.start,

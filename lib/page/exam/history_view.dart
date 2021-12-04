@@ -116,9 +116,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
   Widget _buildHead() {
     final ti = widget.examHistory.tis[_index];
     final id = widget.examHistory.subjectId;
-    bool have = _favoriteStore.have(
-      id, ti
-    );
+    bool have = _favoriteStore.have(id, ti);
     return NeuAppBar(
         media: _media,
         child: Row(

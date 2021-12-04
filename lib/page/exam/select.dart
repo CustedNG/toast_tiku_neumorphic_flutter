@@ -9,9 +9,11 @@ import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/page/exam/history_list.dart';
 import 'package:toast_tiku/page/exam/ing.dart';
+import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
+import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
@@ -94,7 +96,11 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
       height: _media.size.height * 0.84,
       width: _media.size.width,
       child: ListView(
-        children: [_buildCourseSelect(), _buildTiTypeSelect()],
+        children: [
+          _buildCourseSelect(),
+          _buildTiTypeSelect(),
+          SizedBox(height: _media.size.height * 0.13)
+        ],
       ),
     );
   }
@@ -122,7 +128,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               onChanged: (val) => setState(() {
                 _selectedCourse = val;
                 _selectedCourseName = item.chinese;
-                _counts = [20, 0, 0, 0, 60];
+                _counts = [0, 0, 0, 0, 60];
               }),
             ));
           }
@@ -173,59 +179,70 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
       fillCount += item.fill!;
       _units.add(item.data!);
     }
-    return Padding(
+    return NeuCard(
       padding: EdgeInsets.all(_media.size.width * 0.05),
       child: Column(
         children: [
+          SizedBox(height: _media.size.height * 0.01),
           NeuText(
             text: '题型',
             textStyle: titleStyle,
           ),
-          _buildSlider(singleCount.toDouble(), 0, 0, '单选'),
-          _buildSlider(mutiCount.toDouble(), 0, 1, '多选'),
-          _buildSlider(fillCount.toDouble(), 0, 2, '填空'),
-          _buildSlider(judgeCount.toDouble(), 0, 3, '判断'),
+          SizedBox(height: _media.size.height * 0.01),
+          _buildSlider(singleCount.toDouble(), 0, 0, '单选', '题'),
+          _buildSlider(mutiCount.toDouble(), 0, 1, '多选', '题'),
+          _buildSlider(fillCount.toDouble(), 0, 2, '填空', '题'),
+          _buildSlider(judgeCount.toDouble(), 0, 3, '判断', '题'),
+          SizedBox(height: _media.size.height * 0.01),
           NeuText(
             text: '考试时长',
             textStyle: titleStyle,
           ),
-          _buildSlider(120, 1, 4, '分钟'),
-          SizedBox(
-            height: _media.size.height * 0.2,
-          )
+          SizedBox(height: _media.size.height * 0.01),
+          _buildSlider(60, 1, 4, '分钟', '分钟'),
         ],
       ),
     );
   }
 
-  Widget _buildSlider(double max, double min, int idx, String typeChinese) {
+  Widget _buildSlider(
+      double max, double min, int idx, String typeChinese, String suffix) {
     if (max == 0) {
       return const SizedBox();
     }
-    return Column(
-      children: [
-        SizedBox(
-          width: _media.size.width,
-          child: NeuText(
-            text: '$typeChinese x ${_counts[idx].toInt()}',
-            align: TextAlign.start,
-          ),
-        ),
-        NeumorphicSlider(
-          max: _selectedCourse != null ? max : 0,
-          value: _counts[idx],
-          min: min,
-          thumb: NeuBtn(
-            child: const SizedBox(
-              width: 13,
+    final priColor = primaryColor;
+    final realMax = max > 60 ? 60 : max;
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            NeuText(
+              text: typeChinese,
+              textStyle: titleStyle,
             ),
-            boxShape: const NeumorphicBoxShape.circle(),
-            onTap: () {},
-          ),
-          onChanged: (val) => setState(() => _counts[idx] = val),
-        )
-      ],
-    );
+            NeuText(text: '${_counts[idx].toInt()} $suffix'),
+          ],
+        ),
+      ),
+      Slider(
+        thumbColor: priColor,
+        activeColor: priColor.withOpacity(0.7),
+        min: min,
+        max: realMax.toDouble(),
+        value: _counts[idx],
+        onChanged: (newValue) {
+          setState(() {
+            _counts[idx] = newValue;
+          });
+        },
+        divisions: realMax ~/ 5 < 2 ? realMax.toInt(): realMax ~/ 5,
+      ),
+      const SizedBox(
+        height: 3,
+      ),
+    ]);
   }
 
   Widget _buildStart() {

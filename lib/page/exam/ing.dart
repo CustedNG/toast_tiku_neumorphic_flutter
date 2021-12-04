@@ -26,7 +26,8 @@ class ExamingPage extends StatefulWidget {
   final String subjectId;
   const ExamingPage({
     Key? key,
-    required this.subject, required this.subjectId,
+    required this.subject,
+    required this.subjectId,
   }) : super(key: key);
 
   @override
@@ -283,8 +284,7 @@ class _ExamingPageState extends State<ExamingPage>
                         DateTime.now().toString(),
                         correctRate,
                         widget.subject,
-                        widget.subjectId
-                        ));
+                        widget.subjectId));
                     setState(() {});
                   });
                 }

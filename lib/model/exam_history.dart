@@ -21,14 +21,8 @@ class ExamHistory {
   late List<Ti> tis;
   late List<List<Object>> checkState;
 
-  ExamHistory(
-    this.tis,
-    this.checkState,
-    this.date,
-    this.correctRate,
-    this.subject,
-    this.subjectId
-  );
+  ExamHistory(this.tis, this.checkState, this.date, this.correctRate,
+      this.subject, this.subjectId);
 
   ExamHistory.fromJson(Map<String, dynamic> json) {
     if (json['tis'] != null) {
