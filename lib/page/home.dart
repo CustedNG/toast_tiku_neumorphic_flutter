@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                   onLongPress: () => AppRoute(const DebugPage()).go(context),
                   child: NeuText(
                     text:
-                        '今天已过去\n${(DateTime.now().hour / 24 * 100).toStringAsFixed(1)}%',
+                        '今天已过去\n${passTimeRate.toStringAsFixed(1)}%',
                     align: TextAlign.start,
                   ),
                 ),
@@ -121,6 +121,14 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             _buildTopBtn(),
           ],
         ));
+  }
+
+  double get passTimeRate {
+    final now = DateTime.now();
+    final start = DateTime(now.year, now.month, now.day, 0, 0, 0);
+    final end = DateTime(now.year, now.month, now.day, 23, 59, 59);
+    return (now.millisecondsSinceEpoch - start.millisecondsSinceEpoch) /
+        (end.millisecondsSinceEpoch - start.millisecondsSinceEpoch) * 100;
   }
 
   Widget _buildNotifyCard() {
