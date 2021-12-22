@@ -10,6 +10,7 @@ import 'package:toast_tiku/data/store/unit_history.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/model/check_state.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
@@ -47,8 +48,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   /// [单选数量，多选数量，填空数量，判断数量]
   late List<int> _eachTypeTiCount;
-  // TODO: 使用[Ti]的hash作为id，储存题目历史选项
-  late List<List<int>> _checkState;
+  late CheckState _checkState;
   late AnimationController _animationController;
   late Animation<double> _animation;
   late SnappingSheetController _sheetController;
@@ -91,9 +91,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     final _checkStateHistory =
         _historyStore.fetchCheckState(widget.courseId, widget.unitFile);
     if (_checkStateHistory == null || !_saveAnswer) {
-      _checkState = List.generate(_tis!.length, (_) => []);
+      _checkState = CheckState.empty();
     } else {
-      _checkState = _checkStateHistory;
+      _checkState = CheckState.from(_checkStateHistory);
     }
 
     _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
@@ -322,47 +322,51 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
-          depth: _checkState[_index].contains(value) ? -20 : null),
+          depth: _nowState.contains(value) ? -20 : null),
     );
   }
 
   Color? judgeColor(int value) {
-    if (_checkState[_index].contains(value)) {
+    if (_nowState.contains(value)) {
       if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;
     }
     if (_tis![_index].answer!.contains(value) &&
-        _checkState[_index].length >= _tis![_index].answer!.length &&
+        _nowState.length >= _tis![_index].answer!.length &&
         _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
   }
 
+  String get _nowHash => _tis![_index].id;
+  List<Object> get _nowState => _checkState.get(_nowHash);
+
   void onPressed(int value) {
     _historyProvider.setLastViewed(widget.courseId, widget.unitFile);
     if (_settingStore.saveAnswer.fetch()!) {
       _historyStore.putCheckState(
-          widget.courseId, widget.unitFile, _checkState);
+          widget.courseId, widget.unitFile, _checkState.state);
     }
     if (!_historyIdx.contains(_index)) {
       _historyIdx.add(_index);
     }
-    if (_checkState[_index].contains(value)) {
-      _checkState[_index].remove(value);
+
+    if (_nowState.contains(value)) {
+      _checkState.delete(_nowHash, value);
     } else {
       final type = _tis![_index].type;
-      if (type == 0 || type == 3) _checkState[_index].clear();
-      _checkState[_index].add(value);
+      if (type == 0 || type == 3) _checkState.clear(_nowHash);
+      _checkState.add(_nowHash, value);
     }
     _historyStore.put(widget.courseId, widget.unitFile, _historyIdx);
     setState(() {});
 
     /// 答对自动跳转下一题
     Future.delayed(const Duration(milliseconds: 377), () {
-      if (_checkState[_index]
+      if (_nowState
               .every((element) => _tis![_index].answer!.contains(element)) &&
           _autoSlide2NextWhenCorrect &&
-          _checkState[_index].length == _tis![_index].answer!.length) {
+          _nowState.length == _tis![_index].answer!.length) {
         onSlide(false, true);
       }
     });

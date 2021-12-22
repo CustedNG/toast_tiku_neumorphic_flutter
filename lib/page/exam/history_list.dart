@@ -124,7 +124,7 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
               ],
             ),
             NeuText(
-              text: '${history.correctRate}%',
+              text: '${history.correctRate.toStringAsFixed(1)}%',
               textStyle: titleStyle,
               align: TextAlign.end,
               style: NeumorphicStyle(color: rateColor),

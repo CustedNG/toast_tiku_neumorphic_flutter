@@ -6,6 +6,7 @@ import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/favorite.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/model/check_state.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/grab_sheet.dart';
@@ -34,7 +35,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   late SettingStore _settingStore;
   late List<Ti>? _tis;
   late int _index;
-  late List<List<int>> _checkState;
+  late CheckState _checkState;
   late AnimationController _animationController;
   late Animation<double> _animation;
   late SnappingSheetController _sheetController;
@@ -59,7 +60,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     _autoSlide2NextWhenCorrect =
         _settingStore.autoSlide2NextWhenCorrect.fetch()!;
     _index = 0;
-    _checkState = List.generate(_tis!.length, (_) => []);
+    _checkState = CheckState.empty();
   }
 
   @override
@@ -263,40 +264,43 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
-          depth: _checkState[_index].contains(value) ? -20 : null),
+          depth: _nowState.contains(value) ? -20 : null),
     );
   }
 
   Color? judgeColor(int value) {
-    if (_checkState[_index].contains(value)) {
+    if (_nowState.contains(value)) {
       if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;
     }
     if (_tis![_index].answer!.contains(value) &&
-        _checkState[_index].length >= _tis![_index].answer!.length &&
+        _nowState.length >= _tis![_index].answer!.length &&
         _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
   }
 
   void onPressed(int value) {
-    if (_checkState[_index].contains(value)) {
-      _checkState[_index].remove(value);
+    if (_nowState.contains(value)) {
+      _nowState.remove(value);
     } else {
       final type = _tis![_index].type;
-      if (type == 0 || type == 3) _checkState[_index].clear();
-      _checkState[_index].add(value);
+      if (type == 0 || type == 3) _nowState.clear();
+      _nowState.add(value);
     }
     setState(() {});
 
     /// 答对自动跳转下一题
     Future.delayed(const Duration(milliseconds: 377), () {
-      if (_checkState[_index]
+      if (_nowState
               .every((element) => _tis![_index].answer!.contains(element)) &&
           _autoSlide2NextWhenCorrect &&
-          _checkState[_index].length == _tis![_index].answer!.length) {
+          _nowState.length == _tis![_index].answer!.length) {
         onSlide(false, true);
       }
     });
   }
+
+  String get _nowHash => _tis![_index].id;
+  List<Object> get _nowState => _checkState.get(_nowHash);
 }

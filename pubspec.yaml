@@ -31,6 +31,7 @@ dependencies:
   logging: ^1.0.2
   flutter_material_color_picker: ^1.1.0+2
   r_upgrade: ^0.3.6
+  crypto: ^3.0.1
 
 
 dev_dependencies:

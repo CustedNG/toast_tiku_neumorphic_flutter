@@ -1,5 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
+import 'package:toast_tiku/model/check_state.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
@@ -20,7 +21,7 @@ class GrabSheet extends StatefulWidget {
   final List<Ti> tis;
 
   /// 题目选项状态
-  final List<List<Object>> checkState;
+  final CheckState checkState;
 
   /// 点击后的操作
   final void Function(int index) onTap;
@@ -135,15 +136,17 @@ class _GrabSheetState extends State<GrabSheet> {
           itemCount: tis.length,
           itemBuilder: (context, idx) {
             int currentIdx = prefixIdx + idx;
+            Ti _ti = widget.tis[currentIdx];
+            List<Object> _singleState = widget.checkState.get(_ti.id);
             return Padding(
               padding: const EdgeInsets.all(7),
               child: NeuBtn(
                 style: NeumorphicStyle(
-                    depth: widget.checkState[currentIdx].isEmpty ? null : -10),
+                    depth: _singleState.isEmpty ? null : -10),
                 margin: EdgeInsets.zero,
                 padding: EdgeInsets.zero,
                 child: Container(
-                  color: judgeColor(currentIdx),
+                  color: judgeColor(_singleState, _ti),
                   child: Center(child: NeuText(text: (idx + 1).toString())),
                 ),
                 onTap: () => widget.onTap(currentIdx),
@@ -154,11 +157,11 @@ class _GrabSheetState extends State<GrabSheet> {
   }
 
   /// 是否显示颜色
-  Color? judgeColor(int idx) {
-    if (widget.showColor && widget.checkState[idx].isNotEmpty) {
-      if (widget.tis[idx].answer!
-              .every((element) => widget.checkState[idx].contains(element)) &&
-          widget.tis[idx].answer!.length == widget.checkState[idx].length) {
+  Color? judgeColor(List<Object> state, Ti ti) {
+    if (widget.showColor && state.isNotEmpty) {
+      if (ti.answer!
+              .every((element) => state.contains(element)) &&
+          ti.answer!.length == state.length) {
         return Colors.greenAccent;
       }
       return Colors.redAccent;

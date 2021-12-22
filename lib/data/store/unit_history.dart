@@ -13,14 +13,22 @@ class HistoryStore extends PersistentStore {
   }
 
   void putCheckState(
-      String courseId, String unitFile, List<List<int>>? checkState) {
+      String courseId, String unitFile, Map<String, List<Object>>? checkState) {
     box.put('$courseId-$unitFile-checkState', checkState);
   }
 
-  List<List<int>>? fetchCheckState(String courseId, String unitFile) {
+  Map<String, List<Object>>? fetchCheckState(String courseId, String unitFile) {
     final data = box.get('$courseId-$unitFile-checkState');
     if (data != null) {
-      return List.from(data);
+      final convertData = <String, List<Object>>{};
+      for (var k in data.keys) {
+        final values = <Object>[];
+        for (var v in data[k]) {
+          values.add(v);
+        }
+        convertData[k] = values;
+      }
+      return convertData;
     }
   }
 }

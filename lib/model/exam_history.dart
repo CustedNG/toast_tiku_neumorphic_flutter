@@ -1,3 +1,4 @@
+import 'package:toast_tiku/model/check_state.dart';
 import 'package:toast_tiku/model/ti.dart';
 
 class ExamHistory {
@@ -19,7 +20,7 @@ class ExamHistory {
   late String subjectId;
   late double correctRate;
   late List<Ti> tis;
-  late List<List<Object>> checkState;
+  late CheckState checkState;
 
   ExamHistory(this.tis, this.checkState, this.date, this.correctRate,
       this.subject, this.subjectId);
@@ -33,18 +34,12 @@ class ExamHistory {
       }
       tis = arr0;
     }
-    if (json['checkState'] != null) {
-      final checks = json['checkState'];
-      final arr0 = <List<Object>>[];
-      for (var check in checks) {
-        final arr1 = <Object>[];
-        for (var option in check) {
-          arr1.add(option);
-        }
-        arr0.add(arr1);
-      }
-      checkState = arr0;
+    if (json['checkState'] is Map) {
+      checkState = CheckState.from(json['checkState']);
+    } else {
+      checkState = CheckState.empty();
     }
+    
     date = json['date'].toString();
     subject = json['subject'].toString();
     subjectId = json['subjectId'].toString();
@@ -58,15 +53,7 @@ class ExamHistory {
       arrTis.add(v.toJson());
     }
     data['tis'] = arrTis;
-    final arrCheckStates = [];
-    for (var v in checkState) {
-      final arr1 = [];
-      for (var vv in v) {
-        arr1.add(vv);
-      }
-      arrCheckStates.add(arr1);
-    }
-    data['checkState'] = arrCheckStates;
+    data['checkState'] = checkState;
     data['date'] = date;
     data['correctRate'] = correctRate;
     data['subject'] = subject;

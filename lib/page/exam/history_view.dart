@@ -271,15 +271,16 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
       onPressed: () {},
       style: NeumorphicStyle(
           color: judgeColor(value),
-          depth: widget.examHistory.checkState[_index].contains(value)
+          depth: widget.examHistory.checkState.get(widget.examHistory.tis[_index].id).contains(value)
               ? -20
               : null),
     );
   }
 
   Color? judgeColor(int value) {
-    if (widget.examHistory.checkState[_index].contains(value)) {
-      if (!widget.examHistory.tis[_index].answer!.contains(value)) {
+    final ti = widget.examHistory.tis[_index];
+    if (widget.examHistory.checkState.get(ti.id).contains(value)) {
+      if (!ti.answer!.contains(value)) {
         return Colors.redAccent;
       }
       return Colors.greenAccent;

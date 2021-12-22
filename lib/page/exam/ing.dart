@@ -9,6 +9,7 @@ import 'package:toast_tiku/data/provider/exam.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/data/store/exam_history.dart';
 import 'package:toast_tiku/locator.dart';
+import 'package:toast_tiku/model/check_state.dart';
 import 'package:toast_tiku/model/exam_history.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/exam/result.dart';
@@ -45,7 +46,7 @@ class _ExamingPageState extends State<ExamingPage>
   late List<Ti> _tis = [];
 
   /// 用户对每道题的选项做出的选择的数据
-  late List<List<Object>> _checkState;
+  late CheckState _checkState;
 
   /// 题目渐显渐隐动画控制器
   late AnimationController _controller;
@@ -94,7 +95,7 @@ class _ExamingPageState extends State<ExamingPage>
       begin: 0.0,
       end: 1.0,
     ).animate(_controller);
-    _checkState = List.generate(_tis.length, (_) => []);
+    _checkState = CheckState.empty();
   }
 
   /// 同上[didChangeDependencies]的注释
@@ -112,7 +113,7 @@ class _ExamingPageState extends State<ExamingPage>
               }
               if (_tis.isEmpty) _tis = exam.result;
               if (_checkState.isEmpty) {
-                _checkState = List.generate(_tis.length, (_) => []);
+                _checkState = CheckState.empty();
               }
               _eachTypeTiCount = [
                 _tis.where((element) => element.type == 0).length,
@@ -361,19 +362,19 @@ class _ExamingPageState extends State<ExamingPage>
 
   /// 构建填空题view
   List<Widget> _buildFill(Ti ti) {
-    if (_checkState[_index].isEmpty) {
-      _checkState[_index] = List.generate(ti.answer!.length, (_) => '');
+    if (_nowState.isEmpty) {
+      _checkState.update(_nowHash, List.generate(ti.answer!.length, (_) => ''));
     }
     final textFields = [];
     for (int answerIdx = 0; answerIdx < ti.answer!.length; answerIdx++) {
-      final initValue = _checkState[_index][answerIdx] as String;
+      final initValue = _nowState[answerIdx] as String;
       final id = '$_index - ${answerIdx + 1}';
       textFields.add(NeuTextField(
         key: Key(id),
         label: id,
         initValue: initValue,
         onChanged: (value) {
-          _checkState[_index][answerIdx] = value;
+          _nowState[answerIdx] = value;
         },
         padding: EdgeInsets.zero,
       ));
@@ -428,13 +429,13 @@ class _ExamingPageState extends State<ExamingPage>
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: _submittedAnswer ? judgeColor(value) : null,
-          depth: _checkState[_index].contains(value) ? -20 : null),
+          depth: _nowState.contains(value) ? -20 : null),
     );
   }
 
   /// 判断是否显示颜色，（根据对错）显示什么颜色
   Color? judgeColor(int value) {
-    if (_checkState[_index].contains(value)) {
+    if (_nowState.contains(value)) {
       if (!_tis[_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;
     }
@@ -443,12 +444,12 @@ class _ExamingPageState extends State<ExamingPage>
   /// 按下单个选项时，进行的操作
   void onPressed(int value) {
     if (_submittedAnswer) return;
-    if (_checkState[_index].contains(value)) {
-      _checkState[_index].remove(value);
+    if (_nowState.contains(value)) {
+      _nowState.remove(value);
     } else {
       final type = _tis[_index].type;
-      if (type == 0 || type == 3) _checkState[_index].clear();
-      _checkState[_index].add(value);
+      if (type == 0 || type == 3) _nowState.clear();
+      _nowState.add(value);
     }
     setState(() {});
   }
@@ -460,7 +461,7 @@ class _ExamingPageState extends State<ExamingPage>
       /// 要求包含每个选项
       if (_tis[idx]
           .answer!
-          .every((element) => _checkState[idx].contains(element))) {
+          .every((element) => _nowState.contains(element))) {
         correctCount++;
       }
     }
@@ -472,4 +473,7 @@ class _ExamingPageState extends State<ExamingPage>
     if (!_submittedAnswer) return const SizedBox();
     return NeuText(text: _tis[_index].answerStr);
   }
+
+  String get _nowHash => _tis[_index].id;
+  List<Object> get _nowState => _checkState.get(_nowHash);
 }
