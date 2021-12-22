@@ -55,3 +55,17 @@ class CheckState {
 
   bool get isEmpty => _state.isEmpty;
 }
+
+Map<String, List<Object>>? toMap(dynamic data) {
+  if (data != null) {
+    final convertData = <String, List<Object>>{};
+    for (var k in data.keys) {
+      final values = <Object>[];
+      for (var v in data[k]) {
+        values.add(v);
+      }
+      convertData[k] = values;
+    }
+    return convertData;
+  }
+}

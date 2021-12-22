@@ -445,11 +445,11 @@ class _ExamingPageState extends State<ExamingPage>
   void onPressed(int value) {
     if (_submittedAnswer) return;
     if (_nowState.contains(value)) {
-      _nowState.remove(value);
+      _checkState.delete(_nowHash, value);
     } else {
       final type = _tis[_index].type;
       if (type == 0 || type == 3) _nowState.clear();
-      _nowState.add(value);
+      _checkState.add(_nowHash, value);
     }
     setState(() {});
   }

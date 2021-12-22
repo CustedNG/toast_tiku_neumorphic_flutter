@@ -34,8 +34,8 @@ class ExamHistory {
       }
       tis = arr0;
     }
-    if (json['checkState'] is Map) {
-      checkState = CheckState.from(json['checkState']);
+    if (json['checkState'] != null) {
+      checkState = CheckState.from(toMap(json['checkState'])!);
     } else {
       checkState = CheckState.empty();
     }
@@ -53,7 +53,7 @@ class ExamHistory {
       arrTis.add(v.toJson());
     }
     data['tis'] = arrTis;
-    data['checkState'] = checkState;
+    data['checkState'] = checkState.state;
     data['date'] = date;
     data['correctRate'] = correctRate;
     data['subject'] = subject;

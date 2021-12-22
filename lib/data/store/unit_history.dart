@@ -1,4 +1,5 @@
 import 'package:toast_tiku/core/persistant_store.dart';
+import 'package:toast_tiku/model/check_state.dart';
 
 /// 题库浏览历史储存库
 class HistoryStore extends PersistentStore {
@@ -19,16 +20,6 @@ class HistoryStore extends PersistentStore {
 
   Map<String, List<Object>>? fetchCheckState(String courseId, String unitFile) {
     final data = box.get('$courseId-$unitFile-checkState');
-    if (data != null) {
-      final convertData = <String, List<Object>>{};
-      for (var k in data.keys) {
-        final values = <Object>[];
-        for (var v in data[k]) {
-          values.add(v);
-        }
-        convertData[k] = values;
-      }
-      return convertData;
-    }
+    return toMap(data);
   }
 }
