@@ -18,7 +18,7 @@ Future<void> doUpdate(BuildContext context) async {
   final update = await locator<AppService>().getUpdate();
 
   /// [AppProvider]设置最新版本号
-  final newest = Platform.isAndroid ? update.newest : update.iosbuild;
+  final newest = Platform.isAndroid ? update.androidbuild : update.iosbuild;
   locator<AppProvider>().setNewestBuild(newest);
   logger.info('Update: $newest, now: ${BuildData.build}');
 
