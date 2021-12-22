@@ -271,7 +271,9 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
       onPressed: () {},
       style: NeumorphicStyle(
           color: judgeColor(value),
-          depth: widget.examHistory.checkState.get(widget.examHistory.tis[_index].id).contains(value)
+          depth: widget.examHistory.checkState
+                  .get(widget.examHistory.tis[_index].id)
+                  .contains(value)
               ? -20
               : null),
     );

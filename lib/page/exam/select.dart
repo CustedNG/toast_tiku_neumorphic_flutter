@@ -257,10 +257,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           if (_selectedCourse == null) {
             showSnackBar(context, const Text('请选择科目'));
           } else {
-            final total = _counts[0] +
-                _counts[1] +
-                _counts[2] +
-                _counts[3];
+            final total = _counts[0] + _counts[1] + _counts[2] + _counts[3];
             if (total == 0) {
               showSnackBar(context, const Text('题目总数不得等于0'));
             } else {

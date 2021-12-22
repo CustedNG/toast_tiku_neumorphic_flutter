@@ -141,8 +141,8 @@ class _GrabSheetState extends State<GrabSheet> {
             return Padding(
               padding: const EdgeInsets.all(7),
               child: NeuBtn(
-                style: NeumorphicStyle(
-                    depth: _singleState.isEmpty ? null : -10),
+                style:
+                    NeumorphicStyle(depth: _singleState.isEmpty ? null : -10),
                 margin: EdgeInsets.zero,
                 padding: EdgeInsets.zero,
                 child: Container(
@@ -159,8 +159,7 @@ class _GrabSheetState extends State<GrabSheet> {
   /// 是否显示颜色
   Color? judgeColor(List<Object> state, Ti ti) {
     if (widget.showColor && state.isNotEmpty) {
-      if (ti.answer!
-              .every((element) => state.contains(element)) &&
+      if (ti.answer!.every((element) => state.contains(element)) &&
           ti.answer!.length == state.length) {
         return Colors.greenAccent;
       }

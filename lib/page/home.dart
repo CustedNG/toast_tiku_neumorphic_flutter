@@ -111,8 +111,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 GestureDetector(
                   onLongPress: () => AppRoute(const DebugPage()).go(context),
                   child: NeuText(
-                    text:
-                        '今天已过去\n${passTimeRate.toStringAsFixed(1)}%',
+                    text: '今天已过去\n${passTimeRate.toStringAsFixed(1)}%',
                     align: TextAlign.start,
                   ),
                 ),
@@ -128,7 +127,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     final start = DateTime(now.year, now.month, now.day, 0, 0, 0);
     final end = DateTime(now.year, now.month, now.day, 23, 59, 59);
     return (now.millisecondsSinceEpoch - start.millisecondsSinceEpoch) /
-        (end.millisecondsSinceEpoch - start.millisecondsSinceEpoch) * 100;
+        (end.millisecondsSinceEpoch - start.millisecondsSinceEpoch) *
+        100;
   }
 
   Widget _buildNotifyCard() {
@@ -309,7 +309,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         NeuBtn(
-          child: NeuText(text: '模考', textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold)),
+          child: NeuText(
+              text: '模考',
+              textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold)),
           onTap: () => AppRoute(const ExamSelectPage()).go(context),
         ),
         NeuIconBtn(

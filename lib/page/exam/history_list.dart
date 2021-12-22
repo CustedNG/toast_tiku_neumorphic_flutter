@@ -79,9 +79,12 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
 
   Widget _buildMain() {
     if (_historyList.isEmpty) {
-      return const Expanded(child: Center(child: NeuText(
-        text: '暂无考试记录',
-      ),));
+      return const Expanded(
+          child: Center(
+        child: NeuText(
+          text: '暂无考试记录',
+        ),
+      ));
     }
     return SizedBox(
       height: _media.size.height * 0.84,

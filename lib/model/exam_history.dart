@@ -39,7 +39,7 @@ class ExamHistory {
     } else {
       checkState = CheckState.empty();
     }
-    
+
     date = json['date'].toString();
     subject = json['subject'].toString();
     subjectId = json['subjectId'].toString();

@@ -22,8 +22,7 @@ class ExamHistoryStore extends PersistentStore {
 
   bool del(ExamHistory history) {
     final old = fetch();
-    final index =
-        old.indexWhere((item) => item.date == history.date);
+    final index = old.indexWhere((item) => item.date == history.date);
     if (index == -1) {
       return false;
     }
