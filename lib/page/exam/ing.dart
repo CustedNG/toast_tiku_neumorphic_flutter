@@ -458,10 +458,11 @@ class _ExamingPageState extends State<ExamingPage>
   int _getCorrectCount() {
     int correctCount = 0;
     for (int idx = 0; idx < _tis.length; idx++) {
+      final ti = _tis[idx];
       /// 要求包含每个选项
-      if (_tis[idx]
+      if (ti
           .answer!
-          .every((element) => _nowState.contains(element))) {
+          .every((element) => _checkState.get(ti.id).contains(element))) {
         correctCount++;
       }
     }
