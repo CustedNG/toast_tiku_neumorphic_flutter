@@ -87,18 +87,110 @@ class _CoursePageState extends State<CoursePage> {
                   )).go(context),
                 ),
                 NeuIconBtn(
-                    icon: Icons.delete_outlined,
-                    onTap: () => showSnackBarWithAction(
-                            context,
-                            '是否删除${widget.data.chinese}所有的做题记录？\n请注意，操作无法撤回！',
-                            '确认', () {
-                          final courseId = widget.data.id ?? '';
-                          for (var unit in widget.data.content!) {
-                            final unitId = unit!.data ?? '';
-                            _historyStore.put(courseId, unitId, []);
-                            _historyStore.putCheckState(courseId, unitId, null);
-                          }
-                        }))
+                  icon: Icons.delete_outlined,
+                  onTap: () async {
+                    final idxes = widget.data.content!;
+                    final selected = <String>[];
+                    await showDialog<List<String>>(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return StatefulBuilder(
+                              builder: (context, StateSetter setState) {
+                            return AlertDialog(
+                              backgroundColor:
+                                  NeumorphicTheme.baseColor(context),
+                              title: const NeuText(
+                                text: '选择删除做题记录的章节',
+                                align: TextAlign.start,
+                              ),
+                              content: SizedBox(
+                                width: _media.size.width * 0.9,
+                                child: GridView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: _media.size.width * 0.05),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            childAspectRatio: 2),
+                                    itemCount: idxes.length,
+                                    itemBuilder: (context, idx) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(top: 7, right: 3, left: 3),
+                                        child: NeuBtn(
+                                          margin: EdgeInsets.zero,
+                                          padding: EdgeInsets.zero,
+                                          child: Container(
+                                            color: selected
+                                                    .contains(idxes[idx]!.data)
+                                                ? primaryColor
+                                                : null,
+                                            child: Center(
+                                                child: NeuText(
+                                                    text: idxes[idx]!
+                                                        .data!
+                                                        .replaceFirst(
+                                                            '.json', ''))),
+                                          ),
+                                          onTap: () {
+                                            if (selected
+                                                .contains(idxes[idx]!.data)) {
+                                              selected.remove(idxes[idx]!.data);
+                                            } else {
+                                              selected.add(idxes[idx]!.data!);
+                                            }
+                                            setState(() {});
+                                          },
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              actions: [
+                                NeuIconBtn(
+                                  icon: Icons.delete,
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                NeuIconBtn(
+                                  icon: Icons.close,
+                                  onTap: () {
+                                    selected.clear();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                NeuIconBtn(icon: Icons.done_all, onTap: () {
+                                  selected.clear();
+                                  for (final idx in idxes) {
+                                    selected.add(idx!.data!);
+                                  }
+                                  setState(() {});
+                                },)
+                              ],
+                            );
+                          });
+                        });
+                    final courseId = widget.data.id ?? '';
+                    for (var unit in selected) {
+                      _historyStore.put(courseId, unit, []);
+                      _historyStore.putCheckState(courseId, unit, null);
+                    }
+                  },
+                )
+                // onTap: () => showSnackBarWithAction(
+                //         context,
+                //         '是否删除${widget.data.chinese}所有的做题记录？\n请注意，操作无法撤回！',
+                //         '确认', () {
+                //       final courseId = widget.data.id ?? '';
+                //       for (var unit in widget.data.content!) {
+                //         final unitId = unit!.data ?? '';
+                //         _historyStore.put(courseId, unitId, []);
+                //         _historyStore.putCheckState(courseId, unitId, null);
+                //       }
+                //     }))
               ],
             ),
           ],
