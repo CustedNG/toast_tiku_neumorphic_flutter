@@ -22,7 +22,7 @@ dependencies:
   dio: ^4.0.0
   after_layout: ^1.1.0
   snapping_sheet: ^3.1.0
-  extended_image: ^5.1.0
+  extended_image: ^6.0.1
   url_launcher: ^6.0.9
   countly_flutter:
     git: 

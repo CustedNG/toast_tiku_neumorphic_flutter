@@ -1,6 +1,3 @@
-/// Copy from https://github.com/jesusrp98/search_page
-/// license GPL
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/res/color.dart';
 

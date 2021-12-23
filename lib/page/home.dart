@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math' show Random;
 
 import 'package:after_layout/after_layout.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/analysis.dart';

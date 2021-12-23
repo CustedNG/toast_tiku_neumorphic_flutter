@@ -2,9 +2,8 @@
 
 class BuildData {
   static const String name = "ToastTiku";
-  static const int build = 105;
-  static const String engine =
-      "Flutter 2.5.3 • channel stable • https://github.com/flutter/flutter.git\nFramework • revision 18116933e7 (10 weeks ago) • 2021-10-15 10:46:35 -0700\nEngine • revision d3ea636dc5\nTools • Dart 2.14.4\n";
-  static const String buildAt = "2021-12-23 17:25:18.887643";
+  static const int build = 107;
+  static const String engine = "Flutter 2.8.1 • channel stable • https://github.com/flutter/flutter.git\nFramework • revision 77d935af4d (7 days ago) • 2021-12-16 08:37:33 -0800\nEngine • revision 890a5fca2e\nTools • Dart 2.15.1\n";
+  static const String buildAt = "2021-12-23 18:08:03.865364";
   static const int modifications = 3;
 }

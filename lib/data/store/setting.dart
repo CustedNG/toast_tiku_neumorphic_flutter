@@ -25,4 +25,8 @@ class SettingStore extends PersistentStore {
   /// 背题模式：在单元测试里，直接显示答案
   StoreProperty<bool> get directlyShowAnswer =>
       property('directlyShowAnswer', defaultValue: false);
+
+  /// 多选全部选项选出后，才显示答案
+  StoreProperty<bool> get showAnswerWhenAllSelected =>
+      property('showAnswerWhenAllSelected', defaultValue: false);
 }
