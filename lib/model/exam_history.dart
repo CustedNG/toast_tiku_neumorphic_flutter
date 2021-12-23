@@ -35,7 +35,7 @@ class ExamHistory {
       tis = arr0;
     }
     if (json['checkState'] != null) {
-      checkState = CheckState.from(toMap(json['checkState'])!);
+      checkState = CheckState.from(toMap(json['checkState']));
     } else {
       checkState = CheckState.empty();
     }
