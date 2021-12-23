@@ -281,11 +281,13 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
 
   Color? judgeColor(int value) {
     final ti = widget.examHistory.tis[_index];
+    if (ti.answer!.contains(value)) {
+      return Colors.greenAccent;
+    }
     if (widget.examHistory.checkState.get(ti.id).contains(value)) {
       if (!ti.answer!.contains(value)) {
         return Colors.redAccent;
       }
-      return Colors.greenAccent;
     }
   }
 }
