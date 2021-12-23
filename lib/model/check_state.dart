@@ -58,6 +58,7 @@ class CheckState {
 
 Map<String, List<Object>>? toMap(dynamic data) {
   if (data != null) {
+    if (data is List) return null;
     final convertData = <String, List<Object>>{};
     for (var k in data.keys) {
       final values = <Object>[];

@@ -119,7 +119,8 @@ class _CoursePageState extends State<CoursePage> {
                                     itemCount: idxes.length,
                                     itemBuilder: (context, idx) {
                                       return Padding(
-                                        padding: const EdgeInsets.only(top: 7, right: 3, left: 3),
+                                        padding: const EdgeInsets.only(
+                                            top: 7, right: 3, left: 3),
                                         child: NeuBtn(
                                           margin: EdgeInsets.zero,
                                           padding: EdgeInsets.zero,
@@ -162,13 +163,16 @@ class _CoursePageState extends State<CoursePage> {
                                     Navigator.of(context).pop();
                                   },
                                 ),
-                                NeuIconBtn(icon: Icons.done_all, onTap: () {
-                                  selected.clear();
-                                  for (final idx in idxes) {
-                                    selected.add(idx!.data!);
-                                  }
-                                  setState(() {});
-                                },)
+                                NeuIconBtn(
+                                  icon: Icons.done_all,
+                                  onTap: () {
+                                    selected.clear();
+                                    for (final idx in idxes) {
+                                      selected.add(idx!.data!);
+                                    }
+                                    setState(() {});
+                                  },
+                                )
                               ],
                             );
                           });
