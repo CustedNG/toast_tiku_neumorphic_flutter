@@ -148,7 +148,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                     itemCount: radios.length,
                     itemBuilder: (context, idx) {
                       return Padding(
-                        padding: const EdgeInsets.all(7),
+                        padding: const EdgeInsets.all(6),
                         child: radios[idx],
                       );
                     }),

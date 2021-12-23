@@ -21,4 +21,8 @@ class SettingStore extends PersistentStore {
   /// 单元模式下，选择正确时，自动跳转下一题
   StoreProperty<bool> get autoSlide2NextWhenCorrect =>
       property('autoSlide2NextWhenCorrect', defaultValue: true);
+
+  /// 背题模式：在单元测试里，直接显示答案
+  StoreProperty<bool> get directlyShowAnswer =>
+      property('directlyShowAnswer', defaultValue: false);
 }

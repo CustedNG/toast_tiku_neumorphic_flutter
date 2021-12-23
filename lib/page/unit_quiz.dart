@@ -327,6 +327,10 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   }
 
   Color? judgeColor(int value) {
+    if (_settingStore.directlyShowAnswer.fetch()!) {
+      return _tis![_index].answer!.contains(value) ? Colors.greenAccent : null;
+    }
+    
     if (_nowState.contains(value)) {
       if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;
@@ -342,6 +346,10 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   List<Object> get _nowState => _checkState.get(_nowHash);
 
   void onPressed(int value) {
+    if (_settingStore.directlyShowAnswer.fetch()!) {
+      return;
+    }
+
     _historyProvider.setLastViewed(widget.courseId, widget.unitFile);
     if (_settingStore.saveAnswer.fetch()!) {
       _historyStore.putCheckState(

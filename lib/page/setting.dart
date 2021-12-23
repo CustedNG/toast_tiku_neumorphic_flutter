@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-import 'package:toast_tiku/core/persistant_store.dart';
 import 'package:toast_tiku/core/update.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/app.dart';
@@ -16,6 +15,7 @@ import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/logo_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
+import 'package:toast_tiku/widget/neu_switch.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/setting_item.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
@@ -167,15 +167,15 @@ class _SettingPageState extends State<SettingPage> {
     return _buildSettingCard([
       SettingItem(
         title: '自动展示答案',
-        rightBtn: _buildSwitch(context, _store.autoDisplayAnswer),
+        rightBtn: buildSwitch(context, _store.autoDisplayAnswer),
       ),
       SettingItem(
         title: '答对自动跳转下一题',
-        rightBtn: _buildSwitch(context, _store.autoSlide2NextWhenCorrect),
+        rightBtn: buildSwitch(context, _store.autoSlide2NextWhenCorrect),
       ),
       SettingItem(
         title: '显示做题历史记录',
-        rightBtn: _buildSwitch(context, _store.saveAnswer),
+        rightBtn: buildSwitch(context, _store.saveAnswer),
       ),
       Consumer<TikuProvider>(builder: (_, tiku, __) {
         if (tiku.isBusy) {
@@ -206,24 +206,5 @@ class _SettingPageState extends State<SettingPage> {
           _selectedColorValue = color.value;
         },
         selectedColor: selected);
-  }
-
-  Widget _buildSwitch(BuildContext context, StoreProperty<bool> prop,
-      {Function(bool)? func}) {
-    return ValueListenableBuilder(
-      valueListenable: prop.listenable(),
-      builder: (context, bool value, widget) {
-        return ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 27),
-          child: NeumorphicSwitch(
-              height: 27,
-              value: value,
-              onChanged: (val) {
-                if (func != null) func(val);
-                prop.put(val);
-              }),
-        );
-      },
-    );
   }
 }

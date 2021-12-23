@@ -14,6 +14,7 @@ import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/provider/app.dart';
 import 'package:toast_tiku/data/provider/unit_history.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
+import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/page/course.dart';
@@ -28,6 +29,7 @@ import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
+import 'package:toast_tiku/widget/neu_switch.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/online_img.dart';
 import 'package:toast_tiku/widget/search.dart';
@@ -53,6 +55,14 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   /// 标题文字风格
   final titleStyle =
       NeumorphicTextStyle(fontWeight: FontWeight.bold, fontSize: 17);
+
+  late SettingStore _setting;
+
+  @override
+  void initState() {
+    super.initState();
+    _setting = locator<SettingStore>();
+  }
 
   @override
   void didChangeDependencies() {
@@ -89,11 +99,29 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                   _buildResumeCard(),
                   SizedBox(height: _media.size.height * 0.01),
                   _buildAllCourseCard(),
+                  _buildDirectlyShowAnswerSwitch(),
                 ],
               ),
             )
           ],
         ));
+  }
+
+  Widget _buildDirectlyShowAnswerSwitch() {
+    return SizedBox(
+      width: _media.size.width * 0.3,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const NeuText(
+            text: '背题模式',
+            align: TextAlign.center,
+          ),
+          SizedBox(width: _media.size.width * 0.03),
+          buildSwitch(context, _setting.directlyShowAnswer)
+        ],
+      ),
+    );
   }
 
   Widget _buildHead() {
@@ -259,7 +287,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   Widget _buildAllCourseCard() {
     return SizedBox(
-      height: _media.size.height * 0.5,
+      height: _media.size.height * 0.3,
       width: _media.size.width * 0.9,
       child: Consumer<TikuProvider>(builder: (_, tiku, __) {
         if (tiku.tikuIndex == null) {

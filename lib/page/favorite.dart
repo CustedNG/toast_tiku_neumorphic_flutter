@@ -269,6 +269,10 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   }
 
   Color? judgeColor(int value) {
+    if (_settingStore.directlyShowAnswer.fetch()!) {
+      return _tis![_index].answer!.contains(value) ? Colors.greenAccent : null;
+    }
+
     if (_nowState.contains(value)) {
       if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;
@@ -281,6 +285,10 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   }
 
   void onPressed(int value) {
+    if (_settingStore.directlyShowAnswer.fetch()!) {
+      return;
+    }
+    
     if (_nowState.contains(value)) {
       _checkState.delete(_nowHash, value);
     } else {
