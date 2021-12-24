@@ -287,7 +287,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     if (_settingStore.directlyShowAnswer.fetch()!) {
       return;
     }
-    
+
     if (_nowState.contains(value)) {
       _checkState.delete(_nowHash, value);
     } else {

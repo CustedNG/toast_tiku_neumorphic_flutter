@@ -329,7 +329,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     if (_settingStore.directlyShowAnswer.fetch()!) {
       return _tis![_index].answer!.contains(value) ? Colors.greenAccent : null;
     }
-    
+
     if (_nowState.contains(value)) {
       if (!_tis![_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;

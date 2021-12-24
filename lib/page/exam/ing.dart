@@ -461,8 +461,8 @@ class _ExamingPageState extends State<ExamingPage>
       final state = _checkState.get(ti.id);
 
       /// 要求包含每个选项
-      if (ti.answer!
-          .every((element) => state.contains(element)) && state.length == ti.answer!.length) {
+      if (ti.answer!.every((element) => state.contains(element)) &&
+          state.length == ti.answer!.length) {
         correctCount++;
       }
     }

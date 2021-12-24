@@ -33,4 +33,10 @@ class AppService {
     final resp = await Dio().get('$tikuResUrl/update.json');
     return AppUpdate.fromJson(resp.data);
   }
+
+  /// 获取贡献者名单
+  Future<String> getContributor() async {
+    final resp = await Dio().get('$tikuResUrl/contributor.txt');
+    return resp.data;
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' show Random;
 
 import 'package:after_layout/after_layout.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/analysis.dart';
@@ -83,27 +84,63 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: NeumorphicTheme.baseColor(context),
-        body: Column(
-          children: [
-            _buildHead(),
-            const TikuUpdateProgress(),
-            SizedBox(
-              height: getRemainHeight(_media),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  _buildNotifyCard(),
-                  _buildResumeCard(),
-                  SizedBox(height: _media.size.height * 0.01),
-                  _buildAllCourseCard(),
-                  _buildDirectlyShowAnswerSwitch(),
-                ],
-              ),
-            )
-          ],
-        ));
+      backgroundColor: NeumorphicTheme.baseColor(context),
+      body: Column(
+        children: [
+          _buildHead(),
+          const TikuUpdateProgress(),
+          SizedBox(
+            height: getRemainHeight(_media),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              physics: const BouncingScrollPhysics(),
+              children: [
+                _buildNotifyCard(),
+                _buildResumeCard(),
+                SizedBox(height: _media.size.height * 0.01),
+                _buildAllCourseCard(),
+                _buildDirectlyShowAnswerSwitch(),
+              ],
+            ),
+          )
+        ],
+      ),
+      bottomSheet: _buildContributor(),
+    );
+  }
+
+  Widget _buildContributor() {
+    return Container(
+      color: NeumorphicTheme.baseColor(context),
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: _media.padding.bottom,
+        ),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+              child: Consumer<AppProvider>(builder: (_, provider, __) {
+                return AnimatedTextKit(
+                    repeatForever: true,
+                    animatedTexts: provider.contributors
+                        .map((e) => FadeAnimatedText(e,
+                            textAlign: TextAlign.center,
+                            textStyle: const TextStyle(
+                                fontSize: 12.7, fontWeight: FontWeight.bold)))
+                        .toList());
+              }),
+            ),
+          ),
+        ),
+      ),
+      width: _media.size.width,
+      height: _media.size.height * 0.06 + _media.padding.bottom,
+    );
   }
 
   Widget _buildDirectlyShowAnswerSwitch() {
