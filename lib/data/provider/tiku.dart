@@ -40,6 +40,8 @@ class TikuProvider extends BusyProvider {
     final tikuIndexRaw = await AppService().getTikuIndex();
     if (tikuIndexRaw == null) {
       logger.warning('get tiku index failed');
+      setBusyState(false);
+      notifyListeners();
       return;
     }
     _tikuIndexes = tikuIndexRaw.tikuIndexes;
@@ -47,6 +49,7 @@ class TikuProvider extends BusyProvider {
 
     _store.index.put(json.encode(_tikuIndexes));
     setBusyState(false);
+    notifyListeners();
   }
 
   /// 刷新题库每个章节的数据
@@ -55,11 +58,13 @@ class TikuProvider extends BusyProvider {
     // 如果版本相同，跳过更新
     if (_store.version.fetch() == indexVersion) {
       setBusyState(false);
+      notifyListeners();
       return;
     }
     // 索引数据为空，跳过更新
     if (_tikuIndexes == null) {
       setBusyState(false);
+      notifyListeners();
       logger.warning('tiku index is null, skip getting detailed data');
       return;
     }
@@ -88,6 +93,7 @@ class TikuProvider extends BusyProvider {
     }
     _store.version.put(indexVersion ?? '');
     setBusyState(false);
+    notifyListeners();
   }
 
   /// 刷新题库所有数据
