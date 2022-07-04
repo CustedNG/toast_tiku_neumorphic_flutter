@@ -87,12 +87,12 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _saveAnswer = _settingStore.saveAnswer.fetch()!;
     _autoSlide2NextWhenCorrect =
         _settingStore.autoSlide2NextWhenCorrect.fetch()!;
-    final _checkStateHistory =
+    final checkStateHistory =
         _historyStore.fetchCheckState(widget.courseId, widget.unitFile);
-    if (_checkStateHistory == null || !_saveAnswer) {
+    if (checkStateHistory == null || !_saveAnswer) {
       _checkState = CheckState.empty();
     } else {
-      _checkState = CheckState.from(_checkStateHistory);
+      _checkState = CheckState.from(checkStateHistory);
     }
 
     _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
@@ -314,14 +314,14 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: SizedBox(
-        width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
-      ),
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
           depth: _nowState.contains(value) ? -20 : null),
+      child: SizedBox(
+        width: _media.size.width * 0.98,
+        child: NeuText(text: content, align: TextAlign.start),
+      ),
     );
   }
 
@@ -339,6 +339,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
+    return null;
   }
 
   String get _nowHash => _tis![_index].id;

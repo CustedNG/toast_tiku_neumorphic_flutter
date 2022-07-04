@@ -4,10 +4,10 @@
 const backendUrl = 'https://v2.custed.lolli.tech/';
 
 /// 题库资源地址
-const tikuResUrl = backendUrl + 'res/tiku';
+const tikuResUrl = '${backendUrl}res/tiku';
 
 /// 科目图标地址
-const courseImgUrl = tikuResUrl + '/img';
+const courseImgUrl = '$tikuResUrl/img';
 
 /// 加群地址
 const joinQQGroupUrl = 'https://jq.qq.com/?_wv=1027&k=G0hUmPAq';

@@ -183,7 +183,7 @@ class _SettingPageState extends State<SettingPage> {
             rightBtn: SizedBox(
               width: _media.size.width * 0.37,
               child: NeuText(
-                  text: (tiku.downloadProgress * 100).toStringAsFixed(2) + '%',
+                  text: '${(tiku.downloadProgress * 100).toStringAsFixed(2)}%',
                   align: TextAlign.end),
             ),
           );

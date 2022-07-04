@@ -27,10 +27,10 @@ class ExamHistory {
 
   ExamHistory.fromJson(Map<String, dynamic> json) {
     if (json['tis'] != null) {
-      final _tis = json['tis'];
+      final tist = json['tis'];
       final arr0 = <Ti>[];
-      for (var _ti in _tis) {
-        arr0.add(Ti.fromJson(_ti));
+      for (var ti in tist) {
+        arr0.add(Ti.fromJson(ti));
       }
       tis = arr0;
     }

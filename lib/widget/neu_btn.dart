@@ -32,12 +32,12 @@ class NeuIconBtn extends StatelessWidget {
     return NeuBtn(
       margin: margin ?? const EdgeInsets.all(9),
       padding: padding ?? const EdgeInsets.all(9),
+      onTap: onTap,
+      boxShape: boxShape,
       child: NeumorphicIcon(
         icon,
         style: NeumorphicStyle(color: mainTextColor.resolve(context)),
       ),
-      onTap: onTap,
-      boxShape: boxShape,
     );
   }
 }
@@ -67,13 +67,13 @@ class NeuBtn extends StatelessWidget {
     return NeumorphicButton(
       padding: margin ?? const EdgeInsets.all(9),
       margin: padding ?? const EdgeInsets.all(9),
-      child: child,
       onPressed: onTap,
       style: style ??
           NeumorphicStyle(
               boxShape: boxShape ??
                   NeumorphicBoxShape.roundRect(
                       const BorderRadius.all(Radius.circular(7)))),
+      child: child,
     );
   }
 }

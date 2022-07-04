@@ -5,13 +5,26 @@ import 'dart:convert';
 import 'dart:io';
 
 const appName = 'ToastTiku';
-const buildDataClassPath = 'lib/res/build_data.dart';
+const buildDataFilePath = 'lib/res/build_data.dart';
+const apkPath = 'build/app/outputs/flutter-apk/app-release.apk';
+const xcarchivePath = 'build/ios/archive/Runner.xcarchive';
+const macosAppPath = 'build/macos/Build/Products/Release/toast_tiku.app';
+var regiOSProjectVer = RegExp(r'CURRENT_PROJECT_VERSION = .+;');
+var regiOSMarketVer = RegExp(r'MARKETING_VERSION = .+');
+const iOSInfoPlistPath = 'ios/Runner.xcodeproj/project.pbxproj';
+const macOSInfoPlistPath = 'macos/Runner.xcodeproj/project.pbxproj';
+const skslFileSuffix = '.sksl.json';
 
-final encoding = Encoding.getByName("UTF-8");
+const buildFuncs = {
+  'ios': flutterBuildIOS,
+  'macos': flutterBuildMacOS,
+  'android': flutterBuildAndroid,
+};
+
+int? build;
 
 Future<int> getGitCommitCount() async {
-  final result = await Process.run('git', ['log', '--oneline'],
-      stdoutEncoding: encoding, stderrEncoding: encoding);
+  final result = await Process.run('git', ['log', '--oneline']);
   return (result.stdout as String)
       .split('\n')
       .where((line) => line.isNotEmpty)
@@ -43,15 +56,14 @@ Future<int> getGitModificationCount() async {
 }
 
 Future<String> getFlutterVersion() async {
-  final result = await Process.run('flutter', ['--version'],
-      runInShell: true, stdoutEncoding: encoding);
+  final result = await Process.run('flutter', ['--version'], runInShell: true);
   return (result.stdout as String);
 }
 
 Future<Map<String, dynamic>> getBuildData() async {
   final data = {
     'name': appName,
-    'build': await getGitCommitCount(),
+    'build': build,
     'engine': await getFlutterVersion(),
     'buildAt': DateTime.now().toString(),
     'modifications': await getGitModificationCount(),
@@ -68,81 +80,93 @@ Future<void> updateBuildData() async {
   print('Updating BuildData...');
   final data = await getBuildData();
   print(jsonEncodeWithIndent(data));
-  await writeStaicConfigFile(data, 'BuildData', buildDataClassPath);
+  await writeStaicConfigFile(data, 'BuildData', buildDataFilePath);
 }
 
-void flutterRun(String mode) {
-  Process.start('flutter', ['run', '--$mode'],
+Future<void> dartFormat() async {
+  final result = await Process.run('dart', ['format', '.']);
+  print('\n${result.stdout}');
+  if (result.exitCode != 0) {
+    print(result.stderr);
+    exit(1);
+  }
+}
+
+void flutterRun(String? mode) {
+  Process.start('flutter', mode == null ? ['run'] : ['run', '--$mode'],
       mode: ProcessStartMode.inheritStdio, runInShell: true);
 }
 
-void flutterBuild(
-    String source, String target, bool isAndroid, bool is32Bit) async {
-  final startTime = DateTime.now();
-  final build = await getGitCommitCount();
-
+Future<void> flutterBuild(
+    String source, String target, String buildType) async {
   final args = [
     'build',
-    isAndroid ? 'apk' : 'ipa',
-    '--target-platform=android-arm${is32Bit ? "" : 64}',
-    '--build-number=$build',
-    '--build-name=1.0.$build'
+    buildType,
   ];
-  if (!isAndroid) args.removeAt(2);
-  print('Building with args: ${args.join(' ')}');
+  // No sksl cache for macos
+  if ('macos' != buildType) {
+    args.add('--bundle-sksl-path=$buildType$skslFileSuffix');
+  }
+  final isAndroid = 'apk' == buildType;
+  // [--target-platform] only for Android
+  if (isAndroid) {
+    args.addAll([
+      '--target-platform=android-arm64',
+      '--build-number=$build',
+      '--build-name=1.0.$build',
+    ]);
+  }
+  print('[$buildType]\nBuilding with args: ${args.join(' ')}');
   final buildResult = await Process.run('flutter', args, runInShell: true);
   final exitCode = buildResult.exitCode;
 
   if (exitCode == 0) {
     target = target.replaceFirst('build', build.toString());
     print('Copying from $source to $target');
-    await File(source).copy(target);
-    print('Done.');
-  } else {
-    print(buildResult.stderr.toString());
-    print('\nBuild failed with exit code $exitCode');
-  }
-  final endTime = DateTime.now();
-  print('Spent time: ${endTime.difference(startTime).toString()}');
-}
-
-void flutterBuildIOS() async {
-  flutterBuild('./build/ios/iphoneos/$appName.app',
-      './release/${appName}_build.app', false, false);
-}
-
-void flutterBuildAndroid(bool is32Bit) async {
-  flutterBuild('./build/app/outputs/flutter-apk/app-release.apk',
-      './release/${appName}_build_Arm${is32Bit ? "" : 64}.apk', true, is32Bit);
-}
-
-void flutterBuildWeb() async {
-  final startTime = DateTime.now();
-
-  final args = [
-    'build',
-    'web',
-  ];
-  print('Building with args: ${args.join(' ')}');
-  final buildResult = await Process.run('flutter', args, runInShell: true);
-  final exitCode = buildResult.exitCode;
-
-  if (exitCode == 0) {
-    print('Copying dir "tiku" to web build dir.');
-    final cpResult =
-        await Process.run('cp', ['-r', 'tiku', 'build/web'], runInShell: true);
-    if (cpResult.exitCode != 0) {
-      print(cpResult.stderr.toString());
-      print('\nCopy failed with exit code ${cpResult.exitCode}');
+    if (isAndroid) {
+      await File(source).copy(target);
     } else {
-      print('Done.');
+      final result = await Process.run('cp', ['-r', source, target]);
+      if (result.exitCode != 0) {
+        print(result.stderr);
+        exit(1);
+      }
     }
+
+    print('Done.\n');
   } else {
-    print(buildResult.stderr.toString());
+    print(buildResult.stdout);
+    print(buildResult.stderr);
     print('\nBuild failed with exit code $exitCode');
+    exit(exitCode);
   }
-  final endTime = DateTime.now();
-  print('Spent time: ${endTime.difference(startTime).toString()}');
+}
+
+Future<void> flutterBuildIOS() async {
+  await changeInfoPlistVersion();
+  await flutterBuild(
+      xcarchivePath, './release/${appName}_ios_build.xcarchive', 'ipa');
+}
+
+Future<void> flutterBuildMacOS() async {
+  await changeInfoPlistVersion();
+  await flutterBuild(
+      macosAppPath, './release/${appName}_macos_build.app', 'macos');
+}
+
+Future<void> flutterBuildAndroid() async {
+  await flutterBuild(apkPath, './release/${appName}_build_Arm64.apk', 'apk');
+}
+
+Future<void> changeInfoPlistVersion() async {
+  for (final path in [iOSInfoPlistPath, macOSInfoPlistPath]) {
+    final file = File(path);
+    final contents = await file.readAsString();
+    final newContents = contents
+        .replaceAll(regiOSMarketVer, 'MARKETING_VERSION = 1.0.$build;')
+        .replaceAll(regiOSProjectVer, 'CURRENT_PROJECT_VERSION = $build;');
+    await file.writeAsString(newContents);
+  }
 }
 
 void main(List<String> args) async {
@@ -152,25 +176,28 @@ void main(List<String> args) async {
   }
 
   final command = args[0];
-  await updateBuildData();
 
   switch (command) {
     case 'run':
-      if (args.length > 1) {
-        return flutterRun(args[1]);
-      }
-      return flutterRun('');
+      return flutterRun(args.length == 2 ? args[1] : null);
     case 'build':
+      final stopwatch = Stopwatch()..start();
+      build = await getGitCommitCount();
+      await updateBuildData();
+      await dartFormat();
       if (args.length > 1) {
-        if (args[1] == 'android' || args[1] == 'harmony') {
-          return flutterBuildAndroid(args.last == '32');
-        } else if (args[1] == 'ios') {
-          return flutterBuildIOS();
-        } else if (args[1] == 'web') {
-          return flutterBuildWeb();
+        final platform = args[1];
+        if (buildFuncs.keys.contains(platform)) {
+          await buildFuncs[platform]!();
+        } else {
+          print('Unknown platform: $platform');
         }
-        print('unkonwn build arg: ${args[1]}');
+        return;
       }
+      for (final func in buildFuncs.values) {
+        await func();
+      }
+      print('Build finished in ${stopwatch.elapsed}');
       return;
     default:
       print('Unsupported command: $command');

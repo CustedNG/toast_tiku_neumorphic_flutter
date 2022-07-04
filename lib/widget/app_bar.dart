@@ -11,6 +11,9 @@ class NeuAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Neumorphic(
+      style: const NeumorphicStyle(
+          lightSource: LightSource.top,
+          shadowLightColorEmboss: Colors.cyanAccent),
       child: Column(
         children: [
           SizedBox(
@@ -27,9 +30,6 @@ class NeuAppBar extends StatelessWidget {
           )
         ],
       ),
-      style: const NeumorphicStyle(
-          lightSource: LightSource.top,
-          shadowLightColorEmboss: Colors.cyanAccent),
     );
   }
 }

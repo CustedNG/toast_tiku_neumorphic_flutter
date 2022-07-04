@@ -264,10 +264,6 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
 
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: SizedBox(
-        width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
-      ),
       onPressed: () {},
       style: NeumorphicStyle(
           color: judgeColor(value),
@@ -276,6 +272,10 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
                   .contains(value)
               ? -20
               : null),
+      child: SizedBox(
+        width: _media.size.width * 0.98,
+        child: NeuText(text: content, align: TextAlign.start),
+      ),
     );
   }
 
@@ -289,5 +289,6 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
         return Colors.redAccent;
       }
     }
+    return null;
   }
 }

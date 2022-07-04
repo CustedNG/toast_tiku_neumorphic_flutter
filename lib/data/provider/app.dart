@@ -20,10 +20,10 @@ class AppProvider extends BusyProvider {
 
     final service = AppService();
     _notify = await service.getNotify();
-    final _contributorsRaw = await service.getContributor();
-    final _contributorList = _contributorsRaw.trim().split(',');
-    _contributorList.shuffle();
-    _contributors = _contributorList;
+    final contributorsRaw = await service.getContributor();
+    final contributorList = contributorsRaw.trim().split(',');
+    contributorList.shuffle();
+    _contributors = contributorList;
 
     setBusyState(false);
     notifyListeners();

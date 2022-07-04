@@ -256,14 +256,14 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
 
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: SizedBox(
-        width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
-      ),
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
           depth: _nowState.contains(value) ? -20 : null),
+      child: SizedBox(
+        width: _media.size.width * 0.98,
+        child: NeuText(text: content, align: TextAlign.start),
+      ),
     );
   }
 
@@ -281,6 +281,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
+    return null;
   }
 
   void onPressed(int value) {

@@ -421,14 +421,14 @@ class _ExamingPageState extends State<ExamingPage>
   /// 构建选择题具体的单个选项
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: SizedBox(
-        width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
-      ),
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: _submittedAnswer ? judgeColor(value) : null,
           depth: _nowState.contains(value) ? -20 : null),
+      child: SizedBox(
+        width: _media.size.width * 0.98,
+        child: NeuText(text: content, align: TextAlign.start),
+      ),
     );
   }
 
@@ -438,6 +438,7 @@ class _ExamingPageState extends State<ExamingPage>
       if (!_tis[_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;
     }
+    return null;
   }
 
   /// 按下单个选项时，进行的操作

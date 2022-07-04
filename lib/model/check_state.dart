@@ -6,8 +6,8 @@ class CheckState {
     _state = <String, List<Object>>{};
   }
 
-  CheckState.from(Map<String, List<Object>> _s) {
-    _state = _s;
+  CheckState.from(Map<String, List<Object>> s) {
+    _state = s;
   }
 
   void add(String id, Object value) {

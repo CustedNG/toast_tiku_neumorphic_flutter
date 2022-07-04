@@ -28,6 +28,7 @@ Future<void> doUpdate(BuildContext context) async {
   }
 
   /// 显示Snackbar，提示有更新
+  // ignore: use_build_context_synchronously
   showSnackBarWithAction(
       context, '${BuildData.name}有更新啦，Ver：$newest\n${update.changelog}', '更新',
       () async {
