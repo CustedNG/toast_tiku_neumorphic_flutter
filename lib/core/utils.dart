@@ -7,8 +7,7 @@ import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
-import 'package:toast_tiku/widget/neu_dialog.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 /// 不等待
 void unawaited(Future<void> future) {}
@@ -36,10 +35,10 @@ void showSnackBarWithAction(BuildContext context, String content, String action,
 
 /// 打开链接
 Future<bool> openUrl(String url) async {
-  if (!await canLaunch(url)) {
+  if (!await canLaunchUrlString(url)) {
     return false;
   }
-  return await launch(url, forceSafariVC: false);
+  return await launchUrlString(url, mode: LaunchMode.externalApplication);
 }
 
 /// 获取本地题库的所有题目
@@ -60,21 +59,6 @@ List<Ti> getAllTi() {
     }
   }
   return tis;
-}
-
-Future<T?> showNeuDialog<T>(
-    BuildContext context, String title, Widget child, List<Widget> actions,
-    {EdgeInsets? padding}) {
-  return showDialog(
-      context: context,
-      builder: (ctx) {
-        return NeuDialog(
-          title: Text(title),
-          content: child,
-          actions: actions,
-          margin: padding,
-        );
-      });
 }
 
 void setSystemBottomNavigationBarColor(BuildContext context) {

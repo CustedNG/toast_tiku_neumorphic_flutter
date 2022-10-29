@@ -12,6 +12,7 @@ class AppService {
     if (resp.statusCode == 200) {
       return TikuIndexRaw(resp.data['version'], getTikuIndexList(resp.data));
     }
+    return null;
   }
 
   /// 获取每个单元的题目
@@ -20,6 +21,7 @@ class AppService {
     if (resp.statusCode == 200) {
       return getTiList(resp.data);
     }
+    return null;
   }
 
   /// 获取App内通知

@@ -10,6 +10,7 @@ import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
+import 'package:toast_tiku/widget/neu_dialog.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
@@ -90,90 +91,88 @@ class _CoursePageState extends State<CoursePage> {
                   onTap: () async {
                     final idxes = widget.data.content!;
                     final selected = <String>[];
-                    await showDialog<List<String>>(
+                    await showDialog(
                         context: context,
-                        barrierDismissible: false,
                         builder: (context) {
                           return StatefulBuilder(
                               builder: (context, StateSetter setState) {
-                            return AlertDialog(
-                              backgroundColor:
-                                  NeumorphicTheme.baseColor(context),
-                              title: const NeuText(
-                                text: '选择删除做题记录的章节',
-                                align: TextAlign.start,
-                              ),
-                              content: SizedBox(
-                                width: _media.size.width * 0.9,
-                                child: GridView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: _media.size.width * 0.05),
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3,
-                                            childAspectRatio: 2),
-                                    itemCount: idxes.length,
-                                    itemBuilder: (context, idx) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 7, right: 3, left: 3),
-                                        child: NeuBtn(
-                                          margin: EdgeInsets.zero,
-                                          padding: EdgeInsets.zero,
-                                          child: Container(
-                                            color: selected
-                                                    .contains(idxes[idx]!.data)
-                                                ? primaryColor
-                                                : null,
-                                            child: Center(
-                                                child: NeuText(
-                                                    text: idxes[idx]!
-                                                        .data!
-                                                        .replaceFirst(
-                                                            '.json', ''))),
-                                          ),
-                                          onTap: () {
-                                            if (selected
-                                                .contains(idxes[idx]!.data)) {
-                                              selected.remove(idxes[idx]!.data);
-                                            } else {
-                                              selected.add(idxes[idx]!.data!);
-                                            }
-                                            setState(() {});
-                                          },
+                            return NeuDialog(
+                                title: NeuText(
+                                  text: '删除记录',
+                                  textStyle: NeumorphicTextStyle(
+                                      fontWeight: FontWeight.bold),
+                                  align: TextAlign.start,
+                                ),
+                                margin: const EdgeInsets.symmetric(horizontal: 23, vertical: 17),
+                                content: SizedBox(
+                                  width: _media.size.width * 0.9,
+                                  height: _media.size.height * 0.3,
+                                  child: ListView.builder(
+                                    padding: const EdgeInsets.all(3),
+                                    itemBuilder: (context, i) {
+                                      final item = idxes[i]!;
+                                      final id = item.data!;
+                                      final isSelect = selected.contains(id);
+                                      return NeuBtn(
+                                        onTap: () {
+                                          if (isSelect) {
+                                            selected.remove(id);
+                                          } else {
+                                            selected.add(id);
+                                          }
+                                          setState(() {});
+                                        },
+                                        margin: const EdgeInsets.all(9),
+                                        style: NeumorphicStyle(
+                                          depth: selected.contains(id)
+                                              ? -20
+                                              : null),
+                                        child: NeuText(
+                                          text: item.title ?? '未知章节名',
+                                          align: TextAlign.left,
                                         ),
                                       );
-                                    }),
-                              ),
-                              actions: [
-                                NeuIconBtn(
-                                  icon: Icons.delete,
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
+                                    },
+                                    itemCount: idxes.length),
                                 ),
-                                NeuIconBtn(
-                                  icon: Icons.close,
-                                  onTap: () {
-                                    selected.clear();
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                NeuIconBtn(
-                                  icon: Icons.done_all,
-                                  onTap: () {
-                                    selected.clear();
-                                    for (final idx in idxes) {
-                                      selected.add(idx!.data!);
-                                    }
-                                    setState(() {});
-                                  },
-                                )
-                              ],
-                            );
+                                actions: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: NeuBtn(
+                                        child: const Text(
+                                          '删除',
+                                          style: TextStyle(
+                                              color: Colors.redAccent),
+                                        ),
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    NeuBtn(
+                                      child: const Text('取消'),
+                                      onTap: () {
+                                        selected.clear();
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    NeuBtn(
+                                      child: Text(idxes.length == selected.length ? '全不选' : '全选'),
+                                      onTap: () {
+                                        if (idxes.length == selected.length) {
+                                          selected.clear();
+                                        } else {
+                                          selected.clear();
+                                          selected.addAll(idxes.map((e) => e!.data!));
+                                        }
+                                        setState(() {});
+                                      },
+                                    )
+                                  ],
+                                ));
                           });
                         });
                     final courseId = widget.data.id ?? '';
@@ -183,17 +182,6 @@ class _CoursePageState extends State<CoursePage> {
                     }
                   },
                 )
-                // onTap: () => showSnackBarWithAction(
-                //         context,
-                //         '是否删除${widget.data.chinese}所有的做题记录？\n请注意，操作无法撤回！',
-                //         '确认', () {
-                //       final courseId = widget.data.id ?? '';
-                //       for (var unit in widget.data.content!) {
-                //         final unitId = unit!.data ?? '';
-                //         _historyStore.put(courseId, unitId, []);
-                //         _historyStore.putCheckState(courseId, unitId, null);
-                //       }
-                //     }))
               ],
             ),
           ],

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math' show Random;
 
 import 'package:after_layout/after_layout.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/core/analysis.dart';
@@ -125,14 +124,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 7),
               child: Consumer<AppProvider>(builder: (_, provider, __) {
-                return AnimatedTextKit(
-                    repeatForever: true,
-                    animatedTexts: provider.contributors
-                        .map((e) => FadeAnimatedText(e,
-                            textAlign: TextAlign.center,
-                            textStyle: const TextStyle(
-                                fontSize: 12.7, fontWeight: FontWeight.bold)))
-                        .toList());
+                return Text(provider.contributors[
+                    Random().nextInt(provider.contributors.length)]);
               }),
             ),
           ),

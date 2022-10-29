@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:countly_flutter/countly_config.dart';
 import 'package:countly_flutter/countly_flutter.dart';
 import 'package:logging/logging.dart';
 
@@ -14,28 +16,29 @@ class Analysis {
 
   /// 初始化Countly统计
   static Future<void> init(bool debug) async {
-    if (_url.isEmpty || _key.isEmpty) {
-      return;
+    if (Platform.isAndroid || Platform.isIOS) {
+      _enabled = true;
+      final config = CountlyConfig(_url, _key)
+          .setLoggingEnabled(debug)
+          .enableCrashReporting();
+      await Countly.initWithConfig(config);
+      await Countly.start();
+      await Countly.giveAllConsent();
+    } else {
+      Logger('COUNTLY')
+          .info('Unsupported platform ${Platform.operatingSystem}');
     }
-
-    _enabled = true;
-    await Countly.setLoggingEnabled(debug);
-    await Countly.init(_url, _key);
-    await Countly.start();
-    await Countly.enableCrashReporting();
-    await Countly.giveAllConsent();
-    Logger('COUNTLY').fine('Init successfully.');
   }
 
-  /// 统计不同页面的使用次数
   static void recordView(String view) {
-    if (!_enabled) return;
-    Countly.recordView(view);
+    if (_enabled) {
+      Countly.recordView(view);
+    }
   }
 
-  /// 记录exception
   static void recordException(Object exception, [bool fatal = false]) {
-    if (!_enabled) return;
-    Countly.logException(exception.toString(), !fatal, null);
+    if (_enabled) {
+      Countly.logException(exception.toString(), !fatal, null);
+    }
   }
 }

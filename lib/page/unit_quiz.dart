@@ -339,6 +339,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
+    return null;
   }
 
   String get _nowHash => _tis![_index].id;

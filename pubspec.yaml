@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 
 dependencies:
@@ -16,9 +16,8 @@ dependencies:
     
   provider: ^6.0.0
   get_it: ^7.2.0
-  hive: ^2.0.0
   hive_flutter: ^1.0.0
-  flutter_neumorphic: ^3.1.0
+  flutter_neumorphic: ^3.2.0
   dio: ^4.0.0
   after_layout: ^1.1.0
   snapping_sheet: ^3.1.0
@@ -31,8 +30,6 @@ dependencies:
   logging: ^1.0.2
   flutter_material_color_picker: ^1.1.0+2
   r_upgrade: ^0.3.6
-  crypto: ^3.0.1
-  animated_text_kit: ^4.2.1
 
 
 dev_dependencies:

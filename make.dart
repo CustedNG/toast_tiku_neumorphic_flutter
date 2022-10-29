@@ -17,7 +17,6 @@ const skslFileSuffix = '.sksl.json';
 
 const buildFuncs = {
   'ios': flutterBuildIOS,
-  'macos': flutterBuildMacOS,
   'android': flutterBuildAndroid,
 };
 
@@ -146,12 +145,6 @@ Future<void> flutterBuildIOS() async {
   await changeInfoPlistVersion();
   await flutterBuild(
       xcarchivePath, './release/${appName}_ios_build.xcarchive', 'ipa');
-}
-
-Future<void> flutterBuildMacOS() async {
-  await changeInfoPlistVersion();
-  await flutterBuild(
-      macosAppPath, './release/${appName}_macos_build.app', 'macos');
 }
 
 Future<void> flutterBuildAndroid() async {
