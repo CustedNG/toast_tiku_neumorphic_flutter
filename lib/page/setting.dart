@@ -1,25 +1,25 @@
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-import 'package:toast_tiku/core/update.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/provider/app.dart';
-import 'package:toast_tiku/data/provider/tiku.dart';
-import 'package:toast_tiku/data/store/setting.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/res/build_data.dart';
-import 'package:toast_tiku/res/color.dart';
-import 'package:toast_tiku/res/url.dart';
-import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/logo_card.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_card.dart';
-import 'package:toast_tiku/widget/neu_switch.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
-import 'package:toast_tiku/widget/setting_item.dart';
-import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
+import '../core/update.dart';
+import '../core/utils.dart';
+import '../data/provider/app.dart';
+import '../data/provider/tiku.dart';
+import '../data/store/setting.dart';
+import '../locator.dart';
+import '../res/build_data.dart';
+import '../res/color.dart';
+import '../res/url.dart';
+import '../widget/app_bar.dart';
+import '../widget/logo_card.dart';
+import '../widget/neu_btn.dart';
+import '../widget/neu_card.dart';
 import '../widget/neu_dialog.dart';
+import '../widget/neu_switch.dart';
+import '../widget/neu_text.dart';
+import '../widget/setting_item.dart';
+import '../widget/tiku_update_progress.dart';
 
 /// 设置页面
 class SettingPage extends StatefulWidget {

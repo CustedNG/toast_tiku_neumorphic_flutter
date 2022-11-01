@@ -1,9 +1,10 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/store/setting.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/page/home.dart';
+
+import 'core/utils.dart';
+import 'data/store/setting.dart';
+import 'locator.dart';
+import 'page/home.dart';
 
 /// App入口
 class MyApp extends StatelessWidget {

@@ -1,18 +1,18 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/core/route.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/store/unit_history.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/model/tiku_index.dart';
-import 'package:toast_tiku/page/favorite.dart';
-import 'package:toast_tiku/page/unit_quiz.dart';
-import 'package:toast_tiku/res/color.dart';
-import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
-import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
+import '../core/route.dart';
+import '../core/utils.dart';
+import '../data/store/unit_history.dart';
+import '../locator.dart';
+import '../model/tiku_index.dart';
+import '../res/color.dart';
+import '../widget/app_bar.dart';
+import '../widget/neu_btn.dart';
 import '../widget/neu_dialog.dart';
+import '../widget/neu_text.dart';
+import '../widget/tiku_update_progress.dart';
+import 'favorite.dart';
+import 'unit_quiz.dart';
 
 class CoursePage extends StatefulWidget {
   final TikuIndex data;

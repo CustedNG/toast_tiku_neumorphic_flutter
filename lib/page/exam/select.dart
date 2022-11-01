@@ -1,20 +1,21 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-import 'package:toast_tiku/core/route.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/provider/exam.dart';
-import 'package:toast_tiku/data/provider/tiku.dart';
-import 'package:toast_tiku/data/provider/timer.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/page/exam/history_list.dart';
-import 'package:toast_tiku/page/exam/ing.dart';
-import 'package:toast_tiku/res/color.dart';
-import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/center_loading.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_card.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
-import 'package:toast_tiku/widget/tiku_update_progress.dart';
+
+import '../../core/route.dart';
+import '../../core/utils.dart';
+import '../../data/provider/exam.dart';
+import '../../data/provider/tiku.dart';
+import '../../data/provider/timer.dart';
+import '../../locator.dart';
+import '../../res/color.dart';
+import '../../widget/app_bar.dart';
+import '../../widget/center_loading.dart';
+import '../../widget/neu_btn.dart';
+import '../../widget/neu_card.dart';
+import '../../widget/neu_text.dart';
+import '../../widget/tiku_update_progress.dart';
+import 'history_list.dart';
+import 'ing.dart';
 
 /// 考试科目、题目类型数量、时间选择页
 class ExamSelectPage extends StatefulWidget {

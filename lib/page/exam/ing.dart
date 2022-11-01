@@ -1,24 +1,25 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
-import 'package:toast_tiku/core/route.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/core/extension/ti.dart';
-import 'package:toast_tiku/data/provider/exam.dart';
-import 'package:toast_tiku/data/provider/timer.dart';
-import 'package:toast_tiku/data/store/exam_history.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/model/check_state.dart';
-import 'package:toast_tiku/model/exam_history.dart';
-import 'package:toast_tiku/model/ti.dart';
-import 'package:toast_tiku/page/exam/result.dart';
-import 'package:toast_tiku/res/color.dart';
-import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/center_loading.dart';
-import 'package:toast_tiku/widget/grab_sheet.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
-import 'package:toast_tiku/widget/neu_text_field.dart';
+
+import '../../core/extension/ti.dart';
+import '../../core/route.dart';
+import '../../core/utils.dart';
+import '../../data/provider/exam.dart';
+import '../../data/provider/timer.dart';
+import '../../data/store/exam_history.dart';
+import '../../locator.dart';
+import '../../model/check_state.dart';
+import '../../model/exam_history.dart';
+import '../../model/ti.dart';
+import '../../res/color.dart';
+import '../../widget/app_bar.dart';
+import '../../widget/center_loading.dart';
+import '../../widget/grab_sheet.dart';
+import '../../widget/neu_btn.dart';
+import '../../widget/neu_text.dart';
+import '../../widget/neu_text_field.dart';
+import 'result.dart';
 
 /// 正在进行考试时的页面
 class ExamingPage extends StatefulWidget {

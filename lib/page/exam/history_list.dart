@@ -1,14 +1,15 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/core/route.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/store/exam_history.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/model/exam_history.dart';
-import 'package:toast_tiku/page/exam/history_view.dart';
-import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_card.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
+
+import '../../core/route.dart';
+import '../../core/utils.dart';
+import '../../data/store/exam_history.dart';
+import '../../locator.dart';
+import '../../model/exam_history.dart';
+import '../../widget/app_bar.dart';
+import '../../widget/neu_btn.dart';
+import '../../widget/neu_card.dart';
+import '../../widget/neu_text.dart';
+import 'history_view.dart';
 
 class ExamHistoryListPage extends StatefulWidget {
   const ExamHistoryListPage({Key? key}) : super(key: key);

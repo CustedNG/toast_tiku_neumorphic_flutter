@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:logging/logging.dart';
 import 'package:r_upgrade/r_upgrade.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/provider/app.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/res/build_data.dart';
-import 'package:toast_tiku/service/app.dart';
+
+import '../data/provider/app.dart';
+import '../locator.dart';
+import '../res/build_data.dart';
+import '../service/app.dart';
+import 'utils.dart';
 
 /// 设置Logger名称
 final logger = Logger('UPDATE');

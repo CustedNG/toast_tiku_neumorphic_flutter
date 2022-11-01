@@ -1,5 +1,5 @@
-import 'package:toast_tiku/core/persistant_store.dart';
-import 'package:toast_tiku/model/exam_history.dart';
+import '../../core/persistant_store.dart';
+import '../../model/exam_history.dart';
 
 /// 题库浏览历史储存库
 class ExamHistoryStore extends PersistentStore<ExamHistory> {

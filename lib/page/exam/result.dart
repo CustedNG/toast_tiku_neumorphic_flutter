@@ -1,5 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
+
+import '../../widget/neu_btn.dart';
 
 /// 考试结果展示页
 class ExamResultPage extends StatelessWidget {

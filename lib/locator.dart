@@ -1,18 +1,18 @@
 import 'package:get_it/get_it.dart';
-import 'package:toast_tiku/data/provider/app.dart';
-import 'package:toast_tiku/data/provider/debug.dart';
-import 'package:toast_tiku/data/provider/exam.dart';
-import 'package:toast_tiku/data/provider/unit_history.dart';
-import 'package:toast_tiku/data/provider/tiku.dart';
-import 'package:toast_tiku/data/provider/timer.dart';
-import 'package:toast_tiku/data/store/exam_history.dart';
-import 'package:toast_tiku/data/store/favorite.dart';
-import 'package:toast_tiku/data/store/unit_history.dart';
-import 'package:toast_tiku/data/store/setting.dart';
-import 'package:toast_tiku/data/store/tiku.dart';
-import 'package:toast_tiku/service/app.dart';
 
+import 'data/provider/app.dart';
+import 'data/provider/debug.dart';
+import 'data/provider/exam.dart';
+import 'data/provider/tiku.dart';
+import 'data/provider/timer.dart';
+import 'data/provider/unit_history.dart';
+import 'data/store/exam_history.dart';
+import 'data/store/favorite.dart';
+import 'data/store/setting.dart';
+import 'data/store/tiku.dart';
 import 'data/store/tiku_index.dart';
+import 'data/store/unit_history.dart';
+import 'service/app.dart';
 
 /// Locator，教程可见: https://pub.dev/packages/get_it, https://blog.csdn.net/unicorn97/article/details/100769418
 GetIt locator = GetIt.instance;

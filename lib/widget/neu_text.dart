@@ -1,5 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/res/color.dart';
+
+import '../res/color.dart';
 
 /// Neumorphic风格文字
 class NeuText extends StatelessWidget {

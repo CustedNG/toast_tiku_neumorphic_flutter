@@ -1,15 +1,16 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
-import 'package:toast_tiku/core/extension/ti.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/data/store/favorite.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/model/exam_history.dart';
-import 'package:toast_tiku/model/ti.dart';
-import 'package:toast_tiku/widget/app_bar.dart';
-import 'package:toast_tiku/widget/grab_sheet.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
+
+import '../../core/extension/ti.dart';
+import '../../core/utils.dart';
+import '../../data/store/favorite.dart';
+import '../../locator.dart';
+import '../../model/exam_history.dart';
+import '../../model/ti.dart';
+import '../../widget/app_bar.dart';
+import '../../widget/grab_sheet.dart';
+import '../../widget/neu_btn.dart';
+import '../../widget/neu_text.dart';
 
 class ExamHistoryViewPage extends StatefulWidget {
   final ExamHistory examHistory;

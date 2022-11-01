@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:logging/logging.dart';
-import 'package:toast_tiku/core/provider_base.dart';
-import 'package:toast_tiku/data/store/tiku.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/model/tiku_index.dart';
-import 'package:toast_tiku/service/app.dart';
 
+import '../../core/provider_base.dart';
+import '../../locator.dart';
+import '../../model/tiku_index.dart';
+import '../../service/app.dart';
+import '../store/tiku.dart';
 import '../store/tiku_index.dart';
 
 /// 题库结构为[题库=题库索引+题库每个章节的数据]，题库索引中记录了每个章节的链接，从该链接获取题库每个章节的数据

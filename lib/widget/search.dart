@@ -1,5 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/res/color.dart';
+
+import '../res/color.dart';
 
 typedef SearchFilter<T> = List<String?> Function(T t);
 typedef ResultBuilder<T> = Widget Function(T t);

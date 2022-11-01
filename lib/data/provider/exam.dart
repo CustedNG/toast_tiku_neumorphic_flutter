@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:toast_tiku/core/provider_base.dart';
-import 'package:toast_tiku/data/provider/tiku.dart';
-import 'package:toast_tiku/data/store/tiku.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/model/ti.dart';
+import '../../core/provider_base.dart';
+import '../../locator.dart';
+import '../../model/ti.dart';
+import '../store/tiku.dart';
+import 'tiku.dart';
+
 
 class ExamProvider extends BusyProvider {
   /// 所有题目

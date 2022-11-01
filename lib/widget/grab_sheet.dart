@@ -1,10 +1,11 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
-import 'package:toast_tiku/model/check_state.dart';
-import 'package:toast_tiku/model/ti.dart';
-import 'package:toast_tiku/res/color.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
+
+import '../model/check_state.dart';
+import '../model/ti.dart';
+import '../res/color.dart';
+import 'neu_btn.dart';
+import 'neu_text.dart';
 
 /// 底部上拉菜单实现
 class GrabSheet extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/core/persistant_store.dart';
+
+import '../core/persistant_store.dart';
 
 Widget buildSwitch(BuildContext context, StoreProperty<bool> prop,
     {Function(bool)? func}) {

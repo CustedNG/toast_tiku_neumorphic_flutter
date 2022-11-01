@@ -1,5 +1,7 @@
-import 'package:toast_tiku/core/provider_base.dart';
-import 'package:toast_tiku/service/app.dart';
+
+
+import '../../core/provider_base.dart';
+import '../../service/app.dart';
 
 class AppProvider extends BusyProvider {
   /// App通知

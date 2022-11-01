@@ -1,4 +1,6 @@
-import 'package:toast_tiku/core/persistant_store.dart';
+
+
+import '../../core/persistant_store.dart';
 
 class SettingStore extends PersistentStore {
   /// 是否启用通知

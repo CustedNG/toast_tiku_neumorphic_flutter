@@ -1,6 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/res/color.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
+
+import '../res/color.dart';
+import 'neu_text.dart';
 
 /// 设置项Widget
 class SettingItem extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-import 'package:toast_tiku/data/provider/tiku.dart';
+
+import '../data/provider/tiku.dart';
 
 /// 题库更新时，显示在Appbar下方的进度条
 class TikuUpdateProgress extends StatelessWidget {

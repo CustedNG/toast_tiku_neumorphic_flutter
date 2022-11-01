@@ -3,12 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/data/provider/tiku.dart';
-import 'package:toast_tiku/data/store/tiku.dart';
-import 'package:toast_tiku/locator.dart';
-import 'package:toast_tiku/model/ti.dart';
-import 'package:toast_tiku/widget/neu_dialog.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../data/provider/tiku.dart';
+import '../data/store/tiku.dart';
+import '../locator.dart';
+import '../model/ti.dart';
+import '../widget/neu_dialog.dart';
 
 /// 不等待
 void unawaited(Future<void> future) {}

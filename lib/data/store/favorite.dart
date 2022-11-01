@@ -1,5 +1,5 @@
-import 'package:toast_tiku/core/persistant_store.dart';
-import 'package:toast_tiku/model/ti.dart';
+import '../../core/persistant_store.dart';
+import '../../model/ti.dart';
 
 /// 收藏题目的储存库
 class FavoriteStore extends PersistentStore {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:toast_tiku/core/provider_base.dart';
+import '../../core/provider_base.dart';
+
 
 /// 考试时间计时器的实现
 class TimerProvider extends BusyProvider {

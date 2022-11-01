@@ -1,9 +1,10 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:toast_tiku/core/utils.dart';
-import 'package:toast_tiku/res/build_data.dart';
-import 'package:toast_tiku/res/url.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
+
+import '../core/utils.dart';
+import '../res/build_data.dart';
+import '../res/url.dart';
+import 'neu_btn.dart';
+import 'neu_text.dart';
 
 /// Logo卡片，位于设置页
 class LogoCard extends StatefulWidget {

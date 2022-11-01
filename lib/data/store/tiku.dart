@@ -1,5 +1,5 @@
-import 'package:toast_tiku/core/persistant_store.dart';
-import 'package:toast_tiku/model/ti.dart';
+import '../../core/persistant_store.dart';
+import '../../model/ti.dart';
 
 /// 题库数据储存库
 class TikuStore extends PersistentStore {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:toast_tiku/data/provider/debug.dart';
+
+import '../data/provider/debug.dart';
 
 /// 调试页面
 class DebugPage extends StatefulWidget {
