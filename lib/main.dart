@@ -5,6 +5,12 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
+import 'package:toast_tiku/data/store/exam_history.dart';
+import 'package:toast_tiku/data/store/favorite.dart';
+import 'package:toast_tiku/data/store/setting.dart';
+import 'package:toast_tiku/data/store/tiku.dart';
+import 'package:toast_tiku/data/store/tiku_index.dart';
+import 'package:toast_tiku/data/store/unit_history.dart';
 
 import 'app.dart';
 import 'core/analysis.dart';
@@ -19,6 +25,7 @@ import 'model/check_state.dart';
 import 'model/exam_history.dart';
 import 'model/ti.dart';
 import 'model/tiku_index.dart';
+import 'res/app.dart';
 
 /// 初始化App
 Future<void> initApp() async {
@@ -27,6 +34,7 @@ Future<void> initApp() async {
 
   // 等待store加载完成
   await GetIt.I.allReady();
+  await doDbUpgrade();
 
   /// Provider初始化数据
   await locator<TikuProvider>().loadLocalData();
@@ -38,6 +46,24 @@ Future<void> initApp() async {
     // ignore: avoid_print
     print('[${record.loggerName}][${record.level.name}]: ${record.message}');
   });
+}
+
+Future<void> doDbUpgrade() async {
+  final nowStoreVersion = locator<SettingStore>().storeVersion;
+  if (nowStoreVersion.fetch()! < storeVersion) {
+    // 数据库升级
+    final stores = [
+      locator<FavoriteStore>(),
+      locator<TikuStore>(),
+      locator<TikuIndexStore>(),
+      locator<HistoryStore>(),
+      locator<ExamHistoryStore>()
+    ];
+    for (final store in stores) {
+      await store.box.deleteAll(store.box.keys);
+    }
+    locator<SettingStore>().storeVersion.put(storeVersion);
+  }
 }
 
 Future<void> initHive() async {

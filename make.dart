@@ -56,7 +56,8 @@ Future<int> getGitModificationCount() async {
 }
 
 Future<String> getFlutterVersion() async {
-  final result = await Process.run('flutter', ['--version'], runInShell: true);
+  final result =
+      await Process.run('fvm', ['flutter', '--version'], runInShell: true);
   return (result.stdout as String);
 }
 
@@ -100,6 +101,7 @@ void flutterRun(String? mode) {
 Future<void> flutterBuild(
     String source, String target, String buildType) async {
   final args = [
+    'flutter',
     'build',
     buildType,
   ];
@@ -117,7 +119,7 @@ Future<void> flutterBuild(
     ]);
   }
   print('[$buildType]\nBuilding with args: ${args.join(' ')}');
-  final buildResult = await Process.run('flutter', args, runInShell: true);
+  final buildResult = await Process.run('fvm', args, runInShell: true);
   final exitCode = buildResult.exitCode;
 
   if (exitCode == 0) {

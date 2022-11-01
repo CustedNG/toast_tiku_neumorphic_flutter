@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:toast_tiku/core/persistant_store.dart';
 
 class SettingStore extends PersistentStore {
@@ -8,7 +7,7 @@ class SettingStore extends PersistentStore {
 
   /// App强调色
   StoreProperty<int> get appPrimaryColor =>
-      property('appPrimaryColor', defaultValue: Colors.deepPurpleAccent.value);
+      property('appPrimaryColor', defaultValue: 4281352095);
 
   /// 选下选项后，是否自动显示答案
   StoreProperty<bool> get autoDisplayAnswer =>
@@ -29,4 +28,8 @@ class SettingStore extends PersistentStore {
   /// 多选全部选项选出后，才显示答案
   StoreProperty<bool> get showAnswerWhenAllSelected =>
       property('showAnswerWhenAllSelected', defaultValue: false);
+
+  /// 内部储存数据的格式的版本
+  StoreProperty<int> get storeVersion =>
+      property('storeVersion', defaultValue: 0);
 }

@@ -9,7 +9,6 @@ import 'package:toast_tiku/page/unit_quiz.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_card.dart';
 import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
@@ -210,7 +209,6 @@ class _CoursePageState extends State<CoursePage> {
         height: getRemainHeight(_media),
         width: _media.size.width,
         child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
           itemCount: widget.data.length,
           itemBuilder: (BuildContext context, int index) {
             return _buildCardItem(index);
@@ -248,7 +246,7 @@ class _CoursePageState extends State<CoursePage> {
                   ),
                   NeuText(
                     text: '共$total题',
-                    style:  NeumorphicStyle(color: Colors.grey.shade600),
+                    style: NeumorphicStyle(color: Colors.grey.shade600),
                   ),
                 ],
               ),

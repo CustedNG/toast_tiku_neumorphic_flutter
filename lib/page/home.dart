@@ -21,7 +21,6 @@ import 'package:toast_tiku/page/debug.dart';
 import 'package:toast_tiku/page/exam/select.dart';
 import 'package:toast_tiku/page/setting.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
-import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/res/hikotoko.dart';
 import 'package:toast_tiku/res/url.dart';
@@ -174,7 +173,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                   onLongPress: () => AppRoute(const DebugPage()).go(context),
                   // ignore: prefer_const_constructors
                   child: NeuText(
-                    text: BuildData.name,
+                    text: 'Toast题库',
                     align: TextAlign.start,
                   ),
                 ),
@@ -188,7 +187,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Widget _buildNotifyCard() {
     final content = _buildScrollCard();
     return SizedBox(
-      height: _media.size.height * 0.25,
+      height: _media.size.height * 0.26,
       child: ListWheelScrollView.useDelegate(
         itemExtent: _media.size.height * 0.23,
         diameterRatio: 10,
@@ -344,7 +343,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           child:
                               OnlineImage(url: '$courseImgUrl/${item.id}.png')),
                       const SizedBox(
-                        height: 7,
+                        height: 5,
                       ),
                       NeuText(
                         text: item.chinese ?? '未知',

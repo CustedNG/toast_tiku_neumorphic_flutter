@@ -1,7 +1,0 @@
-{
-    "newest": 70,
-    "android": "https://cdn2.cust.app/uploads/ToastTiku_70_Arm64.apk",
-    "ios": "https://apps.apple.com/cn/app/toast-%E9%A2%98%E5%BA%93/id1580345312",
-    "min": 70,
-    "changelog": "修复考试模式下，无法做填空题"
-}
