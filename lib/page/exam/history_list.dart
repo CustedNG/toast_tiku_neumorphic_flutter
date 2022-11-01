@@ -38,7 +38,7 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
   @override
   void initState() {
     super.initState();
-    _historyList = locator<ExamHistoryStore>().fetch().reversed.toList();
+    _historyList = locator<ExamHistoryStore>().fetchAll().reversed.toList();
   }
 
   @override

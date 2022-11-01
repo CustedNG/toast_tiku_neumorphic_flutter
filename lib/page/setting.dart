@@ -19,6 +19,8 @@ import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/setting_item.dart';
 import 'package:toast_tiku/widget/tiku_update_progress.dart';
 
+import '../widget/neu_dialog.dart';
+
 /// 设置页面
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -118,8 +120,7 @@ class _SettingPageState extends State<SettingPage> {
         onTap: () => showDialog(
             context: context,
             builder: (context) {
-              return AlertDialog(
-                backgroundColor: NeumorphicTheme.baseColor(context),
+              return NeuDialog(
                 title: const NeuText(
                   text: 'App主题色',
                   align: TextAlign.start,
@@ -128,21 +129,24 @@ class _SettingPageState extends State<SettingPage> {
                   width: _media.size.width * 0.8,
                   child: _buildAppColorPicker(pColor),
                 ),
-                actions: [
-                  NeuIconBtn(
-                    icon: Icons.done,
-                    onTap: () {
-                      _store.appPrimaryColor.put(_selectedColorValue);
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  NeuIconBtn(
-                    icon: Icons.close,
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
+                actions: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    NeuIconBtn(
+                      icon: Icons.done,
+                      onTap: () {
+                        _store.appPrimaryColor.put(_selectedColorValue);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    NeuIconBtn(
+                      icon: Icons.close,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
               );
             }),
       ),

@@ -31,7 +31,7 @@ class ExamProvider extends BusyProvider {
         continue;
       }
       for (var content in subject.content!) {
-        allTis.addAll(tikuStore.fetch(subject.id!, content!.data!)!);
+        allTis.addAll(tikuStore.fetch(subject.id!, content!.data!));
       }
     }
 

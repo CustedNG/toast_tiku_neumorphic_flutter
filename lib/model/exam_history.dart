@@ -1,6 +1,10 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:toast_tiku/model/check_state.dart';
 import 'package:toast_tiku/model/ti.dart';
 
+part 'exam_history.g.dart';
+
+@HiveType(typeId: 1)
 class ExamHistory {
 /*
 {
@@ -15,15 +19,23 @@ class ExamHistory {
 } 
 */
 
+  @HiveField(1)
   late String date;
+  @HiveField(2)
   late String subject;
+  @HiveField(3)
   late String subjectId;
+  @HiveField(4)
   late double correctRate;
+  @HiveField(5)
   late List<Ti> tis;
+  @HiveField(6)
   late CheckState checkState;
 
   ExamHistory(this.tis, this.checkState, this.date, this.correctRate,
       this.subject, this.subjectId);
+
+  String get id => '$subjectId$date';
 
   ExamHistory.fromJson(Map<String, dynamic> json) {
     if (json['tis'] != null) {

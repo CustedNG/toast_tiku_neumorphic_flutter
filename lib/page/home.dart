@@ -21,6 +21,7 @@ import 'package:toast_tiku/page/debug.dart';
 import 'package:toast_tiku/page/exam/select.dart';
 import 'package:toast_tiku/page/setting.dart';
 import 'package:toast_tiku/page/unit_quiz.dart';
+import 'package:toast_tiku/res/build_data.dart';
 import 'package:toast_tiku/res/color.dart';
 import 'package:toast_tiku/res/hikotoko.dart';
 import 'package:toast_tiku/res/url.dart';
@@ -124,7 +125,11 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 7),
               child: Consumer<AppProvider>(builder: (_, provider, __) {
-                return Text(provider.contributors[Random().nextInt(provider.contributors.length)]);
+                return Text(
+                  provider.contributors[
+                      Random().nextInt(provider.contributors.length)],
+                  style: const TextStyle(fontSize: 13),
+                );
               }),
             ),
           ),
@@ -141,7 +146,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const NeuText(
+          // ignore: prefer_const_constructors
+          NeuText(
             text: '背题模式',
             align: TextAlign.center,
           ),
@@ -166,8 +172,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 ),
                 GestureDetector(
                   onLongPress: () => AppRoute(const DebugPage()).go(context),
+                  // ignore: prefer_const_constructors
                   child: NeuText(
-                    text: '今天已过去\n${passTimeRate.toStringAsFixed(1)}%',
+                    text: BuildData.name,
                     align: TextAlign.start,
                   ),
                 ),
@@ -178,21 +185,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         ));
   }
 
-  double get passTimeRate {
-    final now = DateTime.now();
-    final start = DateTime(now.year, now.month, now.day, 0, 0, 0);
-    final end = DateTime(now.year, now.month, now.day, 23, 59, 59);
-    return (now.millisecondsSinceEpoch - start.millisecondsSinceEpoch) /
-        (end.millisecondsSinceEpoch - start.millisecondsSinceEpoch) *
-        100;
-  }
-
   Widget _buildNotifyCard() {
     final content = _buildScrollCard();
     return SizedBox(
-      height: _media.size.height * 0.29,
+      height: _media.size.height * 0.25,
       child: ListWheelScrollView.useDelegate(
-        itemExtent: _media.size.height * 0.27,
+        itemExtent: _media.size.height * 0.23,
         diameterRatio: 10,
         controller: _fixedExtentScrollController,
         physics:
@@ -346,10 +344,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                           child:
                               OnlineImage(url: '$courseImgUrl/${item.id}.png')),
                       const SizedBox(
-                        height: 1,
+                        height: 7,
                       ),
                       NeuText(
-                        text: item.chinese!,
+                        text: item.chinese ?? '未知',
                         textStyle: NeumorphicTextStyle(fontSize: 11),
                       )
                     ]),

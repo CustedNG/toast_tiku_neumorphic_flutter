@@ -12,6 +12,8 @@ import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/service/app.dart';
 
+import 'data/store/tiku_index.dart';
+
 /// Locator，教程可见: https://pub.dev/packages/get_it, https://blog.csdn.net/unicorn97/article/details/100769418
 GetIt locator = GetIt.instance;
 
@@ -57,6 +59,12 @@ Future<void> setupLocatorForStores() async {
   locator.registerSingletonAsync<ExamHistoryStore>(() async {
     final store = ExamHistoryStore();
     await store.init(boxName: 'exam_history');
+    return store;
+  });
+
+  locator.registerSingletonAsync<TikuIndexStore>(() async {
+    final store = TikuIndexStore();
+    await store.init(boxName: 'tiku_index');
     return store;
   });
 }

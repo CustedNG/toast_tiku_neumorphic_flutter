@@ -56,14 +56,14 @@ List<Ti> getAllTi() {
   /// 根据索引，循环获取每一章节数据
   for (var item in tiku.tikuIndex!) {
     for (var unit in item.content!) {
-      tis.addAll(store.fetch(item.id!, unit!.data!)!);
+      tis.addAll(store.fetch(item.id!, unit!.data!));
     }
   }
   return tis;
 }
 
 Future<T?> showNeuDialog<T>(
-    BuildContext context, String title, Widget child, List<Widget> actions,
+    BuildContext context, String title, Widget child, Widget actions,
     {EdgeInsets? padding}) {
   return showDialog(
       context: context,
