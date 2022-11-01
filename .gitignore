@@ -25,3 +25,4 @@ android/app/key.jks
 *.DS_Store
 
 android/.idea
+.fvm/flutter_sdk

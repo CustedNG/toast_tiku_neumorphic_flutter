@@ -289,5 +289,6 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
         return Colors.redAccent;
       }
     }
+    return null;
   }
 }

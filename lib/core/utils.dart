@@ -8,7 +8,7 @@ import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/widget/neu_dialog.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 /// 不等待
 void unawaited(Future<void> future) {}
@@ -36,10 +36,10 @@ void showSnackBarWithAction(BuildContext context, String content, String action,
 
 /// 打开链接
 Future<bool> openUrl(String url) async {
-  if (!await canLaunch(url)) {
+  if (!await canLaunchUrlString(url)) {
     return false;
   }
-  return await launch(url, forceSafariVC: false);
+  return await launchUrlString(url, mode: LaunchMode.inAppWebView);
 }
 
 /// 获取本地题库的所有题目

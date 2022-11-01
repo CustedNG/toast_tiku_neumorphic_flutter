@@ -165,5 +165,6 @@ class _GrabSheetState extends State<GrabSheet> {
       }
       return Colors.redAccent;
     }
+    return null;
   }
 }

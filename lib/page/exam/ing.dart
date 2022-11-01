@@ -438,6 +438,7 @@ class _ExamingPageState extends State<ExamingPage>
       if (!_tis[_index].answer!.contains(value)) return Colors.redAccent;
       return Colors.greenAccent;
     }
+    return null;
   }
 
   /// 按下单个选项时，进行的操作

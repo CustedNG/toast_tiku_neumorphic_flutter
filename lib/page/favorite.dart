@@ -281,6 +281,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         _settingStore.autoDisplayAnswer.fetch()!) {
       return Colors.greenAccent;
     }
+    return null;
   }
 
   void onPressed(int value) {
