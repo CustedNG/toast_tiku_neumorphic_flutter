@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:logging/logging.dart';
 import 'package:toast_tiku/core/provider_base.dart';
@@ -8,6 +7,8 @@ import 'package:toast_tiku/locator.dart';
 import 'package:toast_tiku/model/tiku_index.dart';
 import 'package:toast_tiku/service/app.dart';
 
+import '../store/tiku_index.dart';
+
 /// 题库结构为[题库=题库索引+题库每个章节的数据]，题库索引中记录了每个章节的链接，从该链接获取题库每个章节的数据
 class TikuProvider extends BusyProvider {
   final logger = Logger('TIKU');
@@ -15,11 +16,12 @@ class TikuProvider extends BusyProvider {
   final _initialized = Completer();
   Future get initialized => _initialized.future;
 
+  late TikuIndexStore _indexStore;
   late TikuStore _store;
 
   /// 题库索引数据
-  List<TikuIndex>? _tikuIndexes;
-  List<TikuIndex>? get tikuIndex => _tikuIndexes;
+  TikuIndexRaw? _tikuIndex;
+  List<TikuIndex>? get tikuIndex => _tikuIndex?.tikuIndexes;
 
   // [题库数据下载进度]，index下载状态用busyState获取，unit下载进度用downloadProgress获取
   double _downloadProgress = 0;
@@ -31,7 +33,8 @@ class TikuProvider extends BusyProvider {
   /// 加载数据到Provider
   Future<void> loadLocalData() async {
     _store = locator<TikuStore>();
-    _tikuIndexes = getTikuIndexList(_store.index.fetch());
+    _indexStore = locator<TikuIndexStore>();
+    _tikuIndex = _indexStore.index.fetch();
   }
 
   /// 刷新题库索引数据
@@ -44,10 +47,9 @@ class TikuProvider extends BusyProvider {
       notifyListeners();
       return;
     }
-    _tikuIndexes = tikuIndexRaw.tikuIndexes;
+    _tikuIndex = tikuIndexRaw;
     indexVersion = tikuIndexRaw.version;
 
-    _store.index.put(json.encode(_tikuIndexes));
     setBusyState(false);
     notifyListeners();
   }
@@ -56,25 +58,25 @@ class TikuProvider extends BusyProvider {
   Future<void> refreshUnit() async {
     setBusyState(true);
     // 如果版本相同，跳过更新
-    if (_store.version.fetch() == indexVersion) {
+    if (_indexStore.index.fetch()?.version == indexVersion) {
       setBusyState(false);
       notifyListeners();
       return;
     }
     // 索引数据为空，跳过更新
-    if (_tikuIndexes == null) {
+    if (_tikuIndex == null) {
       setBusyState(false);
       notifyListeners();
       logger.warning('tiku index is null, skip getting detailed data');
       return;
     }
     // 获取进度百分比
-    int length = _tikuIndexes!.length;
+    int length = tikuIndex!.length;
     int idx = 0;
-    for (var index in _tikuIndexes!) {
+    for (var index in tikuIndex!) {
       length += index.content!.length;
     }
-    for (var index in _tikuIndexes!) {
+    for (var index in tikuIndex!) {
       for (var content in index.content!) {
         /// 获取每个章节的数据
         final unitData =
@@ -91,7 +93,8 @@ class TikuProvider extends BusyProvider {
         notifyListeners();
       }
     }
-    _store.version.put(indexVersion ?? '');
+
+    _indexStore.index.put(_tikuIndex!);
     setBusyState(false);
     notifyListeners();
   }

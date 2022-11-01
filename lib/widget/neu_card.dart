@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 
 /// Neumorphic风格卡片
 class NeuCard extends StatelessWidget {
@@ -12,19 +12,17 @@ class NeuCard extends StatelessWidget {
   final EdgeInsets? margin;
 
   /// 风格
-  final NeumorphicStyle? style;
+  final BorderRadius? borderRadius;
 
   const NeuCard(
-      {Key? key, required this.child, this.padding, this.margin, this.style})
+      {Key? key, required this.child, this.padding, this.margin, this.borderRadius})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Neumorphic(
-      child: child,
-      padding: margin ?? const EdgeInsets.all(9),
-      margin: padding ?? const EdgeInsets.all(11),
-      style: style,
+    return Material(
+      child: Padding(padding: padding ?? const EdgeInsets.all(16), child: child),
+      borderRadius: borderRadius ?? const BorderRadius.all(Radius.circular(7)),
     );
   }
 }

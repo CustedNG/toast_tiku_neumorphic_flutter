@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:toast_tiku/core/route.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/exam_history.dart';
@@ -8,7 +8,6 @@ import 'package:toast_tiku/page/exam/history_view.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
 import 'package:toast_tiku/widget/neu_card.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
 
 class ExamHistoryListPage extends StatefulWidget {
   const ExamHistoryListPage({Key? key}) : super(key: key);
@@ -24,9 +23,9 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
   late List<ExamHistory> _historyList;
 
   /// 标题文字风格
-  final titleStyle =
-      NeumorphicTextStyle(fontSize: 17, fontWeight: FontWeight.bold);
-  final dateStyle = NeumorphicTextStyle(fontSize: 14);
+  static const titleStyle =
+      TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
+  static const dateStyle = TextStyle(fontSize: 14);
 
   @override
   void didChangeDependencies() {
@@ -38,13 +37,12 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
   @override
   void initState() {
     super.initState();
-    _historyList = locator<ExamHistoryStore>().fetch().reversed.toList();
+    _historyList = locator<ExamHistoryStore>().fetchAll().reversed.toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
         children: [_buildHead(), _buildMain()],
       ),
@@ -61,9 +59,7 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
             ),
-            const NeuText(
-              text: '考试记录',
-            ),
+            const Text('考试记录'),
             NeuIconBtn(
               icon: Icons.delete,
               onTap: () =>
@@ -81,9 +77,7 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
     if (_historyList.isEmpty) {
       return const Expanded(
           child: Center(
-        child: NeuText(
-          text: '暂无考试记录',
-        ),
+        child: Text('暂无考试记录'),
       ));
     }
     return SizedBox(
@@ -114,23 +108,21 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                NeuText(
-                    text: history.subject,
-                    textStyle: titleStyle,
-                    align: TextAlign.start),
+                Text(
+                    history.subject,
+                    style: titleStyle,
+                    textAlign: TextAlign.start),
                 const SizedBox(height: 7),
-                NeuText(
-                    text: history.date.split('.').first,
-                    align: TextAlign.start,
-                    textStyle: dateStyle,
-                    style: const NeumorphicStyle(color: Colors.grey)),
+                Text(
+                    history.date.split('.').first,
+                    textAlign: TextAlign.start,
+                    style: dateStyle.copyWith(color: Colors.grey)),
               ],
             ),
-            NeuText(
-              text: '${history.correctRate.toStringAsFixed(1)}%',
-              textStyle: titleStyle,
-              align: TextAlign.end,
-              style: NeumorphicStyle(color: rateColor),
+            Text(
+              '${history.correctRate.toStringAsFixed(1)}%',
+              style: titleStyle.copyWith(color: rateColor),
+              textAlign: TextAlign.end,
             )
           ],
         ),

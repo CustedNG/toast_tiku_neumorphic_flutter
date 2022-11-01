@@ -128,7 +128,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
 
   Widget _buildHead() {
     final ti = _tis![_index];
-    bool have = _favoriteStore.have(widget.courseId, ti);
+    bool have = _favoriteStore.have(widget.courseId, ti) ?? false;
     return NeuAppBar(
         media: _media,
         child: Row(
@@ -261,7 +261,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         child: NeuText(text: content, align: TextAlign.start),
       ),
       onPressed: () => onPressed(value),
-      style: NeumorphicStyle(
+      borderRadius: NeumorphicStyle(
           color: judgeColor(value),
           depth: _nowState.contains(value) ? -20 : null),
     );

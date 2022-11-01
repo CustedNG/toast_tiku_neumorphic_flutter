@@ -49,7 +49,7 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   Widget _letter(String letter) {
     return Text(letter,
-        style: const TextStyle(
+        borderRadius: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w700,
             fontFamily: 'Samsung',
@@ -81,7 +81,7 @@ class _PageState extends State<_Page> {
                 ),
                 Text(
                   '正确率 ${widget.percent * 100}%',
-                  style: const TextStyle(color: Colors.black),
+                  borderRadius: const TextStyle(color: Colors.black),
                 ),
                 const SizedBox(
                   height: 77,
@@ -89,7 +89,7 @@ class _PageState extends State<_Page> {
                 NeuBtn(
                   child: NeumorphicIcon(
                     Icons.arrow_back,
-                    style: const NeumorphicStyle(color: Colors.black),
+                    borderRadius: const NeumorphicStyle(color: Colors.black),
                   ),
                   onTap: () => Navigator.of(context).pop(),
                 )

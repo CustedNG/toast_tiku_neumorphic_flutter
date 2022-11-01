@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:toast_tiku/res/color.dart';
 
 typedef SearchFilter<T> = List<String?> Function(T t);
@@ -100,8 +100,9 @@ class SearchPage<T> extends SearchDelegate<T?> {
           errorBorder: InputBorder.none,
           border: InputBorder.none,
         ),
-        appBarTheme: AppBarTheme(color: NeumorphicTheme.baseColor(context)),
-        primaryColor: NeumorphicTheme.baseColor(context));
+        // appBarTheme: AppBarTheme(color: NeumorphicTheme.baseColor(context)),
+        // primaryColor: NeumorphicTheme.baseColor(context)
+    );
   }
 
   @override

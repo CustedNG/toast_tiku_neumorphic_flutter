@@ -119,8 +119,8 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           for (var item in tiku.tikuIndex!) {
             radios.add(NeumorphicRadio<String>(
               child: Center(child: NeuText(text: item.chinese!)),
-              style: NeumorphicRadioStyle(
-                  boxShape: NeumorphicBoxShape.roundRect(
+              borderRadius: NeumorphicRadioStyle(
+                  borderRadius: NeumorphicBoxShape.roundRect(
                       const BorderRadius.all(Radius.circular(7)))),
               value: item.id,
               groupValue: _selectedCourse,

@@ -1,59 +1,66 @@
+import 'package:hive_flutter/hive_flutter.dart';
+
+part 'check_state.g.dart';
+
+@HiveType(typeId: 6)
 class CheckState {
-  late Map<String, List<Object>> _state;
-  Map<String, List<Object>> get state => _state;
+  @HiveField(1)
+  late Map<String, List<Object>> state;
+
+  CheckState(this.state);
 
   CheckState.empty() {
-    _state = <String, List<Object>>{};
+    state = <String, List<Object>>{};
   }
 
   CheckState.from(Map<String, List<Object>> _s) {
-    _state = _s;
+    state = _s;
   }
 
   void add(String id, Object value) {
-    if (_state.containsKey(id)) {
-      if (!_state[id]!.contains(value)) {
-        _state[id]!.add(value);
+    if (state.containsKey(id)) {
+      if (!state[id]!.contains(value)) {
+        state[id]!.add(value);
       }
     } else {
-      _state[id] = [value];
+      state[id] = [value];
     }
   }
 
   void update(String id, List<Object> value) {
-    _state[id] = value;
+    state[id] = value;
   }
 
   void delete(String id, Object value) {
-    if (_state.containsKey(id)) {
-      _state[id]!.remove(value);
-      if (_state[id]!.isEmpty) {
-        _state.remove(id);
+    if (state.containsKey(id)) {
+      state[id]!.remove(value);
+      if (state[id]!.isEmpty) {
+        state.remove(id);
       }
     }
   }
 
   bool contains(String id, Object value) {
-    if (_state.containsKey(id)) {
-      return _state[id]!.contains(value);
+    if (state.containsKey(id)) {
+      return state[id]!.contains(value);
     }
     return false;
   }
 
   void clear(String id) {
-    if (_state.containsKey(id)) {
-      _state.remove(id);
+    if (state.containsKey(id)) {
+      state.remove(id);
     }
   }
 
   List<Object> get(String id) {
-    if (_state.containsKey(id)) {
-      return _state[id]!;
+    if (state.containsKey(id)) {
+      return state[id]!;
     }
     return [];
   }
 
-  bool get isEmpty => _state.isEmpty;
+  bool get isEmpty => state.isEmpty;
 }
 
 Map<String, List<Object>> toMap(dynamic data) {

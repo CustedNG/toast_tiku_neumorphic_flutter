@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/store/tiku.dart';
 import 'package:toast_tiku/locator.dart';
@@ -14,7 +14,7 @@ void unawaited(Future<void> future) {}
 
 /// 判断是否为夜间模式
 bool isDarkMode(BuildContext context) =>
-    NeumorphicTheme.of(context)?.isUsingDark ?? false;
+   Theme.of(context).brightness == Brightness.dark;
 
 /// 显示Snackbar，[child]显示的widget，[context]背景
 void showSnackBar(BuildContext context, Widget child) =>
@@ -55,7 +55,7 @@ List<Ti> getAllTi() {
   /// 根据索引，循环获取每一章节数据
   for (var item in tiku.tikuIndex!) {
     for (var unit in item.content!) {
-      tis.addAll(store.fetch(item.id!, unit!.data!)!);
+      tis.addAll(store.fetch(item.id!, unit!.data!));
     }
   }
   return tis;

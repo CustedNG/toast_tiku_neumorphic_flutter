@@ -95,8 +95,8 @@ class _SettingPageState extends State<SettingPage> {
     return NeuCard(
         padding: EdgeInsets.all(_media.size.width * 0.06),
         margin: EdgeInsets.zero,
-        style: NeumorphicStyle(
-            boxShape: NeumorphicBoxShape.roundRect(
+        borderRadius: NeumorphicStyle(
+            borderRadius: NeumorphicBoxShape.roundRect(
                 const BorderRadius.all(Radius.circular(17)))),
         child: Column(
           children: children,

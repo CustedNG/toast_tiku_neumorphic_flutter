@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "toast_tiku",
+            "name": "debug",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "toast_tiku (profile mode)",
+            "name": "profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"

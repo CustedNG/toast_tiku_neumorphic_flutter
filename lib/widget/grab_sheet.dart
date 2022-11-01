@@ -1,10 +1,8 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:toast_tiku/model/check_state.dart';
 import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/res/color.dart';
-import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
 
 /// 底部上拉菜单实现
 class GrabSheet extends StatefulWidget {
@@ -79,19 +77,16 @@ class _GrabSheetState extends State<GrabSheet> {
   }
 
   Widget _buildGrab() {
-    return Neumorphic(
-        style: NeumorphicStyle(
-            lightSource: LightSource.bottom,
-            boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
-                topLeft: Radius.circular(17), topRight: Radius.circular(17)))),
+    return Material(
+        borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(17), topRight: Radius.circular(17)),
         child: Center(
           child: Padding(
             padding: EdgeInsets.only(bottom: _media.padding.bottom),
-            child: Neumorphic(
-              curve: Curves.easeInQuad,
+            child: Container(
               child: const SizedBox(height: 10, width: 57),
-              style: NeumorphicStyle(
-                  color: mainTextColor.resolve(context), depth: 37),
+              decoration: BoxDecoration(
+                  color: mainTextColor.resolve(context)),
             ),
           ),
         ));
@@ -99,8 +94,7 @@ class _GrabSheetState extends State<GrabSheet> {
 
   SnappingSheetContent _buildSheet() {
     return SnappingSheetContent(
-        child: Container(
-      color: NeumorphicTheme.baseColor(context),
+        child: Material(
       child: ListView(
         children: [
           _buildEachTypeGrid(0, '单选', single, 0),
@@ -123,7 +117,7 @@ class _GrabSheetState extends State<GrabSheet> {
       const SizedBox(
         height: 7,
       ),
-      NeuText(text: type),
+      Text(type),
       const SizedBox(
         height: 13,
       ),
@@ -140,16 +134,12 @@ class _GrabSheetState extends State<GrabSheet> {
             List<Object> _singleState = widget.checkState.get(_ti.id);
             return Padding(
               padding: const EdgeInsets.all(7),
-              child: NeuBtn(
-                style:
-                    NeumorphicStyle(depth: _singleState.isEmpty ? null : -10),
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.zero,
+              child: TextButton(
                 child: Container(
                   color: judgeColor(_singleState, _ti),
-                  child: Center(child: NeuText(text: (idx + 1).toString())),
+                  child: Center(child: Text((idx + 1).toString())),
                 ),
-                onTap: () => widget.onTap(currentIdx),
+                onPressed: () => widget.onTap(currentIdx),
               ),
             );
           })

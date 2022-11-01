@@ -14,12 +14,11 @@ class HistoryStore extends PersistentStore {
   }
 
   void putCheckState(
-      String courseId, String unitFile, Map<String, List<Object>>? checkState) {
+      String courseId, String unitFile, CheckState? checkState) {
     box.put('$courseId-$unitFile-checkState', checkState);
   }
 
-  Map<String, List<Object>>? fetchCheckState(String courseId, String unitFile) {
-    final data = box.get('$courseId-$unitFile-checkState');
-    return toMap(data);
+  CheckState? fetchCheckState(String courseId, String unitFile) {
+    return box.get('$courseId-$unitFile-checkState');
   }
 }

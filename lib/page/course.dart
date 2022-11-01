@@ -123,7 +123,7 @@ class _CoursePageState extends State<CoursePage> {
                                           setState(() {});
                                         },
                                         margin: const EdgeInsets.all(9),
-                                        style: NeumorphicStyle(
+                                        borderRadius: NeumorphicStyle(
                                           depth: selected.contains(id)
                                               ? -20
                                               : null),
@@ -143,7 +143,7 @@ class _CoursePageState extends State<CoursePage> {
                                       child: NeuBtn(
                                         child: const Text(
                                           '删除',
-                                          style: TextStyle(
+                                          borderRadius: TextStyle(
                                               color: Colors.redAccent),
                                         ),
                                         onTap: () {
@@ -217,7 +217,7 @@ class _CoursePageState extends State<CoursePage> {
             NeumorphicProgress(
               height: _media.size.height * 0.017,
               percent: doneTiCount / total,
-              style: ProgressStyle(
+              borderRadius: ProgressStyle(
                   border: NeumorphicBorder(
                 color: primaryColor,
               )),

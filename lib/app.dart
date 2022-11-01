@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:toast_tiku/core/utils.dart';
 import 'package:toast_tiku/data/store/setting.dart';
 import 'package:toast_tiku/locator.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       valueListenable: locator<SettingStore>().appPrimaryColor.listenable(),
       builder: (_, value, __) {
         final primaryColor = Color(value);
-        return NeumorphicApp(
+        return MaterialApp(
           /// 不显示App右上角的debug调试条
           debugShowCheckedModeBanner: false,
 
@@ -44,26 +44,17 @@ class MyApp extends StatelessWidget {
           /// App的标题
           title: 'Toast题库',
 
-          /// App主色调
-          color: NeumorphicTheme.baseColor(context),
-
           /// App主题模式，三种参数分为白天、黑夜和跟随系统模式，这里是跟随系统
           themeMode: ThemeMode.system,
 
           /// 自定义白天模式主题的参数
-          theme: NeumorphicThemeData(
-              accentColor: primaryColor,
-              variantColor: primaryColor.withOpacity(0.47),
-              shadowLightColor: primaryColor,
-              intensity: 0.33),
+          theme: ThemeData(
+              accentColor: primaryColor),
 
           /// 自定义夜间模式主题的参数
-          darkTheme: NeumorphicThemeData(
-              baseColor: const Color.fromRGBO(37, 37, 37, 1),
-              accentColor: primaryColor,
-              variantColor: primaryColor.withOpacity(0.47),
-              shadowLightColor: primaryColor,
-              intensity: 0.43),
+          darkTheme: ThemeData(
+              primaryColor: const Color.fromRGBO(37, 37, 37, 1),
+              accentColor: primaryColor,),
 
           /// App视图入口
           home: const HomePage(),

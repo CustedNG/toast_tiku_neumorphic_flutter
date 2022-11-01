@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 
 /// App顶部bar
 class NeuAppBar extends StatelessWidget {
@@ -10,8 +10,7 @@ class NeuAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Neumorphic(
-      child: Column(
+    return Column(
         children: [
           SizedBox(
             height: media.padding.top,
@@ -26,10 +25,6 @@ class NeuAppBar extends StatelessWidget {
             ),
           )
         ],
-      ),
-      style: const NeumorphicStyle(
-          lightSource: LightSource.top,
-          shadowLightColorEmboss: Colors.cyanAccent),
-    );
+      );
   }
 }

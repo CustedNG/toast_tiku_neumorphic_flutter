@@ -1,6 +1,5 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:toast_tiku/res/color.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
 
 /// 设置项Widget
 class SettingItem extends StatelessWidget {
@@ -31,10 +30,10 @@ class SettingItem extends StatelessWidget {
   final TextAlign textAlign;
 
   /// 标题文字风格
-  final NeumorphicTextStyle? titleStyle;
+  final TextStyle? titleStyle;
 
   /// 内容文字风格
-  final NeumorphicTextStyle? contentStyle;
+  final TextStyle? contentStyle;
 
   /// 右侧视图
   final Widget? rightBtn;
@@ -60,22 +59,20 @@ class SettingItem extends StatelessWidget {
               const SizedBox(width: 10.0),
               icon ?? Container(),
               const SizedBox(width: 10.0),
-              NeuText(text: title),
+              Text(title),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.only(left: 16, right: 16),
-                  child: NeuText(
-                      text: content,
-                      align: textAlign,
-                      textStyle:
-                          contentStyle ?? NeumorphicTextStyle(fontSize: 14.0)),
+                  child: Text(
+                      content,
+                      textAlign: textAlign,
+                      style:
+                          contentStyle ?? const TextStyle(fontSize: 14.0)),
                 ),
               ),
               showArrow && rightBtn == null
-                  ? NeumorphicIcon(
+                  ? const Icon(
                       Icons.arrow_forward_ios,
-                      style: NeumorphicStyle(
-                          color: mainTextColor.resolve(context)),
                       size: 16,
                     )
                   : Container(),

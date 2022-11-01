@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toast_tiku/data/provider/tiku.dart';
 
@@ -11,9 +11,9 @@ class TikuUpdateProgress extends StatelessWidget {
     return Consumer<TikuProvider>(builder: (_, tiku, __) {
       /// 如果正忙，则显示进度
       if (tiku.isBusy) {
-        return NeumorphicProgress(
-          percent: tiku.downloadProgress,
-          height: 3,
+        return LinearProgressIndicator(
+          value: tiku.downloadProgress,
+          minHeight: 3,
         );
       }
 

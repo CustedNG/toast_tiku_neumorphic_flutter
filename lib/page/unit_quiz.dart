@@ -92,7 +92,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     if (_checkStateHistory == null || !_saveAnswer) {
       _checkState = CheckState.empty();
     } else {
-      _checkState = CheckState.from(_checkStateHistory);
+      _checkState = _checkStateHistory;
     }
 
     _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
@@ -166,7 +166,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   Widget _buildHead() {
     final ti = _tis![_index];
-    bool have = _favoriteStore.have(widget.courseId, ti);
+    bool have = _favoriteStore.have(widget.courseId, ti) ?? false;
     return NeuAppBar(
         media: _media,
         child: Row(
@@ -319,7 +319,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         child: NeuText(text: content, align: TextAlign.start),
       ),
       onPressed: () => onPressed(value),
-      style: NeumorphicStyle(
+      borderRadius: NeumorphicStyle(
           color: judgeColor(value),
           depth: _nowState.contains(value) ? -20 : null),
     );
@@ -353,7 +353,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _historyProvider.setLastViewed(widget.courseId, widget.unitFile);
     if (_settingStore.saveAnswer.fetch()!) {
       _historyStore.putCheckState(
-          widget.courseId, widget.unitFile, _checkState.state);
+          widget.courseId, widget.unitFile, _checkState);
     }
     if (!_historyIdx.contains(_index)) {
       _historyIdx.add(_index);

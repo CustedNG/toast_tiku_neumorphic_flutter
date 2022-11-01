@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:toast_tiku/core/extension/ti.dart';
 import 'package:toast_tiku/core/utils.dart';
@@ -9,7 +9,6 @@ import 'package:toast_tiku/model/ti.dart';
 import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
 
 class ExamHistoryViewPage extends StatefulWidget {
   final ExamHistory examHistory;
@@ -65,7 +64,6 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
       body: GrabSheet(
         showColor: true,
         sheetController: _sheetController,
@@ -107,16 +105,16 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
   }
 
   Widget _buildProgress() {
-    return NeumorphicProgress(
-      percent: (_index + 1) / widget.examHistory.tis.length,
-      height: 2,
+    return LinearProgressIndicator(
+      value: (_index + 1) / widget.examHistory.tis.length,
+      minHeight: 2,
     );
   }
 
   Widget _buildHead() {
     final ti = widget.examHistory.tis[_index];
     final id = widget.examHistory.subjectId;
-    bool have = _favoriteStore.have(id, ti);
+    bool have = _favoriteStore.have(id, ti) ?? false;
     return NeuAppBar(
         media: _media,
         child: Row(
@@ -128,7 +126,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
             ),
             SizedBox(
               width: _media.size.width * 0.5,
-              child: NeuText(text: widget.examHistory.subject),
+              child: Text(widget.examHistory.subject),
             ),
             NeuIconBtn(
               icon: have ? Icons.favorite : Icons.favorite_border,
@@ -152,10 +150,10 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
     final children = _buildTiView(ti);
     children.insert(
         0,
-        NeuText(
-          text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
-          align: TextAlign.start,
-          textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+        Text(
+          '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
+          textAlign: TextAlign.start,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ));
 
     return FadeTransition(
@@ -219,23 +217,23 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
       case 2:
         return _buildFill(ti);
       default:
-        return const [NeuText(text: '题目解析失败')];
+        return const [Text('题目解析失败')];
     }
   }
 
   List<Widget> _buildFill(Ti ti) {
     return [
-      NeuText(text: ti.question!, align: TextAlign.start),
-      const NeuText(text: '\n答案：', align: TextAlign.start),
+      Text(ti.question!, textAlign: TextAlign.start),
+      const Text('\n答案：', textAlign: TextAlign.start),
       ...ti.answer!
-          .map((e) => NeuText(text: e, align: TextAlign.start))
+          .map((e) => Text(e, textAlign: TextAlign.start))
           .toList()
     ];
   }
 
   List<Widget> _buildSelect(Ti ti) {
     return [
-      NeuText(text: ti.question!, align: TextAlign.start),
+      Text(ti.question!, textAlign: TextAlign.start),
       SizedBox(height: _media.size.height * 0.05),
       ..._buildRadios(ti.options),
     ];
@@ -263,19 +261,13 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
   }
 
   Widget _buildRadio(int value, String content) {
-    return NeumorphicButton(
-      child: SizedBox(
+    return NeuBtn(
+      child: Container(
         width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
+        color: judgeColor(value),
+        child: Text(content, textAlign: TextAlign.start),
       ),
-      onPressed: () {},
-      style: NeumorphicStyle(
-          color: judgeColor(value),
-          depth: widget.examHistory.checkState
-                  .get(widget.examHistory.tis[_index].id)
-                  .contains(value)
-              ? -20
-              : null),
+      onTap: () {},
     );
   }
 

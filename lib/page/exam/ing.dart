@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:toast_tiku/core/route.dart';
@@ -17,7 +17,6 @@ import 'package:toast_tiku/widget/app_bar.dart';
 import 'package:toast_tiku/widget/center_loading.dart';
 import 'package:toast_tiku/widget/grab_sheet.dart';
 import 'package:toast_tiku/widget/neu_btn.dart';
-import 'package:toast_tiku/widget/neu_text.dart';
 import 'package:toast_tiku/widget/neu_text_field.dart';
 
 /// 正在进行考试时的页面
@@ -102,8 +101,6 @@ class _ExamingPageState extends State<ExamingPage>
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
-          backgroundColor: NeumorphicTheme.baseColor(context),
-
           /// 可以通过[Consumer<T>()]获取到需要的Provider
           body: Consumer<ExamProvider>(
             builder: (_, exam, __) {
@@ -122,9 +119,7 @@ class _ExamingPageState extends State<ExamingPage>
               ];
               if (_tis.isEmpty) {
                 return const Center(
-                  child: NeuText(
-                    text: '题库为空，发生未知错误',
-                  ),
+                  child: Text('题库为空，发生未知错误'),
                 );
               }
               return GrabSheet(
@@ -175,13 +170,11 @@ class _ExamingPageState extends State<ExamingPage>
       context: context,
       barrierDismissible: false,
       builder: (_) => AlertDialog(
-        backgroundColor: NeumorphicTheme.baseColor(context),
-        title: NeuText(
-          text: '确定要退出考试吗？',
-          textStyle: NeumorphicTextStyle(
+        title: const Text(
+          '确定要退出考试吗？',
+          style: TextStyle(
             fontWeight: FontWeight.w500,
           ),
-          align: TextAlign.start,
         ),
         actions: <Widget>[
           IconButton(
@@ -225,9 +218,9 @@ class _ExamingPageState extends State<ExamingPage>
   }
 
   Widget _buildProgress() {
-    return NeumorphicProgress(
-      percent: (_index + 1) / _tis.length,
-      height: 2,
+    return LinearProgressIndicator(
+      value: (_index + 1) / _tis.length,
+      minHeight: 2,
     );
   }
 
@@ -253,22 +246,20 @@ class _ExamingPageState extends State<ExamingPage>
                   if (timer.finish) {
                     _submittedAnswer = true;
                   }
-                  return NeuText(
-                    text: _submittedAnswer
+                  return Text(
+                    _submittedAnswer
                         ? '${timer.leftTime}\n正确率：${correctRate.toStringAsFixed(1)}%'
                         : timer.leftTime,
-                    textStyle: _submittedAnswer
-                        ? NeumorphicTextStyle(fontSize: 12)
+                    style: _submittedAnswer
+                        ? const TextStyle(fontSize: 12)
                         : null,
                   );
                 },
               ),
             ),
-            NeuBtn(
-              child: NeumorphicIcon(
+            NeuIconBtn(
+              icon:
                   _submittedAnswer ? Icons.celebration : Icons.send,
-                  style:
-                      NeumorphicStyle(color: mainTextColor.resolve(context))),
               onTap: () {
                 if (_submittedAnswer) {
                   AppRoute(ExamResultPage(
@@ -302,10 +293,9 @@ class _ExamingPageState extends State<ExamingPage>
     final children = _buildTiView(ti);
     children.insert(
         0,
-        NeuText(
-          text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
-          align: TextAlign.start,
-          textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+        Text(
+          '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ));
 
     return FadeTransition(
@@ -355,7 +345,7 @@ class _ExamingPageState extends State<ExamingPage>
       case 2:
         return _buildFill(ti);
       default:
-        return const [NeuText(text: '题目解析失败')];
+        return const [Text('题目解析失败')];
     }
   }
 
@@ -379,7 +369,7 @@ class _ExamingPageState extends State<ExamingPage>
       ));
     }
     return [
-      NeuText(text: ti.question!, align: TextAlign.start),
+      Text(ti.question!),
       const SizedBox(
         height: 17,
       ),
@@ -426,7 +416,7 @@ class _ExamingPageState extends State<ExamingPage>
         child: NeuText(text: content, align: TextAlign.start),
       ),
       onPressed: () => onPressed(value),
-      style: NeumorphicStyle(
+      borderRadius: NeumorphicStyle(
           color: _submittedAnswer ? judgeColor(value) : null,
           depth: _nowState.contains(value) ? -20 : null),
     );

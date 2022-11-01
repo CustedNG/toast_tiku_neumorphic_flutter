@@ -15,10 +15,14 @@ import 'package:toast_tiku/data/provider/tiku.dart';
 import 'package:toast_tiku/data/provider/timer.dart';
 import 'package:toast_tiku/locator.dart';
 
+import 'model/check_state.dart';
+import 'model/exam_history.dart';
+import 'model/ti.dart';
+import 'model/tiku_index.dart';
+
 /// 初始化App
 Future<void> initApp() async {
-  /// 加载Hive数据库
-  await Hive.initFlutter();
+  await initHive();
   await setupLocator();
 
   // 等待store加载完成
@@ -36,7 +40,18 @@ Future<void> initApp() async {
   });
 }
 
-/// 在空间内运行
+Future<void> initHive() async {
+  /// 加载Hive数据库
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(ExamHistoryAdapter());
+  Hive.registerAdapter(CheckStateAdapter());
+  Hive.registerAdapter(TiAdapter());
+  Hive.registerAdapter(TikuIndexAdapter());
+  Hive.registerAdapter(TikuIndexContentAdapter());
+  Hive.registerAdapter(TikuIndexRawAdapter());
+}
+
 void runInZone(dynamic Function() body) {
   final zoneSpec = ZoneSpecification(
     print: (Zone self, ZoneDelegate parent, Zone zone, String line) {

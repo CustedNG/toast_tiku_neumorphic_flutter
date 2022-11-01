@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:toast_tiku/res/color.dart';
 
 /// Neumorphic风格输入框
@@ -62,15 +62,7 @@ class _TextFieldState extends State<NeuTextField> {
             ),
           ),
         ),
-        Neumorphic(
-          margin: widget.padding ??
-              const EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
-          style: NeumorphicStyle(
-            depth: NeumorphicTheme.embossDepth(context),
-            boxShape: const NeumorphicBoxShape.stadium(),
-          ),
-          padding: widget.margin ??
-              const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+        Material(
           child: TextField(
             onChanged: widget.onChanged,
             controller: _controller,
