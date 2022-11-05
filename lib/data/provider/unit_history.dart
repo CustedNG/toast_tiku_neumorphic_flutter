@@ -4,7 +4,6 @@ import '../../core/provider_base.dart';
 import '../../locator.dart';
 import '../store/unit_history.dart';
 
-
 class HistoryProvider extends BusyProvider {
   final _initialized = Completer();
   Future get initialized => _initialized.future;

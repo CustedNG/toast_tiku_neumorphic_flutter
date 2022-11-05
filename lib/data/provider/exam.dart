@@ -7,7 +7,6 @@ import '../../model/ti.dart';
 import '../store/tiku.dart';
 import 'tiku.dart';
 
-
 class ExamProvider extends BusyProvider {
   /// 所有题目
   late List<List<Ti>> _tis;

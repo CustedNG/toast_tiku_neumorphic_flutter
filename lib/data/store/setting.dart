@@ -1,5 +1,3 @@
-
-
 import '../../core/persistant_store.dart';
 
 class SettingStore extends PersistentStore {

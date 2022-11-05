@@ -2,7 +2,6 @@ import 'dart:async';
 
 import '../../core/provider_base.dart';
 
-
 /// 考试时间计时器的实现
 class TimerProvider extends BusyProvider {
   /// 计时器
