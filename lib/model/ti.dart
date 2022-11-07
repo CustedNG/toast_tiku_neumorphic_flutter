@@ -77,7 +77,7 @@ class Ti {
     return data;
   }
 
-  String get id => md5.convert(utf8.encode(question ?? '')).toString();
+  String get id => '${md5.convert(utf8.encode('$question|$options'))}';
 }
 
 /// 将List转为List<Ti>
