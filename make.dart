@@ -17,7 +17,6 @@ const skslFileSuffix = '.sksl.json';
 
 const buildFuncs = {
   'ios': flutterBuildIOS,
-  'macos': flutterBuildMacOS,
   'android': flutterBuildAndroid,
 };
 
