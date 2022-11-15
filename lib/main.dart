@@ -101,7 +101,7 @@ void runInZone(dynamic Function() body) {
 
 /// 发生错误时，执行的操作
 void onError(Object obj, StackTrace stack) {
-  Logger('MAIN').warning('error: $obj');
+  Logger('ZONE').warning('$obj\n$stack');
   Analysis.recordException(obj);
   final debugProvider = locator<DebugProvider>();
   debugProvider.addError(obj);

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -11,8 +12,7 @@ import '../locator.dart';
 import '../model/ti.dart';
 import '../widget/neu_dialog.dart';
 
-/// 不等待
-void unawaited(Future<void> future) {}
+bool isWeb = kIsWeb;
 
 /// 判断是否为夜间模式
 bool isDarkMode(BuildContext context) =>
@@ -79,6 +79,7 @@ Future<T?> showNeuDialog<T>(
 }
 
 void setSystemBottomNavigationBarColor(BuildContext context) {
+  if (isWeb) return;
   if (Platform.isAndroid) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
         overlays: [SystemUiOverlay.top]); // Enable Edge-to-Edge on Android 10+

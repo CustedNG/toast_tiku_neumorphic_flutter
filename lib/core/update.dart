@@ -15,6 +15,8 @@ final logger = Logger('UPDATE');
 
 /// 开始尝试更新
 Future<void> doUpdate(BuildContext context) async {
+  if (isWeb) return;
+
   /// 调用[AppService.getUpdate()]，开始检查更新
   final update = await locator<AppService>().getUpdate();
 

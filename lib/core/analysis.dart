@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:countly_flutter/countly_config.dart';
 import 'package:countly_flutter/countly_flutter.dart';
 import 'package:logging/logging.dart';
+import 'package:toast_tiku/core/utils.dart';
 
 class Analysis {
   /// 后端URL
@@ -16,6 +17,8 @@ class Analysis {
 
   /// 初始化Countly统计
   static Future<void> init(bool debug) async {
+    if (isWeb) return;
+    
     if (Platform.isAndroid || Platform.isIOS) {
       _enabled = true;
       final config = CountlyConfig(_url, _key)
