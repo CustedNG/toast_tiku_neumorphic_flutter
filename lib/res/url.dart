@@ -1,7 +1,7 @@
 ///App内所有固定的链接
 
 /// App后端地址
-const backendUrl = 'https://v3.custed.lolli.tech/';
+const backendUrl = 'https://api.backend.cust.team/';
 
 /// 题库资源地址
 const tikuResUrl = backendUrl + 'res/tiku';
@@ -10,7 +10,8 @@ const tikuResUrl = backendUrl + 'res/tiku';
 const courseImgUrl = tikuResUrl + '/img';
 
 /// 加群地址
-const joinQQGroupUrl = 'https://jq.qq.com/?_wv=1027&k=G0hUmPAq';
+const joinQQGroupUrl =
+    'http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=0_gE5gvMGjaXO7h_ldEHzKIRvgYx95Yi&group_code=795305110';
 
 /// 本项目开源地址
 const openSourceUrl =

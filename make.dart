@@ -1,4 +1,4 @@
-#!/usr/bin/env dart
+#!/usr/bin/env fvm dart
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
@@ -84,7 +84,7 @@ Future<void> updateBuildData() async {
 }
 
 Future<void> dartFormat() async {
-  final result = await Process.run('dart', ['format', '.']);
+  final result = await Process.run('fvm', ['dart', 'format', '.']);
   print('\n${result.stdout}');
   if (result.exitCode != 0) {
     print(result.stderr);

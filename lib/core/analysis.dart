@@ -18,7 +18,7 @@ class Analysis {
   /// 初始化Countly统计
   static Future<void> init(bool debug) async {
     if (isWeb) return;
-    
+
     if (Platform.isAndroid || Platform.isIOS) {
       _enabled = true;
       final config = CountlyConfig(_url, _key)
