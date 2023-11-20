@@ -35,10 +35,6 @@
 ```shell
 # Windows平台下请将命令 ./make.dart 替换为 dart make.dart
 
-# 以debug模式运行
-./make.dart run
-# 以release模式运行
-./make.dart run release
 # 编译Android 64bit版本
 ./make.dart build android
 # 编译Android 32bit版本
@@ -87,7 +83,7 @@
 - [ ] ~~每日小测：随机从题库抽取题目~~
 - [x] 考试模式：为填空题提供支持
 - [ ] 整合做题界面：ti_view.dart。AppBar以下的部分，全部做进一个通用view，参数：显示对错、保存做题记录等
-- [ ] 使用hash作为id，储存题目历史选项
+- [x] 使用hash作为id，储存题目历史选项
 
 ## License
 `Apache License 2.0`

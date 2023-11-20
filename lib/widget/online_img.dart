@@ -21,7 +21,6 @@ class OnlineImage extends StatelessWidget {
         /// 根据状态返回视图
         final state = xState.extendedImageLoadState;
         switch (state) {
-
           /// 加载时返回加载中
           case LoadState.loading:
             return centerLoading;

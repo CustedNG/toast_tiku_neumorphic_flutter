@@ -1,5 +1,5 @@
-#!/usr/bin/env fvm dart
-// ignore_for_file: avoid_print
+#!/usr/bin/env dart
+// ignore_for_file: avoid_printd, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
@@ -19,12 +19,14 @@ const buildFuncs = {
   'ios': flutterBuildIOS,
   'android': flutterBuildAndroid,
 };
+/// Remember change it to your flutter2 path
+const flutterPath = '/home/lolli/env/flutter2.10.5/bin/flutter';
 
 int? build;
 
-Future<int> getGitCommitCount() async {
+Future<void> getGitCommitCount() async {
   final result = await Process.run('git', ['log', '--oneline']);
-  return (result.stdout as String)
+  build = (result.stdout as String)
       .split('\n')
       .where((line) => line.isNotEmpty)
       .length;
@@ -55,8 +57,7 @@ Future<int> getGitModificationCount() async {
 }
 
 Future<String> getFlutterVersion() async {
-  final result =
-      await Process.run('fvm', ['flutter', '--version'], runInShell: true);
+  final result = await Process.run(flutterPath, ['--version']);
   return (result.stdout as String);
 }
 
@@ -84,7 +85,11 @@ Future<void> updateBuildData() async {
 }
 
 Future<void> dartFormat() async {
-  final result = await Process.run('fvm', ['dart', 'format', '.']);
+  final result = await Process.run(
+    'dart',
+    ['format', '.'],
+    runInShell: true,
+  );
   print('\n${result.stdout}');
   if (result.exitCode != 0) {
     print(result.stderr);
@@ -92,15 +97,9 @@ Future<void> dartFormat() async {
   }
 }
 
-void flutterRun(String? mode) {
-  Process.start('flutter', mode == null ? ['run'] : ['run', '--$mode'],
-      mode: ProcessStartMode.inheritStdio, runInShell: true);
-}
-
 Future<void> flutterBuild(
     String source, String target, String buildType) async {
   final args = [
-    'flutter',
     'build',
     buildType,
   ];
@@ -118,7 +117,13 @@ Future<void> flutterBuild(
     ]);
   }
   print('[$buildType]\nBuilding with args: ${args.join(' ')}');
-  final buildResult = await Process.run('fvm', args, runInShell: true);
+  final buildResult = await Process.run(
+    flutterPath,
+    args,
+    environment: {
+      'JAVA_HOME': '/usr/lib/jvm/java-8-openjdk-amd64',
+    },
+  );
   final exitCode = buildResult.exitCode;
 
   if (exitCode == 0) {
@@ -179,11 +184,9 @@ void main(List<String> args) async {
   final command = args[0];
 
   switch (command) {
-    case 'run':
-      return flutterRun(args.length == 2 ? args[1] : null);
     case 'build':
       final stopwatch = Stopwatch()..start();
-      build = await getGitCommitCount();
+      await getGitCommitCount();
       await updateBuildData();
       await dartFormat();
       if (args.length > 1) {
