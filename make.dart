@@ -20,9 +20,6 @@ const buildFuncs = {
   'android': flutterBuildAndroid,
 };
 
-/// Remember change it to your flutter2 path
-const flutterPath = '/home/lolli/env/flutter2.10.5/bin/flutter';
-
 int? build;
 
 Future<void> getGitCommitCount() async {
@@ -61,7 +58,7 @@ Future<int> getGitModificationCount() async {
 }
 
 Future<String> getFlutterVersion() async {
-  final result = await Process.run(flutterPath, ['--version']);
+  final result = await Process.run('flutter', ['--version'], runInShell: true);
   return (result.stdout as String);
 }
 
@@ -111,9 +108,9 @@ Future<void> flutterBuild(
     buildType,
   ];
   // No sksl cache for macos
-  if ('macos' != buildType) {
-    args.add('--bundle-sksl-path=$buildType$skslFileSuffix');
-  }
+  // if ('macos' != buildType) {
+  //   args.add('--bundle-sksl-path=$buildType$skslFileSuffix');
+  // }
   final isAndroid = 'apk' == buildType;
   // [--target-platform] only for Android
   if (isAndroid) {
@@ -125,11 +122,9 @@ Future<void> flutterBuild(
   }
   print('[$buildType]\nBuilding with args: ${args.join(' ')}');
   final buildResult = await Process.run(
-    flutterPath,
+    'flutter',
     args,
-    environment: {
-      'JAVA_HOME': '/usr/lib/jvm/java-8-openjdk-amd64',
-    },
+    runInShell: true,
   );
   final exitCode = buildResult.exitCode;
 
