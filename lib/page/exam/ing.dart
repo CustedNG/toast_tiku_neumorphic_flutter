@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
@@ -26,13 +26,13 @@ class ExamingPage extends StatefulWidget {
   final String subject;
   final String subjectId;
   const ExamingPage({
-    Key? key,
+    super.key,
     required this.subject,
     required this.subjectId,
-  }) : super(key: key);
+  });
 
   @override
-  _ExamingPageState createState() => _ExamingPageState();
+  State<ExamingPage> createState() => _ExamingPageState();
 }
 
 /// with [SingleTickerProviderStateMixin]，融合了一个ticker provider
@@ -422,14 +422,14 @@ class _ExamingPageState extends State<ExamingPage>
   /// 构建选择题具体的单个选项
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: SizedBox(
-        width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
-      ),
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: _submittedAnswer ? judgeColor(value) : null,
           depth: _nowState.contains(value) ? -20 : null),
+      child: SizedBox(
+        width: _media.size.width * 0.98,
+        child: NeuText(text: content, align: TextAlign.start),
+      ),
     );
   }
 

@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../core/route.dart';
 import '../core/utils.dart';
@@ -16,10 +16,10 @@ import 'unit_quiz.dart';
 
 class CoursePage extends StatefulWidget {
   final TikuIndex data;
-  const CoursePage({Key? key, required this.data}) : super(key: key);
+  const CoursePage({super.key, required this.data});
 
   @override
-  _CoursePageState createState() => _CoursePageState();
+  State<CoursePage> createState() => _CoursePageState();
 }
 
 class _CoursePageState extends State<CoursePage> {

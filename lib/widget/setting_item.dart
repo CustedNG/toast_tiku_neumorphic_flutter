@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../res/color.dart';
 import 'neu_text.dart';
@@ -6,7 +6,7 @@ import 'neu_text.dart';
 /// 设置项Widget
 class SettingItem extends StatelessWidget {
   const SettingItem({
-    Key? key,
+    super.key,
     required this.title,
     this.onTap,
     this.content = "",
@@ -17,7 +17,7 @@ class SettingItem extends StatelessWidget {
     this.height,
     this.showArrow = true,
     this.icon,
-  }) : super(key: key);
+  });
 
   /// 点击后操作
   final GestureTapCallback? onTap;

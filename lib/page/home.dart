@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math' show Random;
 
 import 'package:after_layout/after_layout.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import '../core/extension/ti.dart';
@@ -37,7 +37,7 @@ import 'unit_quiz.dart';
 
 /// App启动后的主页面
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -112,6 +112,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   Widget _buildContributor() {
     return Container(
       color: NeumorphicTheme.baseColor(context),
+      width: _media.size.width,
+      height: _media.size.height * 0.06 + _media.padding.bottom,
       child: Padding(
         padding: EdgeInsets.only(
           bottom: _media.padding.bottom,
@@ -135,8 +137,6 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           ),
         ),
       ),
-      width: _media.size.width,
-      height: _media.size.height * 0.06 + _media.padding.bottom,
     );
   }
 
@@ -266,7 +266,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               NeuText(
-                                  text: '上次学到了 · ' + index.chinese!,
+                                  text: '上次学到了 · ${index.chinese!}',
                                   textStyle: NeumorphicTextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold)),
@@ -420,7 +420,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   String _buildOption(List option) {
     switch (option.length) {
       case 2:
-        return option.join('\n') + '\n';
+        return '${option.join('\n')}\n';
       case 3:
       case 4:
       case 5:
@@ -428,7 +428,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         int idx = 0;
         String result = '';
         for (var item in option) {
-          result += String.fromCharCode(65 + idx++) + '.$item\n';
+          result += '${String.fromCharCode(65 + idx++)}.$item\n';
         }
         return result;
       default:

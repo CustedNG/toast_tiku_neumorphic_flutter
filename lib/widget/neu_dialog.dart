@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 /// Neumorphic风格对话框
 class NeuDialog extends Dialog {
@@ -15,12 +15,11 @@ class NeuDialog extends Dialog {
   final Widget actions;
 
   const NeuDialog(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.content,
       required this.actions,
-      this.margin})
-      : super(key: key);
+      this.margin});
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +36,7 @@ class NeuDialog extends Dialog {
       child: SizedBox(
         width: size.width * 0.7,
         child: Neumorphic(
+          style: const NeumorphicStyle(intensity: 0),
           child: Padding(
             padding: margin ?? const EdgeInsets.fromLTRB(24, 17, 24, 7),
             child: Column(
@@ -57,7 +57,6 @@ class NeuDialog extends Dialog {
               ],
             ),
           ),
-          style: const NeumorphicStyle(intensity: 0),
         ),
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import 'center_loading.dart';
 import 'fade_in.dart';
@@ -9,7 +9,7 @@ class OnlineImage extends StatelessWidget {
   /// 图片链接
   final String url;
 
-  const OnlineImage({Key? key, required this.url}) : super(key: key);
+  const OnlineImage({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../../core/route.dart';
 import '../../core/utils.dart';
@@ -12,10 +12,10 @@ import '../../widget/neu_text.dart';
 import 'history_view.dart';
 
 class ExamHistoryListPage extends StatefulWidget {
-  const ExamHistoryListPage({Key? key}) : super(key: key);
+  const ExamHistoryListPage({super.key});
 
   @override
-  _ExamHistoryListPageState createState() => _ExamHistoryListPageState();
+  State<ExamHistoryListPage> createState() => _ExamHistoryListPageState();
 }
 
 class _ExamHistoryListPageState extends State<ExamHistoryListPage> {

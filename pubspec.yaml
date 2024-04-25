@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 
 dependencies:
@@ -17,22 +17,23 @@ dependencies:
   provider: ^6.0.0
   get_it: ^7.2.0
   hive_flutter: ^1.0.0
-  flutter_neumorphic: ^3.1.0
-  dio: ^4.0.0
+  flutter_neumorphic_plus: ^3.3.0
+  dio: ^5.4.3+1
   after_layout: ^1.1.0
   snapping_sheet: ^3.1.0
-  extended_image: ^6.0.1
-  url_launcher: ^6.0.9
-  countly_flutter: ^22.2.0
+  extended_image: ^8.2.0
+  url_launcher: ^6.2.6
+  countly_flutter: ^24.4.0
   logging: ^1.0.2
   flutter_material_color_picker: ^1.1.0+2
-  r_upgrade: ^0.3.6
+  r_upgrade: 0.3.8
+  crypto: ^3.0.3
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^3.0.2
 
 
 flutter:

@@ -13,8 +13,8 @@ class CheckState {
     state = <String, List<Object>>{};
   }
 
-  CheckState.from(Map<String, List<Object>> _s) {
-    state = _s;
+  CheckState.from(Map<String, List<Object>> s) {
+    state = s;
   }
 
   void add(String id, Object value) {

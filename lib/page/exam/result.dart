@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../../widget/neu_btn.dart';
 
@@ -7,7 +7,7 @@ class ExamResultPage extends StatelessWidget {
   /// 正确率
   final double percent;
 
-  const ExamResultPage({Key? key, required this.percent}) : super(key: key);
+  const ExamResultPage({super.key, required this.percent});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class ExamResultPage extends StatelessWidget {
 class _Page extends StatefulWidget {
   final double percent;
 
-  const _Page({Key? key, required this.percent}) : super(key: key);
+  const _Page({required this.percent});
 
   @override
   createState() => _PageState();

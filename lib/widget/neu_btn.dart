@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../res/color.dart';
 
@@ -20,25 +20,24 @@ class NeuIconBtn extends StatelessWidget {
   final NeumorphicBoxShape? boxShape;
 
   const NeuIconBtn(
-      {Key? key,
+      {super.key,
       required this.icon,
       this.onTap,
       this.margin,
       this.padding,
-      this.boxShape})
-      : super(key: key);
+      this.boxShape});
 
   @override
   Widget build(BuildContext context) {
     return NeuBtn(
       margin: margin ?? const EdgeInsets.all(9),
       padding: padding ?? const EdgeInsets.all(9),
+      onTap: onTap,
+      boxShape: boxShape,
       child: NeumorphicIcon(
         icon,
         style: NeumorphicStyle(color: mainTextColor.resolve(context)),
       ),
-      onTap: onTap,
-      boxShape: boxShape,
     );
   }
 }
@@ -54,27 +53,26 @@ class NeuBtn extends StatelessWidget {
   final NeumorphicStyle? style;
 
   const NeuBtn(
-      {Key? key,
+      {super.key,
       required this.child,
       this.onTap,
       this.margin,
       this.padding,
       this.boxShape,
-      this.style})
-      : super(key: key);
+      this.style});
 
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
       padding: margin ?? const EdgeInsets.all(9),
       margin: padding ?? const EdgeInsets.all(9),
-      child: child,
       onPressed: onTap,
       style: style ??
           NeumorphicStyle(
               boxShape: boxShape ??
                   NeumorphicBoxShape.roundRect(
                       const BorderRadius.all(Radius.circular(7)))),
+      child: child,
     );
   }
 }

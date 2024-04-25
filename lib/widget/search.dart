@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../res/color.dart';
 
@@ -84,7 +84,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
         textTheme: Theme.of(context).textTheme.copyWith(
-              headline6: TextStyle(
+              titleLarge: TextStyle(
                 color: mainTextColor.resolve(context),
                 fontSize: 20,
               ),

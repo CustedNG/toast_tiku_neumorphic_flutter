@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
@@ -24,14 +24,14 @@ class UnitQuizPage extends StatefulWidget {
   final String unitFile;
   final String unitName;
   const UnitQuizPage({
-    Key? key,
+    super.key,
     required this.courseId,
     required this.unitFile,
     required this.unitName,
-  }) : super(key: key);
+  });
 
   @override
-  _UnitQuizPageState createState() => _UnitQuizPageState();
+  State<UnitQuizPage> createState() => _UnitQuizPageState();
 }
 
 class _UnitQuizPageState extends State<UnitQuizPage>
@@ -88,12 +88,12 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _saveAnswer = _settingStore.saveAnswer.fetch()!;
     _autoSlide2NextWhenCorrect =
         _settingStore.autoSlide2NextWhenCorrect.fetch()!;
-    final _checkStateHistory =
+    final checkStateHistory =
         _historyStore.fetchCheckState(widget.courseId, widget.unitFile);
-    if (_checkStateHistory == null || !_saveAnswer) {
+    if (checkStateHistory == null || !_saveAnswer) {
       _checkState = CheckState.empty();
     } else {
-      _checkState = _checkStateHistory;
+      _checkState = checkStateHistory;
     }
 
     _historyIdx = _historyStore.fetch(widget.courseId, widget.unitFile);
@@ -278,9 +278,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     return [
       NeuText(text: ti.question!, align: TextAlign.start),
       const NeuText(text: '\n答案：', align: TextAlign.start),
-      ...ti.answer!
-          .map((e) => NeuText(text: e, align: TextAlign.start))
-          .toList()
+      ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start))
     ];
   }
 
@@ -315,14 +313,14 @@ class _UnitQuizPageState extends State<UnitQuizPage>
 
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: SizedBox(
-        width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
-      ),
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
           depth: _nowState.contains(value) ? -20 : null),
+      child: SizedBox(
+        width: _media.size.width * 0.98,
+        child: NeuText(text: content, align: TextAlign.start),
+      ),
     );
   }
 

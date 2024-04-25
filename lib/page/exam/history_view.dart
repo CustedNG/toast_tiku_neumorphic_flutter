@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
 import '../../core/extension/ti.dart';
@@ -14,11 +14,10 @@ import '../../widget/neu_text.dart';
 
 class ExamHistoryViewPage extends StatefulWidget {
   final ExamHistory examHistory;
-  const ExamHistoryViewPage({Key? key, required this.examHistory})
-      : super(key: key);
+  const ExamHistoryViewPage({super.key, required this.examHistory});
 
   @override
-  _ExamHistoryViewPageState createState() => _ExamHistoryViewPageState();
+  State<ExamHistoryViewPage> createState() => _ExamHistoryViewPageState();
 }
 
 class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
@@ -228,9 +227,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
     return [
       NeuText(text: ti.question!, align: TextAlign.start),
       const NeuText(text: '\n答案：', align: TextAlign.start),
-      ...ti.answer!
-          .map((e) => NeuText(text: e, align: TextAlign.start))
-          .toList()
+      ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start))
     ];
   }
 
@@ -265,10 +262,6 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
 
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: SizedBox(
-        width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
-      ),
       onPressed: () {},
       style: NeumorphicStyle(
           color: judgeColor(value),
@@ -277,6 +270,10 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
                   .contains(value)
               ? -20
               : null),
+      child: SizedBox(
+        width: _media.size.width * 0.98,
+        child: NeuText(text: content, align: TextAlign.start),
+      ),
     );
   }
 

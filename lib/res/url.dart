@@ -1,13 +1,14 @@
-///App内所有固定的链接
+/// App内所有固定的链接
+library;
 
 /// App后端地址
 const backendUrl = 'https://api.backend.cust.team/';
 
 /// 题库资源地址
-const tikuResUrl = backendUrl + 'res/tiku';
+const tikuResUrl = '${backendUrl}res/tiku';
 
 /// 科目图标地址
-const courseImgUrl = tikuResUrl + '/img';
+const courseImgUrl = '$tikuResUrl/img';
 
 /// 加群地址
 const joinQQGroupUrl =

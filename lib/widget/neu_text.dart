@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../res/color.dart';
 
@@ -17,8 +17,7 @@ class NeuText extends StatelessWidget {
   final NeumorphicTextStyle? textStyle;
 
   const NeuText(
-      {Key? key, this.align, required this.text, this.style, this.textStyle})
-      : super(key: key);
+      {super.key, this.align, required this.text, this.style, this.textStyle});
 
   @override
   Widget build(BuildContext context) {

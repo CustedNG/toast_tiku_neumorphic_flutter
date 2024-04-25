@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../core/utils.dart';
 import '../res/build_data.dart';
@@ -8,10 +8,10 @@ import 'neu_text.dart';
 
 /// Logo卡片，位于设置页
 class LogoCard extends StatefulWidget {
-  const LogoCard({Key? key}) : super(key: key);
+  const LogoCard({super.key});
 
   @override
-  _LogoCardState createState() => _LogoCardState();
+  State<LogoCard> createState() => _LogoCardState();
 }
 
 class _LogoCardState extends State<LogoCard> {

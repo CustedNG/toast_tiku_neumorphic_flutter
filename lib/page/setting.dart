@@ -1,5 +1,5 @@
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import '../core/update.dart';
@@ -23,10 +23,10 @@ import '../widget/tiku_update_progress.dart';
 
 /// 设置页面
 class SettingPage extends StatefulWidget {
-  const SettingPage({Key? key}) : super(key: key);
+  const SettingPage({super.key});
 
   @override
-  _SettingPageState createState() => _SettingPageState();
+  State<SettingPage> createState() => _SettingPageState();
 }
 
 class _SettingPageState extends State<SettingPage> {
@@ -187,7 +187,7 @@ class _SettingPageState extends State<SettingPage> {
             rightBtn: SizedBox(
               width: _media.size.width * 0.37,
               child: NeuText(
-                  text: (tiku.downloadProgress * 100).toStringAsFixed(2) + '%',
+                  text: '${(tiku.downloadProgress * 100).toStringAsFixed(2)}%',
                   align: TextAlign.end),
             ),
           );

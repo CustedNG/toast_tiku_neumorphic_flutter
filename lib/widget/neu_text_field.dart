@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../res/color.dart';
 
@@ -23,17 +23,16 @@ class NeuTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
 
   const NeuTextField(
-      {Key? key,
+      {super.key,
       this.label,
       this.hint,
       this.onChanged,
       this.padding,
       this.margin,
-      this.initValue})
-      : super(key: key);
+      this.initValue});
 
   @override
-  _TextFieldState createState() => _TextFieldState();
+  State<NeuTextField> createState() => _TextFieldState();
 }
 
 class _TextFieldState extends State<NeuTextField> {

@@ -1,5 +1,5 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import 'core/utils.dart';
 import 'data/store/setting.dart';
@@ -8,7 +8,7 @@ import 'page/home.dart';
 
 /// App入口
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

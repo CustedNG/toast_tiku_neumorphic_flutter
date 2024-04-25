@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
 import '../model/check_state.dart';
@@ -31,18 +31,17 @@ class GrabSheet extends StatefulWidget {
   final bool showColor;
 
   const GrabSheet(
-      {Key? key,
+      {super.key,
       required this.sheetController,
       required this.main,
       this.grab,
       required this.tis,
       required this.checkState,
       required this.onTap,
-      required this.showColor})
-      : super(key: key);
+      required this.showColor});
 
   @override
-  _GrabSheetState createState() => _GrabSheetState();
+  State<GrabSheet> createState() => _GrabSheetState();
 }
 
 class _GrabSheetState extends State<GrabSheet> {
@@ -72,10 +71,10 @@ class _GrabSheetState extends State<GrabSheet> {
   Widget build(BuildContext context) {
     return SnappingSheet(
       controller: widget.sheetController,
-      child: widget.main,
       grabbing: widget.grab ?? _buildGrab(),
       grabbingHeight: _media.size.height * 0.08 + _media.padding.bottom,
       sheetBelow: _buildSheet(),
+      child: widget.main,
     );
   }
 
@@ -90,9 +89,9 @@ class _GrabSheetState extends State<GrabSheet> {
             padding: EdgeInsets.only(bottom: _media.padding.bottom),
             child: Neumorphic(
               curve: Curves.easeInQuad,
-              child: const SizedBox(height: 10, width: 57),
               style: NeumorphicStyle(
                   color: mainTextColor.resolve(context), depth: 37),
+              child: const SizedBox(height: 10, width: 57),
             ),
           ),
         ));
@@ -137,17 +136,17 @@ class _GrabSheetState extends State<GrabSheet> {
           itemCount: tis.length,
           itemBuilder: (context, idx) {
             int currentIdx = prefixIdx + idx;
-            Ti _ti = widget.tis[currentIdx];
-            List<Object> _singleState = widget.checkState.get(_ti.id);
+            Ti ti = widget.tis[currentIdx];
+            List<Object> singleState = widget.checkState.get(ti.id);
             return Padding(
               padding: const EdgeInsets.all(7),
               child: NeuBtn(
                 style:
-                    NeumorphicStyle(depth: _singleState.isEmpty ? null : -10),
+                    NeumorphicStyle(depth: singleState.isEmpty ? null : -10),
                 margin: EdgeInsets.zero,
                 padding: EdgeInsets.zero,
                 child: Container(
-                  color: judgeColor(_singleState, _ti),
+                  color: judgeColor(singleState, ti),
                   child: Center(child: NeuText(text: (idx + 1).toString())),
                 ),
                 onTap: () => widget.onTap(currentIdx),

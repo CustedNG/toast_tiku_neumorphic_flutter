@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:countly_flutter/countly_config.dart';
 import 'package:countly_flutter/countly_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:toast_tiku/core/utils.dart';
@@ -22,10 +21,9 @@ class Analysis {
     if (Platform.isAndroid || Platform.isIOS) {
       _enabled = true;
       final config = CountlyConfig(_url, _key)
-          .setLoggingEnabled(debug)
+          .setLoggingEnabled(false)
           .enableCrashReporting();
       await Countly.initWithConfig(config);
-      await Countly.start();
       await Countly.giveAllConsent();
     } else {
       Logger('COUNTLY')
@@ -36,7 +34,7 @@ class Analysis {
   /// 统计不同页面的使用次数
   static void recordView(String view) {
     if (!_enabled) return;
-    Countly.recordView(view);
+    Countly.instance.views.startView(view);
   }
 
   /// 记录exception

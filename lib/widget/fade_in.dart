@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class FadeIn extends StatefulWidget {
   final Widget child;
 
-  const FadeIn({Key? key, required this.child}) : super(key: key);
+  const FadeIn({super.key, required this.child});
 
   @override
-  _MyFadeInState createState() => _MyFadeInState();
+  State<FadeIn> createState() => _MyFadeInState();
 }
 
 class _MyFadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {

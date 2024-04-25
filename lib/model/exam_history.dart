@@ -39,12 +39,12 @@ class ExamHistory {
 
   ExamHistory.fromJson(Map<String, dynamic> json) {
     if (json['tis'] != null) {
-      final _tis = json['tis'];
+      final tis = json['tis'];
       final arr0 = <Ti>[];
-      for (var _ti in _tis) {
-        arr0.add(Ti.fromJson(_ti));
+      for (var ti in tis) {
+        arr0.add(Ti.fromJson(ti));
       }
-      tis = arr0;
+      this.tis = arr0;
     }
     if (json['checkState'] != null) {
       checkState = CheckState.from(toMap(json['checkState']));

@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
 import '../core/extension/ti.dart';
@@ -18,13 +18,13 @@ class UnitFavoritePage extends StatefulWidget {
   final String courseId;
   final String courseName;
   const UnitFavoritePage({
-    Key? key,
+    super.key,
     required this.courseId,
     required this.courseName,
-  }) : super(key: key);
+  });
 
   @override
-  _UnitFavoritePageState createState() => _UnitFavoritePageState();
+  State<UnitFavoritePage> createState() => _UnitFavoritePageState();
 }
 
 class _UnitFavoritePageState extends State<UnitFavoritePage>
@@ -207,9 +207,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         children: [
           NeuText(text: ti.question!, align: TextAlign.start),
           const NeuText(text: '\n答案：', align: TextAlign.start),
-          ...ti.answer!
-              .map((e) => NeuText(text: e, align: TextAlign.start))
-              .toList()
+          ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start))
         ],
       ),
     );
@@ -257,14 +255,14 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
 
   Widget _buildRadio(int value, String content) {
     return NeumorphicButton(
-      child: SizedBox(
-        width: _media.size.width * 0.98,
-        child: NeuText(text: content, align: TextAlign.start),
-      ),
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
           depth: _nowState.contains(value) ? -20 : null),
+      child: SizedBox(
+        width: _media.size.width * 0.98,
+        child: NeuText(text: content, align: TextAlign.start),
+      ),
     );
   }
 

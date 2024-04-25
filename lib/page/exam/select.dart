@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/route.dart';
@@ -19,10 +19,10 @@ import 'ing.dart';
 
 /// 考试科目、题目类型数量、时间选择页
 class ExamSelectPage extends StatefulWidget {
-  const ExamSelectPage({Key? key}) : super(key: key);
+  const ExamSelectPage({super.key});
 
   @override
-  _ExamSelectPageState createState() => _ExamSelectPageState();
+  State<ExamSelectPage> createState() => _ExamSelectPageState();
 }
 
 class _ExamSelectPageState extends State<ExamSelectPage> {
@@ -119,7 +119,6 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           final radios = <Widget>[];
           for (var item in tiku.tikuIndex!) {
             radios.add(NeumorphicRadio<String>(
-              child: Center(child: NeuText(text: item.chinese!)),
               style: NeumorphicRadioStyle(
                   boxShape: NeumorphicBoxShape.roundRect(
                       const BorderRadius.all(Radius.circular(7)))),
@@ -130,6 +129,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                 _selectedCourseName = item.chinese;
                 _counts = [0, 0, 0, 0, 60];
               }),
+              child: Center(child: NeuText(text: item.chinese!)),
             ));
           }
           final gridPad = _media.size.width * 0.05;
@@ -274,6 +274,8 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
           }
         },
         child: SizedBox(
+          width: _media.size.width,
+          height: _media.size.height * 0.06 + _media.padding.bottom,
           child: Padding(
             padding: EdgeInsets.only(
               bottom: _media.padding.bottom,
@@ -285,8 +287,6 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               ),
             ),
           ),
-          width: _media.size.width,
-          height: _media.size.height * 0.06 + _media.padding.bottom,
         ));
   }
 }

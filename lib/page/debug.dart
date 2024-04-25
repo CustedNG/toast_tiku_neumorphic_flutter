@@ -5,10 +5,10 @@ import '../data/provider/debug.dart';
 
 /// 调试页面
 class DebugPage extends StatefulWidget {
-  const DebugPage({Key? key}) : super(key: key);
+  const DebugPage({super.key});
 
   @override
-  _DebugPageState createState() => _DebugPageState();
+  State<DebugPage> createState() => _DebugPageState();
 }
 
 class _DebugPageState extends State<DebugPage> {
