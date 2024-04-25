@@ -28,17 +28,19 @@ class OnlineImage extends StatelessWidget {
           /// 加载失败，返回重试按钮
           case LoadState.failed:
             return Center(
-                child: IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () => xState.reLoadImage(),
-            ),);
+              child: IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => xState.reLoadImage(),
+              ),
+            );
 
           /// 加载完成，显示图片
           case LoadState.completed:
             return FadeIn(
-                child: ExtendedRawImage(
-              image: xState.extendedImageInfo?.image,
-            ),);
+              child: ExtendedRawImage(
+                image: xState.extendedImageInfo?.image,
+              ),
+            );
 
           /// 预料之外，显示出错
           default:

@@ -35,8 +35,11 @@ Future<void> doUpdate(BuildContext context) async {
       context, '${BuildData.name}有更新啦，Ver：$newest\n${update.changelog}', '更新',
       () async {
     if (Platform.isAndroid) {
-      await RUpgrade.upgrade(update.android,
-          fileName: update.android.split('/').last, isAutoRequestInstall: true,);
+      await RUpgrade.upgrade(
+        update.android,
+        fileName: update.android.split('/').last,
+        isAutoRequestInstall: true,
+      );
     } else if (Platform.isIOS) {
       await RUpgrade.upgradeFromAppStore(update.ios.split('id').last);
     }

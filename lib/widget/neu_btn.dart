@@ -19,13 +19,14 @@ class NeuIconBtn extends StatelessWidget {
   /// 按钮形状
   final NeumorphicBoxShape? boxShape;
 
-  const NeuIconBtn(
-      {super.key,
-      required this.icon,
-      this.onTap,
-      this.margin,
-      this.padding,
-      this.boxShape,});
+  const NeuIconBtn({
+    super.key,
+    required this.icon,
+    this.onTap,
+    this.margin,
+    this.padding,
+    this.boxShape,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +53,15 @@ class NeuBtn extends StatelessWidget {
   final NeumorphicBoxShape? boxShape;
   final NeumorphicStyle? style;
 
-  const NeuBtn(
-      {super.key,
-      required this.child,
-      this.onTap,
-      this.margin,
-      this.padding,
-      this.boxShape,
-      this.style,});
+  const NeuBtn({
+    super.key,
+    required this.child,
+    this.onTap,
+    this.margin,
+    this.padding,
+    this.boxShape,
+    this.style,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +71,11 @@ class NeuBtn extends StatelessWidget {
       onPressed: onTap,
       style: style ??
           NeumorphicStyle(
-              boxShape: boxShape ??
-                  NeumorphicBoxShape.roundRect(
-                      const BorderRadius.all(Radius.circular(7)),),),
+            boxShape: boxShape ??
+                NeumorphicBoxShape.roundRect(
+                  const BorderRadius.all(Radius.circular(7)),
+                ),
+          ),
       child: child,
     );
   }

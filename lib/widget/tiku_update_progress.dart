@@ -9,19 +9,21 @@ class TikuUpdateProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TikuProvider>(builder: (_, tiku, __) {
-      /// 如果正忙，则显示进度
-      if (tiku.isBusy) {
-        return NeumorphicProgress(
-          percent: tiku.downloadProgress,
+    return Consumer<TikuProvider>(
+      builder: (_, tiku, __) {
+        /// 如果正忙，则显示进度
+        if (tiku.isBusy) {
+          return NeumorphicProgress(
+            percent: tiku.downloadProgress,
+            height: 3,
+          );
+        }
+
+        /// 不忙，下载完成，则显示空视图
+        return const SizedBox(
           height: 3,
         );
-      }
-
-      /// 不忙，下载完成，则显示空视图
-      return const SizedBox(
-        height: 3,
-      );
-    },);
+      },
+    );
   }
 }

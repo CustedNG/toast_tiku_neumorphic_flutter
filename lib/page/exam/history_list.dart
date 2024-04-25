@@ -54,38 +54,40 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
 
   Widget _buildHead() {
     return NeuAppBar(
-        media: _media,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
-            ),
-            const NeuText(
-              text: '考试记录',
-            ),
-            NeuIconBtn(
-              icon: Icons.delete,
-              onTap: () =>
-                  showSnackBarWithAction(context, '删除所有历史考试记录', '确认', () {
-                locator<ExamHistoryStore>().clear();
-                _historyList.clear();
-                setState(() {});
-              }),
-            ),
-          ],
-        ),);
+      media: _media,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          NeuIconBtn(
+            icon: Icons.arrow_back,
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          const NeuText(
+            text: '考试记录',
+          ),
+          NeuIconBtn(
+            icon: Icons.delete,
+            onTap: () =>
+                showSnackBarWithAction(context, '删除所有历史考试记录', '确认', () {
+              locator<ExamHistoryStore>().clear();
+              _historyList.clear();
+              setState(() {});
+            }),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildMain() {
     if (_historyList.isEmpty) {
       return const Expanded(
-          child: Center(
-        child: NeuText(
-          text: '暂无考试记录',
+        child: Center(
+          child: NeuText(
+            text: '暂无考试记录',
+          ),
         ),
-      ),);
+      );
     }
     return SizedBox(
       height: _media.size.height * 0.84,
@@ -116,15 +118,17 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 NeuText(
-                    text: history.subject,
-                    textStyle: titleStyle,
-                    align: TextAlign.start,),
+                  text: history.subject,
+                  textStyle: titleStyle,
+                  align: TextAlign.start,
+                ),
                 const SizedBox(height: 7),
                 NeuText(
-                    text: history.date.split('.').first,
-                    align: TextAlign.start,
-                    textStyle: dateStyle,
-                    style: const NeumorphicStyle(color: Colors.grey),),
+                  text: history.date.split('.').first,
+                  align: TextAlign.start,
+                  textStyle: dateStyle,
+                  style: const NeumorphicStyle(color: Colors.grey),
+                ),
               ],
             ),
             NeuText(
@@ -136,9 +140,11 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
           ],
         ),
       ),
-      onTap: () => AppRoute(ExamHistoryViewPage(
-        examHistory: history,
-      ),).go(context),
+      onTap: () => AppRoute(
+        ExamHistoryViewPage(
+          examHistory: history,
+        ),
+      ).go(context),
       onLongPress: () => showSnackBarWithAction(context, '删除该考试记录', '确认', () {
         locator<ExamHistoryStore>().del(history);
         _historyList.remove(history);

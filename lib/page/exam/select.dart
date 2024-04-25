@@ -69,23 +69,24 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
 
   Widget _buildHead() {
     return NeuAppBar(
-        media: _media,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
-            ),
-            const NeuText(
-              text: '模拟考试',
-            ),
-            NeuIconBtn(
-              icon: Icons.history,
-              onTap: () => AppRoute(const ExamHistoryListPage()).go(context),
-            ),
-          ],
-        ),);
+      media: _media,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          NeuIconBtn(
+            icon: Icons.arrow_back,
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          const NeuText(
+            text: '模拟考试',
+          ),
+          NeuIconBtn(
+            icon: Icons.history,
+            onTap: () => AppRoute(const ExamHistoryListPage()).go(context),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildMain() {
@@ -118,19 +119,23 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
         } else {
           final radios = <Widget>[];
           for (var item in tiku.tikuIndex!) {
-            radios.add(NeumorphicRadio<String>(
-              style: NeumorphicRadioStyle(
+            radios.add(
+              NeumorphicRadio<String>(
+                style: NeumorphicRadioStyle(
                   boxShape: NeumorphicBoxShape.roundRect(
-                      const BorderRadius.all(Radius.circular(7)),),),
-              value: item.id,
-              groupValue: _selectedCourse,
-              onChanged: (val) => setState(() {
-                _selectedCourse = val;
-                _selectedCourseName = item.chinese;
-                _counts = [0, 0, 0, 0, 60];
-              }),
-              child: Center(child: NeuText(text: item.chinese!)),
-            ),);
+                    const BorderRadius.all(Radius.circular(7)),
+                  ),
+                ),
+                value: item.id,
+                groupValue: _selectedCourse,
+                onChanged: (val) => setState(() {
+                  _selectedCourse = val;
+                  _selectedCourseName = item.chinese;
+                  _counts = [0, 0, 0, 0, 60];
+                }),
+                child: Center(child: NeuText(text: item.chinese!)),
+              ),
+            );
           }
           final gridPad = _media.size.width * 0.05;
           return Column(
@@ -140,18 +145,20 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                 constraints:
                     BoxConstraints(maxHeight: _media.size.height * 0.18),
                 child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.all(gridPad),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4, childAspectRatio: 2,),
-                    itemCount: radios.length,
-                    itemBuilder: (context, idx) {
-                      return Padding(
-                        padding: const EdgeInsets.all(6),
-                        child: radios[idx],
-                      );
-                    },),
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(gridPad),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 2,
+                  ),
+                  itemCount: radios.length,
+                  itemBuilder: (context, idx) {
+                    return Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: radios[idx],
+                    );
+                  },
+                ),
               ),
             ],
           );
@@ -206,87 +213,102 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   }
 
   Widget _buildSlider(
-      double max, double min, int idx, String typeChinese, String suffix,) {
+    double max,
+    double min,
+    int idx,
+    String typeChinese,
+    String suffix,
+  ) {
     if (max == 0) {
       return const SizedBox();
     }
     final priColor = primaryColor;
     final realMax = max > 60 ? 60 : max;
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            NeuText(
-              text: typeChinese,
-            ),
-            SizedBox(
-              width: _media.size.width * 0.2,
-              child: NeuText(
-                text: '${_counts[idx].toInt()} $suffix',
-                align: TextAlign.end,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              NeuText(
+                text: typeChinese,
               ),
-            ),
-          ],
+              SizedBox(
+                width: _media.size.width * 0.2,
+                child: NeuText(
+                  text: '${_counts[idx].toInt()} $suffix',
+                  align: TextAlign.end,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      Slider(
-        thumbColor: priColor,
-        activeColor: priColor.withOpacity(0.7),
-        min: min,
-        max: realMax.toDouble(),
-        value: _counts[idx],
-        onChanged: (newValue) {
-          setState(() {
-            _counts[idx] = newValue;
-          });
-        },
-        divisions: realMax ~/ 5 < 2 ? realMax.toInt() : realMax ~/ 5,
-      ),
-      const SizedBox(
-        height: 3,
-      ),
-    ],);
+        Slider(
+          thumbColor: priColor,
+          activeColor: priColor.withOpacity(0.7),
+          min: min,
+          max: realMax.toDouble(),
+          value: _counts[idx],
+          onChanged: (newValue) {
+            setState(() {
+              _counts[idx] = newValue;
+            });
+          },
+          divisions: realMax ~/ 5 < 2 ? realMax.toInt() : realMax ~/ 5,
+        ),
+        const SizedBox(
+          height: 3,
+        ),
+      ],
+    );
   }
 
   Widget _buildStart() {
     return NeuBtn(
-        padding: EdgeInsets.zero,
-        onTap: () {
-          if (_selectedCourse == null) {
-            showSnackBar(context, const Text('请选择科目'));
+      padding: EdgeInsets.zero,
+      onTap: () {
+        if (_selectedCourse == null) {
+          showSnackBar(context, const Text('请选择科目'));
+        } else {
+          final total = _counts[0] + _counts[1] + _counts[2] + _counts[3];
+          if (total == 0) {
+            showSnackBar(context, const Text('题目总数不得等于0'));
           } else {
-            final total = _counts[0] + _counts[1] + _counts[2] + _counts[3];
-            if (total == 0) {
-              showSnackBar(context, const Text('题目总数不得等于0'));
-            } else {
-              locator<ExamProvider>().loadTi(_selectedCourse!, _units, _counts);
-              locator<TimerProvider>().start(DateTime.now().add(Duration(
+            locator<ExamProvider>().loadTi(_selectedCourse!, _units, _counts);
+            locator<TimerProvider>().start(
+              DateTime.now().add(
+                Duration(
                   minutes: (_counts[4]).toInt(),
                   // 由于页面动画的存在，所以多给一秒
-                  seconds: 1,),),);
-              AppRoute(ExamingPage(
+                  seconds: 1,
+                ),
+              ),
+            );
+            AppRoute(
+              ExamingPage(
                 subject: _selectedCourseName ?? '',
                 subjectId: _selectedCourse ?? '',
-              ),).go(context);
-            }
-          }
-        },
-        child: SizedBox(
-          width: _media.size.width,
-          height: _media.size.height * 0.06 + _media.padding.bottom,
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: _media.padding.bottom,
-            ),
-            child: Center(
-              child: NeuText(
-                text: '开始！',
-                textStyle: titleStyle,
               ),
+            ).go(context);
+          }
+        }
+      },
+      child: SizedBox(
+        width: _media.size.width,
+        height: _media.size.height * 0.06 + _media.padding.bottom,
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: _media.padding.bottom,
+          ),
+          child: Center(
+            child: NeuText(
+              text: '开始！',
+              textStyle: titleStyle,
             ),
           ),
-        ),);
+        ),
+      ),
+    );
   }
 }

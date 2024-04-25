@@ -89,18 +89,19 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       );
     } else {
       child = GrabSheet(
-          showColor: true,
-          sheetController: _sheetController,
-          main: _buildMain(),
-          checkState: _checkState,
-          tis: _tis!,
-          onTap: (idx) {
-            setState(() {
-              _index = idx;
-            });
-            _animationController.reset();
-            _animationController.forward();
-          },);
+        showColor: true,
+        sheetController: _sheetController,
+        main: _buildMain(),
+        checkState: _checkState,
+        tis: _tis!,
+        onTap: (idx) {
+          setState(() {
+            _index = idx;
+          });
+          _animationController.reset();
+          _animationController.forward();
+        },
+      );
     }
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
@@ -111,8 +112,9 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
   Widget _buildMain() {
     return GestureDetector(
       onHorizontalDragEnd: (detail) => onSlide(
-          detail.velocity.pixelsPerSecond.dx > 277,
-          detail.velocity.pixelsPerSecond.dx < -277,),
+        detail.velocity.pixelsPerSecond.dx > 277,
+        detail.velocity.pixelsPerSecond.dx < -277,
+      ),
       child: Column(
         children: [
           _buildHead(),
@@ -131,37 +133,40 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     final ti = _tis![_index];
     bool have = _favoriteStore.have(widget.courseId, ti);
     return NeuAppBar(
-        media: _media,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
-            ),
-            SizedBox(
-              width: _media.size.width * 0.5,
-              child: NeuText(text: '${widget.courseName}&收藏'),
-            ),
-            NeuIconBtn(
-              icon: have ? Icons.favorite : Icons.favorite_border,
-              onTap: () {
-                if (have) {
-                  _favoriteStore.delete(widget.courseId, ti);
-                } else {
-                  _favoriteStore.put(widget.courseId, ti);
-                }
-                setState(() {});
-              },
-            ),
-          ],
-        ),);
+      media: _media,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          NeuIconBtn(
+            icon: Icons.arrow_back,
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          SizedBox(
+            width: _media.size.width * 0.5,
+            child: NeuText(text: '${widget.courseName}&收藏'),
+          ),
+          NeuIconBtn(
+            icon: have ? Icons.favorite : Icons.favorite_border,
+            onTap: () {
+              if (have) {
+                _favoriteStore.delete(widget.courseId, ti);
+              } else {
+                _favoriteStore.put(widget.courseId, ti);
+              }
+              setState(() {});
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildTiList() {
     _animationController.forward();
     return FadeTransition(
-        opacity: _animation, child: _buildTiView(_tis![_index]),);
+      opacity: _animation,
+      child: _buildTiView(_tis![_index]),
+    );
   }
 
   void onSlide(bool left, bool right) {
@@ -237,17 +242,21 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     var idx = 0;
     if (options == null) {
       widgets.add(_buildRadio(0, '是'));
-      widgets.add(const SizedBox(
-        height: 13,
-      ),);
+      widgets.add(
+        const SizedBox(
+          height: 13,
+        ),
+      );
       widgets.add(_buildRadio(1, '否'));
       return widgets;
     }
     for (var option in options) {
       widgets.add(_buildRadio(idx, option!));
-      widgets.add(const SizedBox(
-        height: 13,
-      ),);
+      widgets.add(
+        const SizedBox(
+          height: 13,
+        ),
+      );
       idx++;
     }
     return widgets;
@@ -257,8 +266,9 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     return NeumorphicButton(
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
-          color: judgeColor(value),
-          depth: _nowState.contains(value) ? -20 : null,),
+        color: judgeColor(value),
+        depth: _nowState.contains(value) ? -20 : null,
+      ),
       child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),

@@ -22,14 +22,15 @@ class NeuTextField extends StatefulWidget {
   /// 值改变时的操作
   final ValueChanged<String>? onChanged;
 
-  const NeuTextField(
-      {super.key,
-      this.label,
-      this.hint,
-      this.onChanged,
-      this.padding,
-      this.margin,
-      this.initValue,});
+  const NeuTextField({
+    super.key,
+    this.label,
+    this.hint,
+    this.onChanged,
+    this.padding,
+    this.margin,
+    this.initValue,
+  });
 
   @override
   State<NeuTextField> createState() => _TextFieldState();

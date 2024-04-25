@@ -30,45 +30,10 @@
   </tr>
 </table>
 
-## 使用
-**请使用`make.dart`进行运行、编译操作**
-```shell
-# Windows平台下请将命令 ./make.dart 替换为 dart make.dart
 
-# 编译Android 64bit版本
-./make.dart build android
-# 编译Android 32bit版本
-./make.dart build android 32
-# 编译iOS 64bit版本
-./make.dart build ios
-```
+## 题库数据
+你可以使用 [tiku_data_generator](https://github.com/CustedNG/tiku_data_generator) 生成题库数据，然后在 App 内更改后端地址到你自己的服务器。
 
-## 提示
-
-#### 参考链接
-[Dart语言概览](https://dart.cn/samples)，[Flutter入门](https://flutterchina.club/get-started/install/)，[Flutter实践](https://book.flutterchina.club)，[PUB库](https://pub.dev)  
-以上链接大部分为中文，有能力可以看官网英文原版
-
-#### 项目结构
-```shell
-├── LICENSE                 # 开源证书
-├── README.md               # 本README Markdown文件
-├── android                 # Android平台特有代码
-├── build                   # 构建缓存
-├── ios                     # iOS平台代码
-├── lib                     # Flutter项目中主要代码，通常在该目录内修改文件
-├── macos                   # macOS平台代码
-├── make.dart               # 编译脚本
-├── pubspec.lock            # PUB版本锁
-├── pubspec.yaml            # PUB依赖文件
-├── release                 # 编译好的包
-├── test                    # 测试文件
-├── tiku                    # 题库资源目录
-├── toast_tiku.iml          # 项目配置
-└── web                     # web平台代码
-```
-
-#### 
 
 ## 里程碑
 - [x] 题库自动更新，根据版本id，酌情更新
@@ -84,6 +49,7 @@
 - [x] 考试模式：为填空题提供支持
 - [ ] 整合做题界面：ti_view.dart。AppBar以下的部分，全部做进一个通用view，参数：显示对错、保存做题记录等
 - [x] 使用hash作为id，储存题目历史选项
+
 
 ## License
 `Apache License 2.0`

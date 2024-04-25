@@ -11,8 +11,9 @@ class NeuAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Neumorphic(
       style: const NeumorphicStyle(
-          lightSource: LightSource.top,
-          shadowLightColorEmboss: Colors.cyanAccent,),
+        lightSource: LightSource.top,
+        shadowLightColorEmboss: Colors.cyanAccent,
+      ),
       child: Column(
         children: [
           SizedBox(

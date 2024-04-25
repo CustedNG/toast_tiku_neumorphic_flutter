@@ -103,57 +103,58 @@ class _ExamingPageState extends State<ExamingPage>
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
     return WillPopScope(
-        child: Scaffold(
-          backgroundColor: NeumorphicTheme.baseColor(context),
+      child: Scaffold(
+        backgroundColor: NeumorphicTheme.baseColor(context),
 
-          /// 可以通过[Consumer<T>()]获取到需要的Provider
-          body: Consumer<ExamProvider>(
-            builder: (_, exam, __) {
-              if (exam.isBusy) {
-                return centerLoading;
+        /// 可以通过[Consumer<T>()]获取到需要的Provider
+        body: Consumer<ExamProvider>(
+          builder: (_, exam, __) {
+            if (exam.isBusy) {
+              return centerLoading;
+            }
+            if (_tis.isEmpty) _tis = exam.result;
+            if (_checkState.isEmpty) {
+              _checkState = CheckState.empty();
+            }
+            // _eachTypeTiCount = [
+            //   _tis.where((element) => element.type == 0).length,
+            //   _tis.where((element) => element.type == 1).length,
+            //   _tis.where((element) => element.type == 2).length,
+            //   _tis.where((element) => element.type == 3).length
+            // ];
+            _eachTypeTiCount = [0, 0, 0, 0];
+            for (var ti in _tis) {
+              final type = ti.type;
+              if (type != null && type >= 0 && type <= 3) {
+                _eachTypeTiCount[type]++;
               }
-              if (_tis.isEmpty) _tis = exam.result;
-              if (_checkState.isEmpty) {
-                _checkState = CheckState.empty();
-              }
-              // _eachTypeTiCount = [
-              //   _tis.where((element) => element.type == 0).length,
-              //   _tis.where((element) => element.type == 1).length,
-              //   _tis.where((element) => element.type == 2).length,
-              //   _tis.where((element) => element.type == 3).length
-              // ];
-              _eachTypeTiCount = [0, 0, 0, 0];
-              for (var ti in _tis) {
-                final type = ti.type;
-                if (type != null && type >= 0 && type <= 3) {
-                  _eachTypeTiCount[type]++;
-                }
-              }
-              if (_tis.isEmpty) {
-                return const Center(
-                  child: NeuText(
-                    text: '题库为空，发生未知错误',
-                  ),
-                );
-              }
-              return GrabSheet(
-                sheetController: _sheetController,
-                main: _buildMain(),
-                tis: _tis,
-                checkState: _checkState,
-                showColor: _submittedAnswer,
-                onTap: (idx) {
-                  setState(() {
-                    _index = idx;
-                  });
-                  _controller.reset();
-                  _controller.forward();
-                },
+            }
+            if (_tis.isEmpty) {
+              return const Center(
+                child: NeuText(
+                  text: '题库为空，发生未知错误',
+                ),
               );
-            },
-          ),
+            }
+            return GrabSheet(
+              sheetController: _sheetController,
+              main: _buildMain(),
+              tis: _tis,
+              checkState: _checkState,
+              showColor: _submittedAnswer,
+              onTap: (idx) {
+                setState(() {
+                  _index = idx;
+                });
+                _controller.reset();
+                _controller.forward();
+              },
+            );
+          },
         ),
-        onWillPop: () async => await _onWillPop() ?? false,);
+      ),
+      onWillPop: () async => await _onWillPop() ?? false,
+    );
   }
 
   int typeIdx(Ti ti, int index) {
@@ -216,8 +217,9 @@ class _ExamingPageState extends State<ExamingPage>
     return GestureDetector(
       /// 传入参数[左右滑动的速度超过每秒钟277像素]
       onHorizontalDragEnd: (detail) => onSlide(
-          detail.velocity.pixelsPerSecond.dx > 277,
-          detail.velocity.pixelsPerSecond.dx < -277,),
+        detail.velocity.pixelsPerSecond.dx > 277,
+        detail.velocity.pixelsPerSecond.dx < -277,
+      ),
       child: Column(
         children: [
           _buildHead(),
@@ -242,65 +244,71 @@ class _ExamingPageState extends State<ExamingPage>
 
   Widget _buildHead() {
     return NeuAppBar(
-        media: _media,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () async {
-                final back = await _onWillPop();
-                if (back == true) {
-                  Navigator.of(context).pop();
+      media: _media,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          NeuIconBtn(
+            icon: Icons.arrow_back,
+            onTap: () async {
+              final back = await _onWillPop();
+              if (back == true) {
+                Navigator.of(context).pop();
+              }
+            },
+          ),
+          SizedBox(
+            width: _media.size.width * 0.5,
+            child: Consumer<TimerProvider>(
+              builder: (_, timer, __) {
+                if (timer.finish) {
+                  _submittedAnswer = true;
                 }
+                return NeuText(
+                  text: _submittedAnswer
+                      ? '${timer.leftTime}\n正确率：${correctRate.toStringAsFixed(1)}%'
+                      : timer.leftTime,
+                  textStyle: _submittedAnswer
+                      ? NeumorphicTextStyle(fontSize: 12)
+                      : null,
+                );
               },
             ),
-            SizedBox(
-              width: _media.size.width * 0.5,
-              child: Consumer<TimerProvider>(
-                builder: (_, timer, __) {
-                  if (timer.finish) {
-                    _submittedAnswer = true;
-                  }
-                  return NeuText(
-                    text: _submittedAnswer
-                        ? '${timer.leftTime}\n正确率：${correctRate.toStringAsFixed(1)}%'
-                        : timer.leftTime,
-                    textStyle: _submittedAnswer
-                        ? NeumorphicTextStyle(fontSize: 12)
-                        : null,
-                  );
-                },
-              ),
+          ),
+          NeuBtn(
+            child: NeumorphicIcon(
+              _submittedAnswer ? Icons.celebration : Icons.send,
+              style: NeumorphicStyle(color: mainTextColor.resolve(context)),
             ),
-            NeuBtn(
-              child: NeumorphicIcon(
-                  _submittedAnswer ? Icons.celebration : Icons.send,
-                  style:
-                      NeumorphicStyle(color: mainTextColor.resolve(context)),),
-              onTap: () {
-                if (_submittedAnswer) {
-                  AppRoute(ExamResultPage(
+            onTap: () {
+              if (_submittedAnswer) {
+                AppRoute(
+                  ExamResultPage(
                     percent: _getCorrectCount() / _tis.length,
-                  ),).go(context);
-                } else {
-                  showSnackBarWithAction(context, '是否确认交卷？交卷后无法撤销', '交卷', () {
-                    _submittedAnswer = true;
-                    _timerProvider.stop();
-                    locator<ExamHistoryStore>().add(ExamHistory(
-                        _tis,
-                        _checkState,
-                        DateTime.now().toString(),
-                        correctRate,
-                        widget.subject,
-                        widget.subjectId,),);
-                    setState(() {});
-                  });
-                }
-              },
-            ),
-          ],
-        ),);
+                  ),
+                ).go(context);
+              } else {
+                showSnackBarWithAction(context, '是否确认交卷？交卷后无法撤销', '交卷', () {
+                  _submittedAnswer = true;
+                  _timerProvider.stop();
+                  locator<ExamHistoryStore>().add(
+                    ExamHistory(
+                      _tis,
+                      _checkState,
+                      DateTime.now().toString(),
+                      correctRate,
+                      widget.subject,
+                      widget.subjectId,
+                    ),
+                  );
+                  setState(() {});
+                });
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildTiList() {
@@ -310,21 +318,23 @@ class _ExamingPageState extends State<ExamingPage>
     final ti = _tis[_index];
     final children = _buildTiView(ti);
     children.insert(
-        0,
-        NeuText(
-          text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
-          align: TextAlign.start,
-          textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-        ),);
+      0,
+      NeuText(
+        text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
+        align: TextAlign.start,
+        textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
 
     return FadeTransition(
       opacity: _animation,
       child: Padding(
         padding: EdgeInsets.all(_media.size.width * 0.07),
         child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: children,),
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ),
       ),
     );
   }
@@ -377,15 +387,17 @@ class _ExamingPageState extends State<ExamingPage>
     for (int answerIdx = 0; answerIdx < ti.answer!.length; answerIdx++) {
       final initValue = _nowState[answerIdx] as String;
       final id = '$_index - ${answerIdx + 1}';
-      textFields.add(NeuTextField(
-        key: Key(id),
-        label: id,
-        initValue: initValue,
-        onChanged: (value) {
-          _nowState[answerIdx] = value;
-        },
-        padding: EdgeInsets.zero,
-      ),);
+      textFields.add(
+        NeuTextField(
+          key: Key(id),
+          label: id,
+          initValue: initValue,
+          onChanged: (value) {
+            _nowState[answerIdx] = value;
+          },
+          padding: EdgeInsets.zero,
+        ),
+      );
     }
     return [
       NeuText(text: ti.question!, align: TextAlign.start),
@@ -411,17 +423,21 @@ class _ExamingPageState extends State<ExamingPage>
     var idx = 0;
     if (options == null) {
       widgets.add(_buildRadio(0, '是'));
-      widgets.add(const SizedBox(
-        height: 13,
-      ),);
+      widgets.add(
+        const SizedBox(
+          height: 13,
+        ),
+      );
       widgets.add(_buildRadio(1, '否'));
       return widgets;
     }
     for (var option in options) {
       widgets.add(_buildRadio(idx, option!));
-      widgets.add(const SizedBox(
-        height: 13,
-      ),);
+      widgets.add(
+        const SizedBox(
+          height: 13,
+        ),
+      );
       idx++;
     }
     return widgets;
@@ -432,8 +448,9 @@ class _ExamingPageState extends State<ExamingPage>
     return NeumorphicButton(
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
-          color: _submittedAnswer ? judgeColor(value) : null,
-          depth: _nowState.contains(value) ? -20 : null,),
+        color: _submittedAnswer ? judgeColor(value) : null,
+        depth: _nowState.contains(value) ? -20 : null,
+      ),
       child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),

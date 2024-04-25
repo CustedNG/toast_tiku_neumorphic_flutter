@@ -53,18 +53,20 @@ class MyApp extends StatelessWidget {
 
           /// 自定义白天模式主题的参数
           theme: NeumorphicThemeData(
-              accentColor: primaryColor,
-              variantColor: primaryColor.withOpacity(0.47),
-              shadowLightColor: primaryColor,
-              intensity: 0.33,),
+            accentColor: primaryColor,
+            variantColor: primaryColor.withOpacity(0.47),
+            shadowLightColor: primaryColor,
+            intensity: 0.33,
+          ),
 
           /// 自定义夜间模式主题的参数
           darkTheme: NeumorphicThemeData(
-              baseColor: const Color.fromRGBO(37, 37, 37, 1),
-              accentColor: primaryColor,
-              variantColor: primaryColor.withOpacity(0.47),
-              shadowLightColor: primaryColor,
-              intensity: 0.43,),
+            baseColor: const Color.fromRGBO(37, 37, 37, 1),
+            accentColor: primaryColor,
+            variantColor: primaryColor.withOpacity(0.47),
+            shadowLightColor: primaryColor,
+            intensity: 0.43,
+          ),
 
           /// App视图入口
           home: const HomePage(),

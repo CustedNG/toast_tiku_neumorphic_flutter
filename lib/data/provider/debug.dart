@@ -33,10 +33,12 @@ class DebugProvider extends ChangeNotifier {
         color: color,
       ),
     );
-    _addWidget(SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: widget,
-    ),);
+    _addWidget(
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: widget,
+      ),
+    );
   }
 
   void addWidget(Widget widget) {

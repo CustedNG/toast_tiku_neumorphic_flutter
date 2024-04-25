@@ -138,8 +138,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
   Widget _buildMain() {
     return GestureDetector(
       onHorizontalDragEnd: (detail) => onSlide(
-          detail.velocity.pixelsPerSecond.dx > 277,
-          detail.velocity.pixelsPerSecond.dx < -277,),
+        detail.velocity.pixelsPerSecond.dx > 277,
+        detail.velocity.pixelsPerSecond.dx < -277,
+      ),
       child: Column(
         children: [
           _buildHead(),
@@ -169,31 +170,32 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     final ti = _tis![_index];
     bool have = _favoriteStore.have(widget.courseId, ti);
     return NeuAppBar(
-        media: _media,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
-            ),
-            SizedBox(
-              width: _media.size.width * 0.5,
-              child: NeuText(text: widget.unitName),
-            ),
-            NeuIconBtn(
-              icon: have ? Icons.favorite : Icons.favorite_border,
-              onTap: () {
-                if (have) {
-                  _favoriteStore.delete(widget.courseId, ti);
-                } else {
-                  _favoriteStore.put(widget.courseId, ti);
-                }
-                setState(() {});
-              },
-            ),
-          ],
-        ),);
+      media: _media,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          NeuIconBtn(
+            icon: Icons.arrow_back,
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          SizedBox(
+            width: _media.size.width * 0.5,
+            child: NeuText(text: widget.unitName),
+          ),
+          NeuIconBtn(
+            icon: have ? Icons.favorite : Icons.favorite_border,
+            onTap: () {
+              if (have) {
+                _favoriteStore.delete(widget.courseId, ti);
+              } else {
+                _favoriteStore.put(widget.courseId, ti);
+              }
+              setState(() {});
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildTiList() {
@@ -202,21 +204,23 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     final ti = _tis![_index];
     final children = _buildTiView(ti);
     children.insert(
-        0,
-        NeuText(
-          text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
-          align: TextAlign.start,
-          textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-        ),);
+      0,
+      NeuText(
+        text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
+        align: TextAlign.start,
+        textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
 
     return FadeTransition(
       opacity: _animation,
       child: Padding(
         padding: EdgeInsets.all(_media.size.width * 0.07),
         child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: children,),
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ),
       ),
     );
   }
@@ -295,17 +299,21 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     var idx = 0;
     if (options == null) {
       widgets.add(_buildRadio(0, '是'));
-      widgets.add(const SizedBox(
-        height: 13,
-      ),);
+      widgets.add(
+        const SizedBox(
+          height: 13,
+        ),
+      );
       widgets.add(_buildRadio(1, '否'));
       return widgets;
     }
     for (var option in options) {
       widgets.add(_buildRadio(idx, option!));
-      widgets.add(const SizedBox(
-        height: 13,
-      ),);
+      widgets.add(
+        const SizedBox(
+          height: 13,
+        ),
+      );
       idx++;
     }
     return widgets;
@@ -315,8 +323,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     return NeumorphicButton(
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
-          color: judgeColor(value),
-          depth: _nowState.contains(value) ? -20 : null,),
+        color: judgeColor(value),
+        depth: _nowState.contains(value) ? -20 : null,
+      ),
       child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),
@@ -352,7 +361,10 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _historyProvider.setLastViewed(widget.courseId, widget.unitFile);
     if (_settingStore.saveAnswer.fetch()!) {
       _historyStore.putCheckState(
-          widget.courseId, widget.unitFile, _checkState,);
+        widget.courseId,
+        widget.unitFile,
+        _checkState,
+      );
     }
     if (!_historyIdx.contains(_index)) {
       _historyIdx.add(_index);

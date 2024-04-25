@@ -16,8 +16,13 @@ class NeuText extends StatelessWidget {
   /// 文字风格（字体）
   final NeumorphicTextStyle? textStyle;
 
-  const NeuText(
-      {super.key, this.align, required this.text, this.style, this.textStyle,});
+  const NeuText({
+    super.key,
+    this.align,
+    required this.text,
+    this.style,
+    this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {

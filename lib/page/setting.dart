@@ -116,7 +116,6 @@ class _SettingPageState extends State<SettingPage> {
     return _buildSettingCard([
       SettingItem(
         title: '后端地址',
-        rightBtn: const Icon(Icons.chevron_right),
         onTap: () async {
           final ctrl = TextEditingController(
             text: locator<SettingStore>().backendUrl.fetch(),
@@ -127,6 +126,10 @@ class _SettingPageState extends State<SettingPage> {
             TextField(
               controller: ctrl,
               keyboardType: TextInputType.url,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: 'https://example.com',
+              ),
             ),
             TextButton(
               onPressed: () {

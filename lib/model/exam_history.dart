@@ -32,8 +32,14 @@ class ExamHistory {
   @HiveField(6)
   late CheckState checkState;
 
-  ExamHistory(this.tis, this.checkState, this.date, this.correctRate,
-      this.subject, this.subjectId,);
+  ExamHistory(
+    this.tis,
+    this.checkState,
+    this.date,
+    this.correctRate,
+    this.subject,
+    this.subjectId,
+  );
 
   String get id => '$subjectId$date';
 

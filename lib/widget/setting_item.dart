@@ -51,42 +51,45 @@ class SettingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: height ?? 55.0,
-        width: double.infinity,
-        child: GestureDetector(
-          onTap: onTap,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const SizedBox(width: 10.0),
-              icon ?? Container(),
-              const SizedBox(width: 10.0),
-              NeuText(text: title),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 16, right: 16),
-                  child: NeuText(
-                      text: content,
-                      align: textAlign,
-                      textStyle:
-                          contentStyle ?? NeumorphicTextStyle(fontSize: 14.0),),
+      height: height ?? 55.0,
+      width: double.infinity,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            const SizedBox(width: 10.0),
+            icon ?? Container(),
+            const SizedBox(width: 10.0),
+            NeuText(text: title),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: NeuText(
+                  text: content,
+                  align: textAlign,
+                  textStyle:
+                      contentStyle ?? NeumorphicTextStyle(fontSize: 14.0),
                 ),
               ),
-              showArrow && rightBtn == null
-                  ? NeumorphicIcon(
-                      Icons.arrow_forward_ios,
-                      style: NeumorphicStyle(
-                          color: mainTextColor.resolve(context),),
-                      size: 16,
-                    )
-                  : Container(),
-              const SizedBox(width: 10.0),
-              rightBtn ?? Container(),
-              const SizedBox(
-                width: 17,
-              ),
-            ],
-          ),
-        ),);
+            ),
+            showArrow && rightBtn == null
+                ? NeumorphicIcon(
+                    Icons.arrow_forward_ios,
+                    style: NeumorphicStyle(
+                      color: mainTextColor.resolve(context),
+                    ),
+                    size: 16,
+                  )
+                : Container(),
+            const SizedBox(width: 10.0),
+            rightBtn ?? Container(),
+            const SizedBox(
+              width: 17,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

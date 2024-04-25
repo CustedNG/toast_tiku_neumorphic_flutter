@@ -13,7 +13,7 @@ class DynamicColor {
   /// [白天模式显示的颜色],[暗黑模式显示的颜色]
   DynamicColor(this.light, this.dark);
 
-  resolve(BuildContext context) => isDarkMode(context) ? dark : light;
+  Color resolve(BuildContext context) => isDarkMode(context) ? dark : light;
 }
 
 /// 主文字颜色

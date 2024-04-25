@@ -1,5 +1,3 @@
-import 'package:toast_tiku/res/url.dart';
-
 import '../../core/persistant_store.dart';
 
 class SettingStore extends PersistentStore {
@@ -35,6 +33,5 @@ class SettingStore extends PersistentStore {
   StoreProperty<int> get storeVersion =>
       property('storeVersion', defaultValue: 0);
 
-  StoreProperty<String> get backendUrl =>
-      property('backendUrl', defaultValue: defaultBackendUrl);
+  StoreProperty<String> get backendUrl => property('backendUrl');
 }

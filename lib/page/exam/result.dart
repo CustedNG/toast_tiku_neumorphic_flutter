@@ -21,18 +21,20 @@ class ExamResultPage extends StatelessWidget {
       themeMode: ThemeMode.light,
       child: Material(
         child: Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
               colors: [
                 Color(0xFFF1F1F1),
                 Color(0xFFCFCFCF),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-            ),),
-            child: _Page(
-              percent: percent,
-            ),),
+            ),
+          ),
+          child: _Page(
+            percent: percent,
+          ),
+        ),
       ),
     );
   }
@@ -49,12 +51,15 @@ class _Page extends StatefulWidget {
 
 class _PageState extends State<_Page> {
   Widget _letter(String letter) {
-    return Text(letter,
-        style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
-            fontFamily: 'Samsung',
-            fontSize: 80,),);
+    return Text(
+      letter,
+      style: const TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.w700,
+        fontFamily: 'Samsung',
+        fontSize: 80,
+      ),
+    );
   }
 
   @override

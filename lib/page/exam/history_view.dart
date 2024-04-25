@@ -86,8 +86,9 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
   Widget _buildMain() {
     return GestureDetector(
       onHorizontalDragEnd: (detail) => onSlide(
-          detail.velocity.pixelsPerSecond.dx > 277,
-          detail.velocity.pixelsPerSecond.dx < -277,),
+        detail.velocity.pixelsPerSecond.dx > 277,
+        detail.velocity.pixelsPerSecond.dx < -277,
+      ),
       child: Column(
         children: [
           _buildHead(),
@@ -118,31 +119,32 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
     final id = widget.examHistory.subjectId;
     bool have = _favoriteStore.have(id, ti);
     return NeuAppBar(
-        media: _media,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
-            ),
-            SizedBox(
-              width: _media.size.width * 0.5,
-              child: NeuText(text: widget.examHistory.subject),
-            ),
-            NeuIconBtn(
-              icon: have ? Icons.favorite : Icons.favorite_border,
-              onTap: () {
-                if (have) {
-                  _favoriteStore.delete(id, ti);
-                } else {
-                  _favoriteStore.put(id, ti);
-                }
-                setState(() {});
-              },
-            ),
-          ],
-        ),);
+      media: _media,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          NeuIconBtn(
+            icon: Icons.arrow_back,
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          SizedBox(
+            width: _media.size.width * 0.5,
+            child: NeuText(text: widget.examHistory.subject),
+          ),
+          NeuIconBtn(
+            icon: have ? Icons.favorite : Icons.favorite_border,
+            onTap: () {
+              if (have) {
+                _favoriteStore.delete(id, ti);
+              } else {
+                _favoriteStore.put(id, ti);
+              }
+              setState(() {});
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildTiList() {
@@ -151,21 +153,23 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
     final ti = widget.examHistory.tis[_index];
     final children = _buildTiView(ti);
     children.insert(
-        0,
-        NeuText(
-          text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
-          align: TextAlign.start,
-          textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-        ),);
+      0,
+      NeuText(
+        text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
+        align: TextAlign.start,
+        textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
 
     return FadeTransition(
       opacity: _animation,
       child: Padding(
         padding: EdgeInsets.all(_media.size.width * 0.07),
         child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: children,),
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ),
       ),
     );
   }
@@ -244,17 +248,21 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
     var idx = 0;
     if (options == null) {
       widgets.add(_buildRadio(0, '是'));
-      widgets.add(const SizedBox(
-        height: 13,
-      ),);
+      widgets.add(
+        const SizedBox(
+          height: 13,
+        ),
+      );
       widgets.add(_buildRadio(1, '否'));
       return widgets;
     }
     for (var option in options) {
       widgets.add(_buildRadio(idx, option!));
-      widgets.add(const SizedBox(
-        height: 13,
-      ),);
+      widgets.add(
+        const SizedBox(
+          height: 13,
+        ),
+      );
       idx++;
     }
     return widgets;
@@ -264,12 +272,13 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
     return NeumorphicButton(
       onPressed: () {},
       style: NeumorphicStyle(
-          color: judgeColor(value),
-          depth: widget.examHistory.checkState
-                  .get(widget.examHistory.tis[_index].id)
-                  .contains(value)
-              ? -20
-              : null,),
+        color: judgeColor(value),
+        depth: widget.examHistory.checkState
+                .get(widget.examHistory.tis[_index].id)
+                .contains(value)
+            ? -20
+            : null,
+      ),
       child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),

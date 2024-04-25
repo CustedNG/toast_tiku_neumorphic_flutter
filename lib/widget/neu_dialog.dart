@@ -14,25 +14,27 @@ class NeuDialog extends Dialog {
   /// 按钮
   final Widget actions;
 
-  const NeuDialog(
-      {super.key,
-      required this.title,
-      required this.content,
-      required this.actions,
-      this.margin,});
+  const NeuDialog({
+    super.key,
+    required this.title,
+    required this.content,
+    required this.actions,
+    this.margin,
+  });
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Dialog(
       shape: ShapeBorder.lerp(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          1,),
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        1,
+      ),
       child: SizedBox(
         width: size.width * 0.7,
         child: Neumorphic(
