@@ -31,9 +31,9 @@ class _LogoCardState extends State<LogoCard> {
       padding: EdgeInsets.all(width * 0.06),
       margin: EdgeInsets.fromLTRB(2.7 * pad, pad, 3 * pad, pad),
       onTap: () => showSnackBarWithAction(
-          context, '是否查看本项目开源代码？', '查看', () => openUrl(openSourceUrl)),
+          context, '是否查看本项目开源代码？', '查看', () => openUrl(openSourceUrl),),
       boxShape: NeumorphicBoxShape.roundRect(
-          const BorderRadius.all(Radius.circular(17))),
+          const BorderRadius.all(Radius.circular(17)),),
       child:
           SizedBox(height: _media.size.height * 0.11, child: _buildContent()),
     );
@@ -63,7 +63,7 @@ class _LogoCardState extends State<LogoCard> {
               text: 'Made with 💗 by Toast Studio',
               align: TextAlign.start,
               textStyle: NeumorphicTextStyle(fontSize: 12),
-            )
+            ),
           ],
         ),
       ],

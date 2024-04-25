@@ -15,7 +15,7 @@ class NeuCard extends StatelessWidget {
   final NeumorphicStyle? style;
 
   const NeuCard(
-      {super.key, required this.child, this.padding, this.margin, this.style});
+      {super.key, required this.child, this.padding, this.margin, this.style,});
 
   @override
   Widget build(BuildContext context) {

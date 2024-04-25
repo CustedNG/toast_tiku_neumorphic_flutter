@@ -102,7 +102,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
           border: InputBorder.none,
         ),
         appBarTheme: AppBarTheme(color: NeumorphicTheme.baseColor(context)),
-        primaryColor: NeumorphicTheme.baseColor(context));
+        primaryColor: NeumorphicTheme.baseColor(context),);
   }
 
   @override
@@ -117,7 +117,7 @@ class SearchPage<T> extends SearchDelegate<T?> {
           icon: Icon(Icons.clear, color: mainTextColor.resolve(context)),
           onPressed: () => query = '',
         ),
-      )
+      ),
     ];
   }
 

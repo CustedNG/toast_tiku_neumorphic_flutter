@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
               accentColor: primaryColor,
               variantColor: primaryColor.withOpacity(0.47),
               shadowLightColor: primaryColor,
-              intensity: 0.33),
+              intensity: 0.33,),
 
           /// 自定义夜间模式主题的参数
           darkTheme: NeumorphicThemeData(
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
               accentColor: primaryColor,
               variantColor: primaryColor.withOpacity(0.47),
               shadowLightColor: primaryColor,
-              intensity: 0.43),
+              intensity: 0.43,),
 
           /// App视图入口
           home: const HomePage(),

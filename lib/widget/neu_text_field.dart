@@ -29,7 +29,7 @@ class NeuTextField extends StatefulWidget {
       this.onChanged,
       this.padding,
       this.margin,
-      this.initValue});
+      this.initValue,});
 
   @override
   State<NeuTextField> createState() => _TextFieldState();
@@ -76,7 +76,7 @@ class _TextFieldState extends State<NeuTextField> {
             controller: _controller,
             decoration: InputDecoration.collapsed(hintText: widget.hint),
           ),
-        )
+        ),
       ],
     );
   }

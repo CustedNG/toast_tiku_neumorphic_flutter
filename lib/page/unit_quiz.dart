@@ -83,7 +83,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       _tis!.where((element) => element.type == 0).length,
       _tis!.where((element) => element.type == 1).length,
       _tis!.where((element) => element.type == 2).length,
-      _tis!.where((element) => element.type == 3).length
+      _tis!.where((element) => element.type == 3).length,
     ];
     _saveAnswer = _settingStore.saveAnswer.fetch()!;
     _autoSlide2NextWhenCorrect =
@@ -139,7 +139,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     return GestureDetector(
       onHorizontalDragEnd: (detail) => onSlide(
           detail.velocity.pixelsPerSecond.dx > 277,
-          detail.velocity.pixelsPerSecond.dx < -277),
+          detail.velocity.pixelsPerSecond.dx < -277,),
       child: Column(
         children: [
           _buildHead(),
@@ -191,9 +191,9 @@ class _UnitQuizPageState extends State<UnitQuizPage>
                 }
                 setState(() {});
               },
-            )
+            ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildTiList() {
@@ -207,7 +207,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
           text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
           align: TextAlign.start,
           textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-        ));
+        ),);
 
     return FadeTransition(
       opacity: _animation,
@@ -216,7 +216,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
         child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: children),
+            children: children,),
       ),
     );
   }
@@ -278,7 +278,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     return [
       NeuText(text: ti.question!, align: TextAlign.start),
       const NeuText(text: '\n答案：', align: TextAlign.start),
-      ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start))
+      ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start)),
     ];
   }
 
@@ -297,7 +297,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       widgets.add(_buildRadio(0, '是'));
       widgets.add(const SizedBox(
         height: 13,
-      ));
+      ),);
       widgets.add(_buildRadio(1, '否'));
       return widgets;
     }
@@ -305,7 +305,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       widgets.add(_buildRadio(idx, option!));
       widgets.add(const SizedBox(
         height: 13,
-      ));
+      ),);
       idx++;
     }
     return widgets;
@@ -316,7 +316,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
-          depth: _nowState.contains(value) ? -20 : null),
+          depth: _nowState.contains(value) ? -20 : null,),
       child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),
@@ -352,7 +352,7 @@ class _UnitQuizPageState extends State<UnitQuizPage>
     _historyProvider.setLastViewed(widget.courseId, widget.unitFile);
     if (_settingStore.saveAnswer.fetch()!) {
       _historyStore.putCheckState(
-          widget.courseId, widget.unitFile, _checkState);
+          widget.courseId, widget.unitFile, _checkState,);
     }
     if (!_historyIdx.contains(_index)) {
       _historyIdx.add(_index);

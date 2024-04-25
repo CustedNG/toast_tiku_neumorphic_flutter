@@ -31,14 +31,14 @@ class OnlineImage extends StatelessWidget {
                 child: IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () => xState.reLoadImage(),
-            ));
+            ),);
 
           /// 加载完成，显示图片
           case LoadState.completed:
             return FadeIn(
                 child: ExtendedRawImage(
               image: xState.extendedImageInfo?.image,
-            ));
+            ),);
 
           /// 预料之外，显示出错
           default:

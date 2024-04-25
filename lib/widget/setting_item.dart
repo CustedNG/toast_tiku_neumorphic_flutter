@@ -9,7 +9,7 @@ class SettingItem extends StatelessWidget {
     super.key,
     required this.title,
     this.onTap,
-    this.content = "",
+    this.content = '',
     this.rightBtn,
     this.textAlign = TextAlign.start,
     this.titleStyle,
@@ -69,14 +69,14 @@ class SettingItem extends StatelessWidget {
                       text: content,
                       align: textAlign,
                       textStyle:
-                          contentStyle ?? NeumorphicTextStyle(fontSize: 14.0)),
+                          contentStyle ?? NeumorphicTextStyle(fontSize: 14.0),),
                 ),
               ),
               showArrow && rightBtn == null
                   ? NeumorphicIcon(
                       Icons.arrow_forward_ios,
                       style: NeumorphicStyle(
-                          color: mainTextColor.resolve(context)),
+                          color: mainTextColor.resolve(context),),
                       size: 16,
                     )
                   : Container(),
@@ -84,9 +84,9 @@ class SettingItem extends StatelessWidget {
               rightBtn ?? Container(),
               const SizedBox(
                 width: 17,
-              )
+              ),
             ],
           ),
-        ));
+        ),);
   }
 }

@@ -25,7 +25,7 @@ class NeuIconBtn extends StatelessWidget {
       this.onTap,
       this.margin,
       this.padding,
-      this.boxShape});
+      this.boxShape,});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class NeuBtn extends StatelessWidget {
       this.margin,
       this.padding,
       this.boxShape,
-      this.style});
+      this.style,});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class NeuBtn extends StatelessWidget {
           NeumorphicStyle(
               boxShape: boxShape ??
                   NeumorphicBoxShape.roundRect(
-                      const BorderRadius.all(Radius.circular(7)))),
+                      const BorderRadius.all(Radius.circular(7)),),),
       child: child,
     );
   }

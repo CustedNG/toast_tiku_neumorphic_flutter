@@ -38,7 +38,7 @@ class GrabSheet extends StatefulWidget {
       required this.tis,
       required this.checkState,
       required this.onTap,
-      required this.showColor});
+      required this.showColor,});
 
   @override
   State<GrabSheet> createState() => _GrabSheetState();
@@ -83,18 +83,18 @@ class _GrabSheetState extends State<GrabSheet> {
         style: NeumorphicStyle(
             lightSource: LightSource.bottom,
             boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
-                topLeft: Radius.circular(17), topRight: Radius.circular(17)))),
+                topLeft: Radius.circular(17), topRight: Radius.circular(17),),),),
         child: Center(
           child: Padding(
             padding: EdgeInsets.only(bottom: _media.padding.bottom),
             child: Neumorphic(
               curve: Curves.easeInQuad,
               style: NeumorphicStyle(
-                  color: mainTextColor.resolve(context), depth: 37),
+                  color: mainTextColor.resolve(context), depth: 37,),
               child: const SizedBox(height: 10, width: 57),
             ),
           ),
-        ));
+        ),);
   }
 
   SnappingSheetContent _buildSheet() {
@@ -107,15 +107,15 @@ class _GrabSheetState extends State<GrabSheet> {
           _buildEachTypeGrid(1, '多选', multiple, single.length),
           _buildEachTypeGrid(2, '填空', fill, single.length + multiple.length),
           _buildEachTypeGrid(
-              3, '判断', judge, single.length + multiple.length + fill.length),
+              3, '判断', judge, single.length + multiple.length + fill.length,),
           const SizedBox(height: 37),
         ],
       ),
-    ));
+    ),);
   }
 
   Widget _buildEachTypeGrid(
-      int typeInt, String type, List<Ti> tis, int prefixIdx) {
+      int typeInt, String type, List<Ti> tis, int prefixIdx,) {
     if (tis.isEmpty) {
       return const SizedBox();
     }
@@ -132,7 +132,7 @@ class _GrabSheetState extends State<GrabSheet> {
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: _media.size.width * 0.05),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4, childAspectRatio: 2),
+              crossAxisCount: 4, childAspectRatio: 2,),
           itemCount: tis.length,
           itemBuilder: (context, idx) {
             int currentIdx = prefixIdx + idx;
@@ -152,8 +152,8 @@ class _GrabSheetState extends State<GrabSheet> {
                 onTap: () => widget.onTap(currentIdx),
               ),
             );
-          })
-    ]);
+          },),
+    ],);
   }
 
   /// 是否显示颜色

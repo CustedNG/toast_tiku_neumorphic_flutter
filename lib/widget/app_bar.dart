@@ -12,7 +12,7 @@ class NeuAppBar extends StatelessWidget {
     return Neumorphic(
       style: const NeumorphicStyle(
           lightSource: LightSource.top,
-          shadowLightColorEmboss: Colors.cyanAccent),
+          shadowLightColorEmboss: Colors.cyanAccent,),
       child: Column(
         children: [
           SizedBox(
@@ -26,7 +26,7 @@ class NeuAppBar extends StatelessWidget {
                   EdgeInsets.symmetric(horizontal: media.size.width * 0.04),
               child: child,
             ),
-          )
+          ),
         ],
       ),
     );

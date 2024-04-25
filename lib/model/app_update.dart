@@ -43,23 +43,23 @@ class AppUpdate {
     required this.changelog,
   });
   AppUpdate.fromJson(Map<String, dynamic> json) {
-    newest = json["newest"]?.toInt();
-    android = json["android"].toString();
-    ios = json["ios"].toString();
-    min = json["min"].toInt();
-    iosbuild = json["iosbuild"].toInt();
-    changelog = json["changelog"].toString();
-    androidbuild = json["androidbuild"].toInt();
+    newest = json['newest']?.toInt();
+    android = json['android'].toString();
+    ios = json['ios'].toString();
+    min = json['min'].toInt();
+    iosbuild = json['iosbuild'].toInt();
+    changelog = json['changelog'].toString();
+    androidbuild = json['androidbuild'].toInt();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data["newest"] = newest;
-    data["android"] = android;
-    data["ios"] = ios;
-    data["min"] = min;
-    data["iosbuild"] = iosbuild;
-    data["changelog"] = changelog;
-    data["androidbuild"] = androidbuild;
+    data['newest'] = newest;
+    data['android'] = android;
+    data['ios'] = ios;
+    data['min'] = min;
+    data['iosbuild'] = iosbuild;
+    data['changelog'] = changelog;
+    data['androidbuild'] = androidbuild;
     return data;
   }
 }

@@ -84,7 +84,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
           NeuIconBtn(
             icon: Icons.arrow_back,
             onTap: () => Navigator.of(context).pop(),
-          )
+          ),
         ],
       );
     } else {
@@ -100,7 +100,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
             });
             _animationController.reset();
             _animationController.forward();
-          });
+          },);
     }
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
@@ -112,7 +112,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
     return GestureDetector(
       onHorizontalDragEnd: (detail) => onSlide(
           detail.velocity.pixelsPerSecond.dx > 277,
-          detail.velocity.pixelsPerSecond.dx < -277),
+          detail.velocity.pixelsPerSecond.dx < -277,),
       child: Column(
         children: [
           _buildHead(),
@@ -153,15 +153,15 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
                 }
                 setState(() {});
               },
-            )
+            ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildTiList() {
     _animationController.forward();
     return FadeTransition(
-        opacity: _animation, child: _buildTiView(_tis![_index]));
+        opacity: _animation, child: _buildTiView(_tis![_index]),);
   }
 
   void onSlide(bool left, bool right) {
@@ -207,7 +207,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
         children: [
           NeuText(text: ti.question!, align: TextAlign.start),
           const NeuText(text: '\n答案：', align: TextAlign.start),
-          ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start))
+          ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start)),
         ],
       ),
     );
@@ -239,7 +239,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       widgets.add(_buildRadio(0, '是'));
       widgets.add(const SizedBox(
         height: 13,
-      ));
+      ),);
       widgets.add(_buildRadio(1, '否'));
       return widgets;
     }
@@ -247,7 +247,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       widgets.add(_buildRadio(idx, option!));
       widgets.add(const SizedBox(
         height: 13,
-      ));
+      ),);
       idx++;
     }
     return widgets;
@@ -258,7 +258,7 @@ class _UnitFavoritePageState extends State<UnitFavoritePage>
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: judgeColor(value),
-          depth: _nowState.contains(value) ? -20 : null),
+          depth: _nowState.contains(value) ? -20 : null,),
       child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),

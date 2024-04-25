@@ -5,17 +5,13 @@ part 'check_state.g.dart';
 @HiveType(typeId: 6)
 class CheckState {
   @HiveField(1)
-  late Map<String, List<Object>> state;
+  final Map<String, List<Object>> state;
 
   CheckState(this.state);
 
-  CheckState.empty() {
-    state = <String, List<Object>>{};
-  }
+  CheckState.empty() : state = {};
 
-  CheckState.from(Map<String, List<Object>> s) {
-    state = s;
-  }
+  CheckState.from(Map<String, List<Object>> s) : state = s;
 
   void add(String id, Object value) {
     if (state.containsKey(id)) {

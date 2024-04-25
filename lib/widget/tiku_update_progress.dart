@@ -22,6 +22,6 @@ class TikuUpdateProgress extends StatelessWidget {
       return const SizedBox(
         height: 3,
       );
-    });
+    },);
   }
 }

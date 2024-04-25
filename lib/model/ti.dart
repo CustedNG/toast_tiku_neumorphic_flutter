@@ -44,22 +44,22 @@ class Ti {
     this.type,
   });
   Ti.fromJson(Map<String, dynamic> json) {
-    if (json["options"] != null) {
-      final v = json["options"];
+    if (json['options'] != null) {
+      final v = json['options'];
       final arr0 = <String>[];
       v.forEach((v) {
         arr0.add(v.toString());
       });
       options = arr0;
     }
-    question = json["question"]?.toString();
-    if (json["answer"] is int) {
-      answer = [json["answer"]];
+    question = json['question']?.toString();
+    if (json['answer'] is int) {
+      answer = [json['answer']];
     } else {
-      answer = json["answer"];
+      answer = json['answer'];
     }
 
-    type = json["type"]?.toInt();
+    type = json['type']?.toInt();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -69,11 +69,11 @@ class Ti {
       for (var v in v!) {
         arr0.add(v);
       }
-      data["options"] = arr0;
+      data['options'] = arr0;
     }
-    data["question"] = question;
-    data["answer"] = answer;
-    data["type"] = type;
+    data['question'] = question;
+    data['answer'] = answer;
+    data['type'] = type;
     return data;
   }
 

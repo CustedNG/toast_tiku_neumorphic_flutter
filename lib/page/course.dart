@@ -1,7 +1,6 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 
 import '../core/route.dart';
-import '../core/utils.dart';
 import '../data/store/unit_history.dart';
 import '../locator.dart';
 import '../model/tiku_index.dart';
@@ -67,14 +66,16 @@ class _CoursePageState extends State<CoursePage> {
                 ),
                 const SizedBox(width: 13),
                 SizedBox(
-                    width: _media.size.width * 0.3,
-                    child: Hero(
-                        transitionOnUserGestures: true,
-                        tag: 'home_all_course_${widget.data.id}',
-                        child: NeuText(
-                          text: widget.data.chinese!,
-                          align: TextAlign.left,
-                        ))),
+                  width: _media.size.width * 0.3,
+                  child: Hero(
+                    transitionOnUserGestures: true,
+                    tag: 'home_all_course_${widget.data.id}',
+                    child: NeuText(
+                      text: widget.data.chinese!,
+                      align: TextAlign.left,
+                    ),
+                  ),
+                ),
               ],
             ),
             Row(
@@ -84,7 +85,7 @@ class _CoursePageState extends State<CoursePage> {
                   onTap: () => AppRoute(UnitFavoritePage(
                     courseId: widget.data.id!,
                     courseName: widget.data.chinese!,
-                  )).go(context),
+                  ),).go(context),
                 ),
                 NeuIconBtn(
                   icon: Icons.delete_outlined,
@@ -100,11 +101,11 @@ class _CoursePageState extends State<CoursePage> {
                                 title: NeuText(
                                   text: '删除记录',
                                   textStyle: NeumorphicTextStyle(
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,),
                                   align: TextAlign.start,
                                 ),
                                 margin: const EdgeInsets.symmetric(
-                                    horizontal: 23, vertical: 17),
+                                    horizontal: 23, vertical: 17,),
                                 content: SizedBox(
                                   width: _media.size.width * 0.9,
                                   height: _media.size.height * 0.3,
@@ -127,14 +128,14 @@ class _CoursePageState extends State<CoursePage> {
                                           style: NeumorphicStyle(
                                               depth: selected.contains(id)
                                                   ? -20
-                                                  : null),
+                                                  : null,),
                                           child: NeuText(
                                             text: item.title ?? '未知章节名',
                                             align: TextAlign.left,
                                           ),
                                         );
                                       },
-                                      itemCount: idxes.length),
+                                      itemCount: idxes.length,),
                                 ),
                                 actions: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,7 +146,7 @@ class _CoursePageState extends State<CoursePage> {
                                         child: const Text(
                                           '删除',
                                           style: TextStyle(
-                                              color: Colors.redAccent),
+                                              color: Colors.redAccent,),
                                         ),
                                         onTap: () {
                                           Navigator.of(context).pop();
@@ -164,29 +165,29 @@ class _CoursePageState extends State<CoursePage> {
                                       child: Text(
                                           idxes.length == selected.length
                                               ? '全不选'
-                                              : '全选'),
+                                              : '全选',),
                                       onTap: () {
                                         if (idxes.length == selected.length) {
                                           selected.clear();
                                         } else {
                                           selected.clear();
                                           selected.addAll(
-                                              idxes.map((e) => e!.data!));
+                                              idxes.map((e) => e!.data!),);
                                         }
                                         setState(() {});
                                       },
-                                    )
+                                    ),
                                   ],
-                                ));
-                          });
-                        });
+                                ),);
+                          },);
+                        },);
                     final courseId = widget.data.id ?? '';
                     for (var unit in selected) {
                       _historyStore.put(courseId, unit, []);
                       _historyStore.putCheckState(courseId, unit, null);
                     }
                   },
-                )
+                ),
                 // onTap: () => showSnackBarWithAction(
                 //         context,
                 //         '是否删除${widget.data.chinese}所有的做题记录？\n请注意，操作无法撤回！',
@@ -201,19 +202,18 @@ class _CoursePageState extends State<CoursePage> {
               ],
             ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildSelectCard() {
-    return SizedBox(
-        height: getRemainHeight(_media),
-        width: _media.size.width,
-        child: ListView.builder(
-          itemCount: widget.data.length,
-          itemBuilder: (BuildContext context, int index) {
-            return _buildCardItem(index);
-          },
-        ));
+    return Expanded(
+      child: ListView.builder(
+        itemCount: widget.data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return _buildCardItem(index);
+        },
+      ),
+    );
   }
 
   Widget _buildCardItem(int index) {
@@ -225,7 +225,7 @@ class _CoursePageState extends State<CoursePage> {
               courseId: widget.data.id!,
               unitFile: data.data!,
               unitName: data.title!,
-            )).go(context),
+            ),).go(context),
         margin: EdgeInsets.zero,
         padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 10),
         child: Stack(
@@ -252,6 +252,6 @@ class _CoursePageState extends State<CoursePage> {
               ),
             ),
           ],
-        ));
+        ),);
   }
 }

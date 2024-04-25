@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
     _timer = Timer.periodic(const Duration(seconds: 7), (timer) {
       _fixedExtentScrollController.animateToItem(timer.tick % 2,
           duration: const Duration(milliseconds: 577),
-          curve: Curves.easeInOutExpo);
+          curve: Curves.easeInOutExpo,);
     });
   }
 
@@ -89,8 +89,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         children: [
           _buildHead(),
           const TikuUpdateProgress(),
-          SizedBox(
-            height: getRemainHeight(_media),
+          Expanded(
             child: ListView(
               padding: EdgeInsets.zero,
               physics: const BouncingScrollPhysics(),
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                 _buildDirectlyShowAnswerSwitch(),
               ],
             ),
-          )
+          ),
         ],
       ),
       bottomSheet: _buildContributor(),
@@ -132,7 +131,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       Random().nextInt(provider.contributors.length)],
                   style: const TextStyle(fontSize: 13),
                 );
-              }),
+              },),
             ),
           ),
         ),
@@ -152,7 +151,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             align: TextAlign.center,
           ),
           SizedBox(width: _media.size.width * 0.03),
-          buildSwitch(context, _setting.directlyShowAnswer)
+          buildSwitch(context, _setting.directlyShowAnswer),
         ],
       ),
     );
@@ -182,7 +181,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             ),
             _buildTopBtn(),
           ],
-        ));
+        ),);
   }
 
   Widget _buildNotifyCard() {
@@ -197,7 +196,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             const FixedExtentScrollPhysics(parent: BouncingScrollPhysics()),
         childDelegate: ListWheelChildBuilderDelegate(
             builder: (context, index) => content[index],
-            childCount: content.length),
+            childCount: content.length,),
       ),
     );
   }
@@ -213,7 +212,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           return _buildBannerView('🐎⬆️', '加载中');
         }
         return _buildBannerView(app.notify!['title'], app.notify!['content']);
-      })
+      },),
     ];
   }
 
@@ -233,7 +232,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               textStyle: titleStyle,
             ),
           ),
-          NeuText(text: content)
+          NeuText(text: content),
         ],
       ),
     );
@@ -269,7 +268,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                                   text: '上次学到了 · ${index.chinese!}',
                                   textStyle: NeumorphicTextStyle(
                                       fontSize: 17,
-                                      fontWeight: FontWeight.bold)),
+                                      fontWeight: FontWeight.bold,),),
                               Hero(
                                   transitionOnUserGestures: true,
                                   tag: 'home_resume_title',
@@ -278,9 +277,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                                       style: NeumorphicStyle(
                                           color: mainTextColor
                                               .resolve(context)
-                                              .withOpacity(0.8)),
+                                              .withOpacity(0.8),),
                                       textStyle:
-                                          NeumorphicTextStyle(fontSize: 11))),
+                                          NeumorphicTextStyle(fontSize: 11),),),
                             ],
                           ),
                           NeuIconBtn(
@@ -290,9 +289,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                             onTap: () => AppRoute(UnitQuizPage(
                                     courseId: historySplit[0],
                                     unitFile: historySplit[1],
-                                    unitName: unit.title!))
+                                    unitName: unit.title!,),)
                                 .go(context),
-                          )
+                          ),
                         ],
                       );
                       break;
@@ -303,8 +302,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
             }
             return Padding(
                 padding: EdgeInsets.fromLTRB(
-                    _media.size.width * 0.07, 7, _media.size.width * 0.05, 7),
-                child: child);
+                    _media.size.width * 0.07, 7, _media.size.width * 0.05, 7,),
+                child: child,);
           },
         );
       },
@@ -325,10 +324,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
         return GridView.builder(
             padding: EdgeInsets.symmetric(
-                horizontal: _media.size.width * 0.05, vertical: 7),
+                horizontal: _media.size.width * 0.05, vertical: 7,),
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, childAspectRatio: 1.0),
+                crossAxisCount: 4, childAspectRatio: 1.0,),
             itemCount: tiku.tikuIndex!.length,
             itemBuilder: (context, idx) {
               final item = tiku.tikuIndex![idx];
@@ -342,18 +341,18 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       SizedBox(
                           width: (_media.size.width * 0.9 - 40) / 8.7,
                           child:
-                              OnlineImage(url: '$courseImgUrl/${item.id}.png')),
+                              OnlineImage(url: '$courseImgUrl/${item.id}.png'),),
                       const SizedBox(
                         height: 5,
                       ),
                       NeuText(
                         text: item.chinese ?? '未知',
                         textStyle: NeumorphicTextStyle(fontSize: 11),
-                      )
-                    ]),
+                      ),
+                    ],),
               );
-            });
-      }),
+            },);
+      },),
     );
   }
 
@@ -365,7 +364,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
         NeuBtn(
           child: NeuText(
               text: '模考',
-              textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold)),
+              textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),),
           onTap: () => AppRoute(const ExamSelectPage()).go(context),
         ),
         NeuIconBtn(
@@ -385,7 +384,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
                       ti.question,
                     ],
                 builder: (ti) => NeuCard(child: _buildSearchResult(ti)),
-                searchStyle: TextStyle(color: mainTextColor.resolve(context))),
+                searchStyle: TextStyle(color: mainTextColor.resolve(context)),),
           ),
         ),
       ],
@@ -401,7 +400,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           title: NeuText(text: ti.question!, align: TextAlign.start),
           subtitle: NeuText(
               text: _buildOption(ti.options ?? []) + ti.answerStr,
-              align: TextAlign.start),
+              align: TextAlign.start,),
           trailing: NeuText(text: ti.typeChinese, align: TextAlign.start),
         );
       case 2:
@@ -409,7 +408,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
           title: NeuText(text: ti.question!, align: TextAlign.start),
           subtitle: NeuText(
               text: _buildOption(ti.answer!) + ti.answerStr,
-              align: TextAlign.start),
+              align: TextAlign.start,),
           trailing: NeuText(text: ti.typeChinese, align: TextAlign.start),
         );
       default:

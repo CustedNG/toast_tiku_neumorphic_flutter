@@ -19,7 +19,7 @@ class NeuDialog extends Dialog {
       required this.title,
       required this.content,
       required this.actions,
-      this.margin});
+      this.margin,});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class NeuDialog extends Dialog {
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          1),
+          1,),
       child: SizedBox(
         width: size.width * 0.7,
         child: Neumorphic(
@@ -53,7 +53,7 @@ class NeuDialog extends Dialog {
                 const SizedBox(
                   height: 17,
                 ),
-                actions
+                actions,
               ],
             ),
           ),

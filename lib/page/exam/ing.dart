@@ -101,6 +101,7 @@ class _ExamingPageState extends State<ExamingPage>
   /// 同上[didChangeDependencies]的注释
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
         child: Scaffold(
           backgroundColor: NeumorphicTheme.baseColor(context),
@@ -115,12 +116,19 @@ class _ExamingPageState extends State<ExamingPage>
               if (_checkState.isEmpty) {
                 _checkState = CheckState.empty();
               }
-              _eachTypeTiCount = [
-                _tis.where((element) => element.type == 0).length,
-                _tis.where((element) => element.type == 1).length,
-                _tis.where((element) => element.type == 2).length,
-                _tis.where((element) => element.type == 3).length
-              ];
+              // _eachTypeTiCount = [
+              //   _tis.where((element) => element.type == 0).length,
+              //   _tis.where((element) => element.type == 1).length,
+              //   _tis.where((element) => element.type == 2).length,
+              //   _tis.where((element) => element.type == 3).length
+              // ];
+              _eachTypeTiCount = [0, 0, 0, 0];
+              for (var ti in _tis) {
+                final type = ti.type;
+                if (type != null && type >= 0 && type <= 3) {
+                  _eachTypeTiCount[type]++;
+                }
+              }
               if (_tis.isEmpty) {
                 return const Center(
                   child: NeuText(
@@ -145,7 +153,7 @@ class _ExamingPageState extends State<ExamingPage>
             },
           ),
         ),
-        onWillPop: () async => await _onWillPop() ?? false);
+        onWillPop: () async => await _onWillPop() ?? false,);
   }
 
   int typeIdx(Ti ti, int index) {
@@ -209,7 +217,7 @@ class _ExamingPageState extends State<ExamingPage>
       /// 传入参数[左右滑动的速度超过每秒钟277像素]
       onHorizontalDragEnd: (detail) => onSlide(
           detail.velocity.pixelsPerSecond.dx > 277,
-          detail.velocity.pixelsPerSecond.dx < -277),
+          detail.velocity.pixelsPerSecond.dx < -277,),
       child: Column(
         children: [
           _buildHead(),
@@ -269,12 +277,12 @@ class _ExamingPageState extends State<ExamingPage>
               child: NeumorphicIcon(
                   _submittedAnswer ? Icons.celebration : Icons.send,
                   style:
-                      NeumorphicStyle(color: mainTextColor.resolve(context))),
+                      NeumorphicStyle(color: mainTextColor.resolve(context)),),
               onTap: () {
                 if (_submittedAnswer) {
                   AppRoute(ExamResultPage(
                     percent: _getCorrectCount() / _tis.length,
-                  )).go(context);
+                  ),).go(context);
                 } else {
                   showSnackBarWithAction(context, '是否确认交卷？交卷后无法撤销', '交卷', () {
                     _submittedAnswer = true;
@@ -285,14 +293,14 @@ class _ExamingPageState extends State<ExamingPage>
                         DateTime.now().toString(),
                         correctRate,
                         widget.subject,
-                        widget.subjectId));
+                        widget.subjectId,),);
                     setState(() {});
                   });
                 }
               },
-            )
+            ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildTiList() {
@@ -307,7 +315,7 @@ class _ExamingPageState extends State<ExamingPage>
           text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
           align: TextAlign.start,
           textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-        ));
+        ),);
 
     return FadeTransition(
       opacity: _animation,
@@ -316,7 +324,7 @@ class _ExamingPageState extends State<ExamingPage>
         child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: children),
+            children: children,),
       ),
     );
   }
@@ -377,14 +385,14 @@ class _ExamingPageState extends State<ExamingPage>
           _nowState[answerIdx] = value;
         },
         padding: EdgeInsets.zero,
-      ));
+      ),);
     }
     return [
       NeuText(text: ti.question!, align: TextAlign.start),
       const SizedBox(
         height: 17,
       ),
-      ...textFields
+      ...textFields,
     ];
   }
 
@@ -405,7 +413,7 @@ class _ExamingPageState extends State<ExamingPage>
       widgets.add(_buildRadio(0, '是'));
       widgets.add(const SizedBox(
         height: 13,
-      ));
+      ),);
       widgets.add(_buildRadio(1, '否'));
       return widgets;
     }
@@ -413,7 +421,7 @@ class _ExamingPageState extends State<ExamingPage>
       widgets.add(_buildRadio(idx, option!));
       widgets.add(const SizedBox(
         height: 13,
-      ));
+      ),);
       idx++;
     }
     return widgets;
@@ -425,7 +433,7 @@ class _ExamingPageState extends State<ExamingPage>
       onPressed: () => onPressed(value),
       style: NeumorphicStyle(
           color: _submittedAnswer ? judgeColor(value) : null,
-          depth: _nowState.contains(value) ? -20 : null),
+          depth: _nowState.contains(value) ? -20 : null,),
       child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),

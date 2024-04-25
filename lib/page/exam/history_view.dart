@@ -50,7 +50,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
       widget.examHistory.tis.where((element) => element.type == 0).length,
       widget.examHistory.tis.where((element) => element.type == 1).length,
       widget.examHistory.tis.where((element) => element.type == 2).length,
-      widget.examHistory.tis.where((element) => element.type == 3).length
+      widget.examHistory.tis.where((element) => element.type == 3).length,
     ];
     _favoriteStore = locator<FavoriteStore>();
   }
@@ -87,7 +87,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
     return GestureDetector(
       onHorizontalDragEnd: (detail) => onSlide(
           detail.velocity.pixelsPerSecond.dx > 277,
-          detail.velocity.pixelsPerSecond.dx < -277),
+          detail.velocity.pixelsPerSecond.dx < -277,),
       child: Column(
         children: [
           _buildHead(),
@@ -140,9 +140,9 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
                 }
                 setState(() {});
               },
-            )
+            ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildTiList() {
@@ -156,7 +156,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
           text: '${typeIdx(ti, _index) + 1}.${ti.typeChinese}\n',
           align: TextAlign.start,
           textStyle: NeumorphicTextStyle(fontWeight: FontWeight.bold),
-        ));
+        ),);
 
     return FadeTransition(
       opacity: _animation,
@@ -165,7 +165,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
         child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: children),
+            children: children,),
       ),
     );
   }
@@ -227,7 +227,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
     return [
       NeuText(text: ti.question!, align: TextAlign.start),
       const NeuText(text: '\n答案：', align: TextAlign.start),
-      ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start))
+      ...ti.answer!.map((e) => NeuText(text: e, align: TextAlign.start)),
     ];
   }
 
@@ -246,7 +246,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
       widgets.add(_buildRadio(0, '是'));
       widgets.add(const SizedBox(
         height: 13,
-      ));
+      ),);
       widgets.add(_buildRadio(1, '否'));
       return widgets;
     }
@@ -254,7 +254,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
       widgets.add(_buildRadio(idx, option!));
       widgets.add(const SizedBox(
         height: 13,
-      ));
+      ),);
       idx++;
     }
     return widgets;
@@ -269,7 +269,7 @@ class _ExamHistoryViewPageState extends State<ExamHistoryViewPage>
                   .get(widget.examHistory.tis[_index].id)
                   .contains(value)
               ? -20
-              : null),
+              : null,),
       child: SizedBox(
         width: _media.size.width * 0.98,
         child: NeuText(text: content, align: TextAlign.start),

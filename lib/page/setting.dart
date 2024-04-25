@@ -51,7 +51,7 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
-          children: [_buildHead(), const TikuUpdateProgress(), _buildMain()]),
+          children: [_buildHead(), const TikuUpdateProgress(), _buildMain()],),
     );
   }
 
@@ -71,15 +71,14 @@ class _SettingPageState extends State<SettingPage> {
             NeuIconBtn(
               icon: Icons.question_answer,
               onTap: () => showSnackBarWithAction(
-                  context, '可在用户群反馈问题、吹水', '加入', () => openUrl(joinQQGroupUrl)),
+                  context, '可在用户群反馈问题、吹水', '加入', () => openUrl(joinQQGroupUrl),),
             ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildMain() {
-    return SizedBox(
-      height: getRemainHeight(_media),
+    return Expanded(
       child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.zero,
@@ -87,7 +86,7 @@ class _SettingPageState extends State<SettingPage> {
           SizedBox(height: _media.size.height * 0.02),
           const LogoCard(),
           _buildTikuSetting(),
-          _buildAppSetting()
+          _buildAppSetting(),
         ],
       ),
     );
@@ -99,10 +98,10 @@ class _SettingPageState extends State<SettingPage> {
         margin: EdgeInsets.zero,
         style: NeumorphicStyle(
             boxShape: NeumorphicBoxShape.roundRect(
-                const BorderRadius.all(Radius.circular(17)))),
+                const BorderRadius.all(Radius.circular(17)),),),
         child: Column(
           children: children,
-        ));
+        ),);
   }
 
   Widget _buildAppSetting() {
@@ -148,7 +147,7 @@ class _SettingPageState extends State<SettingPage> {
                   ],
                 ),
               );
-            }),
+            },),
       ),
       Consumer<AppProvider>(builder: (_, app, __) {
         String display;
@@ -162,7 +161,7 @@ class _SettingPageState extends State<SettingPage> {
           display = 'App当前版本：${BuildData.build}，点击检查更新';
         }
         return SettingItem(title: display, onTap: () => doUpdate(context));
-      })
+      },),
     ]);
   }
 
@@ -188,7 +187,7 @@ class _SettingPageState extends State<SettingPage> {
               width: _media.size.width * 0.37,
               child: NeuText(
                   text: '${(tiku.downloadProgress * 100).toStringAsFixed(2)}%',
-                  align: TextAlign.end),
+                  align: TextAlign.end,),
             ),
           );
         }
@@ -198,7 +197,7 @@ class _SettingPageState extends State<SettingPage> {
           title: '题库数据已是最新',
           rightBtn: NeuText(text: tiku.indexVersion ?? ''),
         );
-      }),
+      },),
     ]);
   }
 
@@ -208,6 +207,6 @@ class _SettingPageState extends State<SettingPage> {
         onColorChange: (Color color) {
           _selectedColorValue = color.value;
         },
-        selectedColor: selected);
+        selectedColor: selected,);
   }
 }

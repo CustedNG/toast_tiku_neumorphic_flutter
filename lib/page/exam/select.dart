@@ -85,7 +85,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               onTap: () => AppRoute(const ExamHistoryListPage()).go(context),
             ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildMain() {
@@ -99,7 +99,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
         children: [
           _buildCourseSelect(),
           _buildTiTypeSelect(),
-          SizedBox(height: _media.size.height * 0.13)
+          SizedBox(height: _media.size.height * 0.13),
         ],
       ),
     );
@@ -121,7 +121,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
             radios.add(NeumorphicRadio<String>(
               style: NeumorphicRadioStyle(
                   boxShape: NeumorphicBoxShape.roundRect(
-                      const BorderRadius.all(Radius.circular(7)))),
+                      const BorderRadius.all(Radius.circular(7)),),),
               value: item.id,
               groupValue: _selectedCourse,
               onChanged: (val) => setState(() {
@@ -130,7 +130,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                 _counts = [0, 0, 0, 0, 60];
               }),
               child: Center(child: NeuText(text: item.chinese!)),
-            ));
+            ),);
           }
           final gridPad = _media.size.width * 0.05;
           return Column(
@@ -144,15 +144,15 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
                     padding: EdgeInsets.all(gridPad),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4, childAspectRatio: 2),
+                            crossAxisCount: 4, childAspectRatio: 2,),
                     itemCount: radios.length,
                     itemBuilder: (context, idx) {
                       return Padding(
                         padding: const EdgeInsets.all(6),
                         child: radios[idx],
                       );
-                    }),
-              )
+                    },),
+              ),
             ],
           );
         }
@@ -206,7 +206,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
   }
 
   Widget _buildSlider(
-      double max, double min, int idx, String typeChinese, String suffix) {
+      double max, double min, int idx, String typeChinese, String suffix,) {
     if (max == 0) {
       return const SizedBox();
     }
@@ -247,7 +247,7 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
       const SizedBox(
         height: 3,
       ),
-    ]);
+    ],);
   }
 
   Widget _buildStart() {
@@ -265,11 +265,11 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               locator<TimerProvider>().start(DateTime.now().add(Duration(
                   minutes: (_counts[4]).toInt(),
                   // 由于页面动画的存在，所以多给一秒
-                  seconds: 1)));
+                  seconds: 1,),),);
               AppRoute(ExamingPage(
                 subject: _selectedCourseName ?? '',
                 subjectId: _selectedCourse ?? '',
-              )).go(context);
+              ),).go(context);
             }
           }
         },
@@ -287,6 +287,6 @@ class _ExamSelectPageState extends State<ExamSelectPage> {
               ),
             ),
           ),
-        ));
+        ),);
   }
 }

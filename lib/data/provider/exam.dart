@@ -16,7 +16,7 @@ class ExamProvider extends BusyProvider {
 
   /// 加载题目到Provider
   Future<void> loadTi(
-      String courseId, List<String> units, List<double> counts) async {
+      String courseId, List<String> units, List<double> counts,) async {
     setBusyState(true);
 
     /// 初始化空数据

@@ -53,21 +53,21 @@ class TikuIndexContent {
     this.data,
   });
   TikuIndexContent.fromJson(Map<String, dynamic> json) {
-    title = json["title"]?.toString();
-    radio = json["radio"]?.toInt();
-    multiple = json["multiple"]?.toInt();
-    decide = json["decide"]?.toInt();
-    fill = json["fill"]?.toInt();
-    data = json["data"]?.toString();
+    title = json['title']?.toString();
+    radio = json['radio']?.toInt();
+    multiple = json['multiple']?.toInt();
+    decide = json['decide']?.toInt();
+    fill = json['fill']?.toInt();
+    data = json['data']?.toString();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data["title"] = title;
-    data["radio"] = radio;
-    data["multiple"] = multiple;
-    data["decide"] = decide;
-    data["fill"] = fill;
-    data["data"] = this.data;
+    data['title'] = title;
+    data['radio'] = radio;
+    data['multiple'] = multiple;
+    data['decide'] = decide;
+    data['fill'] = fill;
+    data['data'] = this.data;
     return data;
   }
 }
@@ -115,31 +115,31 @@ class TikuIndex {
     this.chinese,
   });
   TikuIndex.fromJson(Map<String, dynamic> json) {
-    id = json["id"]?.toString();
-    length = json["length"]?.toInt();
-    if (json["content"] != null) {
-      final v = json["content"];
+    id = json['id']?.toString();
+    length = json['length']?.toInt();
+    if (json['content'] != null) {
+      final v = json['content'];
       final arr0 = <TikuIndexContent>[];
       v.forEach((v) {
         arr0.add(TikuIndexContent.fromJson(v));
       });
       content = arr0;
     }
-    chinese = json["chinese"]?.toString();
+    chinese = json['chinese']?.toString();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data["id"] = id;
-    data["length"] = length;
+    data['id'] = id;
+    data['length'] = length;
     if (content != null) {
       final v = content;
       final arr0 = [];
       for (var v in v!) {
         arr0.add(v!.toJson());
       }
-      data["content"] = arr0;
+      data['content'] = arr0;
     }
-    data["chinese"] = chinese;
+    data['chinese'] = chinese;
     return data;
   }
 }

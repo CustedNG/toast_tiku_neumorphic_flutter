@@ -57,7 +57,7 @@ Future<void> doDbUpgrade() async {
       locator<TikuStore>(),
       locator<TikuIndexStore>(),
       locator<HistoryStore>(),
-      locator<ExamHistoryStore>()
+      locator<ExamHistoryStore>(),
     ];
     for (final store in stores) {
       await store.box.deleteAll(store.box.keys);

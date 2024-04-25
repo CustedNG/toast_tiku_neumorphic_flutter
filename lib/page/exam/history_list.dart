@@ -75,7 +75,7 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
               }),
             ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildMain() {
@@ -85,7 +85,7 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
         child: NeuText(
           text: '暂无考试记录',
         ),
-      ));
+      ),);
     }
     return SizedBox(
       height: _media.size.height * 0.84,
@@ -118,13 +118,13 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
                 NeuText(
                     text: history.subject,
                     textStyle: titleStyle,
-                    align: TextAlign.start),
+                    align: TextAlign.start,),
                 const SizedBox(height: 7),
                 NeuText(
                     text: history.date.split('.').first,
                     align: TextAlign.start,
                     textStyle: dateStyle,
-                    style: const NeumorphicStyle(color: Colors.grey)),
+                    style: const NeumorphicStyle(color: Colors.grey),),
               ],
             ),
             NeuText(
@@ -132,13 +132,13 @@ class _ExamHistoryListPageState extends State<ExamHistoryListPage> {
               textStyle: titleStyle,
               align: TextAlign.end,
               style: NeumorphicStyle(color: rateColor),
-            )
+            ),
           ],
         ),
       ),
       onTap: () => AppRoute(ExamHistoryViewPage(
         examHistory: history,
-      )).go(context),
+      ),).go(context),
       onLongPress: () => showSnackBarWithAction(context, '删除该考试记录', '确认', () {
         locator<ExamHistoryStore>().del(history);
         _historyList.remove(history);

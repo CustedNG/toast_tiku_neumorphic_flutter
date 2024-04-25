@@ -33,7 +33,7 @@ class ExamHistory {
   late CheckState checkState;
 
   ExamHistory(this.tis, this.checkState, this.date, this.correctRate,
-      this.subject, this.subjectId);
+      this.subject, this.subjectId,);
 
   String get id => '$subjectId$date';
 

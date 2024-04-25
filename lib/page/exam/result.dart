@@ -29,10 +29,10 @@ class ExamResultPage extends StatelessWidget {
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-            )),
+            ),),
             child: _Page(
               percent: percent,
-            )),
+            ),),
       ),
     );
   }
@@ -54,7 +54,7 @@ class _PageState extends State<_Page> {
             color: Colors.black,
             fontWeight: FontWeight.w700,
             fontFamily: 'Samsung',
-            fontSize: 80));
+            fontSize: 80,),);
   }
 
   @override
@@ -74,7 +74,7 @@ class _PageState extends State<_Page> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    _letter("恭喜🎉"),
+                    _letter('恭喜🎉'),
                   ],
                 ),
                 const SizedBox(
@@ -93,7 +93,7 @@ class _PageState extends State<_Page> {
                     style: const NeumorphicStyle(color: Colors.black),
                   ),
                   onTap: () => Navigator.of(context).pop(),
-                )
+                ),
               ],
             ),
           ),
