@@ -51,30 +51,36 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
-          children: [_buildHead(), const TikuUpdateProgress(), _buildMain()],),
+        children: [_buildHead(), const TikuUpdateProgress(), _buildMain()],
+      ),
     );
   }
 
   Widget _buildHead() {
     return NeuAppBar(
-        media: _media,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            NeuIconBtn(
-              icon: Icons.arrow_back,
-              onTap: () => Navigator.of(context).pop(),
+      media: _media,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          NeuIconBtn(
+            icon: Icons.arrow_back,
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          const NeuText(
+            text: '设置',
+          ),
+          NeuIconBtn(
+            icon: Icons.question_answer,
+            onTap: () => showSnackBarWithAction(
+              context,
+              '可在用户群反馈问题、吹水',
+              '加入',
+              () => openUrl(joinQQGroupUrl),
             ),
-            const NeuText(
-              text: '设置',
-            ),
-            NeuIconBtn(
-              icon: Icons.question_answer,
-              onTap: () => showSnackBarWithAction(
-                  context, '可在用户群反馈问题、吹水', '加入', () => openUrl(joinQQGroupUrl),),
-            ),
-          ],
-        ),);
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildMain() {
@@ -94,19 +100,51 @@ class _SettingPageState extends State<SettingPage> {
 
   Widget _buildSettingCard(List<Widget> children) {
     return NeuCard(
-        padding: EdgeInsets.all(_media.size.width * 0.06),
-        margin: EdgeInsets.zero,
-        style: NeumorphicStyle(
-            boxShape: NeumorphicBoxShape.roundRect(
-                const BorderRadius.all(Radius.circular(17)),),),
-        child: Column(
-          children: children,
-        ),);
+      padding: EdgeInsets.all(_media.size.width * 0.06),
+      margin: EdgeInsets.zero,
+      style: NeumorphicStyle(
+        boxShape: NeumorphicBoxShape.roundRect(
+          const BorderRadius.all(Radius.circular(17)),
+        ),
+      ),
+      child: Column(children: children),
+    );
   }
 
   Widget _buildAppSetting() {
     final pColor = primaryColor;
     return _buildSettingCard([
+      SettingItem(
+        title: '后端地址',
+        rightBtn: const Icon(Icons.chevron_right),
+        onTap: () async {
+          final ctrl = TextEditingController(
+            text: locator<SettingStore>().backendUrl.fetch(),
+          );
+          final result = await showNeuDialog(
+            context,
+            '后端地址',
+            TextField(
+              controller: ctrl,
+              keyboardType: TextInputType.url,
+            ),
+            TextButton(
+              onPressed: () {
+                final url = switch (ctrl.text.trim().endsWith('/')) {
+                  true => ctrl.text.substring(0, ctrl.text.length - 1),
+                  false => ctrl.text,
+                };
+                locator<SettingStore>().backendUrl.put(url);
+                Navigator.of(context).pop(true);
+              },
+              child: const Text('保存'),
+            ),
+          );
+          if (result == true) {
+            showSnackBar(context, const Text('需要重启App生效'));
+          }
+        },
+      ),
       SettingItem(
         title: 'App主题色',
         rightBtn: ClipOval(
@@ -117,51 +155,54 @@ class _SettingPageState extends State<SettingPage> {
           ),
         ),
         onTap: () => showDialog(
-            context: context,
-            builder: (context) {
-              return NeuDialog(
-                title: const NeuText(
-                  text: 'App主题色',
-                  align: TextAlign.start,
-                ),
-                content: SizedBox(
-                  width: _media.size.width * 0.8,
-                  child: _buildAppColorPicker(pColor),
-                ),
-                actions: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    NeuIconBtn(
-                      icon: Icons.done,
-                      onTap: () {
-                        _store.appPrimaryColor.put(_selectedColorValue);
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    NeuIconBtn(
-                      icon: Icons.close,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },),
+          context: context,
+          builder: (context) {
+            return NeuDialog(
+              title: const NeuText(
+                text: 'App主题色',
+                align: TextAlign.start,
+              ),
+              content: SizedBox(
+                width: _media.size.width * 0.8,
+                child: _buildAppColorPicker(pColor),
+              ),
+              actions: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  NeuIconBtn(
+                    icon: Icons.done,
+                    onTap: () {
+                      _store.appPrimaryColor.put(_selectedColorValue);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  NeuIconBtn(
+                    icon: Icons.close,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
-      Consumer<AppProvider>(builder: (_, app, __) {
-        String display;
-        if (app.newestBuild != null) {
-          if (app.newestBuild! > BuildData.build) {
-            display = '发现App新版本：${app.newestBuild}';
+      Consumer<AppProvider>(
+        builder: (_, app, __) {
+          String display;
+          if (app.newestBuild != null) {
+            if (app.newestBuild! > BuildData.build) {
+              display = '发现App新版本：${app.newestBuild}';
+            } else {
+              display = 'App当前版本：${BuildData.build}，已是最新';
+            }
           } else {
-            display = 'App当前版本：${BuildData.build}，已是最新';
+            display = 'App当前版本：${BuildData.build}，点击检查更新';
           }
-        } else {
-          display = 'App当前版本：${BuildData.build}，点击检查更新';
-        }
-        return SettingItem(title: display, onTap: () => doUpdate(context));
-      },),
+          return SettingItem(title: display, onTap: () => doUpdate(context));
+        },
+      ),
     ]);
   }
 
@@ -179,34 +220,38 @@ class _SettingPageState extends State<SettingPage> {
         title: '显示做题历史记录',
         rightBtn: buildSwitch(context, _store.saveAnswer),
       ),
-      Consumer<TikuProvider>(builder: (_, tiku, __) {
-        if (tiku.isBusy) {
-          return SettingItem(
-            title: '题库数据正在更新',
-            rightBtn: SizedBox(
-              width: _media.size.width * 0.37,
-              child: NeuText(
+      Consumer<TikuProvider>(
+        builder: (_, tiku, __) {
+          if (tiku.isBusy) {
+            return SettingItem(
+              title: '题库数据正在更新',
+              rightBtn: SizedBox(
+                width: _media.size.width * 0.37,
+                child: NeuText(
                   text: '${(tiku.downloadProgress * 100).toStringAsFixed(2)}%',
-                  align: TextAlign.end,),
-            ),
-          );
-        }
+                  align: TextAlign.end,
+                ),
+              ),
+            );
+          }
 
-        /// 不忙，下载完成，则显示空视图
-        return SettingItem(
-          title: '题库数据已是最新',
-          rightBtn: NeuText(text: tiku.indexVersion ?? ''),
-        );
-      },),
+          /// 不忙，下载完成，则显示空视图
+          return SettingItem(
+            title: '题库数据已是最新',
+            rightBtn: NeuText(text: tiku.indexVersion ?? ''),
+          );
+        },
+      ),
     ]);
   }
 
   Widget _buildAppColorPicker(Color selected) {
     return MaterialColorPicker(
-        shrinkWrap: true,
-        onColorChange: (Color color) {
-          _selectedColorValue = color.value;
-        },
-        selectedColor: selected,);
+      shrinkWrap: true,
+      onColorChange: (Color color) {
+        _selectedColorValue = color.value;
+      },
+      selectedColor: selected,
+    );
   }
 }

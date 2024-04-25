@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
+import 'package:toast_tiku/res/url.dart';
 
 import 'app.dart';
 import 'core/analysis.dart';
@@ -35,6 +36,7 @@ Future<void> initApp() async {
   // 等待store加载完成
   await GetIt.I.allReady();
   await doDbUpgrade();
+  backendUrl = locator<SettingStore>().backendUrl.fetch() ?? defaultBackendUrl;
 
   /// Provider初始化数据
   await locator<TikuProvider>().loadLocalData();
